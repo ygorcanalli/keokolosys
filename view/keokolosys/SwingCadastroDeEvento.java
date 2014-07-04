@@ -51,6 +51,7 @@ public class SwingCadastroDeEvento extends JFrame implements AbstractGUICadastro
 	 * Create the frame.
 	 */
 	public SwingCadastroDeEvento() {
+		setResizable(false);
 		setTitle("Cadastro de Evento");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 586, 480);
@@ -114,7 +115,7 @@ public class SwingCadastroDeEvento extends JFrame implements AbstractGUICadastro
 		);
 		panel_2.setLayout(gl_panel_2);
 		
-		lblDataDeIncio = new JLabel("Data de início do evento:");
+		lblDataDeIncio = new JLabel("Data de inÃ­cio do evento:");
 		
 		JDateChooser dateChooserDataDeInicioDoEvento = new JDateChooser();
 		
@@ -135,18 +136,17 @@ public class SwingCadastroDeEvento extends JFrame implements AbstractGUICadastro
 				.addGroup(gl_panel_1.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
-							.addComponent(lblDataDeIncio)
-							.addComponent(dateChooserDataDeInicioDoEvento, GroupLayout.PREFERRED_SIZE, 157, GroupLayout.PREFERRED_SIZE))
 						.addComponent(lblDataMximaPara)
+						.addComponent(lblDataDeIncio)
+						.addComponent(dateChooserDataDeInicioDoEvento, GroupLayout.PREFERRED_SIZE, 157, GroupLayout.PREFERRED_SIZE)
 						.addComponent(dateChooserDataSubmissaoDeTrabalhos, GroupLayout.PREFERRED_SIZE, 159, GroupLayout.PREFERRED_SIZE))
-					.addGap(61)
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
-						.addComponent(dateChooserDataDeFimDoEvento, GroupLayout.PREFERRED_SIZE, 163, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblDataDeFim)
+						.addComponent(dateChooserDataAceitacaoDeTrabalhos, GroupLayout.PREFERRED_SIZE, 162, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblDataMximaPara_1)
-						.addComponent(dateChooserDataAceitacaoDeTrabalhos, GroupLayout.PREFERRED_SIZE, 162, GroupLayout.PREFERRED_SIZE))
-					.addGap(76))
+						.addComponent(dateChooserDataDeFimDoEvento, GroupLayout.PREFERRED_SIZE, 163, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblDataDeFim))
+					.addGap(44))
 		);
 		gl_panel_1.setVerticalGroup(
 			gl_panel_1.createParallelGroup(Alignment.LEADING)
@@ -156,21 +156,21 @@ public class SwingCadastroDeEvento extends JFrame implements AbstractGUICadastro
 						.addGroup(gl_panel_1.createSequentialGroup()
 							.addComponent(lblDataDeIncio)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(dateChooserDataDeInicioDoEvento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addGap(18)
-							.addComponent(lblDataMximaPara)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(dateChooserDataSubmissaoDeTrabalhos, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addComponent(dateChooserDataDeInicioDoEvento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_panel_1.createSequentialGroup()
 							.addGap(7)
 							.addComponent(lblDataDeFim)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(dateChooserDataDeFimDoEvento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(lblDataMximaPara_1)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(dateChooserDataAceitacaoDeTrabalhos, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap(84, Short.MAX_VALUE))
+							.addComponent(dateChooserDataDeFimDoEvento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+					.addGap(11)
+					.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblDataMximaPara)
+						.addComponent(lblDataMximaPara_1))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_panel_1.createParallelGroup(Alignment.TRAILING)
+						.addComponent(dateChooserDataSubmissaoDeTrabalhos, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(dateChooserDataAceitacaoDeTrabalhos, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap(10, Short.MAX_VALUE))
 		);
 		panel_1.setLayout(gl_panel_1);
 		

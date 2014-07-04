@@ -46,7 +46,7 @@ public class SwingLogin extends JFrame {
 		setResizable(false);
 		setTitle("Login");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 417, 236);
+		setBounds(100, 100, 409, 208);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -106,18 +106,19 @@ public class SwingLogin extends JFrame {
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel.createSequentialGroup()
-					.addGap(19)
-					.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING, false)
+					.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
 						.addGroup(Alignment.LEADING, gl_panel.createSequentialGroup()
-							.addGap(10)
-							.addComponent(passwordField))
-						.addGroup(Alignment.LEADING, gl_panel.createParallelGroup(Alignment.LEADING)
-							.addComponent(lblSenha)
-							.addComponent(lblUsurio))
+							.addGap(29)
+							.addComponent(passwordField, GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE))
 						.addGroup(Alignment.LEADING, gl_panel.createSequentialGroup()
-							.addGap(10)
-							.addComponent(textField, GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)))
-					.addContainerGap(34, Short.MAX_VALUE))
+							.addGap(29)
+							.addComponent(textField, GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE))
+						.addGroup(Alignment.LEADING, gl_panel.createSequentialGroup()
+							.addGap(19)
+							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblSenha)
+								.addComponent(lblUsurio))))
+					.addGap(34))
 		);
 		gl_panel.setVerticalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -125,12 +126,12 @@ public class SwingLogin extends JFrame {
 					.addContainerGap()
 					.addComponent(lblUsurio)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(textField, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addGap(7)
 					.addComponent(lblSenha)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(passwordField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(37, Short.MAX_VALUE))
+					.addContainerGap(25, Short.MAX_VALUE))
 		);
 		panel.setLayout(gl_panel);
 		contentPane.setLayout(gl_contentPane);

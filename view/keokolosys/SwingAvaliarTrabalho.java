@@ -44,7 +44,7 @@ public class SwingAvaliarTrabalho extends JFrame {
 		setResizable(false);
 		setTitle("Avaliar trabalho");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 573, 440);
+		setBounds(100, 100, 563, 443);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -66,10 +66,10 @@ public class SwingAvaliarTrabalho extends JFrame {
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addComponent(panel_3, GroupLayout.PREFERRED_SIZE, 537, GroupLayout.PREFERRED_SIZE)
 						.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 538, GroupLayout.PREFERRED_SIZE)
 						.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, 538, Short.MAX_VALUE)
-						.addComponent(panel, GroupLayout.DEFAULT_SIZE, 538, Short.MAX_VALUE))
+						.addComponent(panel, GroupLayout.DEFAULT_SIZE, 538, Short.MAX_VALUE)
+						.addComponent(panel_3, GroupLayout.PREFERRED_SIZE, 537, GroupLayout.PREFERRED_SIZE))
 					.addContainerGap())
 		);
 		gl_contentPane.setVerticalGroup(
@@ -81,9 +81,9 @@ public class SwingAvaliarTrabalho extends JFrame {
 					.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 157, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
-					.addComponent(panel_3, GroupLayout.PREFERRED_SIZE, 43, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap())
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(panel_3, GroupLayout.PREFERRED_SIZE, 55, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(24, Short.MAX_VALUE))
 		);
 		
 		JButton btnAvaliarTrabalho = new JButton("Avaliar trabalho");
@@ -95,20 +95,20 @@ public class SwingAvaliarTrabalho extends JFrame {
 		gl_panel_3.setHorizontalGroup(
 			gl_panel_3.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_3.createSequentialGroup()
-					.addContainerGap()
+					.addGap(6)
 					.addComponent(btnAvaliarTrabalho)
-					.addPreferredGap(ComponentPlacement.RELATED)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(btnSair, GroupLayout.PREFERRED_SIZE, 72, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(336, Short.MAX_VALUE))
+					.addContainerGap(298, Short.MAX_VALUE))
 		);
 		gl_panel_3.setVerticalGroup(
 			gl_panel_3.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_3.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_panel_3.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnAvaliarTrabalho)
-						.addComponent(btnSair))
-					.addContainerGap(15, Short.MAX_VALUE))
+						.addComponent(btnSair)
+						.addComponent(btnAvaliarTrabalho))
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		panel_3.setLayout(gl_panel_3);
 		
