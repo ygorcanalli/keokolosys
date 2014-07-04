@@ -11,7 +11,7 @@ public class Avaliacao {
     	this.resultado = resultado;
     }
     
-    public Avaliacao criarAvaliacao(Trabalho trabalho, PerfilDeExaminador examinador, EstadoAvaliacao resultado) throws ExcecaoDeCadastro{
+    public static Avaliacao criarAvaliacao(Trabalho trabalho, PerfilDeExaminador examinador, EstadoAvaliacao resultado) throws ExcecaoDeAvaliacao{
     	validarDados(trabalho, examinador);
     	return new Avaliacao(trabalho, examinador, resultado);
     }
@@ -28,14 +28,14 @@ public class Avaliacao {
     	return this.examinador;
     }
     
-    private void validarDados(Trabalho trabalho, PerfilDeExaminador examinador) throws ExcecaoDeCadastro{
+    private static void validarDados(Trabalho trabalho, PerfilDeExaminador examinador) throws ExcecaoDeAvaliacao{
     	Boolean trabalhoVazio = trabalho == null;
     	Boolean examinadorVazio = examinador == null;
     	
     	if(trabalhoVazio)
-    		throw new ExcecaoDeCadastro("avaliacao.trabalho.vazio");
+    		throw new ExcecaoDeAvaliacao("avaliacao.trabalho.vazio");
     	
     	if(examinadorVazio)
-    		throw new ExcecaoDeCadastro("avaliacao.examinador.vazio");
+    		throw new ExcecaoDeAvaliacao("avaliacao.examinador.vazio");
     }
 }

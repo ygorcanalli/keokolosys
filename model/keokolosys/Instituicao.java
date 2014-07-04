@@ -11,12 +11,12 @@ public class Instituicao {
 		this.localizacao = localizacao;
     }
     
-    public Instituicao criarInstituicao(String nome, String sigla, String localizacao) throws ExcecaoDeCadastro{
+    public static Instituicao criarInstituicao(String nome, String sigla, String localizacao) throws ExcecaoDeCadastro{
     	validarDados(nome, sigla, localizacao);
     	return new Instituicao(nome, sigla, localizacao);
     }
 
-    private void validarDados(String nome, String sigla, String localizacao) throws ExcecaoDeCadastro{
+    private static void validarDados(String nome, String sigla, String localizacao) throws ExcecaoDeCadastro{
         Boolean nomeVazio = (nome == null) || (nome.isEmpty());
         Boolean siglaVazia = (sigla == null) || (sigla.isEmpty());
         Boolean localizacaoVazia = (localizacao == null) || (localizacao.isEmpty());

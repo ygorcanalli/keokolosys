@@ -1,5 +1,5 @@
 package keokolosys;
 
 public enum EstadoAvaliacao {
-    ACEITO, REJEITADO
+    ACEITO, REJEITADO, NAO_AVALIADO
 }

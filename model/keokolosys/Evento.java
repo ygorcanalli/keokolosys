@@ -52,9 +52,10 @@ public class Evento {
     	}
     }
     
-    public void criarBancaExaminadora(PerfilDeExaminador... examinadores) throws ExcecaoDeCadastro{
+    public BancaExaminadora criarBancaExaminadora(Collection<PerfilDeExaminador> examinadores) throws ExcecaoDeAvaliacao{
     	BancaExaminadora bancaExaminadora = BancaExaminadora.criarBancaExaminadora(examinadores);
     	bancasExaminadoras.add(bancaExaminadora);
+    	return bancaExaminadora;
     }
 
 
@@ -145,6 +146,9 @@ public class Evento {
 		return dataDeFim;
 	}
     
+	public Collection<BancaExaminadora> getBancasExaminadoras() {
+		return bancasExaminadoras;
+	}
 	void cancelar() {
 		try {
 		    this.alterarEstado(EstadoEventoCancelado.class);

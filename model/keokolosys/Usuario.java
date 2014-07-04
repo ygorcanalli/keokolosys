@@ -18,7 +18,7 @@ public class Usuario extends Autenticavel {
         this.perfis = new HashMap<Evento, Perfil>();      
     }
     
-    public Usuario criarUsuario(String nome, String ultimoNome, String email, String senha, Instituicao instituicao) throws  ExcecaoDeCadastro{
+    public static Usuario criarUsuario(String nome, String ultimoNome, String email, String senha, Instituicao instituicao) throws  ExcecaoDeCadastro{
     	validarDados(nome, ultimoNome, email, senha, instituicao);
     	
     	return new Usuario(nome, ultimoNome, email, senha, instituicao);

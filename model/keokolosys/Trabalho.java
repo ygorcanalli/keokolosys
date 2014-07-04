@@ -13,6 +13,7 @@ public class Trabalho {
     private String caminhoArquivoFinal;
     private Collection<Avaliacao> avaliacoes;
     private Boolean flagtrabalhoComVersaoFinal;
+    private BancaExaminadora bancaExaminadoraResponsavel;
 
     private Trabalho(PerfilDeParticipante submissor, String titulo, String resumo, String autores, String caminhoArquivoSubmissao) throws ExcecaoDeCadastro{
             this.submissor = submissor;
@@ -31,10 +32,14 @@ public class Trabalho {
     }
 
 
+    
     public EstadoAvaliacao obterEstado() {
 		Integer frequenciaAceito = 0;
 		Integer frequenciaRejeitado = 0;
-
+		
+		if (avaliacoes.size() < bancaExaminadoraResponsavel.obterNumeroDeExaminadores())
+			return EstadoAvaliacao.NAO_AVALIADO;
+		
 		for (Avaliacao avaliacao : avaliacoes) {
 			if(avaliacao.getResultado() == EstadoAvaliacao.ACEITO)
 				frequenciaAceito++;
@@ -90,8 +95,26 @@ public class Trabalho {
 		this.caminhoArquivoFinal = caminhoArquivoFinal;
 		this.flagtrabalhoComVersaoFinal = true;
 	}
+	
+	public void atribuirAvaliacao(Avaliacao avaliacao) throws ExcecaoDeAvaliacao {
+		validarAvaliacao(avaliacao);
+		avaliacoes.add(avaliacao);
+	}
 
-    public Boolean trabalhoComVersaoFinal(){
+    private void validarAvaliacao(Avaliacao avaliacao) throws ExcecaoDeAvaliacao {
+		// TODO Auto-generated method stub
+		Boolean avaliacaoVazia = avaliacao == null;
+		Boolean avaliacaoTrabalhoInvalido = avaliacao.getTrabalho() == this;
+		
+		if (avaliacaoVazia)
+			throw new ExcecaoDeAvaliacao("trabalho.avaliacao.vazia");
+		
+		if (avaliacaoTrabalhoInvalido)
+			throw new ExcecaoDeAvaliacao("trabalho.avaliacao.trabalho.invalido");
+		
+	}
+
+	public Boolean trabalhoComVersaoFinal(){
         return flagtrabalhoComVersaoFinal;
     }
 
@@ -117,5 +140,12 @@ public class Trabalho {
 
     public String getCaminhoArquivoFinal() {
         return caminhoArquivoFinal;
+    }
+    
+    public BancaExaminadora getBancaExaminadoraResponsavel() {
+    	return bancaExaminadoraResponsavel;
+    }
+    protected void atribuirBancaExaminadoraResponsavel(BancaExaminadora bancaExaminadoraResponsavel) {
+    	this.bancaExaminadoraResponsavel = bancaExaminadoraResponsavel;
     }
 }
