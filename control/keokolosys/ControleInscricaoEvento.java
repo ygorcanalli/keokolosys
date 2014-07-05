@@ -2,6 +2,6 @@ package keokolosys;
 
 public class ControleInscricaoEvento {
 	
-	AbstractGUIInscricaoEvento viewInscricaoEvento;
+	private AbstractGUIInscricaoEvento viewInscricaoEvento;
 	
 }

@@ -1,0 +1,5 @@
+package keokolosys;
+
+public class ControleSubmeterVersaoFinalDeTrabalho {
+	private AbstractGUISubmeterVersaoFinalDeTrabalho viewSubmeterVersaoFinalDeTrabalho;
+}

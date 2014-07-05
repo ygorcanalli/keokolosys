@@ -46,7 +46,7 @@ public class SwingLogin extends JFrame {
 		setResizable(false);
 		setTitle("Login");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 409, 208);
+		setBounds(100, 100, 409, 226);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);

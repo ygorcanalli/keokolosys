@@ -2,7 +2,7 @@ package keokolosys;
 
 public class ControleLogin {
 
-	AbstractGUILogin viewLogin;
+	private AbstractGUILogin viewLogin;
 	
 	public ControleLogin(AbstractGUILogin viewLogin){
 		this.viewLogin = viewLogin;

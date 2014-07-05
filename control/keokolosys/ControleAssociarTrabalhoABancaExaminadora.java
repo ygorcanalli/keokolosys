@@ -1,0 +1,6 @@
+package keokolosys;
+
+public class ControleAssociarTrabalhoABancaExaminadora {
+
+	private AbstractGUIAssociarTrabalhoABancaExaminadora viewAssociarTrabalhoABancaExaminadora;
+}
