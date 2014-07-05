@@ -26,7 +26,7 @@ public class SwingCadastrarUsuario extends JFrame implements AbstractGUICadastra
 	private JTextField textField_1;
 	private JTextField textField_2;
 	
-	private ControleCadastrarUsuario cadastroDeUsuario;
+	private ControleCadastrarUsuario controleCadastrarDeUsuario;
 
 	/**
 	 * Launch the application.
@@ -51,7 +51,7 @@ public class SwingCadastrarUsuario extends JFrame implements AbstractGUICadastra
 		setResizable(false);
 		setTitle("Cadastro de usu\u00E1rio");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 481, 479);
+		setBounds(100, 100, 481, 490);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -177,6 +177,9 @@ public class SwingCadastrarUsuario extends JFrame implements AbstractGUICadastra
 		textField_2.setColumns(10);
 		
 		JComboBox comboBox = new JComboBox();
+		
+		JButton btnNewButton = new JButton("Incluir nova");
+		btnNewButton.setMnemonic('i');
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -188,8 +191,11 @@ public class SwingCadastrarUsuario extends JFrame implements AbstractGUICadastra
 						.addComponent(lblNome)
 						.addComponent(textField_1, GroupLayout.DEFAULT_SIZE, 396, Short.MAX_VALUE)
 						.addComponent(textField_2)
-						.addComponent(comboBox, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-					.addContainerGap(29, Short.MAX_VALUE))
+						.addGroup(gl_panel.createSequentialGroup()
+							.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 309, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 91, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap(19, Short.MAX_VALUE))
 		);
 		gl_panel.setVerticalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -205,8 +211,10 @@ public class SwingCadastrarUsuario extends JFrame implements AbstractGUICadastra
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(lblNewLabel)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(23, Short.MAX_VALUE))
+					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+						.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnNewButton))
+					.addContainerGap(32, Short.MAX_VALUE))
 		);
 		panel.setLayout(gl_panel);
 		contentPane.setLayout(gl_contentPane);
