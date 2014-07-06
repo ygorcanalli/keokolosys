@@ -1,33 +1,29 @@
 package controladorGRASP;
 
-import catalago.CatalagoDeEventos;
-import catalago.CatalagoDeInstituicoes;
+import catalago.MantenedorDeCatalagos;
 import dominio.Evento;
 import dominio.Instituicao;
 import excecao.ExcecaoDeCadastro;
 
-public class ControladorAdministrativo {
+public final class ControladorAdministrativo {
 	
-	private CatalagoDeEventos catalagoDeEventos = CatalagoDeEventos.obterInsancia();
-	private CatalagoDeInstituicoes catalagoDeInstituicoes = CatalagoDeInstituicoes.obterInstancia();
-
-	public void deferirEvento(Evento evento) {
-		catalagoDeEventos.deferirEvento(evento);
+	public static void deferirEvento(Evento evento) {
+		MantenedorDeCatalagos.obterCatalagoDeEventos().deferirEvento(evento);
 	}
 	
-	public void indeferirEvento(Evento evento) {
-		catalagoDeEventos.indeferirEvento(evento);
+	public static void indeferirEvento(Evento evento) {
+		MantenedorDeCatalagos.obterCatalagoDeEventos().indeferirEvento(evento);
 	}
 	
-	public void cancelarEvento(Evento evento) {
-		catalagoDeEventos.cancelarEvento(evento);
+	public static void cancelarEvento(Evento evento) {
+		MantenedorDeCatalagos.obterCatalagoDeEventos().cancelarEvento(evento);
 	}
 	
-	public void finalizarEvento(Evento evento) {
-		catalagoDeEventos.finalizarEvento(evento);
+	public static void finalizarEvento(Evento evento) {
+		MantenedorDeCatalagos.obterCatalagoDeEventos().finalizarEvento(evento);
 	}
 	
-	public void atualizarInstituicao(Instituicao instituicao, String nome, String sigla, String localizacao) throws ExcecaoDeCadastro{
-		catalagoDeInstituicoes.atualizarInstituicao(instituicao, nome, sigla, localizacao);
+	public static void atualizarInstituicao(Instituicao instituicao, String nome, String sigla, String localizacao) throws ExcecaoDeCadastro{
+		MantenedorDeCatalagos.obterCatalagoDeInstituicoes().atualizarInstituicao(instituicao, nome, sigla, localizacao);
 	}
 }
