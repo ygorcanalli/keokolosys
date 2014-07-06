@@ -20,7 +20,7 @@ public class CatalagoDeAutenticaveis {
 		this.autenticaveis = new HashMap<String, Autenticavel>();
 	}	
 	
-	public static CatalagoDeAutenticaveis obterInstancia() {
+	public static synchronized CatalagoDeAutenticaveis obterInstancia() {
 		if (instancia == null)
 			instancia =  new CatalagoDeAutenticaveis();
 		

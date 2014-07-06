@@ -16,7 +16,7 @@ public class CatalagoDeInstituicoes{
 		this.instituicoes = new HashMap<String, Instituicao>();
 	}	
 	
-	public static CatalagoDeInstituicoes obterInstancia() {
+	public static synchronized  CatalagoDeInstituicoes obterInstancia() {
 		if (instancia == null)
 			instancia =  new CatalagoDeInstituicoes();
 		
