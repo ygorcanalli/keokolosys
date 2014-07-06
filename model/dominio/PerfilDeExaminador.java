@@ -16,10 +16,10 @@ public class PerfilDeExaminador extends Perfil {
         return this.bancasExaminadoras;
     }*/
     
-    public Collection<BancaExaminadora> obterBancasExaminadorasAssociadas(Evento evento){
+    public Collection<BancaExaminadora> obterBancasExaminadorasAssociadas(){
 		Collection<BancaExaminadora> bancasExaminadorasAssociadas = new ArrayList<BancaExaminadora>();
 		
-		for (BancaExaminadora bancaExaminadora : evento.getBancasExaminadoras()) {
+		for (BancaExaminadora bancaExaminadora : this.getEvento().getBancasExaminadoras()) {
 			if(bancaExaminadora.possuiOExaminador(this))
 				bancasExaminadorasAssociadas.add(bancaExaminadora);
 		}

@@ -68,6 +68,25 @@ public class CatalagoDeAutenticaveis {
 		return autenticaveis.values();
 	}
 	
+	public Autenticavel entrarNoSistema(String email, String senha) throws ExcecaoDeCadastro{
+		Autenticavel autenticavel = buscarAutenticavelPorEmail(email);
+		Boolean senhaCorreta = autenticavel.realizarAutenticacao(senha);
+		
+		if(!senhaCorreta)
+			throw new ExcecaoDeCadastro("catalago_de_autenticaveis.autenticavel.senha_incorreta");
+		
+		return autenticavel;
+	}
+	
+	private Autenticavel buscarAutenticavelPorEmail(String email) throws ExcecaoDeCadastro{
+		Autenticavel autenticavel = autenticaveis.get(email);
+		
+		if(autenticavel == null)
+			throw new ExcecaoDeCadastro("catalago_de_autenticaveis.autenticavel.nao_localizado");
+		
+		return autenticavel;
+	}
+	
 	public Collection<Usuario> obterUsuarios(){
 		Class<Usuario> tipoUsuario = Usuario.class;
 		Collection<Usuario> usuarios = new ArrayList<Usuario>();

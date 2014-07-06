@@ -18,6 +18,5 @@ public abstract class Autenticavel {
     
     public String getEmail(){
     	return this.email;
-    }
-    
+    }    
 }

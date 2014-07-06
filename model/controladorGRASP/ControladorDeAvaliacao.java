@@ -23,6 +23,10 @@ public class ControladorDeAvaliacao {
     public Collection<BancaExaminadora> listarBancasExaminadoras(Evento evento) {
     	return evento.getBancasExaminadoras();
     }
+    
+    public Collection<BancaExaminadora> obterBancasExaminadorasAssociadasAoExaminador(PerfilDeExaminador examinador){
+    	return examinador.obterBancasExaminadorasAssociadas();
+    }
 
     public void avaliarTrabalho(Trabalho trabalho, PerfilDeExaminador examinador, EstadoAvaliacao resultado) throws ExcecaoDeAvaliacao {
         trabalho.getBancaExaminadoraResponsavel().avaliarTrabalho(trabalho, examinador, resultado);
