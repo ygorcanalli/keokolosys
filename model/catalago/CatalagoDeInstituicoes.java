@@ -6,19 +6,19 @@ import java.util.Map;
 import dominio.Instituicao;
 import excecao.ExcecaoDeCadastro;
 
-public class CatalogoDeInstituicoes{
+public class CatalagoDeInstituicoes{
 	
-	private Map<String ,Instituicao> instituicoes;
-	private static CatalogoDeInstituicoes instancia;
+	private Map<String, Instituicao> instituicoes;
+	private static CatalagoDeInstituicoes instancia;
 	
-	public CatalogoDeInstituicoes() {
+	public CatalagoDeInstituicoes() {
 		// TODO Auto-generated constructor stub
 		this.instituicoes = new HashMap<String, Instituicao>();
 	}	
 	
-	public static CatalogoDeInstituicoes obterInstancia() {
+	public static CatalagoDeInstituicoes obterInstancia() {
 		if (instancia == null)
-			instancia =  new CatalogoDeInstituicoes();
+			instancia =  new CatalagoDeInstituicoes();
 		
 		return instancia;
 	}

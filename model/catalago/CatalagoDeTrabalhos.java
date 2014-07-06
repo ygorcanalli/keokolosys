@@ -6,10 +6,10 @@ import java.util.Collection;
 import dominio.EstadoAvaliacao;
 import dominio.Trabalho;
 
-public class CatalogoDeTrabalhos {
+public class CatalagoDeTrabalhos {
     private Collection<Trabalho> trabalhos;
 
-    public CatalogoDeTrabalhos() {
+    public CatalagoDeTrabalhos() {
     	trabalhos = new ArrayList<Trabalho>();
     }
 

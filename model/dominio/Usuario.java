@@ -11,7 +11,7 @@ public class Usuario extends Autenticavel {
     private Instituicao instituicao;
     private Map<Evento, Perfil> perfis;
 
-    private Usuario(String nome, String ultimoNome, String email, String senha, Instituicao instituicao) throws  ExcecaoDeCadastro{
+    private Usuario(String nome, String ultimoNome, String email, String senha, Instituicao instituicao){
     	super(email, senha);
         this.nome = nome;
         this.ultimoNome = ultimoNome;
@@ -108,16 +108,16 @@ public class Usuario extends Autenticavel {
     }
     
 
-    String getNome() {
+    public String getNome() {
         return nome;
     }
 
 
-    String getUltimoNome() {
+    public String getUltimoNome() {
         return ultimoNome;
     }
 
-    Instituicao getInstituicao() {
+    public Instituicao getInstituicao() {
         return instituicao;
     }
     

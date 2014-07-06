@@ -6,13 +6,14 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.Map;
 
-import catalago.CatalogoDeTrabalhos;
+import catalago.CatalagoDeTrabalhos;
 import estadoevento.*;
 import excecao.*;
 
 
 public class Evento {
     private String nome;
+    private Instituicao instituicao;
     private Usuario usuarioResponsavel;
     private Date dataMaximaParaSubmissaoDeTrabalhos;
     private Date dataMaximaParaAceitacaoDeTrabalhos;
@@ -20,24 +21,25 @@ public class Evento {
     private Date dataDeFim;
     private Map<Class<? extends Perfil>, Collection<Perfil>> perfis;
     private Collection<BancaExaminadora> bancasExaminadoras;
-    private CatalogoDeTrabalhos catalogoDeTrabalhos;
+    private CatalagoDeTrabalhos catalogoDeTrabalhos;
     private EstadoEvento estado;
 
-    private Evento(String nome, Usuario usuarioResponsavel, Date dataMaximaParaSubmissaoDeTrabalhos, Date dataMaximaParaAceitacaoDeTrabalhos, Date dataDeInicio, Date dataDeFim){
+    private Evento(String nome, Instituicao instituicao, Usuario usuarioResponsavel, Date dataMaximaParaSubmissaoDeTrabalhos, Date dataMaximaParaAceitacaoDeTrabalhos, Date dataDeInicio, Date dataDeFim){
             this.nome = nome;
+            this.instituicao = instituicao;
             this.usuarioResponsavel = usuarioResponsavel;
             this.dataMaximaParaSubmissaoDeTrabalhos = dataMaximaParaSubmissaoDeTrabalhos;
             this.dataMaximaParaAceitacaoDeTrabalhos = dataMaximaParaAceitacaoDeTrabalhos;
             this.dataDeInicio = dataDeInicio;
             this.dataDeFim = dataDeFim;
-            this.catalogoDeTrabalhos = new CatalogoDeTrabalhos();
+            this.catalogoDeTrabalhos = new CatalagoDeTrabalhos();
             this.estado = new EstadoEventoAguardando();
     }
     
-    public static Evento criarEvento(String nome, Usuario usuarioResponsavel, Date dataMaximaParaSubmissaoDeTrabalhos, Date dataMaximaParaAceitacaoDeTrabalhos, Date dataDeInicio, Date dataDeFim) throws  ExcecaoDeCadastro{
-    	validarDados(nome, usuarioResponsavel, dataMaximaParaSubmissaoDeTrabalhos, dataMaximaParaAceitacaoDeTrabalhos, dataDeInicio, dataDeFim);
+    public static Evento criarEvento(String nome, Instituicao instituicao, Usuario usuarioResponsavel, Date dataMaximaParaSubmissaoDeTrabalhos, Date dataMaximaParaAceitacaoDeTrabalhos, Date dataDeInicio, Date dataDeFim) throws  ExcecaoDeCadastro{
+    	validarDados(nome, instituicao, usuarioResponsavel, dataMaximaParaSubmissaoDeTrabalhos, dataMaximaParaAceitacaoDeTrabalhos, dataDeInicio, dataDeFim);
     
-    	return new Evento(nome, usuarioResponsavel, dataMaximaParaSubmissaoDeTrabalhos, dataMaximaParaAceitacaoDeTrabalhos, dataDeInicio, dataDeFim);
+    	return new Evento(nome, instituicao, usuarioResponsavel, dataMaximaParaSubmissaoDeTrabalhos, dataMaximaParaAceitacaoDeTrabalhos, dataDeInicio, dataDeFim);
     }
 
 	public EstadoEvento obterEstado(){
@@ -172,8 +174,9 @@ public class Evento {
     }
 
 
-    private static void validarDados(String nome, Usuario usuarioResponsavel, Date dataMaximaParaSubmissaoDeTrabalhos, Date dataMaximaParaAceitacaoDeTrabalhos, Date dataDeInicio, Date dataDeFim) throws ExcecaoDeCadastro{
+    private static void validarDados(String nome, Instituicao instituicao, Usuario usuarioResponsavel, Date dataMaximaParaSubmissaoDeTrabalhos, Date dataMaximaParaAceitacaoDeTrabalhos, Date dataDeInicio, Date dataDeFim) throws ExcecaoDeCadastro{
     	validarNome(nome);
+    	validarInstituicao(instituicao);
     	validarUsuarioResponsavel(usuarioResponsavel);
         validarDatas(dataMaximaParaSubmissaoDeTrabalhos, dataMaximaParaAceitacaoDeTrabalhos, dataDeInicio, dataDeFim);   
     }
@@ -183,6 +186,13 @@ public class Evento {
         
     	if(nomeVazio)
         	throw new ExcecaoDeCadastro("evento.nome.vazio");	
+    }
+    
+    private static void validarInstituicao(Instituicao instituicao) throws ExcecaoDeCadastro{
+        Boolean instituicaoVazia = (instituicao == null);
+        
+    	if(instituicaoVazia)
+        	throw new ExcecaoDeCadastro("evento.instituicao.vazia");	
     }
     
     private static void validarUsuarioResponsavel(Usuario usuarioResponsavel) throws ExcecaoDeCadastro{
@@ -213,6 +223,10 @@ public class Evento {
 	public String getNome() {
 		return nome;
 	}
+	
+	public Instituicao getInstituicao(){
+		return instituicao;
+	}
 
 	public Usuario getUsuarioResponsavel() {
 		return usuarioResponsavel;
@@ -241,6 +255,11 @@ public class Evento {
 	public void setNone(String nome) throws ExcecaoDeCadastro{
 		validarNome(nome);
 		this.nome = nome;
+	}
+	
+	public void setInstituicao(Instituicao instituicao) throws ExcecaoDeCadastro{
+		validarInstituicao(instituicao);
+		this.instituicao = instituicao;
 	}
 	
 	public void setDataDeInicio(Date dataDeInicio) throws ExcecaoDeCadastro{

@@ -5,10 +5,11 @@ import java.util.Collection;
 import java.util.Date;
 
 import dominio.Evento;
+import dominio.Instituicao;
 import dominio.Usuario;
 import excecao.ExcecaoDeCadastro;
 
-public class CatalogoDeEventos {
+public class CatalagoDeEventos {
 	
     private Collection<Evento> eventosAguardandoAprovacao;
     private Collection<Evento> eventosDeferios;
@@ -16,17 +17,17 @@ public class CatalogoDeEventos {
     private Collection<Evento> eventosCancelados;
     private Collection<Evento> eventosFinalizados; 
     
-    private static CatalogoDeEventos instancia;
+    private static CatalagoDeEventos instancia;
 	
-	public static CatalogoDeEventos obterInsancia() {
+	public static CatalagoDeEventos obterInsancia() {
 		if (instancia == null)
-			instancia =  new CatalogoDeEventos();
+			instancia =  new CatalagoDeEventos();
 		
 		return instancia;
 	}
 
     
-    private CatalogoDeEventos() {
+    private CatalagoDeEventos() {
         this.eventosAguardandoAprovacao = new ArrayList<Evento>();
         this.eventosDeferios = new ArrayList<Evento>();
         this.eventosIndeferidos = new ArrayList<Evento>();
@@ -34,8 +35,8 @@ public class CatalogoDeEventos {
         this.eventosFinalizados = new ArrayList<Evento>();
     }
     
-    public void criarEvento(String nome, Usuario usuarioResponsavel, Date dataMaximaParaSubmissaoDeTrabalho, Date dataMaximaParaAceitacaoDeTrabalho, Date dataDeInicio, Date dataDeFim) throws  ExcecaoDeCadastro{
-        Evento evento = Evento.criarEvento(nome, usuarioResponsavel, dataMaximaParaSubmissaoDeTrabalho, dataMaximaParaAceitacaoDeTrabalho, dataDeInicio, dataDeFim);
+    public void criarEvento(String nome, Instituicao instituicao, Usuario usuarioResponsavel, Date dataMaximaParaSubmissaoDeTrabalho, Date dataMaximaParaAceitacaoDeTrabalho, Date dataDeInicio, Date dataDeFim) throws  ExcecaoDeCadastro{
+        Evento evento = Evento.criarEvento(nome, instituicao, usuarioResponsavel, dataMaximaParaSubmissaoDeTrabalho, dataMaximaParaAceitacaoDeTrabalho, dataDeInicio, dataDeFim);
         eventosAguardandoAprovacao.add(evento);
     }
 
@@ -62,9 +63,12 @@ public class CatalogoDeEventos {
     	
     }
     
-    public void atualizarDadosEvento(Evento evento, String nome, Date dataDeInicio, Date dataDeFim, Date dataMaximaParaSubmissaoDeTrabalhos, Date dataMaximaParaAceitacaoDeTrabalhos) throws ExcecaoDeCadastro{
+    public void atualizarDadosEvento(Evento evento, Instituicao instituicao, String nome, Date dataDeInicio, Date dataDeFim, Date dataMaximaParaSubmissaoDeTrabalhos, Date dataMaximaParaAceitacaoDeTrabalhos) throws ExcecaoDeCadastro{
     	if(evento.getNome().compareTo(nome) != 0)
     		evento.setNone(nome);
+    	
+    	if(evento.getInstituicao().compareTo(instituicao) != 0)
+    		evento.setInstituicao(instituicao);
     	
     	if(evento.getDataDeInicio().compareTo(dataDeInicio) != 0)
     		evento.setDataDeInicio(dataDeInicio);
@@ -84,25 +88,25 @@ public class CatalogoDeEventos {
     	return obterEventos().contains(evento);
     }
     
-    void deferirEvento(Evento evento) {
+    public void deferirEvento(Evento evento) {
         evento.deferir();
         this.eventosAguardandoAprovacao.remove(evento);
         this.eventosDeferios.add(evento);
     }
 
-    void indeferirEvento(Evento evento) {
+    public void indeferirEvento(Evento evento) {
         evento.indeferir();
         this.eventosAguardandoAprovacao.remove(evento);
         this.eventosIndeferidos.add(evento);
     }
 
-    void cancelarEvento(Evento evento) {
+    public void cancelarEvento(Evento evento) {
         evento.cancelar();
         this.eventosDeferios.remove(evento);
         this.eventosCancelados.add(evento);
     }
 
-    void finalizarEvento(Evento evento) {
+    public void finalizarEvento(Evento evento) {
         evento.finalizar();
         this.eventosDeferios.remove(evento);
         this.eventosFinalizados.add(evento);
