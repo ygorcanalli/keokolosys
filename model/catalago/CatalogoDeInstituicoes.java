@@ -51,7 +51,6 @@ public class CatalogoDeInstituicoes{
 	private void validarSiglaComoUnica(String sigla) throws ExcecaoDeCadastro{
         if(instituicoes.containsKey(sigla))
         	throw new ExcecaoDeCadastro("catalogo_de_insticoes.sigla.existente");
-
 	}
 
 }
