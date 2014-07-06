@@ -7,7 +7,7 @@ public class Instituicao {
     private String sigla;
     private String localizacao;
 
-    private Instituicao(String nome, String sigla, String localizacao) throws ExcecaoDeCadastro{
+    private Instituicao(String nome, String sigla, String localizacao){
 		this.nome = nome;
 		this.sigla = sigla;
 		this.localizacao = localizacao;
@@ -19,19 +19,32 @@ public class Instituicao {
     }
 
     private static void validarDados(String nome, String sigla, String localizacao) throws ExcecaoDeCadastro{
-        Boolean nomeVazio = (nome == null) || (nome.isEmpty());
-        Boolean siglaVazia = (sigla == null) || (sigla.isEmpty());
-        Boolean localizacaoVazia = (localizacao == null) || (localizacao.isEmpty());
-
+        validarNome(nome);
+        validarSigla(sigla);
+        validarLocalizacao(localizacao);
+    }
+    
+    private static void validarNome(String nome) throws ExcecaoDeCadastro{
+    	Boolean nomeVazio = (nome == null) || (nome.isEmpty());
+    	
         if(nomeVazio)
-        	throw new ExcecaoDeCadastro("instituicao.nome.vazio");
-        
+        	throw new ExcecaoDeCadastro("instituicao.nome.vazio");    	
+    }
+    
+    private static void validarSigla(String sigla) throws ExcecaoDeCadastro{
+    	Boolean siglaVazia = (sigla == null) || (sigla.isEmpty());
+    	
         if(siglaVazia)
         	throw new ExcecaoDeCadastro("instituicao.sigla.vazia");
-        
+    }
+    
+    private static void validarLocalizacao(String localizacao) throws ExcecaoDeCadastro{
+        Boolean localizacaoVazia = (localizacao == null) || (localizacao.isEmpty());
+    	
         if(localizacaoVazia)
         	throw new ExcecaoDeCadastro("instituicao.localizacao.vazia");   
     }
+    
 
 	public String getNome() {
 		return nome;
@@ -43,5 +56,20 @@ public class Instituicao {
 
 	public String getLocalizacao() {
 		return localizacao;
-	}    
+	}
+	
+	public void setNome(String nome) throws ExcecaoDeCadastro{
+		validarNome(nome);
+		this.nome = nome;
+	}
+	
+	public void setSigla(String sigla) throws ExcecaoDeCadastro{
+		validarSigla(sigla);
+		this.sigla = sigla;
+	}
+	
+	public void setLocalizacao(String localizacao) throws ExcecaoDeCadastro{
+		validarLocalizacao(localizacao);
+		this.localizacao = localizacao;
+	}
 }

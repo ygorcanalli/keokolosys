@@ -55,7 +55,14 @@ public class BancaExaminadora {
     	Avaliacao avaliacao = Avaliacao.criarAvaliacao(trabalho, examinador, resultado);
     	trabalho.atribuirAvaliacao(avaliacao);
     }
+    
+    public Set<PerfilDeExaminador> getExaminadores(){
+    	return this.examinadores;
+    }
 
+    public Boolean possuiOExaminador(PerfilDeExaminador examinador){
+    	return this.examinadores.contains(examinador);
+    }
     
     public Integer obterNumeroDeExaminadores() {
     	return examinadores.size();

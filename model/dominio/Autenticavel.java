@@ -2,8 +2,13 @@ package dominio;
 
 public abstract class Autenticavel {
 	
-	private String email;
-	private String senha;
+	protected String email;
+	protected String senha;
+	
+	protected Autenticavel(String email, String senha){
+		this.email = email;
+		this.senha = senha;
+	}
 	
     public Boolean realizarAutenticacao(String senha) {
         Boolean senhaCorreta = this.senha == senha;

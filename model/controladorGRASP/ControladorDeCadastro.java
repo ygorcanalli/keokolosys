@@ -2,18 +2,16 @@ package controladorGRASP;
 
 import java.util.*;
 
-import catalago.Singleton;
 import dominio.Instituicao;
 import dominio.Usuario;
 import excecao.ExcecaoDeCadastro;
 
-public class ControladorDeCadastro implements Singleton {
+public class ControladorDeCadastro {
 
-	private ControladorDeCadastro instancia;
+	private static ControladorDeCadastro instancia;
 	private Map<String, Usuario> usuarios;
 	
-	@Override
-	public ControladorDeCadastro obterInsancia() {
+	public static ControladorDeCadastro obterInsancia() {
 		if (instancia == null)
 			instancia =  new ControladorDeCadastro();
 		
@@ -28,7 +26,6 @@ public class ControladorDeCadastro implements Singleton {
         else
             throw new ExcecaoDeCadastro("usuario.email.existente");
     }
-
     
 
     private Usuario obterUsuario(String email){

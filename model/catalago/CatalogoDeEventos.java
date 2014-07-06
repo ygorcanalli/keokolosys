@@ -8,7 +8,7 @@ import dominio.Evento;
 import dominio.Usuario;
 import excecao.ExcecaoDeCadastro;
 
-public class CatalogoDeEventos implements Singleton {
+public class CatalogoDeEventos {
 	
     private Collection<Evento> eventosAguardandoAprovacao;
     private Collection<Evento> eventosDeferios;
@@ -16,10 +16,9 @@ public class CatalogoDeEventos implements Singleton {
     private Collection<Evento> eventosCancelados;
     private Collection<Evento> eventosFinalizados; 
     
-    private CatalogoDeEventos instancia;
+    private static CatalogoDeEventos instancia;
 	
-	@Override
-	public CatalogoDeEventos obterInsancia() {
+	public static CatalogoDeEventos obterInsancia() {
 		if (instancia == null)
 			instancia =  new CatalogoDeEventos();
 		
@@ -61,6 +60,23 @@ public class CatalogoDeEventos implements Singleton {
     	eventos.addAll(eventosFinalizados);
 		return eventos;
     	
+    }
+    
+    public void atualizarDadosEvento(Evento evento, String nome, Date dataDeInicio, Date dataDeFim, Date dataMaximaParaSubmissaoDeTrabalhos, Date dataMaximaParaAceitacaoDeTrabalhos) throws ExcecaoDeCadastro{
+    	if(evento.getNome().compareTo(nome) != 0)
+    		evento.setNone(nome);
+    	
+    	if(evento.getDataDeInicio().compareTo(dataDeInicio) != 0)
+    		evento.setDataDeInicio(dataDeInicio);
+    	
+    	if(evento.getDataDeFim().compareTo(dataDeFim) != 0)
+    		evento.setDataDeFim(dataDeFim);
+    	
+    	if(evento.getDataMaximaParaSubmissaoDeTrabalhos().compareTo(dataMaximaParaSubmissaoDeTrabalhos) != 0)
+    		evento.setDataMaximaParaSubmissaoDeTrabalhos(dataMaximaParaSubmissaoDeTrabalhos);
+    	
+    	if(evento.getDataMaximaParaAceitacaoDeTrabalhos().compareTo(dataMaximaParaAceitacaoDeTrabalhos) != 0)
+    		evento.setDataMaximaParaAceitacaoDeTrabalhos(dataMaximaParaAceitacaoDeTrabalhos);
     }
     
     @SuppressWarnings("unused")

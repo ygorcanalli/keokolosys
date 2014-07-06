@@ -43,6 +43,15 @@ public class CatalogoDeTrabalhos {
     	}
         return  trabalhosNaoAvaliados;
     }
+    
+    public Collection<Trabalho> obterTrabalhosNaoAssociadosABancaExaminadora(){
+    	Collection<Trabalho> trabalhosNaoAssociadosABancaExaminadora = new ArrayList<Trabalho>();
+    	for (Trabalho trabalho: trabalhos) {
+    		if (!trabalho.associadoABancaExaminadora())
+    			trabalhosNaoAssociadosABancaExaminadora.add(trabalho);
+    	}
+        return  trabalhosNaoAssociadosABancaExaminadora;    	
+    }
 
     public Collection<Trabalho> obterTrabalhosSubmetidos() {
         return trabalhos;

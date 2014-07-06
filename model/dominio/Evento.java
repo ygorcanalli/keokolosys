@@ -1,6 +1,7 @@
 package dominio;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Map;
@@ -17,12 +18,12 @@ public class Evento {
     private Date dataMaximaParaAceitacaoDeTrabalhos;
     private Date dataDeInicio;
     private Date dataDeFim;
-    private Map<Class<? extends Perfil>, Perfil> perfis;
+    private Map<Class<? extends Perfil>, Collection<Perfil>> perfis;
     private Collection<BancaExaminadora> bancasExaminadoras;
     private CatalogoDeTrabalhos catalogoDeTrabalhos;
     private EstadoEvento estado;
 
-    private Evento(String nome, Usuario usuarioResponsavel, Date dataMaximaParaSubmissaoDeTrabalhos, Date dataMaximaParaAceitacaoDeTrabalhos, Date dataDeInicio, Date dataDeFim) throws  ExcecaoDeCadastro{
+    private Evento(String nome, Usuario usuarioResponsavel, Date dataMaximaParaSubmissaoDeTrabalhos, Date dataMaximaParaAceitacaoDeTrabalhos, Date dataDeInicio, Date dataDeFim){
             this.nome = nome;
             this.usuarioResponsavel = usuarioResponsavel;
             this.dataMaximaParaSubmissaoDeTrabalhos = dataMaximaParaSubmissaoDeTrabalhos;
@@ -43,16 +44,16 @@ public class Evento {
 		return this.estado;
 	}
 
-    public void subtmeterTrabalho(PerfilDeParticipante submissor, String titulo, String resumo, String autores, String caminhoArquivoSubmissao) throws ExcecaoDeCadastro{
+    public void subtmeterTrabalho(PerfilDeParticipante submissor, String titulo, String resumo, String autores, String caminhoArquivoSubmissao) throws ExcecaoDeParticipacao{
         Trabalho trabalho = Trabalho.criarTrabalho(submissor, titulo, resumo, autores, caminhoArquivoSubmissao);
         catalogoDeTrabalhos.adicionarTrabalho(trabalho);
     }
 
-    public void subtmeterVersaoFinalDeTrabalho(Trabalho trabalho, String caminhoArquivoFinal) throws ExcecaoDeCadastro{
+    public void subtmeterVersaoFinalDeTrabalho(Trabalho trabalho, String caminhoArquivoFinal) throws ExcecaoDeParticipacao{
     	if (catalogoDeTrabalhos.obterTrabalhosAceitos().contains(trabalho)) {
         	trabalho.submeterVersaoFinal(caminhoArquivoFinal);	
     	} else {
-    		throw new ExcecaoDeCadastro("evento.submeter_versao_final_de_trabalho.nao_pertence_trabalhos_aceitos");
+    		throw new ExcecaoDeParticipacao("evento.submeter_versao_final_de_trabalho.nao_pertence_trabalhos_aceitos");
     	}
     }
     
@@ -90,71 +91,14 @@ public class Evento {
 			}
             
             usuario.adicionarPerfil(perfil);
-            perfis.put(tipoPerfil, perfil);    		
+            perfis.get(tipoPerfil).add(perfil);	
     	}
     	else if (!tipoPerfil.isInstance(perfil)){
     		throw new ExcecaoDeCadastro("evento.usuario.possui_perfil");
     	}    	
     }
-
-    private static void validarDados(String nome, Usuario usuarioResponsavel, Date dataMaximaParaSubmissaoDeTrabalhos, Date dataMaximaParaAceitacaoDeTrabalhos, Date dataDeInicio, Date dataDeFim) throws ExcecaoDeCadastro{
-        Boolean nomeVazio = (nome == null) || (nome.equals(""));
-        Boolean usuarioResponsavelVazio = (usuarioResponsavel != null);
-        
-        if(nomeVazio)
-        	throw new ExcecaoDeCadastro("evento.nome.vazio");
-        
-        if(usuarioResponsavelVazio)
-        	throw new ExcecaoDeCadastro("evento.usuario_responsavel.vazio");
-        
-        validarDatas(dataMaximaParaSubmissaoDeTrabalhos, dataMaximaParaAceitacaoDeTrabalhos, dataDeInicio, dataDeFim);   
-    }
-
-    private static void validarDatas(Date dataMaximaParaSubmissaoDeTrabalhos, Date dataMaximaParaAceitacaoDeTrabalhos, Date dataDeInicio, Date dataDeFim) throws ExcecaoDeCadastro{
-        Date dataAtual = new Date();
-
-        if(dataAtual.compareTo(dataDeInicio) > 0)
-            throw new ExcecaoDeCadastro("evento.data_de_inicio.invalida");
-
-        if(dataDeInicio.compareTo(dataDeFim) > 0)
-        	throw new ExcecaoDeCadastro("evento.data_de_fim.invalida");
-
-        if(dataMaximaParaSubmissaoDeTrabalhos.compareTo(dataMaximaParaAceitacaoDeTrabalhos) > 0)
-        	throw new ExcecaoDeCadastro("evento.data_maxima_para_aceitacao_de_trabalhos.invalida");
-
-        if(dataMaximaParaSubmissaoDeTrabalhos.compareTo(dataDeInicio) > 0)
-        	throw new ExcecaoDeCadastro("evento.data_maxima_para_submissao_de_trabalhos.invalida");
-    }
-
-	public String getNome() {
-		return nome;
-	}
-
-	public Usuario getUsuarioResponsavel() {
-		return usuarioResponsavel;
-	}
-
-	public Date getDataMaximaParaSubmissaoDeTrabalhos() {
-		return dataMaximaParaSubmissaoDeTrabalhos;
-	}
-
-	public Date getDataMaximaParaAceitacaoDeTrabalhos() {
-		return dataMaximaParaAceitacaoDeTrabalhos;
-	}
-
-	public Date getDataDeInicio() {
-		return dataDeInicio;
-	}
-
-	public Date getDataDeFim() {
-		return dataDeFim;
-	}
     
-	public Collection<BancaExaminadora> getBancasExaminadoras() {
-		return bancasExaminadoras;
-	}
-	
-	
+    
 	public void cancelar() {
 		try {
 		    this.alterarEstado(EstadoEventoCancelado.class);
@@ -191,4 +135,133 @@ public class Evento {
 		this.estado = this.estado.realizaTransicao(estadoDestino);
 	}
    
+	public Collection<PerfilDeParticipante> obterParticipantes(){
+    	Class<PerfilDeParticipante> tipoPerfil = PerfilDeParticipante.class;
+    	Collection<Perfil> perfisDoTipoPerfil = perfis.get(tipoPerfil);
+    	Collection<PerfilDeParticipante> perfisDeParticipante = new ArrayList<PerfilDeParticipante>();
+    	
+    	for (Perfil perfil : perfisDoTipoPerfil) {
+			perfisDeParticipante.add((PerfilDeParticipante) perfil);
+		}
+    	 
+    	return perfisDeParticipante;
+    }
+	
+	public Collection<PerfilDeExaminador> obterExaminadores(){
+    	Class<PerfilDeExaminador> tipoPerfil = PerfilDeExaminador.class;
+    	Collection<Perfil> perfisDoTipoPerfil = perfis.get(tipoPerfil);
+    	Collection<PerfilDeExaminador> perfisDeExaminador = new ArrayList<PerfilDeExaminador>();
+    	
+    	for (Perfil perfil : perfisDoTipoPerfil) {
+			perfisDeExaminador.add((PerfilDeExaminador) perfil);
+		}
+    	 
+    	return perfisDeExaminador;
+    }
+	
+	public Collection<PerfilDeChair> obterChairs(){
+    	Class<PerfilDeChair> tipoPerfil = PerfilDeChair.class;
+    	Collection<Perfil> perfisDoTipoPerfil = perfis.get(tipoPerfil);
+    	Collection<PerfilDeChair> perfisDeChair = new ArrayList<PerfilDeChair>();
+    	
+    	for (Perfil perfil : perfisDoTipoPerfil) {
+			perfisDeChair.add((PerfilDeChair) perfil);
+		}
+    	 
+    	return perfisDeChair;
+    }
+
+
+    private static void validarDados(String nome, Usuario usuarioResponsavel, Date dataMaximaParaSubmissaoDeTrabalhos, Date dataMaximaParaAceitacaoDeTrabalhos, Date dataDeInicio, Date dataDeFim) throws ExcecaoDeCadastro{
+    	validarNome(nome);
+    	validarUsuarioResponsavel(usuarioResponsavel);
+        validarDatas(dataMaximaParaSubmissaoDeTrabalhos, dataMaximaParaAceitacaoDeTrabalhos, dataDeInicio, dataDeFim);   
+    }
+    
+    private static void validarNome(String nome) throws ExcecaoDeCadastro{
+        Boolean nomeVazio = (nome == null) || (nome.equals(""));
+        
+    	if(nomeVazio)
+        	throw new ExcecaoDeCadastro("evento.nome.vazio");	
+    }
+    
+    private static void validarUsuarioResponsavel(Usuario usuarioResponsavel) throws ExcecaoDeCadastro{
+    	Boolean usuarioResponsavelVazio = (usuarioResponsavel != null);
+        
+        if(usuarioResponsavelVazio)
+        	throw new ExcecaoDeCadastro("evento.usuario_responsavel.vazio");
+    }
+    
+
+    private static void validarDatas(Date dataMaximaParaSubmissaoDeTrabalhos, Date dataMaximaParaAceitacaoDeTrabalhos, Date dataDeInicio, Date dataDeFim) throws ExcecaoDeCadastro{
+        Date dataAtual = new Date();
+
+        if(dataAtual.compareTo(dataDeInicio) > 0)
+            throw new ExcecaoDeCadastro("evento.data_de_inicio.invalida");
+
+        if(dataDeInicio.compareTo(dataDeFim) > 0)
+        	throw new ExcecaoDeCadastro("evento.data_de_fim.invalida");
+
+        if(dataMaximaParaSubmissaoDeTrabalhos.compareTo(dataMaximaParaAceitacaoDeTrabalhos) > 0)
+        	throw new ExcecaoDeCadastro("evento.data_maxima_para_aceitacao_de_trabalhos.invalida");
+
+        if(dataMaximaParaSubmissaoDeTrabalhos.compareTo(dataDeInicio) > 0)
+        	throw new ExcecaoDeCadastro("evento.data_maxima_para_submissao_de_trabalhos.invalida");
+    }
+    
+
+	public String getNome() {
+		return nome;
+	}
+
+	public Usuario getUsuarioResponsavel() {
+		return usuarioResponsavel;
+	}
+
+	public Date getDataMaximaParaSubmissaoDeTrabalhos() {
+		return dataMaximaParaSubmissaoDeTrabalhos;
+	}
+
+	public Date getDataMaximaParaAceitacaoDeTrabalhos() {
+		return dataMaximaParaAceitacaoDeTrabalhos;
+	}
+
+	public Date getDataDeInicio() {
+		return dataDeInicio;
+	}
+
+	public Date getDataDeFim() {
+		return dataDeFim;
+	}
+    
+	public Collection<BancaExaminadora> getBancasExaminadoras() {
+		return bancasExaminadoras;
+	}
+	
+	public void setNone(String nome) throws ExcecaoDeCadastro{
+		validarNome(nome);
+		this.nome = nome;
+	}
+	
+	public void setDataDeInicio(Date dataDeInicio) throws ExcecaoDeCadastro{
+		validarDatas(this.dataMaximaParaSubmissaoDeTrabalhos, this.dataMaximaParaAceitacaoDeTrabalhos, dataDeInicio, this.dataDeFim);
+		this.dataDeInicio = dataDeInicio;  
+	}
+	
+	public void setDataDeFim(Date dataDeFim) throws ExcecaoDeCadastro{
+		validarDatas(this.dataMaximaParaSubmissaoDeTrabalhos, this.dataMaximaParaAceitacaoDeTrabalhos, this.dataDeInicio, dataDeFim);
+		this.dataDeFim = dataDeFim;  
+	}
+	
+	public void setDataMaximaParaSubmissaoDeTrabalhos(Date dataMaximaParaSubmissaoDeTrabalhos) throws ExcecaoDeCadastro{
+		validarDatas(dataMaximaParaSubmissaoDeTrabalhos, this.dataMaximaParaAceitacaoDeTrabalhos, this.dataDeInicio, this.dataDeFim);
+		this.dataMaximaParaSubmissaoDeTrabalhos = dataMaximaParaSubmissaoDeTrabalhos;  
+	}
+	
+	public void setDataMaximaParaAceitacaoDeTrabalhos(Date dataMaximaParaAceitacaoDeTrabalhos) throws ExcecaoDeCadastro{
+		validarDatas(this.dataMaximaParaSubmissaoDeTrabalhos, dataMaximaParaAceitacaoDeTrabalhos, this.dataDeInicio, this.dataDeFim);
+		this.dataMaximaParaAceitacaoDeTrabalhos = dataMaximaParaAceitacaoDeTrabalhos;  
+	}
+	
+	
 }

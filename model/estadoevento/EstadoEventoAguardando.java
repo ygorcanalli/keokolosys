@@ -3,8 +3,6 @@ package estadoevento;
 import excecao.ExcecaoDeCadastro;
 
 public class EstadoEventoAguardando implements EstadoEvento {
-	
-	
 
     @Override
     public EstadoEvento realizaTransicao(Class<? extends EstadoEvento> estadoDestino) throws ExcecaoDeCadastro {

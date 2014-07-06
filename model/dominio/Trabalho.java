@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import excecao.ExcecaoDeAvaliacao;
-import excecao.ExcecaoDeCadastro;
+import excecao.ExcecaoDeParticipacao;
 
 
 public class Trabalho {
@@ -18,7 +18,7 @@ public class Trabalho {
     private Boolean flagtrabalhoComVersaoFinal;
     private BancaExaminadora bancaExaminadoraResponsavel;
 
-    private Trabalho(PerfilDeParticipante submissor, String titulo, String resumo, String autores, String caminhoArquivoSubmissao) throws ExcecaoDeCadastro{
+    private Trabalho(PerfilDeParticipante submissor, String titulo, String resumo, String autores, String caminhoArquivoSubmissao){
             this.submissor = submissor;
             this.titulo = titulo;
             this.resumo = resumo;
@@ -29,7 +29,7 @@ public class Trabalho {
             this.flagtrabalhoComVersaoFinal = false;
     }
     
-    public static Trabalho criarTrabalho(PerfilDeParticipante submissor, String titulo, String resumo, String autores, String caminhoArquivoSubmissao) throws ExcecaoDeCadastro{
+    public static Trabalho criarTrabalho(PerfilDeParticipante submissor, String titulo, String resumo, String autores, String caminhoArquivoSubmissao) throws ExcecaoDeParticipacao{
     	validarDados(submissor, titulo, resumo, autores, caminhoArquivoSubmissao);
     	return new Trabalho(submissor, titulo, resumo, autores, caminhoArquivoSubmissao);
     }
@@ -55,9 +55,22 @@ public class Trabalho {
 		
 		return EstadoAvaliacao.REJEITADO;
     }
+    
+    
+  	public void submeterVersaoFinal(String caminhoArquivoFinal) throws ExcecaoDeParticipacao {
+  		validarArquivoVersaoFinal(caminhoArquivoFinal);
+  		
+  		this.caminhoArquivoFinal = caminhoArquivoFinal;
+  		this.flagtrabalhoComVersaoFinal = true;
+  	}
+  	
+  	public void atribuirAvaliacao(Avaliacao avaliacao) throws ExcecaoDeAvaliacao {
+  		validarAvaliacao(avaliacao);
+  		avaliacoes.add(avaliacao);
+  	}
 
 
-    private static void validarDados(PerfilDeParticipante submissor, String titulo, String resumo, String autores, String caminhoArquivoSubmissao) throws ExcecaoDeCadastro{
+    private static void validarDados(PerfilDeParticipante submissor, String titulo, String resumo, String autores, String caminhoArquivoSubmissao) throws ExcecaoDeParticipacao{
         Boolean submissorVazio = (submissor == null);
         Boolean tituloVazio = (titulo == null || titulo.equals(""));
         Boolean resumoVazio = (resumo == null || resumo.equals(""));
@@ -65,47 +78,34 @@ public class Trabalho {
         Boolean caminhoArquivoSubmissaoVazio = (caminhoArquivoSubmissao == null || caminhoArquivoSubmissao .equals(""));
         
         if(submissorVazio)
-        	throw new ExcecaoDeCadastro("trabalho.submissor.vazio");
+        	throw new ExcecaoDeParticipacao("trabalho.submissor.vazio");
         
         if(tituloVazio)
-        	throw new ExcecaoDeCadastro("trabalho.titulo.vazio");
+        	throw new ExcecaoDeParticipacao("trabalho.titulo.vazio");
         
         if(resumoVazio)
-        	throw new ExcecaoDeCadastro("trabalho.resumo.vazio");
+        	throw new ExcecaoDeParticipacao("trabalho.resumo.vazio");
         
         if(autoresVazio)
-        	throw new ExcecaoDeCadastro("trabalho.autores.vazio");
+        	throw new ExcecaoDeParticipacao("trabalho.autores.vazio");
         
         if(caminhoArquivoSubmissaoVazio)
-        	throw new ExcecaoDeCadastro("trabalho.arquivo_submissao.vazio");
+        	throw new ExcecaoDeParticipacao("trabalho.arquivo_submissao.vazio");
 
     }
 
-    private void validarArquivoVersaoFinal(String caminhoArquivoFinal) throws ExcecaoDeCadastro{
+    private void validarArquivoVersaoFinal(String caminhoArquivoFinal) throws ExcecaoDeParticipacao{
         Boolean caminhoArquivoFinalVazio = (caminhoArquivoFinal == null || caminhoArquivoFinal.equals(""));
         Boolean versaoFinalEnviada = trabalhoComVersaoFinal();
 
         if(caminhoArquivoFinalVazio)
-        	throw new ExcecaoDeCadastro("trabalho.versao_final.caminho_vazio");
+        	throw new ExcecaoDeParticipacao("trabalho.versao_final.caminho_vazio");
         
         if(versaoFinalEnviada)
-        	throw new ExcecaoDeCadastro("trabalho.versao_final.ja_enviada");
+        	throw new ExcecaoDeParticipacao("trabalho.versao_final.ja_enviada");
     }
-    
-	public void submeterVersaoFinal(String caminhoArquivoFinal) throws ExcecaoDeCadastro {
-		validarArquivoVersaoFinal(caminhoArquivoFinal);
-		
-		this.caminhoArquivoFinal = caminhoArquivoFinal;
-		this.flagtrabalhoComVersaoFinal = true;
-	}
-	
-	public void atribuirAvaliacao(Avaliacao avaliacao) throws ExcecaoDeAvaliacao {
-		validarAvaliacao(avaliacao);
-		avaliacoes.add(avaliacao);
-	}
 
     private void validarAvaliacao(Avaliacao avaliacao) throws ExcecaoDeAvaliacao {
-		// TODO Auto-generated method stub
 		Boolean avaliacaoVazia = avaliacao == null;
 		Boolean avaliacaoTrabalhoInvalido = avaliacao.getTrabalho() == this;
 		
@@ -147,6 +147,10 @@ public class Trabalho {
     
     public BancaExaminadora getBancaExaminadoraResponsavel() {
     	return bancaExaminadoraResponsavel;
+    }
+    
+    public Boolean associadoABancaExaminadora(){
+    	return this.bancaExaminadoraResponsavel != null;
     }
     
     public void atribuirBancaExaminadoraResponsavel(BancaExaminadora bancaExaminadoraResponsavel) {

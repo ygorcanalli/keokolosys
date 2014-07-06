@@ -10,9 +10,6 @@ import dominio.PerfilDeExaminador;
 import dominio.Trabalho;
 import excecao.ExcecaoDeAvaliacao;
 
-/**
- * Created by keokolo on 07/06/14.
- */
 public class ControladorDeAvaliacao {
 
     public BancaExaminadora criarBancaExaminadora(Evento evento, Collection<PerfilDeExaminador> examinadores) throws ExcecaoDeAvaliacao {

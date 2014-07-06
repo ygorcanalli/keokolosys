@@ -12,6 +12,7 @@ public class Usuario extends Autenticavel {
     private Map<Evento, Perfil> perfis;
 
     private Usuario(String nome, String ultimoNome, String email, String senha, Instituicao instituicao) throws  ExcecaoDeCadastro{
+    	super(email, senha);
         this.nome = nome;
         this.ultimoNome = ultimoNome;
         this.instituicao = instituicao;
@@ -64,28 +65,48 @@ public class Usuario extends Autenticavel {
     }
 
     private static void validarDados(String nome, String ultimoNome, String email, String senha, Instituicao instituicao) throws ExcecaoDeCadastro{
-        Boolean nomeVazio = (nome == null) || (nome.isEmpty());
-        Boolean ultimoNomeVazio = (ultimoNome == null) || (ultimoNome.isEmpty());
-        Boolean emailVazio = (email == null) || (email.isEmpty());
-        Boolean senhaVazia = (senha == null) || (senha.isEmpty());
-        Boolean instituicaoVazia = (instituicao == null);
-
-        if (nomeVazio)
+    	validarNome(nome);
+    	validarUltimoNome(ultimoNome);
+    	validarEmail(email);
+    	validarSenha(senha);
+    	validarInstituicao(instituicao);
+    }
+    
+    private static void validarNome(String nome) throws ExcecaoDeCadastro{
+    	Boolean nomeVazio = (nome == null) || (nome.isEmpty());
+    	
+    	if (nomeVazio)
         	throw new ExcecaoDeCadastro("usuario.nome.vazio");
-        
+    }
+    
+    private static void validarUltimoNome(String ultimoNome) throws ExcecaoDeCadastro{
+    	Boolean ultimoNomeVazio = (ultimoNome == null) || (ultimoNome.isEmpty());
+    	
         if (ultimoNomeVazio)
         	throw new ExcecaoDeCadastro("usuario.ultimoNome.vazio");
-        
+    }
+    
+    private static void validarEmail(String email) throws ExcecaoDeCadastro{
+        Boolean emailVazio = (email == null) || (email.isEmpty());
+    	
         if (emailVazio)
         	throw new ExcecaoDeCadastro("usuario.email.vazio");
-        
+    }
+    
+    private static void validarSenha(String senha) throws ExcecaoDeCadastro{
+        Boolean senhaVazia = (senha == null) || (senha.isEmpty());
+    	
         if (senhaVazia)
         	throw new ExcecaoDeCadastro("usuario.senha.vazia");
-        
+    }
+
+    private static void validarInstituicao(Instituicao instituicao) throws ExcecaoDeCadastro{
+    	Boolean instituicaoVazia = (instituicao == null);
+    	
         if (instituicaoVazia)
         	throw new ExcecaoDeCadastro("usuario.instituicao.vazia");
     }
-
+    
 
     String getNome() {
         return nome;
@@ -98,6 +119,31 @@ public class Usuario extends Autenticavel {
 
     Instituicao getInstituicao() {
         return instituicao;
+    }
+    
+    public void setNome(String nome) throws ExcecaoDeCadastro{
+    	validarNome(nome);
+    	this.nome = nome;
+    }
+    
+    public void setUltimoNome(String ultimoNome) throws ExcecaoDeCadastro{
+    	validarUltimoNome(ultimoNome);
+    	this.ultimoNome = ultimoNome;
+    }
+    
+    public void setEmail(String email) throws ExcecaoDeCadastro{
+    	validarEmail(email);
+    	this.email = email;
+    }
+    
+    public void setSenha(String senha) throws ExcecaoDeCadastro{
+    	validarSenha(senha);
+    	this.senha = senha;
+    }
+    
+    public void setInstituicao(Instituicao instituicao) throws ExcecaoDeCadastro{
+    	validarInstituicao(instituicao);
+    	this.instituicao = instituicao;
     }
 
 }
