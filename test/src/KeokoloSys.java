@@ -9,7 +9,7 @@ public class KeokoloSys {
 		// TODO Auto-generated method stub
 		
 		CatalagoDeEventos catalagoDeEventos;
-		catalagoDeEventos = CatalagoDeEventos.obterInsancia();
+		catalagoDeEventos = CatalagoDeEventos.obterInstancia();
 		
 		
 	}

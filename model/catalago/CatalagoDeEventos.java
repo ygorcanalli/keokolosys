@@ -19,7 +19,7 @@ public class CatalagoDeEventos {
     
     private static CatalagoDeEventos instancia;
 	
-	public static synchronized CatalagoDeEventos obterInsancia() {
+	public static synchronized CatalagoDeEventos obterInstancia() {
 		if (instancia == null)
 			instancia =  new CatalagoDeEventos();
 		

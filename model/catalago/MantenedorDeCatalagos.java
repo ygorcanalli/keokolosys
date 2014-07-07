@@ -2,19 +2,33 @@ package catalago;
 
 public final class MantenedorDeCatalagos {
 
-	private static CatalagoDeEventos catalagoDeEventos = CatalagoDeEventos.obterInsancia();
-	private static CatalagoDeInstituicoes catalagoDeInstituicoes = CatalagoDeInstituicoes.obterInstancia();
-	private static CatalagoDeAutenticaveis catalagoDeAutenticaveis = CatalagoDeAutenticaveis.obterInstancia();
+	private CatalagoDeEventos catalagoDeEventos = CatalagoDeEventos.obterInstancia();
+	private CatalagoDeInstituicoes catalagoDeInstituicoes = CatalagoDeInstituicoes.obterInstancia();
+	private CatalagoDeAutenticaveis catalagoDeAutenticaveis = CatalagoDeAutenticaveis.obterInstancia();
 	
-	public static CatalagoDeAutenticaveis obterCatalagoDeAutenticaveis(){
+	private static MantenedorDeCatalagos instancia;
+	
+	private MantenedorDeCatalagos() {
+		catalagoDeEventos = CatalagoDeEventos.obterInstancia();
+		catalagoDeInstituicoes = CatalagoDeInstituicoes.obterInstancia();
+		catalagoDeAutenticaveis = CatalagoDeAutenticaveis.obterInstancia();
+	}
+	
+	public static synchronized MantenedorDeCatalagos obterInstancia() {
+		if (instancia == null)
+			instancia = new MantenedorDeCatalagos();
+		return instancia;
+	}
+	
+	public CatalagoDeAutenticaveis obterCatalagoDeAutenticaveis(){
 		return catalagoDeAutenticaveis;
 	}
 	
-	public static CatalagoDeInstituicoes obterCatalagoDeInstituicoes(){
+	public CatalagoDeInstituicoes obterCatalagoDeInstituicoes(){
 		return catalagoDeInstituicoes;
 	}
 	
-	public static CatalagoDeEventos obterCatalagoDeEventos(){
+	public CatalagoDeEventos obterCatalagoDeEventos(){
 		return catalagoDeEventos;
 	}
 	
