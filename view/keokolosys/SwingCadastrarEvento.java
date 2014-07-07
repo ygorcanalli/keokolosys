@@ -1,9 +1,7 @@
 package keokolosys;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.GroupLayout;
@@ -11,61 +9,143 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.border.TitledBorder;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
+
 import java.awt.Color;
+import java.awt.EventQueue;
+import java.sql.Date;
+import java.util.Collection;
+
 import javax.swing.JLabel;
 import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.JFormattedTextField;
+
 import com.toedter.calendar.JDateChooser;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 
-public class SwingCadastrarEvento extends JFrame implements AbstractGUICadastrarEvento {
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class SwingCadastrarEvento extends JFrame implements AbstractGUICadastrarEvento, Runnable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 2545136064899431525L;
 	private JPanel contentPane;
-	private JTextField textField;
+	private JPanel panel;
 	private JLabel lblNomeDoEvento;
 	private JPanel panel_1;
+	private JPanel panel_2;
 	private JLabel lblDataDeIncio;
+	private JLabel lblDataMximaPara_1;
+	private JLabel lblDataMximaPara;
+	private JLabel lblDataDeFim;
+	private JLabel lblUsuario;
+	
+	private JTextField textFieldNomeDoEvento;
+	private JButton btnCriar;
+	private JDateChooser dateChooserDataDeInicioDoEvento;
+	private JDateChooser dateChooserDataDeFimDoEvento;
+	private JDateChooser dateChooserDataSubmissaoDeTrabalhos;
+	private JDateChooser dateChooserDataAceitacaoDeTrabalhos;
+	private JLabel lblUsuarioResponsavel;
+	private JLabel lblInstituioDeOcorrncia;
+	private JComboBox<String> comboBoxInstituicao;
+	
+	private ControleCadastrarEvento controleCadastrarEvento;
+	
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					SwingCadastrarEvento frame = new SwingCadastrarEvento();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+	@Override
+	public void inicializar() {
+		run();
+	}
+	
+	@Override
+	public void run() {
+		
+	}
+	
+	
+	@Override
+	public void tonarVisivel(){
+		this.setVisible(true);
+	}
+	
+	@Override
+	public void fechar(){
+		this.setVisible(false);
+	}
+	
+	@Override
+	public void carregarInstituicoes(Collection<String> instituicoes){
+		for (String instituicao : instituicoes) {
+			this.comboBoxInstituicao.addItem(instituicao);
+		}
+	}
+	
+	@Override
+	public void definirUsuarioResponsavel(String nomeDoUsuarioResponsavel){
+		this.lblUsuarioResponsavel.setText(nomeDoUsuarioResponsavel);
+	}
+	
+	@Override
+	public void criarEvento(){
+		String nomeDoEvento = textFieldNomeDoEvento.getText();
+		Date dataDeInicioDoEvento = (Date) dateChooserDataDeInicioDoEvento.getDate();
+		Date dataDeFimDoEvento = (Date) dateChooserDataDeFimDoEvento.getDate();
+		Date dataMaximaParaSubmissaoDeTrabalhos = (Date) dateChooserDataSubmissaoDeTrabalhos.getDate();
+		Date dataMaximaParaAceitacaoDeTrabalhos = (Date) dateChooserDataAceitacaoDeTrabalhos.getDate();
+		
+		controleCadastrarEvento.criarEvento(nomeDoEvento, dataMaximaParaSubmissaoDeTrabalhos, dataMaximaParaAceitacaoDeTrabalhos, dataDeInicioDoEvento, dataDeFimDoEvento);
+	}
+	
+	@Override
+	public void exibirMensagemDeErro(String mensagem, String titulo){
+		JOptionPane.showMessageDialog(this, mensagem, titulo, JOptionPane.ERROR_MESSAGE);
+	}
+	
+	@Override
+	public void exibirMensagemDeAviso(String mensagem, String titulo){
+		JOptionPane.showMessageDialog(this, mensagem, titulo, JOptionPane.WARNING_MESSAGE);
+	}
+	
+	@Override
+	public void exibirMensagemDeInformacao(String mensagem, String titulo){
+		JOptionPane.showMessageDialog(this, mensagem, titulo, JOptionPane.INFORMATION_MESSAGE);
+	}
+	
+	@Override
+	public Integer exibirMensagemDeConfirmacao(String mensagem, String titulo, Object[] opcoes, Object opcaoPadrao){
+		return JOptionPane.showOptionDialog(this, mensagem, titulo, JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcoes, opcaoPadrao);
 	}
 
-	/**
-	 * Create the frame.
-	 */
-	public SwingCadastrarEvento() {
+	public void definirControle(ControleCadastrarEvento controleDeCadastrarEvento){
+		this.controleCadastrarEvento = controleDeCadastrarEvento;
+	}
+	
+	public SwingCadastrarEvento(ControleCadastrarEvento controleCadastrarEvento){
+		this.controleCadastrarEvento = controleCadastrarEvento;
+		inicializarFrame();
+	}
+
+	
+	private void inicializarFrame(){
 		setResizable(false);
 		setTitle("Cadastro de Evento");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 586, 480);
+		setBounds(100, 100, 667, 480);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		
-		JPanel panel = new JPanel();
+		panel = new JPanel();
 		panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		
 		panel_1 = new JPanel();
 		panel_1.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Datas", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		
-		JPanel panel_2 = new JPanel();
+		panel_2 = new JPanel();
 		panel_2.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
@@ -90,18 +170,28 @@ public class SwingCadastrarEvento extends JFrame implements AbstractGUICadastrar
 					.addGap(13))
 		);
 		
-		JButton btnSalvar = new JButton("Criar evento");
-		btnSalvar.setMnemonic('C');
+		btnCriar = new JButton("Criar evento");
+		btnCriar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				criarEvento();
+			}
+		});
+		btnCriar.setMnemonic('C');
 		
-		JButton btnNewButton = new JButton("Sair");
+		JButton btnSair = new JButton("Sair");
+		btnSair.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				fechar();
+			}
+		});
 		GroupLayout gl_panel_2 = new GroupLayout(panel_2);
 		gl_panel_2.setHorizontalGroup(
 			gl_panel_2.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_2.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(btnSalvar, GroupLayout.PREFERRED_SIZE, 92, GroupLayout.PREFERRED_SIZE)
+					.addComponent(btnCriar, GroupLayout.PREFERRED_SIZE, 92, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 92, GroupLayout.PREFERRED_SIZE)
+					.addComponent(btnSair, GroupLayout.PREFERRED_SIZE, 92, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap(238, Short.MAX_VALUE))
 		);
 		gl_panel_2.setVerticalGroup(
@@ -109,27 +199,22 @@ public class SwingCadastrarEvento extends JFrame implements AbstractGUICadastrar
 				.addGroup(gl_panel_2.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_panel_2.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnSalvar)
-						.addComponent(btnNewButton))
+						.addComponent(btnCriar)
+						.addComponent(btnSair))
 					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		panel_2.setLayout(gl_panel_2);
 		
-		lblDataDeIncio = new JLabel("Data de início do evento:");
+		lblDataDeIncio = new JLabel("Data de inicio do evento:");		
+		dateChooserDataDeInicioDoEvento = new JDateChooser();
+		lblDataDeFim = new JLabel("Data de fim do evento:");
+		dateChooserDataDeFimDoEvento = new JDateChooser();
+		lblDataMximaPara = new JLabel("Data maxima para submissao de trabalhos:");
+		dateChooserDataSubmissaoDeTrabalhos = new JDateChooser();
 		
-		JDateChooser dateChooserDataDeInicioDoEvento = new JDateChooser();
+		lblDataMximaPara_1 = new JLabel("Data maxima para aceitacao de trabalhos:");
 		
-		JLabel lblDataDeFim = new JLabel("Data de fim do evento:");
-		
-		JDateChooser dateChooserDataDeFimDoEvento = new JDateChooser();
-		
-		JLabel lblDataMximaPara = new JLabel("Data m\u00E1xima para submiss\u00E3o de trabalhos:");
-		
-		JDateChooser dateChooserDataSubmissaoDeTrabalhos = new JDateChooser();
-		
-		JLabel lblDataMximaPara_1 = new JLabel("Data m\u00E1xima para aceita\u00E7\u00E3o de trabalhos:");
-		
-		JDateChooser dateChooserDataAceitacaoDeTrabalhos = new JDateChooser();
+		dateChooserDataAceitacaoDeTrabalhos = new JDateChooser();
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
 		gl_panel_1.setHorizontalGroup(
 			gl_panel_1.createParallelGroup(Alignment.LEADING)
@@ -174,18 +259,15 @@ public class SwingCadastrarEvento extends JFrame implements AbstractGUICadastrar
 		);
 		panel_1.setLayout(gl_panel_1);
 		
-		textField = new JTextField();
-		textField.setColumns(10);
+		textFieldNomeDoEvento = new JTextField();
+		textFieldNomeDoEvento.setColumns(10);
 		
 		lblNomeDoEvento = new JLabel("Nome do evento:");
+		lblUsuario = new JLabel("Usuario responsavel:");
+		lblUsuarioResponsavel = new JLabel("nome_usuario_responsavel");
+		lblInstituioDeOcorrncia = new JLabel("Instituicao de ocorrencia do evento:");
 		
-		JLabel lblUsurioResponsvel = new JLabel("Usu\u00E1rio respons\u00E1vel:");
-		
-		JLabel lblUsuarioResponsavel = new JLabel("nome_usuario_responsavel");
-		
-		JLabel lblInstituioDeOcorrncia = new JLabel("Institui\u00E7\u00E3o de ocorr\u00EAncia do evento:");
-		
-		JComboBox comboBoxInstituicao = new JComboBox();
+		comboBoxInstituicao = new JComboBox<String>();
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.TRAILING)
@@ -193,8 +275,8 @@ public class SwingCadastrarEvento extends JFrame implements AbstractGUICadastrar
 					.addContainerGap()
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addComponent(lblNomeDoEvento)
-						.addComponent(textField, GroupLayout.DEFAULT_SIZE, 522, Short.MAX_VALUE)
-						.addComponent(lblUsurioResponsvel)
+						.addComponent(textFieldNomeDoEvento, GroupLayout.DEFAULT_SIZE, 522, Short.MAX_VALUE)
+						.addComponent(lblUsuario)
 						.addComponent(lblUsuarioResponsavel, GroupLayout.DEFAULT_SIZE, 522, Short.MAX_VALUE)
 						.addComponent(lblInstituioDeOcorrncia)
 						.addComponent(comboBoxInstituicao, 0, 522, Short.MAX_VALUE))
@@ -206,9 +288,9 @@ public class SwingCadastrarEvento extends JFrame implements AbstractGUICadastrar
 					.addContainerGap()
 					.addComponent(lblNomeDoEvento)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addComponent(textFieldNomeDoEvento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addGap(18)
-					.addComponent(lblUsurioResponsvel)
+					.addComponent(lblUsuario)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(lblUsuarioResponsavel)
 					.addGap(18)
@@ -219,5 +301,7 @@ public class SwingCadastrarEvento extends JFrame implements AbstractGUICadastrar
 		);
 		panel.setLayout(gl_panel);
 		contentPane.setLayout(gl_contentPane);
+
 	}
+
 }

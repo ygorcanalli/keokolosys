@@ -44,9 +44,37 @@ public class SwingCadastrarUsuario extends JFrame implements AbstractGUICadastra
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
+	@Override
+	public void exibirMensagemDeErro(String mensagem, String titulo) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void exibirMensagemDeAviso(String mensagem, String titulo) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void exibirMensagemDeInformacao(String mensagem, String titulo) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Integer exibirMensagemDeConfirmacao(String mensagem, String titulo,
+			Object[] opcoes, Object opcaoPadrao) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void inicializar() {
+		// TODO Auto-generated method stub
+		
+	}
+
 	public SwingCadastrarUsuario() {
 		setResizable(false);
 		setTitle("Cadastro de usu\u00E1rio");
