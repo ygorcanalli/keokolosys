@@ -252,7 +252,30 @@ public class Evento {
 		return bancasExaminadoras;
 	}
 	
-	public void setNone(String nome) throws ExcecaoDeCadastro{
+    public void atualizarDados(Instituicao instituicao, String nome, Date dataDeInicio, Date dataDeFim, Date dataMaximaParaSubmissaoDeTrabalhos, Date dataMaximaParaAceitacaoDeTrabalhos) throws ExcecaoDeCadastro{
+    	validarDados(nome, instituicao, usuarioResponsavel, dataMaximaParaSubmissaoDeTrabalhos, dataMaximaParaAceitacaoDeTrabalhos, dataDeInicio, dataDeFim);
+    	
+    	if(this.nome.compareTo(nome) != 0)
+    		this.nome = nome;
+    	
+    	if(this.instituicao.compareTo(instituicao) != 0)
+    		this.instituicao = instituicao;
+    	
+    	if(this.dataDeInicio.compareTo(dataDeInicio) != 0)
+    		this.dataDeInicio = dataDeInicio;
+    	
+    	if(this.dataDeFim.compareTo(dataDeFim) != 0)
+    		this.dataDeFim = dataDeFim;
+    	
+    	if(this.dataMaximaParaSubmissaoDeTrabalhos.compareTo(dataMaximaParaSubmissaoDeTrabalhos) != 0)
+    		this.dataMaximaParaSubmissaoDeTrabalhos =dataMaximaParaSubmissaoDeTrabalhos;
+    	
+    	if(this.dataMaximaParaAceitacaoDeTrabalhos.compareTo(dataMaximaParaAceitacaoDeTrabalhos) != 0)
+    		this.dataMaximaParaAceitacaoDeTrabalhos = dataMaximaParaAceitacaoDeTrabalhos;
+    }
+    
+	
+	/*public void setNome(String nome) throws ExcecaoDeCadastro{
 		validarNome(nome);
 		this.nome = nome;
 	}
@@ -280,7 +303,6 @@ public class Evento {
 	public void setDataMaximaParaAceitacaoDeTrabalhos(Date dataMaximaParaAceitacaoDeTrabalhos) throws ExcecaoDeCadastro{
 		validarDatas(this.dataMaximaParaSubmissaoDeTrabalhos, dataMaximaParaAceitacaoDeTrabalhos, this.dataDeInicio, this.dataDeFim);
 		this.dataMaximaParaAceitacaoDeTrabalhos = dataMaximaParaAceitacaoDeTrabalhos;  
-	}
-	
-	
+	}*/
+
 }

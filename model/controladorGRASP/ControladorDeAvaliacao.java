@@ -16,7 +16,7 @@ public final class ControladorDeAvaliacao {
         return evento.criarBancaExaminadora(examinadores);
     }
 
-    public static void associarBancaExaminadoraATrabalho(BancaExaminadora bancaExaminadora, Trabalho trabalho) {
+    public static void associarBancaExaminadoraATrabalho(BancaExaminadora bancaExaminadora, Trabalho trabalho) throws ExcecaoDeAvaliacao {
         bancaExaminadora.associarTrabalho(trabalho);
     }
     

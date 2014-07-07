@@ -63,26 +63,6 @@ public class CatalagoDeEventos {
     	
     }
     
-    public void atualizarDadosEvento(Evento evento, Instituicao instituicao, String nome, Date dataDeInicio, Date dataDeFim, Date dataMaximaParaSubmissaoDeTrabalhos, Date dataMaximaParaAceitacaoDeTrabalhos) throws ExcecaoDeCadastro{
-    	if(evento.getNome().compareTo(nome) != 0)
-    		evento.setNone(nome);
-    	
-    	if(evento.getInstituicao().compareTo(instituicao) != 0)
-    		evento.setInstituicao(instituicao);
-    	
-    	if(evento.getDataDeInicio().compareTo(dataDeInicio) != 0)
-    		evento.setDataDeInicio(dataDeInicio);
-    	
-    	if(evento.getDataDeFim().compareTo(dataDeFim) != 0)
-    		evento.setDataDeFim(dataDeFim);
-    	
-    	if(evento.getDataMaximaParaSubmissaoDeTrabalhos().compareTo(dataMaximaParaSubmissaoDeTrabalhos) != 0)
-    		evento.setDataMaximaParaSubmissaoDeTrabalhos(dataMaximaParaSubmissaoDeTrabalhos);
-    	
-    	if(evento.getDataMaximaParaAceitacaoDeTrabalhos().compareTo(dataMaximaParaAceitacaoDeTrabalhos) != 0)
-    		evento.setDataMaximaParaAceitacaoDeTrabalhos(dataMaximaParaAceitacaoDeTrabalhos);
-    }
-    
     @SuppressWarnings("unused")
 	private Boolean pertence(Evento evento) {
     	return obterEventos().contains(evento);

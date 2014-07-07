@@ -153,7 +153,10 @@ public class Trabalho {
     	return this.bancaExaminadoraResponsavel != null;
     }
     
-    public void atribuirBancaExaminadoraResponsavel(BancaExaminadora bancaExaminadoraResponsavel) {
+    public void atribuirBancaExaminadoraResponsavel(BancaExaminadora bancaExaminadoraResponsavel) throws ExcecaoDeAvaliacao {
+    	if(associadoABancaExaminadora())
+    		throw new ExcecaoDeAvaliacao("trabalho.associado.banca_examinadora");
+    	
     	this.bancaExaminadoraResponsavel = bancaExaminadoraResponsavel;
     }
 }

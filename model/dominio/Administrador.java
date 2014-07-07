@@ -34,7 +34,18 @@ public class Administrador extends Autenticavel {
         	throw new ExcecaoDeCadastro("administrador.senha.vazia");
 	}
 	
-	public void setEmail(String email) throws ExcecaoDeCadastro{
+	public void atualizarDados(String email, String senha) throws ExcecaoDeCadastro{
+		
+		validarDados(email, senha);
+		
+		if(this.email.compareTo(email) != 0)
+			this.email = email;
+		
+		if(this.senha.compareTo(senha) != 0)
+			this.senha = senha;		
+	}
+	
+	/*public void setEmail(String email) throws ExcecaoDeCadastro{
 		validarEmail(email);
 		this.email = email;
 	}
@@ -42,5 +53,5 @@ public class Administrador extends Autenticavel {
 	public void setSenha(String senha) throws ExcecaoDeCadastro{
 		validarSenha(senha);
 		this.senha = senha;
-	}
+	}*/
 }

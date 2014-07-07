@@ -44,10 +44,10 @@ public class BancaExaminadora {
     		throw new ExcecaoDeAvaliacao("banca_examinadora.examinador.repetido");    	
     }
     
-    public void associarTrabalho(Trabalho trabalho){
+    public void associarTrabalho(Trabalho trabalho) throws ExcecaoDeAvaliacao{
     	// Realiza a associassão com trabalho de maneira espelhada
-    	trabalhosAssociados.add(trabalho);
     	trabalho.atribuirBancaExaminadoraResponsavel(this);
+    	trabalhosAssociados.add(trabalho);
     }
     
     public void avaliarTrabalho(Trabalho trabalho, PerfilDeExaminador examinador, EstadoAvaliacao resultado) throws ExcecaoDeAvaliacao {

@@ -35,7 +35,7 @@ public final class ControladorDeCadastro {
 	}
 	
 	public static void atualizarDadosDoEvento(Evento evento, Instituicao instituicao, String nome, Date dataDeInicio, Date dataDeFim, Date dataMaximaParaSubmissaoDeTrabalhos, Date dataMaximaParaAceitacaoDeTrabalhos) throws ExcecaoDeCadastro{
-		MantenedorDeCatalagos.obterInstancia().obterCatalagoDeEventos().atualizarDadosEvento(evento, instituicao, nome, dataDeInicio, dataDeFim, dataMaximaParaSubmissaoDeTrabalhos, dataMaximaParaAceitacaoDeTrabalhos);
+		evento.atualizarDados(instituicao, nome, dataDeInicio, dataDeFim, dataMaximaParaSubmissaoDeTrabalhos, dataMaximaParaAceitacaoDeTrabalhos);
 	}
 	
 	public static void criarUsuario(String email, String senha, String nome, String ultimoNome, Instituicao instituicao) throws ExcecaoDeCadastro{
@@ -47,11 +47,11 @@ public final class ControladorDeCadastro {
 	}
 	
 	public static void atualizarDadosDoUsuario(Usuario usuario, String email, String senha, String nome, String ultimoNome, Instituicao instituicao) throws ExcecaoDeCadastro{
-		MantenedorDeCatalagos.obterInstancia().obterCatalagoDeAutenticaveis().atualizarUsuario(usuario, email, senha, nome, ultimoNome, instituicao);
+		usuario.atualizarDados(email, senha, nome, ultimoNome, instituicao);
 	}
 	
 	public static void atualizarDadosDoAdministrador(Administrador administrador, String email, String senha) throws ExcecaoDeCadastro{
-		MantenedorDeCatalagos.obterInstancia().obterCatalagoDeAutenticaveis().atualizarAdministrador(administrador, email, senha);
+		administrador.atualizarDados(email, senha);
 	}
 	
 	public static Collection<Autenticavel> obterTodosAutenticaveis(){

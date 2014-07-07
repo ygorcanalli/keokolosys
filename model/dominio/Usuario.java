@@ -121,7 +121,27 @@ public class Usuario extends Autenticavel {
         return instituicao;
     }
     
-    public void setNome(String nome) throws ExcecaoDeCadastro{
+    public void atualizarDados(String email, String senha, String nome, String ultimoNome, Instituicao instituicao) throws ExcecaoDeCadastro{		
+
+    	validarDados(nome, ultimoNome, email, senha, instituicao);
+    	
+    	if(this.email.compareTo(email) != 0)
+			this.email = email;
+		
+    	if(this.senha.compareTo(senha) != 0)
+    		this.senha = senha;
+		
+		if(this.nome.compareTo(nome) != 0)
+			this.nome = nome;
+		
+		if(this.ultimoNome.compareTo(ultimoNome) != 0)
+			this.ultimoNome = ultimoNome;
+		
+		if(this.instituicao.compareTo(instituicao) != 0)
+			this.instituicao = instituicao;
+	}
+    
+    /*public void setNome(String nome) throws ExcecaoDeCadastro{
     	validarNome(nome);
     	this.nome = nome;
     }
@@ -144,6 +164,6 @@ public class Usuario extends Autenticavel {
     public void setInstituicao(Instituicao instituicao) throws ExcecaoDeCadastro{
     	validarInstituicao(instituicao);
     	this.instituicao = instituicao;
-    }
+    }*/
 
 }
