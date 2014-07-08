@@ -42,6 +42,7 @@ public class SwingCadastrarEvento extends JFrame implements AbstractGUICadastrar
 	
 	private JTextField textFieldNomeDoEvento;
 	private JButton btnCriar;
+	private JButton btnIncluir;
 	private JDateChooser dateChooserDataDeInicioDoEvento;
 	private JDateChooser dateChooserDataDeFimDoEvento;
 	private JDateChooser dateChooserDataSubmissaoDeTrabalhos;
@@ -58,8 +59,7 @@ public class SwingCadastrarEvento extends JFrame implements AbstractGUICadastrar
 		tonarVisivel();
 		inicializarFrame();
 	}
-	
-	
+		
 	@Override
 	public void tonarVisivel(){
 		this.setVisible(true);
@@ -85,12 +85,16 @@ public class SwingCadastrarEvento extends JFrame implements AbstractGUICadastrar
 	@Override
 	public void criarEvento(){
 		String nomeDoEvento = textFieldNomeDoEvento.getText();
-		Date dataDeInicioDoEvento = (Date) dateChooserDataDeInicioDoEvento.getDate();
-		Date dataDeFimDoEvento = (Date) dateChooserDataDeFimDoEvento.getDate();
-		Date dataMaximaParaSubmissaoDeTrabalhos = (Date) dateChooserDataSubmissaoDeTrabalhos.getDate();
-		Date dataMaximaParaAceitacaoDeTrabalhos = (Date) dateChooserDataAceitacaoDeTrabalhos.getDate();
+		Date dataDeInicio = (Date) dateChooserDataDeInicioDoEvento.getDate();
+		Date dataDeFim = (Date) dateChooserDataDeFimDoEvento.getDate();
+		Date dataMaximaParaSubmissaoDeTrabalho = (Date) dateChooserDataSubmissaoDeTrabalhos.getDate();
+		Date dataMaximaParaAceitacaoDeTrabalho = (Date) dateChooserDataAceitacaoDeTrabalhos.getDate();
 		
-		controleCadastrarEvento.criarEvento(nomeDoEvento, dataMaximaParaSubmissaoDeTrabalhos, dataMaximaParaAceitacaoDeTrabalhos, dataDeInicioDoEvento, dataDeFimDoEvento);
+		//controleCadastrarEvento.criarEvento(nomeDoEvento, instituicao, usuarioResponsavel, dataMaximaParaSubmissaoDeTrabalho, dataMaximaParaAceitacaoDeTrabalho, dataDeInicio, dataDeFim);
+	}
+	
+	private void incluirNovaInstituicao(){
+		controleCadastrarEvento.incluirNovaInstituicao();
 	}
 	
 	@Override
@@ -111,10 +115,6 @@ public class SwingCadastrarEvento extends JFrame implements AbstractGUICadastrar
 	@Override
 	public Integer exibirMensagemDeConfirmacao(String mensagem, String titulo, Object[] opcoes, Object opcaoPadrao){
 		return JOptionPane.showOptionDialog(this, mensagem, titulo, JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcoes, opcaoPadrao);
-	}
-
-	public void definirControle(ControleCadastrarEvento controleDeCadastrarEvento){
-		this.controleCadastrarEvento = controleDeCadastrarEvento;
 	}
 	
 	public SwingCadastrarEvento(ControleCadastrarEvento controleCadastrarEvento){
@@ -261,6 +261,13 @@ public class SwingCadastrarEvento extends JFrame implements AbstractGUICadastrar
 		lblInstituioDeOcorrncia = new JLabel("Instituicao de ocorrencia do evento:");
 		
 		comboBoxInstituicao = new JComboBox<String>();
+		
+		btnIncluir = new JButton("Incluir");
+		btnIncluir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				incluirNovaInstituicao();
+			}
+		});
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.TRAILING)
@@ -268,11 +275,14 @@ public class SwingCadastrarEvento extends JFrame implements AbstractGUICadastrar
 					.addContainerGap()
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addComponent(lblNomeDoEvento)
-						.addComponent(textFieldNomeDoEvento, GroupLayout.DEFAULT_SIZE, 522, Short.MAX_VALUE)
+						.addComponent(textFieldNomeDoEvento, GroupLayout.DEFAULT_SIZE, 605, Short.MAX_VALUE)
 						.addComponent(lblUsuario)
-						.addComponent(lblUsuarioResponsavel, GroupLayout.DEFAULT_SIZE, 522, Short.MAX_VALUE)
+						.addComponent(lblUsuarioResponsavel, GroupLayout.DEFAULT_SIZE, 605, Short.MAX_VALUE)
 						.addComponent(lblInstituioDeOcorrncia)
-						.addComponent(comboBoxInstituicao, 0, 522, Short.MAX_VALUE))
+						.addGroup(gl_panel.createSequentialGroup()
+							.addComponent(comboBoxInstituicao, GroupLayout.PREFERRED_SIZE, 525, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnIncluir, GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE)))
 					.addContainerGap())
 		);
 		gl_panel.setVerticalGroup(
@@ -289,12 +299,13 @@ public class SwingCadastrarEvento extends JFrame implements AbstractGUICadastrar
 					.addGap(18)
 					.addComponent(lblInstituioDeOcorrncia)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(comboBoxInstituicao, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(12, Short.MAX_VALUE))
+					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+						.addComponent(comboBoxInstituicao, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnIncluir))
+					.addContainerGap(32, Short.MAX_VALUE))
 		);
 		panel.setLayout(gl_panel);
 		contentPane.setLayout(gl_contentPane);
 
 	}
-
 }

@@ -16,8 +16,26 @@ public class KeokoloSys {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 	
-		ControleCadastrarEvento c = new ControleCadastrarEvento();
-		c.inicializarGUI();
+		ControleCadastrarEvento c;
+		Instituicao i;
+		Usuario u;
+		
+		try {
+			ControladorDeCadastro.criarInstituicao("Rural", "UFRRJ", "NI");
+			ControladorDeCadastro.criarInstituicao("Queridinha", "UFRJ", "Fundão");
+			ControladorDeCadastro.criarInstituicao("Poderosa", "COPPE", "Fundão");
+			
+			i = ControladorDeCadastro.obterTodasInstituicoes().iterator().next();
+			ControladorDeCadastro.criarUsuario("ygor.canalli@gmail.com", "rogy", "Ygor", "Canalli", i);
+			u = ControladorDeCadastro.obterTodosUsuarios().iterator().next();
+			
+			c = new ControleCadastrarEvento(u);
+			c.inicializarGUI();
+			
+		} catch (ExcecaoDeCadastro e) {
+
+			e.printStackTrace();
+		}
 	
 		
 
