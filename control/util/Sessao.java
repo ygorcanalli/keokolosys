@@ -4,14 +4,17 @@ import dominio.Usuario;
 
 public class Sessao {
 
-	private Usuario usuarioLogado;
+	private static Usuario usuarioLogado;
 	
-	public Sessao(Usuario usuarioLogado){
-		this.usuarioLogado = usuarioLogado;
-	}	
-	
-	public Usuario getUsuarioLogado(){
-		return this.usuarioLogado;
+	public static void iniciarSessao(Usuario usuario){
+		usuarioLogado = usuario;
 	}
 	
+	public static Usuario getUsuarioLogado(){
+		return usuarioLogado;
+	}
+	
+	public static void encerrarSessao(){
+		usuarioLogado = null;
+	}
 }
