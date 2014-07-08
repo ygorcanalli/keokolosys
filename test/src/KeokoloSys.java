@@ -2,10 +2,10 @@ package src;
 
 import java.util.Date;
 
-import controladorGRASP.ControladorDeCadastro;
-import keokolosys.ControleCadastrarEvento;
-import keokolosys.ControleUsuarioHome;
+import cadastro.ControleCadastrarEvento;
+import cadastro.ControleUsuarioHome;
 import catalago.CatalagoDeEventos;
+import controladorGRASP.ControladorDeCadastro;
 import dominio.Evento;
 import dominio.Instituicao;
 import dominio.Usuario;

@@ -1,5 +1,6 @@
 package catalago;
 
+
 public final class MantenedorDeCatalagos {
 
 	private CatalagoDeEventos catalagoDeEventos = CatalagoDeEventos.obterInstancia();
