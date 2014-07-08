@@ -1,5 +1,6 @@
 package cadastro;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 import java.util.TreeMap;
@@ -15,12 +16,12 @@ import excecao.ExcecaoDeCadastro;
 
 public class ControleUsuarioHome {
 	
-	private Map<EventoVO, Evento> eventosDisponiveis;
+	private Map<String, Evento> mapaDeEventosDeferidos;
 	private AbstractGUIUsuarioHome viewUsuarioHome;
 	
 	public ControleUsuarioHome() {
 		
-		eventosDisponiveis = new TreeMap<EventoVO, Evento>();
+		mapaDeEventosDeferidos = new TreeMap<String, Evento>();
 	}
 	
 	public void inicializarGUI() {
@@ -35,6 +36,7 @@ public class ControleUsuarioHome {
 		InstituicaoVO instituicaoVO = null;
 		
 		Collection<Evento> eventos = ControladorDeCadastro.obterTodosEventosDeferidos();
+		Collection<EventoVO> eventosDeferidos = new ArrayList<EventoVO>();
 		
 		for (Evento evento: eventos) {
 			eventoVO = new EventoVO();
@@ -46,16 +48,16 @@ public class ControleUsuarioHome {
 			
 			instituicaoVO = new InstituicaoVO();
 			instituicaoVO.setSigla(evento.getInstituicao().getSigla());
-			
 			eventoVO.setInstituicao(instituicaoVO);
-			eventosDisponiveis.put(eventoVO, evento);
+			
+			mapaDeEventosDeferidos.put(eventoVO.getNome(), evento);
 		}
 		
-		return eventosDisponiveis.keySet();
+		return eventosDeferidos;
 	}
 	
 	public void realizarInscricaoEmEvento(EventoVO eventoVO) {
-		Evento evento = eventosDisponiveis.get(eventoVO);
+		Evento evento = mapaDeEventosDeferidos.get(eventoVO);
 		Usuario usuario = ControladorDeCadastro.obterTodosUsuarios().iterator().next();
 		try {
 			ControladorDeParticipacao.realizarInscricaoEmEvento(evento, usuario);
