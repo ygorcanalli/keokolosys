@@ -51,14 +51,16 @@ public class ControleUsuarioHome {
 			eventoVO.setInstituicao(instituicaoVO);
 			
 			mapaDeEventosDeferidos.put(eventoVO.getNome(), evento);
+			eventosDeferidos.add(eventoVO);
 		}
 		
 		return eventosDeferidos;
 	}
 	
 	public void realizarInscricaoEmEvento(EventoVO eventoVO) {
-		Evento evento = mapaDeEventosDeferidos.get(eventoVO);
+		
 		Usuario usuario = ControladorDeCadastro.obterTodosUsuarios().iterator().next();
+		Evento evento = mapaDeEventosDeferidos.get(eventoVO.getNome());
 		try {
 			ControladorDeParticipacao.realizarInscricaoEmEvento(evento, usuario);
 		} catch (ExcecaoDeCadastro e) {
