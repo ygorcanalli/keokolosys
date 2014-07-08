@@ -60,9 +60,17 @@ public class Evento {
     }
     
     public BancaExaminadora criarBancaExaminadora(Collection<PerfilDeExaminador> examinadores) throws ExcecaoDeAvaliacao{
+    	validarBancaComoUnica(examinadores);
     	BancaExaminadora bancaExaminadora = BancaExaminadora.criarBancaExaminadora(examinadores);
     	bancasExaminadoras.add(bancaExaminadora);
     	return bancaExaminadora;
+    }
+    
+    private void validarBancaComoUnica(Collection<PerfilDeExaminador> examinadores) throws ExcecaoDeAvaliacao{
+    	for (BancaExaminadora bancaExaminadora : bancasExaminadoras) {
+			if(bancaExaminadora.formadaPelosExaminadores(examinadores))
+				throw new ExcecaoDeAvaliacao("evento.banca_examinadora.existente");
+		}
     }
 
 

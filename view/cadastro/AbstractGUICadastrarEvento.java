@@ -13,7 +13,7 @@ public interface AbstractGUICadastrarEvento extends AbstractGUI {
 	public void definirUsuarioResponsavel(String nomeDoUsuarioResponsavel);
 	public void criarEvento();
 	
-	public String obterNonmeDoEvento();
+	public String obterNomeDoEvento();
 	public Date obterDataDeInicioDoEvento();
 	public Date obterDataDeFimDoevento();
 	public Date obterDataMaximaParaSubmissaoDeTrabalho();
