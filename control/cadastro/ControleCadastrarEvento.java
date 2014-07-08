@@ -1,8 +1,8 @@
 package cadastro;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 
 import controladorGRASP.ControladorDeCadastro;
 import dominio.Instituicao;

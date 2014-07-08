@@ -8,8 +8,7 @@ public class Sessao {
 	
 	public Sessao(Usuario usuarioLogado){
 		this.usuarioLogado = usuarioLogado;
-	}
-	
+	}	
 	
 	public Usuario getUsuarioLogado(){
 		return this.usuarioLogado;

@@ -67,10 +67,28 @@ public class Evento {
     }
     
     private void validarBancaComoUnica(Collection<PerfilDeExaminador> examinadores) throws ExcecaoDeAvaliacao{
+    	BancaExaminadora bancaExaminadora = buscarBancaExaminadoraPelosExaminadores(examinadores);
+    	
+    	if(bancaExaminadora != null)
+    		throw new ExcecaoDeAvaliacao("evento.banca_examinadora.existente");
+    }
+    
+    public BancaExaminadora obterBancaExaminadoraPelosExaminadores(Collection<PerfilDeExaminador> examinadores) throws ExcecaoDeAvaliacao{
+    	BancaExaminadora bancaExaminadora = buscarBancaExaminadoraPelosExaminadores(examinadores);
+    	
+    	if(bancaExaminadora == null)
+    		throw new ExcecaoDeAvaliacao("evento.banca_examinadora.inexistente");
+    	
+    	return bancaExaminadora;
+    }
+    
+    private BancaExaminadora buscarBancaExaminadoraPelosExaminadores(Collection<PerfilDeExaminador> examinadores){
     	for (BancaExaminadora bancaExaminadora : bancasExaminadoras) {
 			if(bancaExaminadora.formadaPelosExaminadores(examinadores))
-				throw new ExcecaoDeAvaliacao("evento.banca_examinadora.existente");
-		}
+				return bancaExaminadora;
+    	}
+    	
+		return null;
     }
 
 
