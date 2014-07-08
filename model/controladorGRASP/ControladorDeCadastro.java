@@ -14,8 +14,8 @@ import excecao.ExcecaoDeCadastro;
 
 public final class ControladorDeCadastro {
 	
-	public static void criarEvento(String nome, Instituicao instituicao, Usuario usuarioResponsavel, Date dataMaximaParaSubmissaoDeTrabalho, Date dataMaximaParaAceitacaoDeTrabalho, Date dataDeInicio, Date dataDeFim) throws  ExcecaoDeCadastro{
-		MantenedorDeCatalagos.obterInstancia().obterCatalagoDeEventos().criarEvento(nome, instituicao, usuarioResponsavel, dataMaximaParaSubmissaoDeTrabalho, dataMaximaParaAceitacaoDeTrabalho, dataDeInicio, dataDeFim);
+	public static Evento criarEvento(String nome, Instituicao instituicao, Usuario usuarioResponsavel, Date dataMaximaParaSubmissaoDeTrabalho, Date dataMaximaParaAceitacaoDeTrabalho, Date dataDeInicio, Date dataDeFim) throws  ExcecaoDeCadastro{
+		return MantenedorDeCatalagos.obterInstancia().obterCatalagoDeEventos().criarEvento(nome, instituicao, usuarioResponsavel, dataMaximaParaSubmissaoDeTrabalho, dataMaximaParaAceitacaoDeTrabalho, dataDeInicio, dataDeFim);
 	}
 	
 	public static Collection<Evento> obterTodosEventosDeferidos() {
@@ -38,8 +38,8 @@ public final class ControladorDeCadastro {
 		evento.atualizarDados(instituicao, nome, dataDeInicio, dataDeFim, dataMaximaParaSubmissaoDeTrabalhos, dataMaximaParaAceitacaoDeTrabalhos);
 	}
 	
-	public static void criarUsuario(String email, String senha, String nome, String ultimoNome, Instituicao instituicao) throws ExcecaoDeCadastro{
-		MantenedorDeCatalagos.obterInstancia().obterCatalagoDeAutenticaveis().criarUsuario(email, senha, nome, ultimoNome, instituicao);
+	public static Usuario criarUsuario(String email, String senha, String nome, String ultimoNome, Instituicao instituicao) throws ExcecaoDeCadastro{
+		return MantenedorDeCatalagos.obterInstancia().obterCatalagoDeAutenticaveis().criarUsuario(email, senha, nome, ultimoNome, instituicao);
 	}
 
 	public static void criarAdministrador(String email, String senha) throws ExcecaoDeCadastro{
@@ -70,8 +70,8 @@ public final class ControladorDeCadastro {
 		return MantenedorDeCatalagos.obterInstancia().obterCatalagoDeAutenticaveis().obterAdministradores();
 	}
 	
-	public static void criarInstituicao(String nome, String sigla, String localizacao) throws ExcecaoDeCadastro{
-		MantenedorDeCatalagos.obterInstancia().obterCatalagoDeInstituicoes().criarInstituicao(nome, sigla, localizacao);
+	public static Instituicao criarInstituicao(String nome, String sigla, String localizacao) throws ExcecaoDeCadastro{
+		return MantenedorDeCatalagos.obterInstancia().obterCatalagoDeInstituicoes().criarInstituicao(nome, sigla, localizacao);
 	}
 	
 	public static Collection<Instituicao> obterTodasInstituicoes(){

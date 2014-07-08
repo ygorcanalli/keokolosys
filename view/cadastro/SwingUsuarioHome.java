@@ -12,6 +12,7 @@ import java.awt.Dimension;
 
 import javax.swing.JScrollPane;
 
+import valueobject.EventoVO;
 import cadastro.ControleUsuarioHome;
 
 import java.awt.GridLayout;
@@ -23,6 +24,7 @@ import java.util.ArrayList;
 public class SwingUsuarioHome extends JFrame implements AbstractGUIUsuarioHome {
 	
 	ControleUsuarioHome controleUsuarioHome;
+	ArrayList<EventoVO> eventos;
 	/**
 	 * 
 	 */
@@ -76,6 +78,10 @@ public class SwingUsuarioHome extends JFrame implements AbstractGUIUsuarioHome {
 			      int row = target.getSelectedRow();
 			      int column = target.getSelectedColumn();
 			      System.out.println(row + ", " + column);
+			      
+			      if (column == 1) {
+			    	  controleUsuarioHome.realizarInscricaoEmEvento(eventos.get(row));
+			      }
 			    
 			  }
 			};
@@ -88,10 +94,10 @@ public class SwingUsuarioHome extends JFrame implements AbstractGUIUsuarioHome {
 	
 	private Object[][] dataTabelaEventosDisponiveis() {
 		
-		ArrayList<String> eventos = new ArrayList<String>(controleUsuarioHome.obterEventosDisponiveis());
+		eventos = (ArrayList<EventoVO>) controleUsuarioHome.obterEventosDisponiveis();
 		Object[][] data = new Object[eventos.size()][2];
 		for (int i = 0; i < eventos.size(); i++) {
-			data[i][0] = eventos.get(i);
+			data[i][0] = eventos.get(i).getNome();
 			data[i][1] = "Realizar Inscrição";
 		}
 		
@@ -128,4 +134,5 @@ public class SwingUsuarioHome extends JFrame implements AbstractGUIUsuarioHome {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 }

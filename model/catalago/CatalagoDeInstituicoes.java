@@ -23,11 +23,12 @@ public class CatalagoDeInstituicoes{
 		return instancia;
 	}
 		
-	public void criarInstituicao(String nome, String sigla, String localizacao) throws ExcecaoDeCadastro{
+	public Instituicao criarInstituicao(String nome, String sigla, String localizacao) throws ExcecaoDeCadastro{
 		validarSiglaComoUnica(sigla);
 		
 		Instituicao instituicao = Instituicao.criarInstituicao(nome, sigla, localizacao);
         instituicoes.put(instituicao.getSigla(), instituicao);
+        return instituicao;
     }
 	
 	public Collection<Instituicao> obterInstituicoes(){
