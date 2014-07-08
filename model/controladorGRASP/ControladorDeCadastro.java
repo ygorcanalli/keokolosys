@@ -58,6 +58,10 @@ public final class ControladorDeCadastro {
 		return MantenedorDeCatalagos.obterInstancia().obterCatalagoDeAutenticaveis().obterAutenticaveis();
 	}
 	
+	public static Autenticavel obterAutenticavelPorEmail(String email) throws ExcecaoDeCadastro{
+		return MantenedorDeCatalagos.obterInstancia().obterCatalagoDeAutenticaveis().obterAutenticavelPorEmail(email);
+	}
+	
 	public static Collection<Usuario> obterTodosUsuarios(){
 		return MantenedorDeCatalagos.obterInstancia().obterCatalagoDeAutenticaveis().obterUsuarios();
 	}
@@ -72,6 +76,10 @@ public final class ControladorDeCadastro {
 	
 	public static Collection<Instituicao> obterTodasInstituicoes(){
 		return MantenedorDeCatalagos.obterInstancia().obterCatalagoDeInstituicoes().obterInstituicoes();
+	}
+	
+	public static Instituicao obterInstituicaoPorSigla(String sigla) throws ExcecaoDeCadastro{
+		return MantenedorDeCatalagos.obterInstancia().obterCatalagoDeInstituicoes().obterInstituicaoPorSigla(sigla);
 	}
 	
 	public static Autenticavel entrarNoSistema(String email, String senha) throws ExcecaoDeCadastro{

@@ -60,7 +60,7 @@ public class CatalagoDeAutenticaveis {
 	}
 	
 	public Autenticavel entrarNoSistema(String email, String senha) throws ExcecaoDeCadastro{
-		Autenticavel autenticavel = buscarAutenticavelPorEmail(email);
+		Autenticavel autenticavel = obterAutenticavelPorEmail(email);
 		Boolean senhaCorreta = autenticavel.realizarAutenticacao(senha);
 		
 		if(!senhaCorreta)
@@ -69,7 +69,7 @@ public class CatalagoDeAutenticaveis {
 		return autenticavel;
 	}
 	
-	private Autenticavel buscarAutenticavelPorEmail(String email) throws ExcecaoDeCadastro{
+	public Autenticavel obterAutenticavelPorEmail(String email) throws ExcecaoDeCadastro{
 		Autenticavel autenticavel = autenticaveis.get(email);
 		
 		if(autenticavel == null)

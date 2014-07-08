@@ -1,5 +1,6 @@
 package dominio;
 
+
 import excecao.ExcecaoDeCadastro;
 
 public class Instituicao implements Comparable<Instituicao>{
@@ -91,13 +92,22 @@ public class Instituicao implements Comparable<Instituicao>{
 
 	@Override
 	public int compareTo(Instituicao instituicao) {
+		
+		if(this == instituicao)
+			return 0;
+		
 		Integer comparacaoNome = this.nome.compareTo(instituicao.nome);
 		Integer comparacaoSigla = this.sigla.compareTo(instituicao.sigla);
 		Integer comparacaoLocalizacao = this.localizacao.compareTo(instituicao.localizacao);
+		Integer maximo, minimo;
 		
-		if(comparacaoNome == 0 && comparacaoSigla == 0 && comparacaoLocalizacao == 0)
-			return 0;
+		maximo = Math.max(comparacaoSigla, Math.max(comparacaoNome, comparacaoLocalizacao));
 		
-		return comparacaoSigla;
+		if(maximo > 0)
+			return maximo;
+		
+		minimo = Math.max(comparacaoSigla, Math.min(comparacaoNome, comparacaoLocalizacao));
+		
+		return minimo;
 	}
 }

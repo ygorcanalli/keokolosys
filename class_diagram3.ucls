@@ -1,0 +1,946 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.1.6" icons="false" always-add-relationships="true" generalizations="true" realizations="true" 
+  associations="true" dependencies="true" nesting-relationships="true">  
+  <class id="1" language="java" name="catalago.CatalagoDeInstituicoes" project="keokolosys" 
+    file="/keokolosys/model/catalago/CatalagoDeInstituicoes.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="174" width="157" x="1718" y="655"/>    
+    <display autosize="true" stereotype="true" package="false" initial-value="true" signature="false" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="2" language="java" name="catalago.MantenedorDeCatalagos" project="keokolosys" 
+    file="/keokolosys/model/catalago/MantenedorDeCatalagos.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="138" width="178" x="1676" y="467"/>    
+    <display autosize="true" stereotype="true" package="false" initial-value="true" signature="false" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="3" language="java" name="catalago.CatalagoDeTrabalhos" project="keokolosys" 
+    file="/keokolosys/model/catalago/CatalagoDeTrabalhos.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="174" width="280" x="720" y="1741"/>    
+    <display autosize="true" stereotype="true" package="false" initial-value="true" signature="false" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="4" language="java" name="catalago.CatalagoDeEventos" project="keokolosys" 
+    file="/keokolosys/model/catalago/CatalagoDeEventos.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="264" width="207" x="519" y="655"/>    
+    <display autosize="true" stereotype="true" package="false" initial-value="true" signature="false" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="5" language="java" name="catalago.CatalagoDeAutenticaveis" project="keokolosys" 
+    file="/keokolosys/model/catalago/CatalagoDeAutenticaveis.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="2009" y="718"/>    
+    <display autosize="true" stereotype="true" package="false" initial-value="true" signature="false" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="6" language="java" name="controladorGRASP.ControladorDeParticipacao" project="keokolosys" 
+    file="/keokolosys/model/controladorGRASP/ControladorDeParticipacao.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="210" width="206" x="1147" y="655"/>    
+    <display autosize="true" stereotype="true" package="false" initial-value="true" signature="false" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="7" language="java" name="controladorGRASP.ControladorDeAvaliacao" project="keokolosys" 
+    file="/keokolosys/model/controladorGRASP/ControladorDeAvaliacao.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="174" width="285" x="1393" y="655"/>    
+    <display autosize="true" stereotype="true" package="false" initial-value="true" signature="false" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="8" language="java" name="controladorGRASP.ControladorDeCadastro" project="keokolosys" 
+    file="/keokolosys/model/controladorGRASP/ControladorDeCadastro.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="390" width="236" x="1906" y="37"/>    
+    <display autosize="true" stereotype="true" package="false" initial-value="true" signature="false" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="9" language="java" name="controladorGRASP.ControladorAdministrativo" project="keokolosys" 
+    file="/keokolosys/model/controladorGRASP/ControladorAdministrativo.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="156" width="176" x="519" y="37"/>    
+    <display autosize="true" stereotype="true" package="false" initial-value="true" signature="false" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="10" language="java" name="dominio.BancaExaminadora" project="keokolosys" 
+    file="/keokolosys/model/dominio/BancaExaminadora.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="246" width="473" x="1265" y="1741"/>    
+    <display autosize="true" stereotype="true" package="false" initial-value="true" signature="false" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="11" language="java" name="dominio.Perfil" project="keokolosys" file="/keokolosys/model/dominio/Perfil.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1036" y="817"/>    
+    <display autosize="true" stereotype="true" package="false" initial-value="true" signature="false" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="12" language="java" name="dominio.Administrador" project="keokolosys" 
+    file="/keokolosys/model/dominio/Administrador.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1986" y="1704"/>    
+    <display autosize="true" stereotype="true" package="false" initial-value="true" signature="false" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="13" language="java" name="dominio.Autenticavel" project="keokolosys" 
+    file="/keokolosys/model/dominio/Autenticavel.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="138" width="130" x="1967" y="969"/>    
+    <display autosize="true" stereotype="true" package="false" initial-value="true" signature="false" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="14" language="java" name="dominio.PerfilDeExaminador" project="keokolosys" 
+    file="/keokolosys/model/dominio/PerfilDeExaminador.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="84" width="215" x="1356" y="2743"/>    
+    <display autosize="true" stereotype="true" package="false" initial-value="true" signature="false" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="15" language="java" name="dominio.Instituicao" project="keokolosys" 
+    file="/keokolosys/model/dominio/Instituicao.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="300" width="120" x="1122" y="3333"/>    
+    <display autosize="true" stereotype="true" package="false" initial-value="true" signature="false" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="16" language="java" name="dominio.PerfilDeParticipante" project="keokolosys" 
+    file="/keokolosys/model/dominio/PerfilDeParticipante.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="66" width="139" x="1122" y="2547"/>    
+    <display autosize="true" stereotype="true" package="false" initial-value="true" signature="false" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <enumeration id="17" language="java" name="dominio.EstadoAvaliacao" project="keokolosys" 
+    file="/keokolosys/model/dominio/EstadoAvaliacao.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1717" y="2774"/>    
+    <display autosize="true" stereotype="true" package="false" initial-value="true" signature="false" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </enumeration>  
+  <class id="18" language="java" name="dominio.Evento" project="keokolosys" file="/keokolosys/model/dominio/Evento.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="466" y="1322"/>    
+    <display autosize="true" stereotype="true" package="false" initial-value="true" signature="false" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="19" language="java" name="dominio.PerfilDeChair" project="keokolosys" 
+    file="/keokolosys/model/dominio/PerfilDeChair.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1130" y="1766"/>    
+    <display autosize="true" stereotype="true" package="false" initial-value="true" signature="false" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="20" language="java" name="dominio.Usuario" project="keokolosys" 
+    file="/keokolosys/model/dominio/Usuario.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="390" width="161" x="1122" y="2903"/>    
+    <display autosize="true" stereotype="true" package="false" initial-value="true" signature="false" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="21" language="java" name="dominio.Trabalho" project="keokolosys" 
+    file="/keokolosys/model/dominio/Trabalho.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="480" width="221" x="1305" y="2027"/>    
+    <display autosize="true" stereotype="true" package="false" initial-value="true" signature="false" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="22" language="java" name="dominio.Avaliacao" project="keokolosys" 
+    file="/keokolosys/model/dominio/Avaliacao.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="156" width="106" x="1400" y="2547"/>    
+    <display autosize="true" stereotype="true" package="false" initial-value="true" signature="false" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="23" language="java" name="estadoevento.EstadoEventoFinalizado" project="keokolosys" 
+    file="/keokolosys/model/estadoevento/EstadoEventoFinalizado.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="394" y="2555"/>    
+    <display autosize="true" stereotype="true" package="false" initial-value="true" signature="false" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="24" language="java" name="estadoevento.EstadoEventoAguardando" project="keokolosys" 
+    file="/keokolosys/model/estadoevento/EstadoEventoAguardando.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="84" width="174" x="104" y="1741"/>    
+    <display autosize="true" stereotype="true" package="false" initial-value="true" signature="false" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="25" language="java" name="estadoevento.EstadoEventoCancelado" project="keokolosys" 
+    file="/keokolosys/model/estadoevento/EstadoEventoCancelado.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="223" y="2559"/>    
+    <display autosize="true" stereotype="true" package="false" initial-value="true" signature="false" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="26" language="java" name="estadoevento.EstadoEventoDeferido" project="keokolosys" 
+    file="/keokolosys/model/estadoevento/EstadoEventoDeferido.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="84" width="153" x="305" y="2027"/>    
+    <display autosize="true" stereotype="true" package="false" initial-value="true" signature="false" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="27" language="java" name="estadoevento.EstadoEventoIndeferido" project="keokolosys" 
+    file="/keokolosys/model/estadoevento/EstadoEventoIndeferido.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="84" width="161" x="104" y="2027"/>    
+    <display autosize="true" stereotype="true" package="false" initial-value="true" signature="false" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="28" language="java" name="estadoevento.EstadoEvento" project="keokolosys" 
+    file="/keokolosys/model/estadoevento/EstadoEvento.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="66" width="112" x="106" y="2743"/>    
+    <display autosize="true" stereotype="true" package="false" initial-value="true" signature="false" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <dependency id="29">    
+    <bendpoint x="52" y="969"/>    
+    <bendpoint x="52" y="1741"/>    
+    <bendpoint x="52" y="2027"/>    
+    <bendpoint x="52" y="2547"/>    
+    <bendpoint x="52" y="2743"/>    
+    <bendpoint x="52" y="2903"/>    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="15"/>  
+  </dependency>  
+  <association id="30">    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="31" name="instancia"/>      
+      <multiplicity id="32" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <association id="33">    
+    <end type="SOURCE" refId="21" navigable="false">      
+      <attribute id="34" name="bancaExaminadoraResponsavel"/>      
+      <multiplicity id="35" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="10" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <dependency id="36">    
+    <bendpoint x="488" y="1741"/>    
+    <bendpoint x="488" y="2027"/>    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="25"/>  
+  </dependency>  
+  <dependency id="37">    
+    <bendpoint x="969" y="467"/>    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="4"/>  
+  </dependency>  
+  <dependency id="38">    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="14"/>  
+  </dependency>  
+  <association id="39">    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="40" name="eventosDeferios"/>      
+      <multiplicity id="41" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="18" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <association id="42">    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="43" name="eventosAguardandoAprovacao"/>      
+      <multiplicity id="44" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="18" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <realization id="45">    
+    <end type="SOURCE" refId="23"/>    
+    <end type="TARGET" refId="28"/>  
+  </realization>  
+  <association id="46">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="47" name="catalagoDeAutenticaveis"/>      
+      <multiplicity id="48" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <dependency id="49">    
+    <bendpoint x="1091" y="2027"/>    
+    <bendpoint x="1091" y="2547"/>    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="17"/>  
+  </dependency>  
+  <association id="50">    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="51" name="eventosIndeferidos"/>      
+      <multiplicity id="52" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="18" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <dependency id="53">    
+    <end type="SOURCE" refId="20"/>    
+    <end type="TARGET" refId="18"/>  
+  </dependency>  
+  <dependency id="54">    
+    <bendpoint x="528" y="467"/>    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="4"/>  
+  </dependency>  
+  <dependency id="55">    
+    <bendpoint x="1915" y="467"/>    
+    <bendpoint x="1915" y="655"/>    
+    <bendpoint x="1915" y="969"/>    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="12"/>  
+  </dependency>  
+  <dependency id="56">    
+    <bendpoint x="2156" y="467"/>    
+    <bendpoint x="2156" y="655"/>    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="13"/>  
+  </dependency>  
+  <dependency id="57">    
+    <bendpoint x="488" y="467"/>    
+    <bendpoint x="488" y="655"/>    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="18"/>  
+  </dependency>  
+  <association id="58">    
+    <end type="SOURCE" refId="15" navigable="false">      
+      <attribute id="59" name="INSTITUICAO_NULA"/>      
+      <multiplicity id="60" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="15" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <association id="61">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="62" name="instancia"/>      
+      <multiplicity id="63" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <dependency id="64">    
+    <bendpoint x="401" y="1741"/>    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="26"/>  
+  </dependency>  
+  <dependency id="65">    
+    <bendpoint x="308" y="1741"/>    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="27"/>  
+  </dependency>  
+  <realization id="66">    
+    <end type="SOURCE" refId="25"/>    
+    <end type="TARGET" refId="28"/>  
+  </realization>  
+  <association id="67">    
+    <end type="SOURCE" refId="10" navigable="false">      
+      <attribute id="68" name="trabalhosAssociados"/>      
+      <multiplicity id="69" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="21" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <dependency id="70">    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="20"/>  
+  </dependency>  
+  <dependency id="71">    
+    <bendpoint x="710" y="2027"/>    
+    <bendpoint x="647" y="1741"/>    
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="18"/>  
+  </dependency>  
+  <dependency id="72">    
+    <bendpoint x="2177" y="467"/>    
+    <bendpoint x="2177" y="655"/>    
+    <bendpoint x="2177" y="969"/>    
+    <bendpoint x="2135" y="1741"/>    
+    <bendpoint x="2093" y="2027"/>    
+    <bendpoint x="2072" y="2547"/>    
+    <bendpoint x="2072" y="2743"/>    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="20"/>  
+  </dependency>  
+  <association id="73">    
+    <bendpoint x="1274" y="2027"/>    
+    <bendpoint x="1291" y="2547"/>    
+    <end type="SOURCE" refId="10" navigable="false">      
+      <attribute id="74" name="examinadores"/>      
+      <multiplicity id="75" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="14" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <generalization id="76">    
+    <bendpoint x="1050" y="969"/>    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="11"/>  
+  </generalization>  
+  <dependency id="77">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="18"/>  
+  </dependency>  
+  <dependency id="78">    
+    <bendpoint x="509" y="1741"/>    
+    <bendpoint x="509" y="2027"/>    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="23"/>  
+  </dependency>  
+  <association id="79">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="80" name="trabalhos"/>      
+      <multiplicity id="81" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="21" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <dependency id="82">    
+    <bendpoint x="1536" y="2547"/>    
+    <end type="SOURCE" refId="21"/>    
+    <end type="TARGET" refId="17"/>  
+  </dependency>  
+  <dependency id="83">    
+    <bendpoint x="796" y="969"/>    
+    <bendpoint x="626" y="1741"/>    
+    <bendpoint x="626" y="2027"/>    
+    <bendpoint x="626" y="2547"/>    
+    <bendpoint x="626" y="2743"/>    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="20"/>  
+  </dependency>  
+  <dependency id="84">    
+    <end type="SOURCE" refId="26"/>    
+    <end type="TARGET" refId="23"/>  
+  </dependency>  
+  <dependency id="85">    
+    <bendpoint x="1213" y="969"/>    
+    <bendpoint x="1213" y="1741"/>    
+    <bendpoint x="1213" y="2027"/>    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="16"/>  
+  </dependency>  
+  <dependency id="86">    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="18"/>  
+  </dependency>  
+  <dependency id="87">    
+    <bendpoint x="1831" y="969"/>    
+    <bendpoint x="1789" y="1741"/>    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="21"/>  
+  </dependency>  
+  <association id="88">    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="89" name="autenticaveis"/>      
+      <multiplicity id="90" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="13" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <realization id="91">    
+    <bendpoint x="115" y="2547"/>    
+    <end type="SOURCE" refId="26"/>    
+    <end type="TARGET" refId="28"/>  
+  </realization>  
+  <generalization id="92">    
+    <bendpoint x="2051" y="2743"/>    
+    <bendpoint x="2051" y="2547"/>    
+    <bendpoint x="2051" y="2027"/>    
+    <bendpoint x="2076" y="1741"/>    
+    <end type="SOURCE" refId="20"/>    
+    <end type="TARGET" refId="13"/>  
+  </generalization>  
+  <association id="93">    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="94" name="instancia"/>      
+      <multiplicity id="95" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <association id="96">    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="97" name="eventosFinalizados"/>      
+      <multiplicity id="98" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="18" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <dependency id="99">    
+    <bendpoint x="990" y="467"/>    
+    <bendpoint x="990" y="655"/>    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="18"/>  
+  </dependency>  
+  <association id="100">    
+    <end type="SOURCE" refId="22" navigable="false">      
+      <attribute id="101" name="resultado"/>      
+      <multiplicity id="102" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="17" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <dependency id="103">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <association id="104">    
+    <end type="SOURCE" refId="21" navigable="false">      
+      <attribute id="105" name="submissor"/>      
+      <multiplicity id="106" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="16" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <dependency id="107">    
+    <bendpoint x="1873" y="969"/>    
+    <bendpoint x="1873" y="1741"/>    
+    <bendpoint x="1873" y="2027"/>    
+    <bendpoint x="1873" y="2547"/>    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="17"/>  
+  </dependency>  
+  <generalization id="108">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="13"/>  
+  </generalization>  
+  <association id="109">    
+    <bendpoint x="542" y="1741"/>    
+    <bendpoint x="542" y="2027"/>    
+    <bendpoint x="542" y="2547"/>    
+    <end type="SOURCE" refId="18" navigable="false">      
+      <attribute id="110" name="estado"/>      
+      <multiplicity id="111" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="28" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <dependency id="112">    
+    <end type="SOURCE" refId="26"/>    
+    <end type="TARGET" refId="25"/>  
+  </dependency>  
+  <dependency id="113">    
+    <bendpoint x="2127" y="969"/>    
+    <bendpoint x="2114" y="1741"/>    
+    <bendpoint x="2114" y="2027"/>    
+    <bendpoint x="2114" y="2547"/>    
+    <bendpoint x="2093" y="2743"/>    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="20"/>  
+  </dependency>  
+  <dependency id="114">    
+    <bendpoint x="31" y="467"/>    
+    <bendpoint x="31" y="655"/>    
+    <bendpoint x="31" y="969"/>    
+    <bendpoint x="31" y="1741"/>    
+    <bendpoint x="31" y="2027"/>    
+    <bendpoint x="31" y="2547"/>    
+    <bendpoint x="31" y="2743"/>    
+    <bendpoint x="31" y="2903"/>    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="15"/>  
+  </dependency>  
+  <dependency id="115">    
+    <bendpoint x="1936" y="969"/>    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="12"/>  
+  </dependency>  
+  <dependency id="116">    
+    <bendpoint x="1338" y="969"/>    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="10"/>  
+  </dependency>  
+  <association id="117">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="118" name="instancia"/>      
+      <multiplicity id="119" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <dependency id="120">    
+    <bendpoint x="1852" y="969"/>    
+    <bendpoint x="1852" y="1741"/>    
+    <bendpoint x="1852" y="2027"/>    
+    <bendpoint x="1810" y="2547"/>    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="14"/>  
+  </dependency>  
+  <association id="121">    
+    <end type="SOURCE" refId="18" navigable="false">      
+      <attribute id="122" name="bancasExaminadoras"/>      
+      <multiplicity id="123" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="10" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <association id="124">    
+    <bendpoint x="817" y="969"/>    
+    <bendpoint x="668" y="1741"/>    
+    <bendpoint x="668" y="2027"/>    
+    <bendpoint x="668" y="2547"/>    
+    <bendpoint x="668" y="2743"/>    
+    <end type="SOURCE" refId="11" navigable="false">      
+      <attribute id="125" name="usuario"/>      
+      <multiplicity id="126" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="20" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <dependency id="127">    
+    <bendpoint x="1192" y="969"/>    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="19"/>  
+  </dependency>  
+  <association id="128">    
+    <bendpoint x="689" y="2743"/>    
+    <bendpoint x="689" y="2547"/>    
+    <bendpoint x="689" y="2027"/>    
+    <bendpoint x="689" y="1741"/>    
+    <bendpoint x="838" y="969"/>    
+    <end type="SOURCE" refId="20" navigable="false">      
+      <attribute id="129" name="perfis"/>      
+      <multiplicity id="130" minimum="0" maximum="2147483647">        
+        <position height="15" width="21" x="952" y="841"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="11" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <realization id="131">    
+    <bendpoint x="94" y="2547"/>    
+    <end type="SOURCE" refId="27"/>    
+    <end type="TARGET" refId="28"/>  
+  </realization>  
+  <dependency id="132">    
+    <bendpoint x="1127" y="467"/>    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="1"/>  
+  </dependency>  
+  <dependency id="133">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <association id="134">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="135" name="catalagoDeEventos"/>      
+      <multiplicity id="136" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <dependency id="137">    
+    <bendpoint x="1030" y="1741"/>    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="21"/>  
+  </dependency>  
+  <association id="138">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="139" name="catalagoDeInstituicoes"/>      
+      <multiplicity id="140" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <dependency id="141">    
+    <bendpoint x="1131" y="2743"/>    
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="20"/>  
+  </dependency>  
+  <association id="142">    
+    <end type="SOURCE" refId="22" navigable="false">      
+      <attribute id="143" name="trabalho"/>      
+      <multiplicity id="144" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="21" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <association id="145">    
+    <bendpoint x="563" y="1741"/>    
+    <bendpoint x="563" y="2027"/>    
+    <bendpoint x="563" y="2547"/>    
+    <bendpoint x="563" y="2743"/>    
+    <bendpoint x="563" y="2903"/>    
+    <end type="SOURCE" refId="18" navigable="false">      
+      <attribute id="146" name="instituicao"/>      
+      <multiplicity id="147" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="15" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <dependency id="148">    
+    <bendpoint x="1070" y="2027"/>    
+    <bendpoint x="1070" y="2547"/>    
+    <bendpoint x="1070" y="2743"/>    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="20"/>  
+  </dependency>  
+  <association id="149">    
+    <end type="SOURCE" refId="20" navigable="false">      
+      <attribute id="150" name="instituicao"/>      
+      <multiplicity id="151" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="15" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <dependency id="152">    
+    <end type="SOURCE" refId="24"/>    
+    <end type="TARGET" refId="26"/>  
+  </dependency>  
+  <dependency id="153">    
+    <end type="SOURCE" refId="24"/>    
+    <end type="TARGET" refId="27"/>  
+  </dependency>  
+  <association id="154">    
+    <end type="SOURCE" refId="22" navigable="false">      
+      <attribute id="155" name="examinador"/>      
+      <multiplicity id="156" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="14" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <dependency id="157">    
+    <bendpoint x="1255" y="969"/>    
+    <bendpoint x="1234" y="1741"/>    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="21"/>  
+  </dependency>  
+  <association id="158">    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="159" name="eventosCancelados"/>      
+      <multiplicity id="160" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="18" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <generalization id="161">    
+    <bendpoint x="1192" y="2027"/>    
+    <bendpoint x="1192" y="1741"/>    
+    <bendpoint x="1171" y="969"/>    
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="11"/>  
+  </generalization>  
+  <dependency id="162">    
+    <bendpoint x="1936" y="467"/>    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <association id="163">    
+    <bendpoint x="584" y="1741"/>    
+    <bendpoint x="584" y="2027"/>    
+    <bendpoint x="584" y="2547"/>    
+    <bendpoint x="584" y="2743"/>    
+    <end type="SOURCE" refId="18" navigable="false">      
+      <attribute id="164" name="usuarioResponsavel"/>      
+      <multiplicity id="165" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="20" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <dependency id="166">    
+    <bendpoint x="1556" y="2027"/>    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="22"/>  
+  </dependency>  
+  <dependency id="167">    
+    <bendpoint x="2156" y="969"/>    
+    <bendpoint x="2156" y="1741"/>    
+    <bendpoint x="2156" y="2027"/>    
+    <bendpoint x="2156" y="2547"/>    
+    <bendpoint x="2156" y="2743"/>    
+    <bendpoint x="2156" y="2903"/>    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="15"/>  
+  </dependency>  
+  <dependency id="168">    
+    <bendpoint x="1810" y="969"/>    
+    <bendpoint x="1831" y="1741"/>    
+    <bendpoint x="1831" y="2027"/>    
+    <bendpoint x="1831" y="2547"/>    
+    <bendpoint x="1831" y="2743"/>    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="20"/>  
+  </dependency>  
+  <dependency id="169">    
+    <bendpoint x="1747" y="2027"/>    
+    <bendpoint x="1789" y="2547"/>    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="17"/>  
+  </dependency>  
+  <dependency id="170">    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="11"/>  
+  </dependency>  
+  <dependency id="171">    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="19"/>  
+  </dependency>  
+  <dependency id="172">    
+    <bendpoint x="1894" y="467"/>    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="1"/>  
+  </dependency>  
+  <dependency id="173">    
+    <bendpoint x="1789" y="969"/>    
+    <bendpoint x="1810" y="1741"/>    
+    <bendpoint x="1789" y="2027"/>    
+    <bendpoint x="1768" y="2547"/>    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="14"/>  
+  </dependency>  
+  <generalization id="174">    
+    <bendpoint x="1747" y="2547"/>    
+    <bendpoint x="1768" y="2027"/>    
+    <bendpoint x="1768" y="1741"/>    
+    <bendpoint x="1234" y="969"/>    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="11"/>  
+  </generalization>  
+  <dependency id="175">    
+    <bendpoint x="2198" y="467"/>    
+    <bendpoint x="2198" y="655"/>    
+    <bendpoint x="2198" y="969"/>    
+    <bendpoint x="2198" y="1741"/>    
+    <bendpoint x="2198" y="2027"/>    
+    <bendpoint x="2198" y="2547"/>    
+    <bendpoint x="2198" y="2743"/>    
+    <bendpoint x="2198" y="2903"/>    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="15"/>  
+  </dependency>  
+  <association id="176">    
+    <end type="SOURCE" refId="21" navigable="false">      
+      <attribute id="177" name="avaliacoes"/>      
+      <multiplicity id="178" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="22" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <association id="179">    
+    <end type="SOURCE" refId="11" navigable="false">      
+      <attribute id="180" name="evento"/>      
+      <multiplicity id="181" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="18" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <association id="182">    
+    <end type="SOURCE" refId="18" navigable="false">      
+      <attribute id="183" name="catalogoDeTrabalhos"/>      
+      <multiplicity id="184" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <dependency id="185">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="18"/>  
+  </dependency>  
+  <dependency id="186">    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="10"/>  
+  </dependency>  
+  <dependency id="187">    
+    <bendpoint x="710" y="2547"/>    
+    <bendpoint x="647" y="2027"/>    
+    <bendpoint x="605" y="1741"/>    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="18"/>  
+  </dependency>  
+  <realization id="188">    
+    <bendpoint x="73" y="2027"/>    
+    <bendpoint x="73" y="2547"/>    
+    <end type="SOURCE" refId="24"/>    
+    <end type="TARGET" refId="28"/>  
+  </realization>  
+  <association id="189">    
+    <bendpoint x="1894" y="969"/>    
+    <bendpoint x="1894" y="1741"/>    
+    <bendpoint x="2072" y="2027"/>    
+    <bendpoint x="2093" y="2547"/>    
+    <bendpoint x="2114" y="2743"/>    
+    <bendpoint x="2114" y="2903"/>    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="190" name="instituicoes"/>      
+      <multiplicity id="191" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="15" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <dependency id="192">    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="16"/>  
+  </dependency>  
+  <dependency id="193">    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="24"/>  
+  </dependency>  
+  <classifier-display autosize="true" stereotype="true" package="false" initial-value="true" signature="false" 
+    accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="false" multiplicity="true"/>
+</class-diagram>

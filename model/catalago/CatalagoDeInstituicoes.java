@@ -34,6 +34,15 @@ public class CatalagoDeInstituicoes{
 		return instituicoes.values();
 	}
 	
+	public Instituicao obterInstituicaoPorSigla(String sigla) throws ExcecaoDeCadastro{
+		Instituicao instituicao = instituicoes.get(sigla); 
+		
+		if(instituicao == null)
+			throw new ExcecaoDeCadastro("catalago_de_instituicoes.instituicao.nao_localizado");
+		
+		return instituicao;
+	}
+	
 	public void atualizarInstituicao(Instituicao instituicao, String nome, String sigla, String localizacao) throws ExcecaoDeCadastro{
 		if(sigla.compareTo(instituicao.getSigla()) != 0)
 			validarSiglaComoUnica(sigla);
