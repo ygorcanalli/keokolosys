@@ -196,7 +196,7 @@ public class Evento {
     }
     
     private static void validarUsuarioResponsavel(Usuario usuarioResponsavel) throws ExcecaoDeCadastro{
-    	Boolean usuarioResponsavelVazio = (usuarioResponsavel != null);
+    	Boolean usuarioResponsavelVazio = (usuarioResponsavel == null);
         
         if(usuarioResponsavelVazio)
         	throw new ExcecaoDeCadastro("evento.usuario_responsavel.vazio");
