@@ -53,6 +53,13 @@ public class SwingCadastrarEvento extends JFrame implements AbstractGUICadastrar
 	private JLabel lblInstituioDeOcorrncia;
 	private JComboBox<String> comboBoxInstituicao;
 	
+	private String nomeDoEvento;
+	private Date dataDeInicioDoEvento;
+	private Date dataDeFimDoEvento;
+	private Date dataMaximaParaSubmissaoDeTrabalho;
+	private Date dataMaximaParaAceitacaoDeTrabalho ;
+	
+	
 	private ControleCadastrarEvento controleCadastrarEvento;
 	
 
@@ -86,13 +93,42 @@ public class SwingCadastrarEvento extends JFrame implements AbstractGUICadastrar
 	
 	@Override
 	public void criarEvento(){
-		String nomeDoEvento = textFieldNomeDoEvento.getText();
-		Date dataDeInicio = (Date) dateChooserDataDeInicioDoEvento.getDate();
-		Date dataDeFim = (Date) dateChooserDataDeFimDoEvento.getDate();
-		Date dataMaximaParaSubmissaoDeTrabalho = (Date) dateChooserDataSubmissaoDeTrabalhos.getDate();
-		Date dataMaximaParaAceitacaoDeTrabalho = (Date) dateChooserDataAceitacaoDeTrabalhos.getDate();
-		
-		//controleCadastrarEvento.criarEvento(nomeDoEvento, instituicao, usuarioResponsavel, dataMaximaParaSubmissaoDeTrabalho, dataMaximaParaAceitacaoDeTrabalho, dataDeInicio, dataDeFim);
+		capturarDados();
+		controleCadastrarEvento.criarEvento();
+	}
+
+	@Override
+	public String obterNonmeDoEvento(){
+		return this.nomeDoEvento;
+	}
+	
+	@Override
+	public Date obterDataDeInicioDoEvento(){
+		return this.dataDeInicioDoEvento;
+	}
+	
+	@Override
+	public Date obterDataDeFimDoevento(){
+		return this.dataDeFimDoEvento;
+	}
+	
+	@Override
+	public Date obterDataMaximaParaSubmissaoDeTrabalho(){
+		return this.dataMaximaParaSubmissaoDeTrabalho;
+	}
+	
+	@Override
+	public Date obterDataMaximaParaAceitacaoDeTrabalho(){
+		return this.dataMaximaParaAceitacaoDeTrabalho;
+	}
+	
+	
+	private void capturarDados(){
+		this.nomeDoEvento = textFieldNomeDoEvento.getText();
+		this.dataDeInicioDoEvento = (Date) dateChooserDataDeInicioDoEvento.getDate();
+		this.dataDeFimDoEvento = (Date) dateChooserDataDeFimDoEvento.getDate();
+		this.dataMaximaParaSubmissaoDeTrabalho = (Date) dateChooserDataSubmissaoDeTrabalhos.getDate();
+		this.dataMaximaParaAceitacaoDeTrabalho = (Date) dateChooserDataAceitacaoDeTrabalhos.getDate();
 	}
 	
 	private void incluirNovaInstituicao(){
@@ -121,7 +157,7 @@ public class SwingCadastrarEvento extends JFrame implements AbstractGUICadastrar
 	
 	public SwingCadastrarEvento(ControleCadastrarEvento controleCadastrarEvento){
 		this.controleCadastrarEvento = controleCadastrarEvento;
-		inicializarFrame();
+		//inicializarFrame();
 	}
 
 	

@@ -40,8 +40,19 @@ public class ControleCadastrarEvento {
 		return instituicoesStr;
 	}
 
-	public void criarEvento(String nomeDoEvento, Instituicao instituicao, Usuario usuarioResponsavel, Date dataMaximaParaSubmissaoDeTrabalho, Date dataMaximaParaAceitacaoDeTrabalho, Date dataDeInicio, Date dataDeFim) throws ExcecaoDeCadastro{
-		ControladorDeCadastro.criarEvento(nomeDoEvento, instituicao, usuarioResponsavel, dataMaximaParaSubmissaoDeTrabalho, dataMaximaParaAceitacaoDeTrabalho, dataDeInicio, dataDeFim);
+	public void criarEvento(){
+		String nomeDoEvento = viewCadastroDeEvento.obterNonmeDoEvento();
+		Date dataDeInicioDoEvento = viewCadastroDeEvento.obterDataDeInicioDoEvento();
+		Date dataDeFimDoEvento = viewCadastroDeEvento.obterDataDeFimDoevento();
+		Date dataMaximaParaSubmissaoDeTrabalho = viewCadastroDeEvento.obterDataMaximaParaSubmissaoDeTrabalho();
+		Date dataMaximaParaAceitacaoDeTrabalho = viewCadastroDeEvento.obterDataMaximaParaAceitacaoDeTrabalho();
+		
+		try{
+			ControladorDeCadastro.criarEvento(nomeDoEvento, instituicao, usuarioResponsavel, dataMaximaParaSubmissaoDeTrabalho, dataMaximaParaAceitacaoDeTrabalho, dataDeInicioDoEvento, dataDeFimDoEvento);
+		}
+		catch (ExcecaoDeCadastro ec){
+			viewCadastroDeEvento.exibirMensagemDeErro("", "");
+		}
 	}
 	
 	public void incluirNovaInstituicao(){
