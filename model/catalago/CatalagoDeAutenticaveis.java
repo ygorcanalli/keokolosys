@@ -40,8 +40,21 @@ public class CatalagoDeAutenticaveis {
 		Administrador administrador = Administrador.criarAdministrador(email, senha);
 		autenticaveis.put(email, administrador);
     }
-
 	
+	public void atualizarUsuario(Usuario usuario, String nome, String ultimoNome, String email, String senha, Instituicao instituicao) throws ExcecaoDeCadastro{
+		if(usuario.getEmail().compareTo(email) != 0)
+			validarEmailComoUnico(email);
+		
+		usuario.atualizarDados(email, senha, nome, ultimoNome, instituicao);
+	}
+	
+	public void atualizarAdministrador(Administrador administrador, String email, String senha) throws ExcecaoDeCadastro{
+		if(administrador.getEmail().compareTo(email) != 0)
+			validarEmailComoUnico(email);
+
+		administrador.atualizarDados(email, senha);
+	}
+
 	public Collection<Autenticavel> obterAutenticaveis(){		
 		return autenticaveis.values();
 	}

@@ -47,11 +47,11 @@ public final class ControladorDeCadastro {
 	}
 	
 	public static void atualizarDadosDoUsuario(Usuario usuario, String email, String senha, String nome, String ultimoNome, Instituicao instituicao) throws ExcecaoDeCadastro{
-		usuario.atualizarDados(email, senha, nome, ultimoNome, instituicao);
+		MantenedorDeCatalagos.obterInstancia().obterCatalagoDeAutenticaveis().atualizarUsuario(usuario, email, senha, nome, ultimoNome, instituicao);
 	}
 	
 	public static void atualizarDadosDoAdministrador(Administrador administrador, String email, String senha) throws ExcecaoDeCadastro{
-		administrador.atualizarDados(email, senha);
+		MantenedorDeCatalagos.obterInstancia().obterCatalagoDeAutenticaveis().atualizarAdministrador(administrador, email, senha);
 	}
 	
 	public static Collection<Autenticavel> obterTodosAutenticaveis(){

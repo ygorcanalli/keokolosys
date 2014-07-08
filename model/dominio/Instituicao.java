@@ -61,20 +61,33 @@ public class Instituicao implements Comparable<Instituicao>{
 		return localizacao;
 	}
 	
-	public void setNome(String nome) throws ExcecaoDeCadastro{
+	public void atualizarDados(String nome, String sigla, String localizacao) throws ExcecaoDeCadastro{
+		validarDados(nome, sigla, localizacao);
+		
+		if(this.nome.compareTo(nome) != 0)
+			this.nome = nome;
+		
+		if(this.sigla.compareTo(sigla) != 0)
+			this.sigla = sigla;
+		
+		if(this.localizacao.compareTo(localizacao) != 0)
+			this.localizacao = localizacao;
+	}
+	
+	/*private void setNome(String nome) throws ExcecaoDeCadastro{
 		validarNome(nome);
 		this.nome = nome;
 	}
 	
-	public void setSigla(String sigla) throws ExcecaoDeCadastro{
+	private void setSigla(String sigla) throws ExcecaoDeCadastro{
 		validarSigla(sigla);
 		this.sigla = sigla;
 	}
 	
-	public void setLocalizacao(String localizacao) throws ExcecaoDeCadastro{
+	private void setLocalizacao(String localizacao) throws ExcecaoDeCadastro{
 		validarLocalizacao(localizacao);
 		this.localizacao = localizacao;
-	}
+	}*/
 
 	@Override
 	public int compareTo(Instituicao instituicao) {

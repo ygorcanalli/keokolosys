@@ -35,17 +35,10 @@ public class CatalagoDeInstituicoes{
 	}
 	
 	public void atualizarInstituicao(Instituicao instituicao, String nome, String sigla, String localizacao) throws ExcecaoDeCadastro{
-		if(instituicao.getNome().compareTo(nome) != 0)
-			instituicao.setNome(nome);
-		
-		if(instituicao.getSigla().compareTo(sigla) != 0)
-		{
+		if(sigla.compareTo(instituicao.getSigla()) != 0)
 			validarSiglaComoUnica(sigla);
-	        instituicao.setSigla(sigla);
-		}
 		
-		if(instituicao.getLocalizacao().compareTo(localizacao) != 0)
-			instituicao.setLocalizacao(localizacao);
+		instituicao.atualizarDados(nome, sigla, localizacao);
 	}
 	
 	private void validarSiglaComoUnica(String sigla) throws ExcecaoDeCadastro{

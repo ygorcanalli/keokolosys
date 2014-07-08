@@ -15,13 +15,13 @@ public class KeokoloSys {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-	/*
+	
 		ControleCadastrarEvento c = new ControleCadastrarEvento();
 		c.inicializarGUI();
-	*/
+	
 		
 
-		try {
+		/*try {
 			ControladorDeCadastro.criarInstituicao("RUral", "UFRRJ", "Rua S/N");
 		} catch (ExcecaoDeCadastro e2) {
 			// TODO Auto-generated catch block
@@ -44,7 +44,7 @@ public class KeokoloSys {
 		}
 		
 		ControleUsuarioHome c = new ControleUsuarioHome();
-		c.inicializarGUI();
+		c.inicializarGUI();*/
 		
 	}
 

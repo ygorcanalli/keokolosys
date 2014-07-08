@@ -11,7 +11,6 @@ import javax.swing.JTextField;
 import javax.swing.UIManager;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.sql.Date;
 import java.util.Collection;
 
@@ -26,11 +25,9 @@ import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class SwingCadastrarEvento extends JFrame implements AbstractGUICadastrarEvento, Runnable {
+public class SwingCadastrarEvento extends JFrame implements AbstractGUICadastrarEvento {
 
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 2545136064899431525L;
 	private JPanel contentPane;
 	private JPanel panel;
@@ -58,12 +55,8 @@ public class SwingCadastrarEvento extends JFrame implements AbstractGUICadastrar
 
 	@Override
 	public void inicializar() {
-		run();
-	}
-	
-	@Override
-	public void run() {
-		
+		tonarVisivel();
+		inicializarFrame();
 	}
 	
 	
