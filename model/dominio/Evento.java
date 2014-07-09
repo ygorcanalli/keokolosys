@@ -20,7 +20,7 @@ public class Evento {
     private Date dataMaximaParaAceitacaoDeTrabalhos;
     private Date dataDeInicio;
     private Date dataDeFim;
-    private Map<Class<? extends Perfil>, Collection<Perfil>> perfis;
+    private Map<String, Collection<Perfil>> perfis;
     private Collection<BancaExaminadora> bancasExaminadoras;
     private CatalagoDeTrabalhos catalogoDeTrabalhos;
     private EstadoEvento estado;
@@ -35,7 +35,7 @@ public class Evento {
             this.dataDeFim = dataDeFim;
             this.catalogoDeTrabalhos = new CatalagoDeTrabalhos();
             this.estado = new EstadoEventoAguardando();
-            this.perfis = new TreeMap<Class<? extends Perfil>, Collection<Perfil>>();
+            this.perfis = new TreeMap<String, Collection<Perfil>>();
     }
     
     public static Evento criarEvento(String nome, Instituicao instituicao, Usuario usuarioResponsavel, Date dataMaximaParaSubmissaoDeTrabalhos, Date dataMaximaParaAceitacaoDeTrabalhos, Date dataDeInicio, Date dataDeFim) throws  ExcecaoDeCadastro{
@@ -121,7 +121,7 @@ public class Evento {
 			}
             
             usuario.adicionarPerfil(perfil);
-            perfis.get(tipoPerfil).add(perfil);	
+            perfis.get(tipoPerfil.getName()).add(perfil);	
     	}
     	else if (!tipoPerfil.isInstance(perfil)){
     		throw new ExcecaoDeCadastro("evento.usuario.possui_perfil");
@@ -167,7 +167,7 @@ public class Evento {
    
 	public Collection<PerfilDeParticipante> obterParticipantes(){
     	Class<PerfilDeParticipante> tipoPerfil = PerfilDeParticipante.class;
-    	Collection<Perfil> perfisDoTipoPerfil = perfis.get(tipoPerfil);
+    	Collection<Perfil> perfisDoTipoPerfil = perfis.get(tipoPerfil.getName());
     	Collection<PerfilDeParticipante> perfisDeParticipante = new ArrayList<PerfilDeParticipante>();
     	
     	for (Perfil perfil : perfisDoTipoPerfil) {
@@ -179,7 +179,7 @@ public class Evento {
 	
 	public Collection<PerfilDeExaminador> obterExaminadores(){
     	Class<PerfilDeExaminador> tipoPerfil = PerfilDeExaminador.class;
-    	Collection<Perfil> perfisDoTipoPerfil = perfis.get(tipoPerfil);
+    	Collection<Perfil> perfisDoTipoPerfil = perfis.get(tipoPerfil.getName());
     	Collection<PerfilDeExaminador> perfisDeExaminador = new ArrayList<PerfilDeExaminador>();
     	
     	for (Perfil perfil : perfisDoTipoPerfil) {
@@ -191,7 +191,7 @@ public class Evento {
 	
 	public Collection<PerfilDeChair> obterChairs(){
     	Class<PerfilDeChair> tipoPerfil = PerfilDeChair.class;
-    	Collection<Perfil> perfisDoTipoPerfil = perfis.get(tipoPerfil);
+    	Collection<Perfil> perfisDoTipoPerfil = perfis.get(tipoPerfil.getName());
     	Collection<PerfilDeChair> perfisDeChair = new ArrayList<PerfilDeChair>();
     	
     	for (Perfil perfil : perfisDoTipoPerfil) {

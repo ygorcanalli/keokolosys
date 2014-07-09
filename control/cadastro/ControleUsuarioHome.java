@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.TreeMap;
 
+import util.Sessao;
 import valueobject.EventoVO;
 import valueobject.InstituicaoVO;
 import valueobject.UsuarioVO;
@@ -59,7 +60,7 @@ public class ControleUsuarioHome {
 	
 	public void realizarInscricaoEmEvento(EventoVO eventoVO) {
 		
-		Usuario usuario = ControladorDeCadastro.obterTodosUsuarios().iterator().next();
+		Usuario usuario = Sessao.getUsuarioLogado();
 		Evento evento = mapaDeEventosDeferidos.get(eventoVO.getNome());
 		try {
 			ControladorDeParticipacao.realizarInscricaoEmEvento(evento, usuario);
