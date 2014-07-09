@@ -1,7 +1,7 @@
 package cadastro;
 
-import java.sql.Date;
 import java.util.Collection;
+import java.util.Date;
 
 import util.AbstractGUI;
 
@@ -18,5 +18,6 @@ public interface AbstractGUICadastrarEvento extends AbstractGUI {
 	public Date obterDataDeFimDoevento();
 	public Date obterDataMaximaParaSubmissaoDeTrabalho();
 	public Date obterDataMaximaParaAceitacaoDeTrabalho();
+	public String obterInstituicao();
 	
 }

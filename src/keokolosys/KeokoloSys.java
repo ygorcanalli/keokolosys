@@ -2,6 +2,7 @@ package keokolosys;
 
 import java.util.Date;
 
+import util.Sessao;
 import cadastro.ControleCadastrarEvento;
 import cadastro.ControleUsuarioHome;
 import catalago.CatalagoDeEventos;
@@ -22,7 +23,7 @@ public class KeokoloSys {
 		Usuario u;
 		Evento evento;
 		
-		/*
+		
 		
 		try {
 			ControladorDeCadastro.criarInstituicao("Rural", "UFRRJ", "NI");
@@ -30,20 +31,20 @@ public class KeokoloSys {
 			ControladorDeCadastro.criarInstituicao("Poderosa", "COPPE", "Fundão");
 			
 			i = ControladorDeCadastro.obterTodasInstituicoes().iterator().next();
-			ControladorDeCadastro.criarUsuario("ygor.canalli@gmail.com", "rogy", "Ygor", "Canalli", i);
-			u = ControladorDeCadastro.obterTodosUsuarios().iterator().next();
+			Usuario user = ControladorDeCadastro.criarUsuario("ygor.canalli@gmail.com", "rogy", "Ygor", "Canalli", i);
+			Sessao.iniciarSessao(user);
 			
-			c = new ControleCadastrarEvento(u);
+			c = new ControleCadastrarEvento(Sessao.getUsuarioLogado());
 			c.inicializarGUI();
 			
 		} catch (ExcecaoDeCadastro e) {
 
 			e.printStackTrace();
 		}
-		*/
+		
 		
 
-		try {
+		/*try {
 			 i = ControladorDeCadastro.criarInstituicao("Rural", "UFRRJ", "Rua S/N");
 			u = ControladorDeCadastro.criarUsuario("Hugo", "Rebelo", "email", "senha", i);
 			
@@ -57,7 +58,7 @@ public class KeokoloSys {
 		}
 		
 		ControleUsuarioHome controleUsuarioHome = new ControleUsuarioHome();
-		controleUsuarioHome.inicializarGUI();
+		controleUsuarioHome.inicializarGUI();*/
 		
 	}
 

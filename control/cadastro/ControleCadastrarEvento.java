@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
+import catalago.CatalagoDeInstituicoes;
 import controladorGRASP.ControladorDeCadastro;
 import dominio.Instituicao;
 import dominio.Usuario;
@@ -34,7 +35,7 @@ public class ControleCadastrarEvento {
 		Collection<String> instituicoesStr = new ArrayList<String>();
 		
 		for (Instituicao instituicao : instituicoes) {
-			instituicoesStr.add(instituicao.getSigla() + " - " + instituicao.getNome());
+			instituicoesStr.add(instituicao.getSigla());
 		}
 		
 		return instituicoesStr;
@@ -46,13 +47,25 @@ public class ControleCadastrarEvento {
 		Date dataDeFimDoEvento = viewCadastroDeEvento.obterDataDeFimDoevento();
 		Date dataMaximaParaSubmissaoDeTrabalho = viewCadastroDeEvento.obterDataMaximaParaSubmissaoDeTrabalho();
 		Date dataMaximaParaAceitacaoDeTrabalho = viewCadastroDeEvento.obterDataMaximaParaAceitacaoDeTrabalho();
+		String siglaInstituicao = viewCadastroDeEvento.obterInstituicao();
 		
-		try{
-			ControladorDeCadastro.criarEvento(nomeDoEvento, instituicao, this.usuarioAutenticado, dataMaximaParaSubmissaoDeTrabalho, dataMaximaParaAceitacaoDeTrabalho, dataDeInicioDoEvento, dataDeFimDoEvento);
-		}
-		catch (ExcecaoDeCadastro ec){
-			viewCadastroDeEvento.exibirMensagemDeErro("", "");
-		}
+		Instituicao instituicao;
+		
+		try {
+			instituicao = CatalagoDeInstituicoes.obterInstancia().obterInstituicaoPorSigla(siglaInstituicao);
+			
+			try{
+				ControladorDeCadastro.criarEvento(nomeDoEvento, instituicao, this.usuarioAutenticado, dataMaximaParaSubmissaoDeTrabalho, dataMaximaParaAceitacaoDeTrabalho, dataDeInicioDoEvento, dataDeFimDoEvento);
+				viewCadastroDeEvento.exibirMensagemDeInformacao("Evento: '" + nomeDoEvento + "' cadastrado com sucesso!", "");
+			}
+			catch (ExcecaoDeCadastro ec){
+				viewCadastroDeEvento.exibirMensagemDeErro(ec.getMessage(), "");
+			}
+
+			
+		} catch (ExcecaoDeCadastro ec) {
+			viewCadastroDeEvento.exibirMensagemDeErro(ec.getMessage(), "");
+		} 		
 	}
 	
 	public void incluirNovaInstituicao(){

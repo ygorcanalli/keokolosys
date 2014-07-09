@@ -11,8 +11,8 @@ import javax.swing.JTextField;
 import javax.swing.UIManager;
 
 import java.awt.Color;
-import java.sql.Date;
 import java.util.Collection;
+import java.util.Date;
 
 import javax.swing.JLabel;
 import javax.swing.LayoutStyle.ComponentPlacement;
@@ -65,7 +65,6 @@ public class SwingCadastrarEvento extends JFrame implements AbstractGUICadastrar
 	@Override
 	public void inicializar() {
 		tonarVisivel();
-		inicializarFrame();
 	}
 		
 	@Override
@@ -121,13 +120,18 @@ public class SwingCadastrarEvento extends JFrame implements AbstractGUICadastrar
 		return this.dataMaximaParaAceitacaoDeTrabalho;
 	}
 	
+	@Override
+	public String obterInstituicao(){
+		return (String) this.comboBoxInstituicao.getSelectedItem();
+	}
+	
 	
 	private void capturarDados(){
 		this.nomeDoEvento = textFieldNomeDoEvento.getText();
-		this.dataDeInicioDoEvento = (Date) dateChooserDataDeInicioDoEvento.getDate();
-		this.dataDeFimDoEvento = (Date) dateChooserDataDeFimDoEvento.getDate();
-		this.dataMaximaParaSubmissaoDeTrabalho = (Date) dateChooserDataSubmissaoDeTrabalhos.getDate();
-		this.dataMaximaParaAceitacaoDeTrabalho = (Date) dateChooserDataAceitacaoDeTrabalhos.getDate();
+		this.dataDeInicioDoEvento = dateChooserDataDeInicioDoEvento.getDate();
+		this.dataDeFimDoEvento = dateChooserDataDeFimDoEvento.getDate();
+		this.dataMaximaParaSubmissaoDeTrabalho = dateChooserDataSubmissaoDeTrabalhos.getDate();
+		this.dataMaximaParaAceitacaoDeTrabalho = dateChooserDataAceitacaoDeTrabalhos.getDate();
 	}
 	
 	private void incluirNovaInstituicao(){
@@ -156,7 +160,7 @@ public class SwingCadastrarEvento extends JFrame implements AbstractGUICadastrar
 	
 	public SwingCadastrarEvento(ControleCadastrarEvento controleCadastrarEvento){
 		this.controleCadastrarEvento = controleCadastrarEvento;
-		//inicializarFrame();
+		inicializarFrame();
 	}
 
 	

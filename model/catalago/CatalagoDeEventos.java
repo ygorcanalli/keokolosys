@@ -113,27 +113,27 @@ public class CatalagoDeEventos {
     
     private Evento buscarEventoPorNome(String nome){
     	for (Evento evento : eventosAguardandoAprovacao) {
-    		if(evento.getNome() == nome)
+    		if(evento.getNome().compareTo(nome) == 0)
     			return evento;
     	}
     	
     	for (Evento evento : eventosDeferios) {
-    		if(evento.getNome() == nome)
+    		if(evento.getNome().compareTo(nome) == 0)
     			return evento;
     	}
     	
     	for (Evento evento : eventosIndeferidos) {
-    		if(evento.getNome() == nome)
+    		if(evento.getNome().compareTo(nome) == 0)
     			return evento;
     	}
     	
     	for (Evento evento : eventosFinalizados) {
-    		if(evento.getNome() == nome)
+    		if(evento.getNome().compareTo(nome) == 0)
     			return evento;
     	}
     	
     	for (Evento evento : eventosCancelados) {
-    		if(evento.getNome() == nome)
+    		if(evento.getNome().compareTo(nome) == 0)
     			return evento;
     	}
     	

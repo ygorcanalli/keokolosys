@@ -62,12 +62,14 @@ public class ControleUsuarioHome {
 		
 		Usuario usuario = Sessao.getUsuarioLogado();
 		Evento evento = mapaDeEventosDeferidos.get(eventoVO.getNome());
-		try {
-			ControladorDeParticipacao.realizarInscricaoEmEvento(evento, usuario);
-		} catch (ExcecaoDeCadastro e) {
-			// TODO Auto-generated catch block
-			viewUsuarioHome.exibirMensagemDeErro(e.getMessage(), "Erro!");
-		}
+			
+			try {
+				ControladorDeParticipacao.realizarInscricaoEmEvento(evento, usuario);
+			} catch (ExcecaoDeCadastro e) {
+				// TODO Auto-generated catch block
+				viewUsuarioHome.exibirMensagemDeErro(e.getMessage(), "Erro!");
+			}
+
 	}
 
 }
