@@ -8,7 +8,7 @@ import java.util.Set;
 import excecao.ExcecaoDeAvaliacao;
 
 
-public class BancaExaminadora {
+public class BancaExaminadora{
     private Set<PerfilDeExaminador> examinadores;
     private Set<Trabalho> trabalhosAssociados;
     private static final Set<Integer> NUMEROS_DE_EXAMINADORES_PERMITIDO = new HashSet<Integer>(1,3);
@@ -64,6 +64,15 @@ public class BancaExaminadora {
     	return this.examinadores.contains(examinador);
     }
     
+    public Boolean formadaPelosExaminadores(Collection<PerfilDeExaminador> examinadores){
+    	for (PerfilDeExaminador examinador : examinadores) {
+			if(!possuiOExaminador(examinador))
+				return false;
+    	}
+    	
+		return true;
+    }
+    
     public Integer obterNumeroDeExaminadores() {
     	return examinadores.size();
     }
@@ -78,5 +87,21 @@ public class BancaExaminadora {
     	if (examinadorNaoPertencente)
     		throw new ExcecaoDeAvaliacao("banca_examinadora.examinador.nao_pertence");
     }
-   
+
+	/*@Override
+	public int compareTo(BancaExaminadora bancaExaminadora) {
+		
+		if(this == bancaExaminadora)
+			return 0;
+		
+		if(bancaExaminadora.obterNumeroDeExaminadores() != this.obterNumeroDeExaminadores())
+			return 1;
+		
+		for (PerfilDeExaminador examinador : examinadores) {
+			if(!bancaExaminadora.possuiOExaminador(examinador))
+				return 1;
+		}
+		
+		return 0;
+	}*/  
 }

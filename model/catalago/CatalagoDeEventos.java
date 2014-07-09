@@ -35,12 +35,26 @@ public class CatalagoDeEventos {
         this.eventosFinalizados = new ArrayList<Evento>();
     }
     
+<<<<<<< HEAD
     public Evento criarEvento(String nome, Instituicao instituicao, Usuario usuarioResponsavel, Date dataMaximaParaSubmissaoDeTrabalho, Date dataMaximaParaAceitacaoDeTrabalho, Date dataDeInicio, Date dataDeFim) throws  ExcecaoDeCadastro{
+=======
+    public void criarEvento(String nome, Instituicao instituicao, Usuario usuarioResponsavel, Date dataMaximaParaSubmissaoDeTrabalho, Date dataMaximaParaAceitacaoDeTrabalho, Date dataDeInicio, Date dataDeFim) throws  ExcecaoDeCadastro{
+    	validarNomeDoEventoComoUnico(nome);
+>>>>>>> master
         Evento evento = Evento.criarEvento(nome, instituicao, usuarioResponsavel, dataMaximaParaSubmissaoDeTrabalho, dataMaximaParaAceitacaoDeTrabalho, dataDeInicio, dataDeFim);
         eventosAguardandoAprovacao.add(evento);
         return evento;
     }
-
+    
+    public Evento obterEventoPorNome(String nome) throws ExcecaoDeCadastro{
+    	Evento evento = buscarEventoPorNome(nome);
+    	
+    	if(evento == null)    	    	
+    		throw new ExcecaoDeCadastro("catalago_de_eventos.evento.inexistente");
+    	
+    	return evento;
+    }
+    
     public Collection<Evento> obterEventosDeferidos() {
         return this.eventosDeferios;
     }
@@ -92,5 +106,41 @@ public class CatalagoDeEventos {
         this.eventosDeferios.remove(evento);
         this.eventosFinalizados.add(evento);
     }
+    
+    private void validarNomeDoEventoComoUnico(String nome) throws ExcecaoDeCadastro{
+    	Evento evento = buscarEventoPorNome(nome);
+    	
+    	if(evento != null)
+    		throw new ExcecaoDeCadastro("catalago_de_eventos.nome_evento.existente");
+    }
+    
+    private Evento buscarEventoPorNome(String nome){
+    	for (Evento evento : eventosAguardandoAprovacao) {
+    		if(evento.getNome() == nome)
+    			return evento;
+    	}
+    	
+    	for (Evento evento : eventosDeferios) {
+    		if(evento.getNome() == nome)
+    			return evento;
+    	}
+    	
+    	for (Evento evento : eventosIndeferidos) {
+    		if(evento.getNome() == nome)
+    			return evento;
+    	}
+    	
+    	for (Evento evento : eventosFinalizados) {
+    		if(evento.getNome() == nome)
+    			return evento;
+    	}
+    	
+    	for (Evento evento : eventosCancelados) {
+    		if(evento.getNome() == nome)
+    			return evento;
+    	}
+    	
+    	return null;
+    }    
 	
 }

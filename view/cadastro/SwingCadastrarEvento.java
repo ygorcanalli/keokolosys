@@ -59,7 +59,6 @@ public class SwingCadastrarEvento extends JFrame implements AbstractGUICadastrar
 	private Date dataMaximaParaSubmissaoDeTrabalho;
 	private Date dataMaximaParaAceitacaoDeTrabalho ;
 	
-	
 	private ControleCadastrarEvento controleCadastrarEvento;
 	
 
@@ -98,7 +97,7 @@ public class SwingCadastrarEvento extends JFrame implements AbstractGUICadastrar
 	}
 
 	@Override
-	public String obterNonmeDoEvento(){
+	public String obterNomeDoEvento(){
 		return this.nomeDoEvento;
 	}
 	
