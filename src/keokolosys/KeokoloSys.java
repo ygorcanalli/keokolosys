@@ -51,6 +51,8 @@ public class KeokoloSys {
 				evento = ControladorDeCadastro.criarEvento("Evento " + count , i, u,  new Date(2014, 2, 1), new Date(2014, 3, 1), new Date(2014, 4, 1), new Date(2014, 5, 1));
 				ControladorAdministrativo.deferirEvento(evento);
 			}
+			
+			Sessao.iniciarSessao(u);
 		} catch (ExcecaoDeCadastro e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

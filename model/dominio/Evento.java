@@ -108,6 +108,7 @@ public class Evento {
 
     private void criarPerfil(Usuario usuario, Class<? extends Perfil> tipoPerfil) throws ExcecaoDeCadastro{
     	Perfil perfil = usuario.obterPerfil(this);
+    	Collection<Perfil> perfisDoTipo = null;
     	
     	if(perfil == null)
     	{
@@ -120,8 +121,15 @@ public class Evento {
 				e.printStackTrace();
 			}
             
-            usuario.adicionarPerfil(perfil);
-            perfis.get(tipoPerfil.getName()).add(perfil);	
+            usuario.adicionarPerfil(perfil); 
+            
+            perfisDoTipo = perfis.get(tipoPerfil.getName());
+            if (perfisDoTipo == null) {
+            	perfisDoTipo =  new ArrayList<Perfil>();
+            	perfis.put(tipoPerfil.getName(), perfisDoTipo);
+            }
+    	
+    		perfisDoTipo.add(perfil);
     	}
     	else if (!tipoPerfil.isInstance(perfil)){
     		throw new ExcecaoDeCadastro("evento.usuario.possui_perfil");

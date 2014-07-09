@@ -43,5 +43,9 @@ public final class ControladorDeParticipacao {
     
     public static Collection<PerfilDeChair> obterChairsDoEvento(Evento evento){
     	return evento.obterChairs();
-    }    
+    }
+    
+    public static Boolean possuiInscricao(Usuario usuario, Evento evento) {
+    	return (usuario.obterPerfilDe(evento, PerfilDeParticipante.class) != null);
+    }
 }

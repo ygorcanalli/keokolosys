@@ -17,12 +17,12 @@ import excecao.ExcecaoDeCadastro;
 
 public class ControleUsuarioHome {
 	
-	private Map<String, Evento> mapaDeEventosDeferidos;
+	private Map<String, Evento> mapaDeEventosDeferidosNaoInscritos;
 	private AbstractGUIUsuarioHome viewUsuarioHome;
 	
 	public ControleUsuarioHome() {
 		
-		mapaDeEventosDeferidos = new TreeMap<String, Evento>();
+		
 	}
 	
 	public void inicializarGUI() {
@@ -30,46 +30,50 @@ public class ControleUsuarioHome {
 		viewUsuarioHome.inicializar();
 	}
 	
-	public Collection<EventoVO> obterEventosDisponiveis() {
+	public Collection<EventoVO> obterEventosDeferidosNaoInscritos() {
 		
 		EventoVO eventoVO = null;
 		UsuarioVO usuarioVO = null;
 		InstituicaoVO instituicaoVO = null;
 		
-		Collection<Evento> eventos = ControladorDeCadastro.obterTodosEventosDeferidos();
-		Collection<EventoVO> eventosDeferidos = new ArrayList<EventoVO>();
+		mapaDeEventosDeferidosNaoInscritos = new TreeMap<String, Evento>();
 		
-		for (Evento evento: eventos) {
-			eventoVO = new EventoVO();
-			eventoVO.setNome(evento.getNome());
-			
-			usuarioVO = new UsuarioVO();
-			usuarioVO.setEmail(evento.getUsuarioResponsavel().getEmail());
-			eventoVO.setUsuarioResponsavel(usuarioVO);
-			
-			instituicaoVO = new InstituicaoVO();
-			instituicaoVO.setSigla(evento.getInstituicao().getSigla());
-			eventoVO.setInstituicao(instituicaoVO);
-			
-			mapaDeEventosDeferidos.put(eventoVO.getNome(), evento);
-			eventosDeferidos.add(eventoVO);
+		Collection<Evento> eventosDeferidos = ControladorDeCadastro.obterTodosEventosDeferidos();
+		Collection<EventoVO> eventosDeferidosNaoInscritos = new ArrayList<EventoVO>();
+		
+		for (Evento evento: eventosDeferidos) {
+			if (!ControladorDeParticipacao.possuiInscricao(Sessao.getUsuarioLogado(), evento)) {
+				eventoVO = new EventoVO();
+				eventoVO.setNome(evento.getNome());
+				
+				usuarioVO = new UsuarioVO();
+				usuarioVO.setEmail(evento.getUsuarioResponsavel().getEmail());
+				eventoVO.setUsuarioResponsavel(usuarioVO);
+				
+				instituicaoVO = new InstituicaoVO();
+				instituicaoVO.setSigla(evento.getInstituicao().getSigla());
+				eventoVO.setInstituicao(instituicaoVO);
+				
+				mapaDeEventosDeferidosNaoInscritos.put(eventoVO.getNome(), evento);
+				eventosDeferidosNaoInscritos.add(eventoVO);
+			}
 		}
 		
-		return eventosDeferidos;
+		return eventosDeferidosNaoInscritos;
 	}
 	
 	public void realizarInscricaoEmEvento(EventoVO eventoVO) {
 		
 		Usuario usuario = Sessao.getUsuarioLogado();
-		Evento evento = mapaDeEventosDeferidos.get(eventoVO.getNome());
+		Evento evento = mapaDeEventosDeferidosNaoInscritos.get(eventoVO.getNome());
 			
 			try {
 				ControladorDeParticipacao.realizarInscricaoEmEvento(evento, usuario);
+				mapaDeEventosDeferidosNaoInscritos.remove(evento.getNome());
 			} catch (ExcecaoDeCadastro e) {
 				// TODO Auto-generated catch block
 				viewUsuarioHome.exibirMensagemDeErro(e.getMessage(), "Erro!");
 			}
 
 	}
-
 }

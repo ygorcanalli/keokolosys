@@ -253,199 +253,199 @@
       <operations public="false" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </interface>  
-  <association id="29">    
-    <bendpoint x="948" y="361"/>    
-    <end type="SOURCE" refId="10" navigable="false">      
-      <attribute id="30" name="examinadores"/>      
-      <multiplicity id="31" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="14" navigable="true"/>    
-    <display labels="false" multiplicity="true"/>  
-  </association>  
-  <association id="32">    
-    <end type="SOURCE" refId="20" navigable="false">      
-      <attribute id="33" name="perfis"/>      
-      <multiplicity id="34" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="11" navigable="true"/>    
-    <display labels="false" multiplicity="true"/>  
-  </association>  
-  <association id="35">    
-    <end type="SOURCE" refId="18" navigable="false">      
-      <attribute id="36" name="usuarioResponsavel"/>      
-      <multiplicity id="37" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="20" navigable="true"/>    
-    <display labels="false" multiplicity="true"/>  
-  </association>  
-  <association id="38">    
-    <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="39" name="instancia"/>      
-      <multiplicity id="40" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="2" navigable="true"/>    
-    <display labels="false" multiplicity="true"/>  
-  </association>  
-  <association id="41">    
-    <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="42" name="eventosIndeferidos"/>      
-      <multiplicity id="43" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="18" navigable="true"/>    
-    <display labels="false" multiplicity="true"/>  
-  </association>  
-  <association id="44">    
-    <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="45" name="instancia"/>      
-      <multiplicity id="46" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="1" navigable="true"/>    
-    <display labels="false" multiplicity="true"/>  
-  </association>  
-  <association id="47">    
-    <end type="SOURCE" refId="18" navigable="false">      
-      <attribute id="48" name="bancasExaminadoras"/>      
-      <multiplicity id="49" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="10" navigable="true"/>    
-    <display labels="false" multiplicity="true"/>  
-  </association>  
-  <association id="50">    
-    <end type="SOURCE" refId="5" navigable="false">      
-      <attribute id="51" name="instancia"/>      
-      <multiplicity id="52" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="5" navigable="true"/>    
-    <display labels="false" multiplicity="true"/>  
-  </association>  
-  <association id="53">    
+  <generalization id="29">    
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="11"/>  
+  </generalization>  
+  <realization id="30">    
+    <end type="SOURCE" refId="23"/>    
+    <end type="TARGET" refId="28"/>  
+  </realization>  
+  <association id="31">    
     <bendpoint x="1282" y="209"/>    
     <bendpoint x="1282" y="285"/>    
     <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="54" name="instituicoes"/>      
-      <multiplicity id="55" minimum="0" maximum="2147483647"/>    
+      <attribute id="32" name="instituicoes"/>      
+      <multiplicity id="33" minimum="0" maximum="2147483647"/>    
     </end>    
     <end type="TARGET" refId="15" navigable="true"/>    
     <display labels="false" multiplicity="true"/>  
   </association>  
+  <association id="34">    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="35" name="instancia"/>      
+      <multiplicity id="36" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <generalization id="37">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="13"/>  
+  </generalization>  
+  <association id="38">    
+    <bendpoint x="1261" y="285"/>    
+    <end type="SOURCE" refId="18" navigable="false">      
+      <attribute id="39" name="instituicao"/>      
+      <multiplicity id="40" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="15" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <association id="41">    
+    <end type="SOURCE" refId="20" navigable="false">      
+      <attribute id="42" name="instituicao"/>      
+      <multiplicity id="43" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="15" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <association id="44">    
+    <end type="SOURCE" refId="18" navigable="false">      
+      <attribute id="45" name="usuarioResponsavel"/>      
+      <multiplicity id="46" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="20" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <association id="47">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="48" name="catalagoDeAutenticaveis"/>      
+      <multiplicity id="49" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <association id="50">    
+    <bendpoint x="783" y="285"/>    
+    <end type="SOURCE" refId="11" navigable="false">      
+      <attribute id="51" name="evento"/>      
+      <multiplicity id="52" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="18" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <association id="53">    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="54" name="instancia"/>      
+      <multiplicity id="55" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
   <association id="56">    
-    <end type="SOURCE" refId="10" navigable="false">      
-      <attribute id="57" name="trabalhosAssociados"/>      
-      <multiplicity id="58" minimum="0" maximum="2147483647"/>    
+    <end type="SOURCE" refId="22" navigable="false">      
+      <attribute id="57" name="trabalho"/>      
+      <multiplicity id="58" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="21" navigable="true"/>    
     <display labels="false" multiplicity="true"/>  
   </association>  
   <association id="59">    
-    <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="60" name="catalagoDeAutenticaveis"/>      
-      <multiplicity id="61" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="5" navigable="true"/>    
-    <display labels="false" multiplicity="true"/>  
-  </association>  
-  <association id="62">    
-    <end type="SOURCE" refId="21" navigable="false">      
-      <attribute id="63" name="bancaExaminadoraResponsavel"/>      
-      <multiplicity id="64" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="10" navigable="true"/>    
-    <display labels="false" multiplicity="true"/>  
-  </association>  
-  <realization id="65">    
-    <end type="SOURCE" refId="26"/>    
-    <end type="TARGET" refId="28"/>  
-  </realization>  
-  <association id="66">    
-    <bendpoint x="783" y="285"/>    
-    <end type="SOURCE" refId="11" navigable="false">      
-      <attribute id="67" name="evento"/>      
-      <multiplicity id="68" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="18" navigable="true"/>    
-    <display labels="false" multiplicity="true"/>  
-  </association>  
-  <realization id="69">    
-    <end type="SOURCE" refId="25"/>    
-    <end type="TARGET" refId="28"/>  
-  </realization>  
-  <generalization id="70">    
-    <end type="SOURCE" refId="12"/>    
-    <end type="TARGET" refId="13"/>  
-  </generalization>  
-  <association id="71">    
-    <bendpoint x="1261" y="285"/>    
-    <end type="SOURCE" refId="18" navigable="false">      
-      <attribute id="72" name="instituicao"/>      
-      <multiplicity id="73" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="15" navigable="true"/>    
-    <display labels="false" multiplicity="true"/>  
-  </association>  
-  <association id="74">    
-    <end type="SOURCE" refId="11" navigable="false">      
-      <attribute id="75" name="usuario"/>      
-      <multiplicity id="76" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="20" navigable="true"/>    
-    <display labels="false" multiplicity="true"/>  
-  </association>  
-  <association id="77">    
-    <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="78" name="eventosCancelados"/>      
-      <multiplicity id="79" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="18" navigable="true"/>    
-    <display labels="false" multiplicity="true"/>  
-  </association>  
-  <association id="80">    
-    <end type="SOURCE" refId="5" navigable="false">      
-      <attribute id="81" name="autenticaveis"/>      
-      <multiplicity id="82" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="13" navigable="true"/>    
-    <display labels="false" multiplicity="true"/>  
-  </association>  
-  <association id="83">    
-    <end type="SOURCE" refId="22" navigable="false">      
-      <attribute id="84" name="trabalho"/>      
-      <multiplicity id="85" minimum="0" maximum="1"/>    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="60" name="trabalhos"/>      
+      <multiplicity id="61" minimum="0" maximum="2147483647"/>    
     </end>    
     <end type="TARGET" refId="21" navigable="true"/>    
     <display labels="false" multiplicity="true"/>  
   </association>  
-  <association id="86">    
+  <association id="62">    
     <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="87" name="catalagoDeEventos"/>      
-      <multiplicity id="88" minimum="0" maximum="1"/>    
+      <attribute id="63" name="catalagoDeInstituicoes"/>      
+      <multiplicity id="64" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <association id="65">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="66" name="catalagoDeEventos"/>      
+      <multiplicity id="67" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="4" navigable="true"/>    
     <display labels="false" multiplicity="true"/>  
   </association>  
-  <association id="89">    
-    <end type="SOURCE" refId="15" navigable="false">      
-      <attribute id="90" name="INSTITUICAO_NULA"/>      
-      <multiplicity id="91" minimum="0" maximum="1"/>    
+  <association id="68">    
+    <bendpoint x="948" y="361"/>    
+    <end type="SOURCE" refId="10" navigable="false">      
+      <attribute id="69" name="examinadores"/>      
+      <multiplicity id="70" minimum="0" maximum="2147483647"/>    
     </end>    
-    <end type="TARGET" refId="15" navigable="true"/>    
+    <end type="TARGET" refId="14" navigable="true"/>    
     <display labels="false" multiplicity="true"/>  
   </association>  
-  <association id="92">    
+  <association id="71">    
+    <end type="SOURCE" refId="22" navigable="false">      
+      <attribute id="72" name="resultado"/>      
+      <multiplicity id="73" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="17" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <association id="74">    
     <end type="SOURCE" refId="21" navigable="false">      
-      <attribute id="93" name="submissor"/>      
-      <multiplicity id="94" minimum="0" maximum="1"/>    
+      <attribute id="75" name="submissor"/>      
+      <multiplicity id="76" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="16" navigable="true"/>    
     <display labels="false" multiplicity="true"/>  
   </association>  
-  <realization id="95">    
-    <end type="SOURCE" refId="23"/>    
-    <end type="TARGET" refId="28"/>  
-  </realization>  
-  <realization id="96">    
+  <association id="77">    
+    <end type="SOURCE" refId="21" navigable="false">      
+      <attribute id="78" name="avaliacoes"/>      
+      <multiplicity id="79" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="22" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <association id="80">    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="81" name="eventosFinalizados"/>      
+      <multiplicity id="82" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="18" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <generalization id="83">    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="11"/>  
+  </generalization>  
+  <association id="84">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="85" name="instancia"/>      
+      <multiplicity id="86" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <association id="87">    
+    <end type="SOURCE" refId="15" navigable="false">      
+      <attribute id="88" name="INSTITUICAO_NULA"/>      
+      <multiplicity id="89" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="15" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <realization id="90">    
     <end type="SOURCE" refId="27"/>    
     <end type="TARGET" refId="28"/>  
   </realization>  
+  <association id="91">    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="92" name="eventosAguardandoAprovacao"/>      
+      <multiplicity id="93" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="18" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <association id="94">    
+    <end type="SOURCE" refId="20" navigable="false">      
+      <attribute id="95" name="perfis"/>      
+      <multiplicity id="96" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="11" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
   <association id="97">    
     <bendpoint x="680" y="483"/>    
     <end type="SOURCE" refId="22" navigable="false">      
@@ -456,111 +456,111 @@
     <display labels="false" multiplicity="true"/>  
   </association>  
   <association id="100">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="101" name="instancia"/>      
+      <multiplicity id="102" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <association id="103">    
     <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="101" name="eventosDeferios"/>      
-      <multiplicity id="102" minimum="0" maximum="2147483647"/>    
+      <attribute id="104" name="eventosIndeferidos"/>      
+      <multiplicity id="105" minimum="0" maximum="2147483647"/>    
     </end>    
     <end type="TARGET" refId="18" navigable="true"/>    
     <display labels="false" multiplicity="true"/>  
   </association>  
-  <generalization id="103">    
-    <end type="SOURCE" refId="19"/>    
-    <end type="TARGET" refId="11"/>  
+  <realization id="106">    
+    <end type="SOURCE" refId="25"/>    
+    <end type="TARGET" refId="28"/>  
+  </realization>  
+  <association id="107">    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="108" name="eventosCancelados"/>      
+      <multiplicity id="109" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="18" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <realization id="110">    
+    <end type="SOURCE" refId="26"/>    
+    <end type="TARGET" refId="28"/>  
+  </realization>  
+  <association id="111">    
+    <end type="SOURCE" refId="11" navigable="false">      
+      <attribute id="112" name="usuario"/>      
+      <multiplicity id="113" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="20" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <generalization id="114">    
+    <end type="SOURCE" refId="20"/>    
+    <end type="TARGET" refId="13"/>  
   </generalization>  
-  <association id="104">    
-    <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="105" name="trabalhos"/>      
-      <multiplicity id="106" minimum="0" maximum="2147483647"/>    
+  <association id="115">    
+    <end type="SOURCE" refId="21" navigable="false">      
+      <attribute id="116" name="bancaExaminadoraResponsavel"/>      
+      <multiplicity id="117" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="10" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <association id="118">    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="119" name="eventosDeferios"/>      
+      <multiplicity id="120" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="18" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <association id="121">    
+    <end type="SOURCE" refId="10" navigable="false">      
+      <attribute id="122" name="trabalhosAssociados"/>      
+      <multiplicity id="123" minimum="0" maximum="2147483647"/>    
     </end>    
     <end type="TARGET" refId="21" navigable="true"/>    
     <display labels="false" multiplicity="true"/>  
   </association>  
-  <association id="107">    
+  <association id="124">    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="125" name="autenticaveis"/>      
+      <multiplicity id="126" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="13" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <association id="127">    
     <end type="SOURCE" refId="18" navigable="false">      
-      <attribute id="108" name="catalogoDeTrabalhos"/>      
-      <multiplicity id="109" minimum="0" maximum="1"/>    
+      <attribute id="128" name="catalogoDeTrabalhos"/>      
+      <multiplicity id="129" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="3" navigable="true"/>    
     <display labels="false" multiplicity="true"/>  
   </association>  
-  <association id="110">    
-    <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="111" name="eventosFinalizados"/>      
-      <multiplicity id="112" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="18" navigable="true"/>    
-    <display labels="false" multiplicity="true"/>  
-  </association>  
-  <association id="113">    
+  <association id="130">    
     <end type="SOURCE" refId="18" navigable="false">      
-      <attribute id="114" name="estado"/>      
-      <multiplicity id="115" minimum="0" maximum="1"/>    
+      <attribute id="131" name="bancasExaminadoras"/>      
+      <multiplicity id="132" minimum="0" maximum="2147483647"/>    
     </end>    
-    <end type="TARGET" refId="28" navigable="true"/>    
+    <end type="TARGET" refId="10" navigable="true"/>    
     <display labels="false" multiplicity="true"/>  
   </association>  
-  <association id="116">    
-    <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="117" name="eventosAguardandoAprovacao"/>      
-      <multiplicity id="118" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="18" navigable="true"/>    
-    <display labels="false" multiplicity="true"/>  
-  </association>  
-  <generalization id="119">    
-    <end type="SOURCE" refId="14"/>    
-    <end type="TARGET" refId="11"/>  
-  </generalization>  
-  <association id="120">    
-    <end type="SOURCE" refId="21" navigable="false">      
-      <attribute id="121" name="avaliacoes"/>      
-      <multiplicity id="122" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="22" navigable="true"/>    
-    <display labels="false" multiplicity="true"/>  
-  </association>  
-  <association id="123">    
-    <end type="SOURCE" refId="20" navigable="false">      
-      <attribute id="124" name="instituicao"/>      
-      <multiplicity id="125" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="15" navigable="true"/>    
-    <display labels="false" multiplicity="true"/>  
-  </association>  
-  <association id="126">    
-    <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="127" name="catalagoDeInstituicoes"/>      
-      <multiplicity id="128" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="1" navigable="true"/>    
-    <display labels="false" multiplicity="true"/>  
-  </association>  
-  <generalization id="129">    
-    <end type="SOURCE" refId="16"/>    
-    <end type="TARGET" refId="11"/>  
-  </generalization>  
-  <generalization id="130">    
-    <end type="SOURCE" refId="20"/>    
-    <end type="TARGET" refId="13"/>  
-  </generalization>  
-  <association id="131">    
-    <end type="SOURCE" refId="22" navigable="false">      
-      <attribute id="132" name="resultado"/>      
-      <multiplicity id="133" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="17" navigable="true"/>    
-    <display labels="false" multiplicity="true"/>  
-  </association>  
-  <realization id="134">    
+  <realization id="133">    
     <end type="SOURCE" refId="24"/>    
     <end type="TARGET" refId="28"/>  
   </realization>  
+  <generalization id="134">    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="11"/>  
+  </generalization>  
   <association id="135">    
-    <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="136" name="instancia"/>      
+    <end type="SOURCE" refId="18" navigable="false">      
+      <attribute id="136" name="estado"/>      
       <multiplicity id="137" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="4" navigable="true"/>    
+    <end type="TARGET" refId="28" navigable="true"/>    
     <display labels="false" multiplicity="true"/>  
   </association>  
   <classifier-display autosize="true" stereotype="true" package="false" initial-value="false" signature="false" 

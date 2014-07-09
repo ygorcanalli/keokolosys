@@ -51,7 +51,7 @@ public class Usuario extends Autenticavel {
         return perfis.get(evento);
     }
 
-    private Perfil obterPerfilDe(Evento evento, Class<? extends Perfil> tipoPerfil){
+    public Perfil obterPerfilDe(Evento evento, Class<? extends Perfil> tipoPerfil){
         Perfil perfil = obterPerfil(evento);
 
         if(tipoPerfil.isInstance(perfil))

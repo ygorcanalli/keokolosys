@@ -12,6 +12,10 @@ import javax.swing.JTable;
 import java.awt.Dimension;
 
 import javax.swing.JScrollPane;
+import javax.swing.event.TableModelListener;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.text.TabExpander;
 
 import valueobject.EventoVO;
 import cadastro.ControleUsuarioHome;
@@ -22,6 +26,7 @@ import java.awt.event.MouseEvent;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 
 
 public class SwingUsuarioHome extends JFrame implements AbstractGUIUsuarioHome {
@@ -32,7 +37,8 @@ public class SwingUsuarioHome extends JFrame implements AbstractGUIUsuarioHome {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JTable table;
+	private JTable tableEventosDisponiveis;
+	
 	public SwingUsuarioHome(ControleUsuarioHome controleUsuarioHome) {
 	
 		this.controleUsuarioHome = controleUsuarioHome;
@@ -50,7 +56,7 @@ public class SwingUsuarioHome extends JFrame implements AbstractGUIUsuarioHome {
 		tabbedPane.addTab("Eventos Disponiveis", null, paneEventosDisponiveis, null);
 		paneEventosDisponiveis.setLayout(new BorderLayout(0, 0));
 		
-		JTable tableEventosDisponiveis = new JTable(dataTabelaEventosDisponiveis(), columnsTabelaEventosDisponiveis());
+		tableEventosDisponiveis = new JTable(dataTabelaEventosDisponiveis(), columnsTabelaEventosDisponiveis());
 		tableEventosDisponiveis.addMouseListener(mouseAdapterTabelaEventosDisponiveis());
 		tableEventosDisponiveis.repaint();
 		
@@ -80,10 +86,10 @@ public class SwingUsuarioHome extends JFrame implements AbstractGUIUsuarioHome {
 			      JTable target = (JTable) e.getSource();
 			      int row = target.getSelectedRow();
 			      int column = target.getSelectedColumn();
-			      System.out.println(row + ", " + column);
 			      
 			      if (column == 1) {
 			    	  controleUsuarioHome.realizarInscricaoEmEvento(eventos[row]);
+			    	  tableEventosDisponiveis.setModel(new DefaultTableModel(dataTabelaEventosDisponiveis(), columnsTabelaEventosDisponiveis()));
 			      }
 			    
 			  }
@@ -97,12 +103,13 @@ public class SwingUsuarioHome extends JFrame implements AbstractGUIUsuarioHome {
 	
 	private Object[][] dataTabelaEventosDisponiveis() {
 		
-		Collection<EventoVO> eventosDisponiveis = controleUsuarioHome.obterEventosDisponiveis();
+		Collection<EventoVO> eventosDisponiveis = controleUsuarioHome.obterEventosDeferidosNaoInscritos();
+		Iterator<EventoVO> iteradorEventosDisponiveis = eventosDisponiveis.iterator();
 		
 		eventos = new EventoVO[eventosDisponiveis.size()];
 		Object[][] data = new Object[eventos.length][2];
 		for (int i = 0; i < eventos.length; i++) {
-			eventos[i] = eventosDisponiveis.iterator().next();
+			eventos[i] = iteradorEventosDisponiveis.next();
 			data[i][0] = eventos[i].getNome();
 			data[i][1] = "Realizar Inscrição";
 		}
