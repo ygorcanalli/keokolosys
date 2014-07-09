@@ -1,6 +1,7 @@
 package cadastro;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
 
 import java.awt.BorderLayout;
@@ -116,28 +117,23 @@ public class SwingUsuarioHome extends JFrame implements AbstractGUIUsuarioHome {
 	}
 
 	@Override
-	public void exibirMensagemDeErro(String mensagem, String titulo) {
-		// TODO Auto-generated method stub
-		
+	public void exibirMensagemDeErro(String mensagem, String titulo){
+		JOptionPane.showMessageDialog(this, mensagem, titulo, JOptionPane.ERROR_MESSAGE);
 	}
-
+	
 	@Override
-	public void exibirMensagemDeAviso(String mensagem, String titulo) {
-		// TODO Auto-generated method stub
-		
+	public void exibirMensagemDeAviso(String mensagem, String titulo){
+		JOptionPane.showMessageDialog(this, mensagem, titulo, JOptionPane.WARNING_MESSAGE);
 	}
-
+	
 	@Override
-	public void exibirMensagemDeInformacao(String mensagem, String titulo) {
-		// TODO Auto-generated method stub
-		
+	public void exibirMensagemDeInformacao(String mensagem, String titulo){
+		JOptionPane.showMessageDialog(this, mensagem, titulo, JOptionPane.INFORMATION_MESSAGE);
 	}
-
+	
 	@Override
-	public Integer exibirMensagemDeConfirmacao(String mensagem, String titulo,
-			Object[] opcoes, Object opcaoPadrao) {
-		// TODO Auto-generated method stub
-		return null;
+	public Integer exibirMensagemDeConfirmacao(String mensagem, String titulo, Object[] opcoes, Object opcaoPadrao){
+		return JOptionPane.showOptionDialog(this, mensagem, titulo, JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcoes, opcaoPadrao);
 	}
 
 }
