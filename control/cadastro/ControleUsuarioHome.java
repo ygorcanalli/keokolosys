@@ -1,20 +1,27 @@
 package cadastro;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 import java.util.TreeMap;
 
+import valueobject.EventoVO;
+import valueobject.InstituicaoVO;
+import valueobject.UsuarioVO;
 import controladorGRASP.ControladorDeCadastro;
+import controladorGRASP.ControladorDeParticipacao;
 import dominio.Evento;
+import dominio.Usuario;
+import excecao.ExcecaoDeCadastro;
 
 public class ControleUsuarioHome {
 	
-	private Map<String, Evento> eventosDisponiveis;
+	private Map<String, Evento> mapaDeEventosDeferidos;
 	private AbstractGUIUsuarioHome viewUsuarioHome;
 	
 	public ControleUsuarioHome() {
 		
-		eventosDisponiveis = new TreeMap<String, Evento>();
+		mapaDeEventosDeferidos = new TreeMap<String, Evento>();
 	}
 	
 	public void inicializarGUI() {
@@ -22,14 +29,44 @@ public class ControleUsuarioHome {
 		viewUsuarioHome.inicializar();
 	}
 	
-	public Collection<String> obterEventosDisponiveis() {
+	public Collection<EventoVO> obterEventosDisponiveis() {
 		
-		Collection<Evento> eventos = ControladorDeCadastro.obterTodosEventos();
+		EventoVO eventoVO = null;
+		UsuarioVO usuarioVO = null;
+		InstituicaoVO instituicaoVO = null;
+		
+		Collection<Evento> eventos = ControladorDeCadastro.obterTodosEventosDeferidos();
+		Collection<EventoVO> eventosDeferidos = new ArrayList<EventoVO>();
+		
 		for (Evento evento: eventos) {
-			eventosDisponiveis.put(evento.getNome(), evento);
+			eventoVO = new EventoVO();
+			eventoVO.setNome(evento.getNome());
+			
+			usuarioVO = new UsuarioVO();
+			usuarioVO.setEmail(evento.getUsuarioResponsavel().getEmail());
+			eventoVO.setUsuarioResponsavel(usuarioVO);
+			
+			instituicaoVO = new InstituicaoVO();
+			instituicaoVO.setSigla(evento.getInstituicao().getSigla());
+			eventoVO.setInstituicao(instituicaoVO);
+			
+			mapaDeEventosDeferidos.put(eventoVO.getNome(), evento);
+			eventosDeferidos.add(eventoVO);
 		}
 		
-		return eventosDisponiveis.keySet();
+		return eventosDeferidos;
+	}
+	
+	public void realizarInscricaoEmEvento(EventoVO eventoVO) {
+		
+		Usuario usuario = ControladorDeCadastro.obterTodosUsuarios().iterator().next();
+		Evento evento = mapaDeEventosDeferidos.get(eventoVO.getNome());
+		try {
+			ControladorDeParticipacao.realizarInscricaoEmEvento(evento, usuario);
+		} catch (ExcecaoDeCadastro e) {
+			// TODO Auto-generated catch block
+			viewUsuarioHome.exibirMensagemDeErro(e.getMessage(), "Erro!");
+		}
 	}
 
 }

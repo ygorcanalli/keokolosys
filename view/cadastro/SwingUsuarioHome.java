@@ -12,17 +12,21 @@ import java.awt.Dimension;
 
 import javax.swing.JScrollPane;
 
+import valueobject.EventoVO;
 import cadastro.ControleUsuarioHome;
 
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collection;
 
 
 public class SwingUsuarioHome extends JFrame implements AbstractGUIUsuarioHome {
 	
 	ControleUsuarioHome controleUsuarioHome;
+	EventoVO[] eventos;
 	/**
 	 * 
 	 */
@@ -76,6 +80,10 @@ public class SwingUsuarioHome extends JFrame implements AbstractGUIUsuarioHome {
 			      int row = target.getSelectedRow();
 			      int column = target.getSelectedColumn();
 			      System.out.println(row + ", " + column);
+			      
+			      if (column == 1) {
+			    	  controleUsuarioHome.realizarInscricaoEmEvento(eventos[row]);
+			      }
 			    
 			  }
 			};
@@ -88,10 +96,13 @@ public class SwingUsuarioHome extends JFrame implements AbstractGUIUsuarioHome {
 	
 	private Object[][] dataTabelaEventosDisponiveis() {
 		
-		ArrayList<String> eventos = new ArrayList<String>(controleUsuarioHome.obterEventosDisponiveis());
-		Object[][] data = new Object[eventos.size()][2];
-		for (int i = 0; i < eventos.size(); i++) {
-			data[i][0] = eventos.get(i);
+		Collection<EventoVO> eventosDisponiveis = controleUsuarioHome.obterEventosDisponiveis();
+		
+		eventos = new EventoVO[eventosDisponiveis.size()];
+		Object[][] data = new Object[eventos.length][2];
+		for (int i = 0; i < eventos.length; i++) {
+			eventos[i] = eventosDisponiveis.iterator().next();
+			data[i][0] = eventos[i].getNome();
 			data[i][1] = "Realizar Inscrição";
 		}
 		
@@ -128,4 +139,5 @@ public class SwingUsuarioHome extends JFrame implements AbstractGUIUsuarioHome {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 }

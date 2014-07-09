@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Map;
+import java.util.TreeMap;
 
 import catalago.CatalagoDeTrabalhos;
 import estadoevento.*;
@@ -34,6 +35,7 @@ public class Evento {
             this.dataDeFim = dataDeFim;
             this.catalogoDeTrabalhos = new CatalagoDeTrabalhos();
             this.estado = new EstadoEventoAguardando();
+            this.perfis = new TreeMap<Class<? extends Perfil>, Collection<Perfil>>();
     }
     
     public static Evento criarEvento(String nome, Instituicao instituicao, Usuario usuarioResponsavel, Date dataMaximaParaSubmissaoDeTrabalhos, Date dataMaximaParaAceitacaoDeTrabalhos, Date dataDeInicio, Date dataDeFim) throws  ExcecaoDeCadastro{

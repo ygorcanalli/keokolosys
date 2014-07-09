@@ -27,11 +27,12 @@ public class CatalagoDeAutenticaveis {
 		return instancia;
 	}
 		
-	public void criarUsuario(String email, String senha, String nome, String ultimoNome, Instituicao instituicao) throws ExcecaoDeCadastro{
+	public Usuario criarUsuario(String email, String senha, String nome, String ultimoNome, Instituicao instituicao) throws ExcecaoDeCadastro{
 		validarEmailComoUnico(email);
 		
 		Usuario usuario = Usuario.criarUsuario(nome, ultimoNome, email, senha, instituicao);
 		autenticaveis.put(email, usuario);
+		return usuario;
     }
 	
 	public void criarAdministrador(String email, String senha) throws ExcecaoDeCadastro{

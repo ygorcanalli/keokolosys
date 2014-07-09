@@ -35,10 +35,15 @@ public class CatalagoDeEventos {
         this.eventosFinalizados = new ArrayList<Evento>();
     }
     
+<<<<<<< HEAD
+    public Evento criarEvento(String nome, Instituicao instituicao, Usuario usuarioResponsavel, Date dataMaximaParaSubmissaoDeTrabalho, Date dataMaximaParaAceitacaoDeTrabalho, Date dataDeInicio, Date dataDeFim) throws  ExcecaoDeCadastro{
+=======
     public void criarEvento(String nome, Instituicao instituicao, Usuario usuarioResponsavel, Date dataMaximaParaSubmissaoDeTrabalho, Date dataMaximaParaAceitacaoDeTrabalho, Date dataDeInicio, Date dataDeFim) throws  ExcecaoDeCadastro{
     	validarNomeDoEventoComoUnico(nome);
+>>>>>>> master
         Evento evento = Evento.criarEvento(nome, instituicao, usuarioResponsavel, dataMaximaParaSubmissaoDeTrabalho, dataMaximaParaAceitacaoDeTrabalho, dataDeInicio, dataDeFim);
         eventosAguardandoAprovacao.add(evento);
+        return evento;
     }
     
     public Evento obterEventoPorNome(String nome) throws ExcecaoDeCadastro{
