@@ -61,8 +61,6 @@ public class ControleCadastrarEvento {
 			catch (ExcecaoDeCadastro ec){
 				viewCadastroDeEvento.exibirMensagemDeErro(ec.getMessage(), "");
 			}
-
-			
 		} catch (ExcecaoDeCadastro ec) {
 			viewCadastroDeEvento.exibirMensagemDeErro(ec.getMessage(), "");
 		} 		

@@ -24,8 +24,7 @@ public class KeokoloSys {
 		Evento evento;
 		
 		
-		
-		try {
+		/*try {
 			ControladorDeCadastro.criarInstituicao("Rural", "UFRRJ", "NI");
 			ControladorDeCadastro.criarInstituicao("Queridinha", "UFRJ", "Fundão");
 			ControladorDeCadastro.criarInstituicao("Poderosa", "COPPE", "Fundão");
@@ -40,16 +39,16 @@ public class KeokoloSys {
 		} catch (ExcecaoDeCadastro e) {
 
 			e.printStackTrace();
-		}
+		}*/
 		
 		
 
-		/*try {
+		try {
 			 i = ControladorDeCadastro.criarInstituicao("Rural", "UFRRJ", "Rua S/N");
 			u = ControladorDeCadastro.criarUsuario("Hugo", "Rebelo", "email", "senha", i);
 			
 			for (int count = 0; count < 10; count++) {
-				evento = ControladorDeCadastro.criarEvento("Evento " + count , i, u, new Date(2014, 1, 1), new Date(2014, 2, 1), new Date(2014, 3, 1), new Date(2014, 4, 1));
+				evento = ControladorDeCadastro.criarEvento("Evento " + count , i, u,  new Date(2014, 2, 1), new Date(2014, 3, 1), new Date(2014, 4, 1), new Date(2014, 5, 1));
 				ControladorAdministrativo.deferirEvento(evento);
 			}
 		} catch (ExcecaoDeCadastro e) {
@@ -58,7 +57,7 @@ public class KeokoloSys {
 		}
 		
 		ControleUsuarioHome controleUsuarioHome = new ControleUsuarioHome();
-		controleUsuarioHome.inicializarGUI();*/
+		controleUsuarioHome.inicializarGUI();
 		
 	}
 

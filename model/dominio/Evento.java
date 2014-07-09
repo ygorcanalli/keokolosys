@@ -243,7 +243,7 @@ public class Evento {
         if(dataMaximaParaSubmissaoDeTrabalhos.compareTo(dataMaximaParaAceitacaoDeTrabalhos) > 0)
         	throw new ExcecaoDeCadastro("evento.data_maxima_para_aceitacao_de_trabalhos.invalida");
 
-        if(dataMaximaParaSubmissaoDeTrabalhos.compareTo(dataDeInicio) < 0)
+        if(dataMaximaParaAceitacaoDeTrabalhos.compareTo(dataDeInicio) > 0)
         	throw new ExcecaoDeCadastro("evento.data_maxima_para_submissao_de_trabalhos.invalida");
     }
     
