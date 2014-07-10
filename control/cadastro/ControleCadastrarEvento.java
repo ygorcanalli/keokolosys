@@ -23,14 +23,14 @@ public class ControleCadastrarEvento {
 		viewCadastroDeEvento = new SwingCadastrarEvento(this);
 		viewCadastroDeEvento.inicializar();
 		
-		Collection<String> instituicoes = carregarInstituicoes();
+		Collection<String> instituicoes = obterInstituicoes();
 		viewCadastroDeEvento.carregarInstituicoes(instituicoes);
 		viewCadastroDeEvento.definirUsuarioResponsavel(usuarioAutenticado.getNome());
 		
 		viewCadastroDeEvento.tonarVisivel();
 	}
 	
-	private Collection<String> carregarInstituicoes(){
+	private Collection<String> obterInstituicoes(){
 		Collection<Instituicao> instituicoes = ControladorDeCadastro.obterTodasInstituicoes();
 		Collection<String> instituicoesStr = new ArrayList<String>();
 		
@@ -67,7 +67,8 @@ public class ControleCadastrarEvento {
 	}
 	
 	public void incluirNovaInstituicao(){
-		viewCadastroDeEvento.fechar();
+		viewCadastroDeEvento.bloquear();
+		viewCadastroDeEvento.habilitar();
 	}
 	
 }

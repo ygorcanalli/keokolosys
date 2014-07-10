@@ -78,6 +78,16 @@ public class SwingCadastrarEvento extends JFrame implements AbstractGUICadastrar
 	}
 	
 	@Override
+	public void bloquear(){
+		this.setEnabled(false);
+	}
+	
+	@Override
+	public void habilitar(){
+		this.setEnabled(true);
+	}
+	
+	@Override
 	public void carregarInstituicoes(Collection<String> instituicoes){
 		for (String instituicao : instituicoes) {
 			this.comboBoxInstituicao.addItem(instituicao);
