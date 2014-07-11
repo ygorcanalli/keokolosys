@@ -75,6 +75,10 @@ public final class ControladorDeCadastro {
 		return Pessoal.obterInstancia().criarInstituicao(nome, sigla, localizacao);
 	}
 	
+	public static void atualizarDadosDaInstituicao(Instituicao instituicao, String nome, String sigla, String localizacao) throws ExcecaoDeCadastro{
+		Pessoal.obterInstancia().atualizarInstituicao(instituicao, nome, sigla, localizacao);
+	}
+	
 	public static Collection<Instituicao> obterTodasInstituicoes(){
 		return Pessoal.obterInstancia().obterInstituicoes();
 	}

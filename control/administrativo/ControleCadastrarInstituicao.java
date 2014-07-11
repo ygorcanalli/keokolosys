@@ -30,6 +30,7 @@ public class ControleCadastrarInstituicao implements AbstractControle{
 	private void cadastrarInstituicao(String nome, String sigla, String localizacao){
 		try {
 			ControladorDeCadastro.criarInstituicao(nome, sigla, localizacao);
+			viewCadastrarInstituicao.exibirMensagemDeInformacao("Instituição: " + sigla + " incluída com sucesso!", "");
 		} catch (ExcecaoDeCadastro e) {
 			viewCadastrarInstituicao.exibirMensagemDeErro(e.getMessage(), "");
 		}
@@ -37,7 +38,7 @@ public class ControleCadastrarInstituicao implements AbstractControle{
 	
 	private void atualizarInstituicao(String nome, String sigla, String localizacao){
 		try {
-			ControladorDeCadastro.criarInstituicao(nome, sigla, localizacao);
+			ControladorDeCadastro.a
 		} catch (ExcecaoDeCadastro e) {
 			viewCadastrarInstituicao.exibirMensagemDeErro(e.getMessage(), "");
 		}
@@ -60,13 +61,38 @@ public class ControleCadastrarInstituicao implements AbstractControle{
 		return instituicoesTO;
 	}
 	
+	public void acaoSelecionar(){
+		viewCadastrarInstituicao.desabilitarAcaoCancelar();
+		viewCadastrarInstituicao.desabilitarAcaoAtualizar();
+		viewCadastrarInstituicao.desabilitarAcaoSalvar();
+		
+		viewCadastrarInstituicao.habilitarAcaoNovo();
+		viewCadastrarInstituicao.habilitarAcaoExcluir();
+		viewCadastrarInstituicao.habilitarAcaoEditar();
+	}
+	
 	public void acaoNovo(){
-		InstituicaoTO instituicaoTO = viewCadastrarInstituicao.obterInstituicaoCriada();
-		cadastrarInstituicao(instituicaoTO.getNome(), instituicaoTO.getSigla(), instituicaoTO.getLocalizacao());
+		viewCadastrarInstituicao.desabilitarAcaoNovo();
+		viewCadastrarInstituicao.desabilitarAcaoAtualizar();
+		viewCadastrarInstituicao.desabilitarAcaoEditar();
+		viewCadastrarInstituicao.desabilitarAcaoExcluir();
+		
+		viewCadastrarInstituicao.habilitarAcaoSalvar();
+		viewCadastrarInstituicao.habilitarAcaoCancelar();
 	}
 	
 	public void acaoSalvar(){
+		viewCadastrarInstituicao.desabilitarAcaoSalvar();
+		viewCadastrarInstituicao.desabilitarAcaoCancelar();
+		viewCadastrarInstituicao.desabilitarAcaoAtualizar();
 		
+		viewCadastrarInstituicao.habilitarAcaoSelecionar();
+		viewCadastrarInstituicao.habilitarAcaoEditar();
+		viewCadastrarInstituicao.habilitarAcaoExcluir();
+		
+		
+		InstituicaoTO instituicaoTO = viewCadastrarInstituicao.obterInstituicaoCriada();
+		cadastrarInstituicao(instituicaoTO.getNome(), instituicaoTO.getSigla(), instituicaoTO.getLocalizacao());
 	}
 	
 	public void acaoEditar(){
@@ -82,7 +108,8 @@ public class ControleCadastrarInstituicao implements AbstractControle{
 	}
 	
 	public void acaoAtualizar(){
-		
+		InstituicaoTO instituicaoTO = viewCadastrarInstituicao.obterInstituicaoCriada();
+		atualizarInstituicao(instituicaoTO.getNome(), instituicaoTO.getSigla(), instituicaoTO.getLocalizacao());
 	}
 	
 	public void fechar(){
@@ -114,3 +141,4 @@ public class ControleCadastrarInstituicao implements AbstractControle{
 		viewCadastrarInstituicao.desbloquear();
 	}
 }
+
