@@ -57,7 +57,7 @@ public class KeokoloSys {
 			e.printStackTrace();
 		}
 		
-		ControleUsuarioHome controleUsuarioHome = new ControleUsuarioHome();
+		ControleUsuarioHome controleUsuarioHome = new ControleUsuarioHome(null);
 		controleUsuarioHome.inicializarGUI();
 
 	}

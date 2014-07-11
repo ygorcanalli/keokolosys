@@ -249,4 +249,28 @@ public class SwingCadastrarUsuario extends JFrame implements AbstractGUICadastra
 		panel.setLayout(gl_panel);
 		contentPane.setLayout(gl_contentPane);
 	}
+
+	@Override
+	public void tornarVisivel() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void tornarInvisivel() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void bloquear() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void desbloquear() {
+		// TODO Auto-generated method stub
+		
+	}
 }

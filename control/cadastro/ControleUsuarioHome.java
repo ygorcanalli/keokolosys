@@ -8,6 +8,7 @@ import java.util.TreeMap;
 import transferobject.EventoTO;
 import transferobject.InstituicaoTO;
 import transferobject.UsuarioTO;
+import util.AbstractControle;
 import util.Sessao;
 import controladorGRASP.ControladorDeCadastro;
 import controladorGRASP.ControladorDeParticipacao;
@@ -15,22 +16,25 @@ import dominio.Evento;
 import dominio.Usuario;
 import excecao.ExcecaoDeCadastro;
 
-public class ControleUsuarioHome {
+public class ControleUsuarioHome implements AbstractControle{
 	
 	private Map<String, Evento> mapaDeEventosDeferidosNaoInscritos;
 	private AbstractGUIUsuarioHome viewUsuarioHome;
 	
-	public ControleUsuarioHome() {
+	public ControleUsuarioHome(AbstractControle caller) {
 		
 		
 	}
 	
+	@Override
 	public void inicializarGUI() {
 		viewUsuarioHome = new SwingUsuarioHome(this);
 		viewUsuarioHome.inicializar();
+		
+		viewUsuarioHome.atualizarTabelaEventosDisponiveis(obterEventosDeferidosNaoInscritos());
 	}
 	
-	public Collection<EventoTO> obterEventosDeferidosNaoInscritos() {
+	private Collection<EventoTO> obterEventosDeferidosNaoInscritos() {
 		
 		EventoTO eventoVO = null;
 		UsuarioTO usuarioVO = null;
@@ -70,10 +74,37 @@ public class ControleUsuarioHome {
 			try {
 				ControladorDeParticipacao.realizarInscricaoEmEvento(evento, usuario);
 				mapaDeEventosDeferidosNaoInscritos.remove(evento.getNome());
+				viewUsuarioHome.exibirMensagemDeInformacao("Inscrição no evento \"" + eventoVO.getNome() + "\" realizada com sucesso.", "Inscrição realizada com sucesso!");
 			} catch (ExcecaoDeCadastro e) {
 				// TODO Auto-generated catch block
 				viewUsuarioHome.exibirMensagemDeErro(e.getMessage(), "Erro!");
+			} finally {
+				viewUsuarioHome.atualizarTabelaEventosDisponiveis(obterEventosDeferidosNaoInscritos());
 			}
 
+	}
+
+	@Override
+	public void tornarGUIVisivel() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void tornarGUIInvisivel() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void bloquearGUI() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void desbloquearGUI() {
+		// TODO Auto-generated method stub
+		
 	}
 }
