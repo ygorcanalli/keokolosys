@@ -2,32 +2,55 @@ package cadastro;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 
+import transferobject.EventoTO;
 import transferobject.InstituicaoTO;
+import transferobject.UsuarioTO;
+import util.AbstractControle;
+import util.Sessao;
 import catalago.Pessoal;
 import controladorGRASP.ControladorDeCadastro;
 import dominio.Instituicao;
 import dominio.Usuario;
 import excecao.ExcecaoDeCadastro;
 
-public class ControleCadastrarEvento {
+public class ControleCadastrarEvento implements AbstractControle{
 	private AbstractGUICadastrarEvento viewCadastroDeEvento;
-	private Usuario usuarioAutenticado;
+	private AbstractControle caller;
 	
-	
-	public ControleCadastrarEvento(Usuario usuario){
-		this.usuarioAutenticado = usuario;
+	public ControleCadastrarEvento(AbstractControle caller){
+		this.caller = caller;
 	}
-	
+
+	@Override
 	public void inicializarGUI(){
 		viewCadastroDeEvento = new SwingCadastrarEvento(this);
-		viewCadastroDeEvento.inicializar();		
-		viewCadastroDeEvento.tonarVisivel();
+		viewCadastroDeEvento.inicializar();
+		atualizarListaDeInstituicoes();
+		definirUsuario();
+		
+		viewCadastroDeEvento.tornarVisivel();
 	}
 	
+	public void encerrarGUI(){
+		viewCadastroDeEvento.tornarInvisivel();
+		caller.desbloquearGUI();
+	}
 	
-	public Collection<InstituicaoTO> obterInstituicoes(){
+	public void atualizarListaDeInstituicoes(){
+		viewCadastroDeEvento.atualizarListaDeInstituicoes(obterInstituicoes());
+	}
+	
+	private void definirUsuario(){
+		Usuario usuario = Sessao.getUsuarioLogado();
+		Instituicao instituicao = usuario.getInstituicao();
+		InstituicaoTO instituicaoTO = new InstituicaoTO(instituicao.getNome(), instituicao.getSigla(), instituicao.getLocalizacao());
+		UsuarioTO usuarioTO = new UsuarioTO(usuario.getEmail(), usuario.getNome(), usuario.getUltimoNome(), instituicaoTO);
+		viewCadastroDeEvento.definirUsuarioResponsavel(usuarioTO);
+		
+	}
+	
+	private Collection<InstituicaoTO> obterInstituicoes(){
 		Collection<Instituicao> instituicoes = ControladorDeCadastro.obterTodasInstituicoes();
 		Collection<InstituicaoTO> instituicoesTO = new ArrayList<InstituicaoTO>();
 		InstituicaoTO instituicaoTO;
@@ -42,21 +65,18 @@ public class ControleCadastrarEvento {
 
 	
 	public void criarEvento(){
-		String nomeDoEvento = viewCadastroDeEvento.obterNomeDoEvento();
-		Date dataDeInicioDoEvento = viewCadastroDeEvento.obterDataDeInicioDoEvento();
-		Date dataDeFimDoEvento = viewCadastroDeEvento.obterDataDeFimDoevento();
-		Date dataMaximaParaSubmissaoDeTrabalho = viewCadastroDeEvento.obterDataMaximaParaSubmissaoDeTrabalho();
-		Date dataMaximaParaAceitacaoDeTrabalho = viewCadastroDeEvento.obterDataMaximaParaAceitacaoDeTrabalho();
-		String siglaInstituicao = viewCadastroDeEvento.obterInstituicao();
-		
-		Instituicao instituicao;
+
+		EventoTO eventoTO = viewCadastroDeEvento.obterEventoCriado();
+		InstituicaoTO instituicaoTO = eventoTO.getInstituicao(); 
+		Instituicao instituicao; 
 		
 		try {
-			instituicao = Pessoal.obterInstancia().obterInstituicaoPorSigla(siglaInstituicao);
+			instituicao = Pessoal.obterInstancia().obterInstituicaoPorSigla(instituicaoTO.getSigla());
 			
 			try{
-				ControladorDeCadastro.criarEvento(nomeDoEvento, instituicao, this.usuarioAutenticado, dataMaximaParaSubmissaoDeTrabalho, dataMaximaParaAceitacaoDeTrabalho, dataDeInicioDoEvento, dataDeFimDoEvento);
-				viewCadastroDeEvento.exibirMensagemDeInformacao("Evento: '" + nomeDoEvento + "' cadastrado com sucesso!", "");
+				ControladorDeCadastro.criarEvento(eventoTO.getNome(), instituicao, Sessao.getUsuarioLogado(), eventoTO.getDataMaximaParaSubmissaoDeTrabalhos(), eventoTO.getDataMaximaParaAceitacaoDeTrabalhos(), eventoTO.getDataDeInicio(), eventoTO.getDataDeFim());
+				viewCadastroDeEvento.exibirMensagemDeInformacao("Evento: '" + eventoTO.getNome() + "' cadastrado com sucesso!", "");
+				
 			}
 			catch (ExcecaoDeCadastro ec){
 				viewCadastroDeEvento.exibirMensagemDeErro(ec.getMessage(), "");
@@ -68,7 +88,34 @@ public class ControleCadastrarEvento {
 	
 	public void incluirNovaInstituicao(){
 		viewCadastroDeEvento.bloquear();
-		viewCadastroDeEvento.habilitar();
+		viewCadastroDeEvento.desbloquear();		
 	}
 	
+	public void fechar(){
+		encerrarGUI();
+	}
+
+
+	@Override
+	public void tornarGUIVisivel() {
+		viewCadastroDeEvento.tornarVisivel();
+	}
+
+
+	@Override
+	public void tornarGUIInvisivel() {
+		viewCadastroDeEvento.tornarInvisivel();
+	}
+
+
+	@Override
+	public void bloquearGUI() {
+		viewCadastroDeEvento.bloquear();
+	}
+
+
+	@Override
+	public void desbloquearGUI() {
+		viewCadastroDeEvento.desbloquear();
+	}	
 }

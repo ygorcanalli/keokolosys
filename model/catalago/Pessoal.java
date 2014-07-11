@@ -68,7 +68,7 @@ public class Pessoal {
 		Boolean senhaCorreta = autenticavel.realizarAutenticacao(senha);
 		
 		if(!senhaCorreta)
-			throw new ExcecaoDeCadastro("catalago_de_autenticaveis.autenticavel.senha_incorreta");
+			throw new ExcecaoDeCadastro("pessoal.autenticavel.senha_incorreta");
 		
 		return autenticavel;
 	}
@@ -77,7 +77,7 @@ public class Pessoal {
 		Autenticavel autenticavel = autenticaveis.get(email);
 		
 		if(autenticavel == null)
-			throw new ExcecaoDeCadastro("catalago_de_autenticaveis.autenticavel.nao_localizado");
+			throw new ExcecaoDeCadastro("pessoal.autenticavel.nao_localizado");
 		
 		return autenticavel;
 	}
@@ -125,7 +125,7 @@ public class Pessoal {
 		Instituicao instituicao = instituicoes.get(sigla); 
 		
 		if(instituicao == null)
-			throw new ExcecaoDeCadastro("catalago_de_instituicoes.instituicao.nao_localizado");
+			throw new ExcecaoDeCadastro("pessoal.instituicao.nao_localizado");
 		
 		return instituicao;
 	}
@@ -139,13 +139,13 @@ public class Pessoal {
 	
 	private void validarSiglaComoUnica(String sigla) throws ExcecaoDeCadastro{
         if(instituicoes.containsKey(sigla))
-        	throw new ExcecaoDeCadastro("catalogo_de_insticoes.sigla.existente");
+        	throw new ExcecaoDeCadastro("pessoal.sigla.existente");
 	}
 	
 	
 	private void validarEmailComoUnico(String email) throws ExcecaoDeCadastro{
 		if(autenticaveis.containsKey(email))
-			throw new ExcecaoDeCadastro("catalago_de_autenticaveis.email.existente");
+			throw new ExcecaoDeCadastro("pessoal.email.existente");
 	}
 	
 }
