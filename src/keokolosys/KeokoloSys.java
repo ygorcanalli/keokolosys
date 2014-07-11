@@ -32,8 +32,7 @@ public class KeokoloSys {
 			i = ControladorDeCadastro.obterTodasInstituicoes().iterator().next();
 			Usuario user = ControladorDeCadastro.criarUsuario("ygor.canalli@gmail.com", "rogy", "Ygor", "Canalli", i);
 			Sessao.iniciarSessao(user);
-			
-			c = new ControleCadastrarEvento(Sessao.getUsuarioLogado());
+			c = new ControleCadastrarEvento(null);
 			c.inicializarGUI();
 			
 		} catch (ExcecaoDeCadastro e) {

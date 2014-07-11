@@ -7,6 +7,21 @@ public class UsuarioTO {
     private String ultimoNome;
     private InstituicaoTO instituicao;
     
+    public UsuarioTO(){
+    	
+    }
+    
+    
+    
+	public UsuarioTO(String email, String nome, String ultimoNome,
+			InstituicaoTO instituicao) {
+		super();
+		this.email = email;
+		this.nome = nome;
+		this.ultimoNome = ultimoNome;
+		this.instituicao = instituicao;
+	}
+
 	public String getEmail() {
 		return email;
 	}

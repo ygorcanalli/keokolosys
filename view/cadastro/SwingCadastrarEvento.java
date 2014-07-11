@@ -26,6 +26,7 @@ import javax.swing.JComboBox;
 
 import transferobject.EventoTO;
 import transferobject.InstituicaoTO;
+import transferobject.UsuarioTO;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -54,27 +55,31 @@ public class SwingCadastrarEvento extends JFrame implements AbstractGUICadastrar
 	private JDateChooser dateChooserDataAceitacaoDeTrabalhos;
 	private JLabel lblUsuarioResponsavel;
 	private JLabel lblInstituioDeOcorrncia;
-	private JComboBox<InstituicaoTO> comboBoxInstituicao;
-	
-	private EventoTO evento;
-	
-	private ControleCadastrarEvento controleCadastrarEvento;
+	private JComboBox<String> comboBoxInstituicao;
 	
 	private InstituicaoTO[] instituicoes;
+	
+	private ControleCadastrarEvento controleCadastrarEvento;
+
 
 	@Override
 	public void inicializar() {
-		tonarVisivel();
+		inicializarFrame();
 	}
 
 	@Override
-	public void tonarVisivel(){
+	public void tornarVisivel(){
 		this.setVisible(true);
 	}
 	
 	@Override
-	public void fechar(){
+	public void tornarInvisivel(){
 		this.setVisible(false);
+	}
+	
+	@Override
+	public void fechar(){
+		controleCadastrarEvento.fechar();
 	}
 	
 	@Override
@@ -83,49 +88,60 @@ public class SwingCadastrarEvento extends JFrame implements AbstractGUICadastrar
 	}
 	
 	@Override
-	public void habilitar(){
+	public void desbloquear(){
 		this.setEnabled(true);
 	}
 	
-	private void atualizarListaDeInstituicoes(Collection<InstituicaoTO> instituicoes){
-		instituicoes = new InstituicaoTO[instituicoes.size];
+	@Override
+	public void atualizarListaDeInstituicoes(Collection<InstituicaoTO> instituicoes){ 
+		
+		int i = 0;
+		this.instituicoes = new InstituicaoTO[instituicoes.size()];	
+		String instituicaoExibicao = "";
+		
 		for (InstituicaoTO instituicao : instituicoes) {
-			this.comboBoxInstituicao.addItem(instituicao);
+			this.instituicoes[i] = instituicao; i++;
+			
+			instituicaoExibicao = instituicao.getSigla() + " - " + instituicao.getNome();
+			this.comboBoxInstituicao.addItem(instituicaoExibicao);
 		}
 	}
 	
 	@Override
-	public void definirUsuarioResponsavel(String nomeDoUsuarioResponsavel){
-		this.lblUsuarioResponsavel.setText(nomeDoUsuarioResponsavel);
+	public void definirUsuarioResponsavel(UsuarioTO usuarioResponsavel){
+		this.lblUsuarioResponsavel.setText(usuarioResponsavel.getNome() + " : " + usuarioResponsavel.getEmail());
 	}
 	
 	@Override
 	public void criarEvento(){
-		capturarDados();
 		controleCadastrarEvento.criarEvento();
 	}
 
 
-	public EventoTO obterEvento(){
+	@Override
+	public EventoTO obterEventoCriado(){
 		String nome = textFieldNomeDoEvento.getText();
 		InstituicaoTO instituicao = capturarInstituicao();
-		String usuarioResponsavel = lblUsuarioResponsavel.getText();
 		Date dataDeInicio = dateChooserDataDeInicioDoEvento.getDate();
 		Date dataDeFim = dateChooserDataDeFimDoEvento.getDate();
 		Date dataMaximaParaSubmissaoDeTrabalhos = dateChooserDataSubmissaoDeTrabalhos.getDate();
 		Date dataMaximaParaAceitacaoDeTrabalhos = dateChooserDataAceitacaoDeTrabalhos.getDate();
 		
-		if(this.evento == null)
-			this.evento = new EventoTO(nome, instituicao, usuarioResponsavel, dataMaximaParaSubmissaoDeTrabalhos, dataMaximaParaAceitacaoDeTrabalhos, dataDeInicio, dataDeFim, estado)
-			
-		return this.evento;
+		EventoTO evento = new EventoTO();
+		evento.setNome(nome);
+		evento.setInstituicao(instituicao);
+		evento.setDataMaximaParaSubmissaoDeTrabalhos(dataMaximaParaSubmissaoDeTrabalhos);
+		evento.setDataMaximaParaAceitacaoDeTrabalhos(dataMaximaParaAceitacaoDeTrabalhos);
+		evento.setDataDeInicio(dataDeInicio);
+		evento.setDataDeFim(dataDeFim);
+		
+		return evento;
 	}
 		
 	
-	private void capturarInstituicao(){
-		Integer posicao = comboBoxInstituicao.getSelectedIndex();
-		InstituicaoTO instituicao = instituicoes
-		
+	private InstituicaoTO capturarInstituicao(){
+		int i = comboBoxInstituicao.getSelectedIndex();
+		return instituicoes[i];
 	}
 	
 	private void incluirNovaInstituicao(){
@@ -161,7 +177,7 @@ public class SwingCadastrarEvento extends JFrame implements AbstractGUICadastrar
 	private void inicializarFrame(){
 		setResizable(false);
 		setTitle("Cadastro de Evento");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 667, 480);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -295,7 +311,7 @@ public class SwingCadastrarEvento extends JFrame implements AbstractGUICadastrar
 		lblUsuarioResponsavel = new JLabel("nome_usuario_responsavel");
 		lblInstituioDeOcorrncia = new JLabel("Instituicao de ocorrencia do evento:");
 		
-		comboBoxInstituicao = new JComboBox<InstituicaoTO>();
+		comboBoxInstituicao = new JComboBox<String>();
 		
 		btnIncluir = new JButton("Incluir");
 		btnIncluir.addActionListener(new ActionListener() {
