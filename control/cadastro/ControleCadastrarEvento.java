@@ -88,7 +88,7 @@ public class ControleCadastrarEvento implements AbstractControle{
 	
 	public void incluirNovaInstituicao(){
 		viewCadastroDeEvento.bloquear();
-		viewCadastroDeEvento.desbloquear();		
+		caller.inicializarGUI();
 	}
 	
 	public void fechar(){
@@ -116,6 +116,7 @@ public class ControleCadastrarEvento implements AbstractControle{
 
 	@Override
 	public void desbloquearGUI() {
+		atualizarListaDeInstituicoes();
 		viewCadastroDeEvento.desbloquear();
 	}	
 }
