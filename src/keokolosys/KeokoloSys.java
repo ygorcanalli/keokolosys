@@ -22,7 +22,7 @@ public class KeokoloSys {
 		Instituicao i;
 		Usuario u;
 		Evento evento;
-		
+		/*
 		
 		try {
 			ControladorDeCadastro.criarInstituicao("Rural", "UFRRJ", "NI");
@@ -40,10 +40,10 @@ public class KeokoloSys {
 
 			e.printStackTrace();
 		}
-		
+		*/
 		
 
-		/*try {
+		try {
 			 i = ControladorDeCadastro.criarInstituicao("Rural", "UFRRJ", "Rua S/N");
 			u = ControladorDeCadastro.criarUsuario("Hugo", "Rebelo", "email", "senha", i);
 			
@@ -59,8 +59,8 @@ public class KeokoloSys {
 		}
 		
 		ControleUsuarioHome controleUsuarioHome = new ControleUsuarioHome();
-		controleUsuarioHome.inicializarGUI();*/
-		
+		controleUsuarioHome.inicializarGUI();
+
 	}
 
 }
