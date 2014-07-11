@@ -1,12 +1,12 @@
-package valueobject;
+package transferobject;
 
-public class TrabalhoVO {
+public class TrabalhoTO {
 	
 	public enum Estado {
 		ACEITO, REJEITADO
 	}
 	
-    private UsuarioVO submissor;
+    private UsuarioTO submissor;
     private String titulo;
     private String resumo;
     private String autores;
@@ -14,12 +14,12 @@ public class TrabalhoVO {
     private String caminhoArquivoFinal;
     private Estado estado;
     private Boolean flagtrabalhoComVersaoFinal;
-    private BancaExaminadoraVO bancaExaminadoraResponsavel;
+    private BancaExaminadoraTO bancaExaminadoraResponsavel;
     
-	public UsuarioVO getSubmissor() {
+	public UsuarioTO getSubmissor() {
 		return submissor;
 	}
-	public void setSubmissor(UsuarioVO submissor) {
+	public void setSubmissor(UsuarioTO submissor) {
 		this.submissor = submissor;
 	}
 	public String getTitulo() {
@@ -64,11 +64,11 @@ public class TrabalhoVO {
 	public void setFlagtrabalhoComVersaoFinal(Boolean flagtrabalhoComVersaoFinal) {
 		this.flagtrabalhoComVersaoFinal = flagtrabalhoComVersaoFinal;
 	}
-	public BancaExaminadoraVO getBancaExaminadoraResponsavel() {
+	public BancaExaminadoraTO getBancaExaminadoraResponsavel() {
 		return bancaExaminadoraResponsavel;
 	}
 	public void setBancaExaminadoraResponsavel(
-			BancaExaminadoraVO bancaExaminadoraResponsavel) {
+			BancaExaminadoraTO bancaExaminadoraResponsavel) {
 		this.bancaExaminadoraResponsavel = bancaExaminadoraResponsavel;
 	}
     

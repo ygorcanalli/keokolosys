@@ -1,7 +1,7 @@
 package cadastro;
 
+import transferobject.EventoTO;
 import util.AbstractGUI;
-import valueobject.EventoVO;
 
 public interface AbstractGUIUsuarioHome extends AbstractGUI {
 	

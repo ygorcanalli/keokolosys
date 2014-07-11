@@ -5,10 +5,10 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.TreeMap;
 
+import transferobject.EventoTO;
+import transferobject.InstituicaoTO;
+import transferobject.UsuarioTO;
 import util.Sessao;
-import valueobject.EventoVO;
-import valueobject.InstituicaoVO;
-import valueobject.UsuarioVO;
 import controladorGRASP.ControladorDeCadastro;
 import controladorGRASP.ControladorDeParticipacao;
 import dominio.Evento;
@@ -30,27 +30,27 @@ public class ControleUsuarioHome {
 		viewUsuarioHome.inicializar();
 	}
 	
-	public Collection<EventoVO> obterEventosDeferidosNaoInscritos() {
+	public Collection<EventoTO> obterEventosDeferidosNaoInscritos() {
 		
-		EventoVO eventoVO = null;
-		UsuarioVO usuarioVO = null;
-		InstituicaoVO instituicaoVO = null;
+		EventoTO eventoVO = null;
+		UsuarioTO usuarioVO = null;
+		InstituicaoTO instituicaoVO = null;
 		
 		mapaDeEventosDeferidosNaoInscritos = new TreeMap<String, Evento>();
 		
 		Collection<Evento> eventosDeferidos = ControladorDeCadastro.obterTodosEventosDeferidos();
-		Collection<EventoVO> eventosDeferidosNaoInscritos = new ArrayList<EventoVO>();
+		Collection<EventoTO> eventosDeferidosNaoInscritos = new ArrayList<EventoTO>();
 		
 		for (Evento evento: eventosDeferidos) {
 			if (!ControladorDeParticipacao.possuiInscricao(Sessao.getUsuarioLogado(), evento)) {
-				eventoVO = new EventoVO();
+				eventoVO = new EventoTO();
 				eventoVO.setNome(evento.getNome());
 				
-				usuarioVO = new UsuarioVO();
+				usuarioVO = new UsuarioTO();
 				usuarioVO.setEmail(evento.getUsuarioResponsavel().getEmail());
 				eventoVO.setUsuarioResponsavel(usuarioVO);
 				
-				instituicaoVO = new InstituicaoVO();
+				instituicaoVO = new InstituicaoTO();
 				instituicaoVO.setSigla(evento.getInstituicao().getSigla());
 				eventoVO.setInstituicao(instituicaoVO);
 				
@@ -62,7 +62,7 @@ public class ControleUsuarioHome {
 		return eventosDeferidosNaoInscritos;
 	}
 	
-	public void realizarInscricaoEmEvento(EventoVO eventoVO) {
+	public void realizarInscricaoEmEvento(EventoTO eventoVO) {
 		
 		Usuario usuario = Sessao.getUsuarioLogado();
 		Evento evento = mapaDeEventosDeferidosNaoInscritos.get(eventoVO.getNome());

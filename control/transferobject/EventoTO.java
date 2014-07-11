@@ -1,8 +1,8 @@
-package valueobject;
+package transferobject;
 
 import java.util.Date;
 
-public class EventoVO {
+public class EventoTO {
 	
 	public enum Estado {
 		AGUARDANDO, DEFERIDO, INDEFERIDO, CANCELADO, FINALIZADO
@@ -10,8 +10,8 @@ public class EventoVO {
 
 	
     private String nome;
-    private InstituicaoVO instituicao;
-    private UsuarioVO usuarioResponsavel;
+    private InstituicaoTO instituicao;
+    private UsuarioTO usuarioResponsavel;
     private Date dataMaximaParaSubmissaoDeTrabalhos;
     private Date dataMaximaParaAceitacaoDeTrabalhos;
     private Date dataDeInicio;
@@ -24,16 +24,16 @@ public class EventoVO {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public InstituicaoVO getInstituicao() {
+	public InstituicaoTO getInstituicao() {
 		return instituicao;
 	}
-	public void setInstituicao(InstituicaoVO instituicao) {
+	public void setInstituicao(InstituicaoTO instituicao) {
 		this.instituicao = instituicao;
 	}
-	public UsuarioVO getUsuarioResponsavel() {
+	public UsuarioTO getUsuarioResponsavel() {
 		return usuarioResponsavel;
 	}
-	public void setUsuarioResponsavel(UsuarioVO usuarioResponsavel) {
+	public void setUsuarioResponsavel(UsuarioTO usuarioResponsavel) {
 		this.usuarioResponsavel = usuarioResponsavel;
 	}
 	public Date getDataMaximaParaSubmissaoDeTrabalhos() {

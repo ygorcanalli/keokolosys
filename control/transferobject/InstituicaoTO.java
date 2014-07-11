@@ -1,6 +1,6 @@
-package valueobject;
+package transferobject;
 
-public class InstituicaoVO {
+public class InstituicaoTO {
 	
 	private String nome;
     private String sigla;

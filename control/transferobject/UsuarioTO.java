@@ -1,11 +1,11 @@
-package valueobject;
+package transferobject;
 
-public class UsuarioVO {
+public class UsuarioTO {
 	
 	private String email;
 	private String nome;
     private String ultimoNome;
-    private InstituicaoVO instituicao;
+    private InstituicaoTO instituicao;
     
 	public String getEmail() {
 		return email;
@@ -25,10 +25,10 @@ public class UsuarioVO {
 	public void setUltimoNome(String ultimoNome) {
 		this.ultimoNome = ultimoNome;
 	}
-	public InstituicaoVO getInstituicao() {
+	public InstituicaoTO getInstituicao() {
 		return instituicao;
 	}
-	public void setInstituicao(InstituicaoVO instituicao) {
+	public void setInstituicao(InstituicaoTO instituicao) {
 		this.instituicao = instituicao;
 	}
     

@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
-import catalago.CatalagoDeInstituicoes;
+
+import catalago.Pessoal;
 import controladorGRASP.ControladorDeCadastro;
 import dominio.Instituicao;
 import dominio.Usuario;
@@ -52,7 +53,7 @@ public class ControleCadastrarEvento {
 		Instituicao instituicao;
 		
 		try {
-			instituicao = CatalagoDeInstituicoes.obterInstancia().obterInstituicaoPorSigla(siglaInstituicao);
+			instituicao = Pessoal.obterInstancia().obterInstituicaoPorSigla(siglaInstituicao);
 			
 			try{
 				ControladorDeCadastro.criarEvento(nomeDoEvento, instituicao, this.usuarioAutenticado, dataMaximaParaSubmissaoDeTrabalho, dataMaximaParaAceitacaoDeTrabalho, dataDeInicioDoEvento, dataDeFimDoEvento);

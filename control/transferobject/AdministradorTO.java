@@ -1,6 +1,6 @@
-package valueobject;
+package transferobject;
 
-public class AdministradorVO {
+public class AdministradorTO {
 	
 	private String login;
 	private String senha;

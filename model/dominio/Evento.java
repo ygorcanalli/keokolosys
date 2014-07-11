@@ -7,7 +7,6 @@ import java.util.Date;
 import java.util.Map;
 import java.util.TreeMap;
 
-import catalago.CatalagoDeTrabalhos;
 import estadoevento.*;
 import excecao.*;
 
@@ -22,7 +21,7 @@ public class Evento {
     private Date dataDeFim;
     private Map<String, Collection<Perfil>> perfis;
     private Collection<BancaExaminadora> bancasExaminadoras;
-    private CatalagoDeTrabalhos catalogoDeTrabalhos;
+    private Collection<Trabalho> trabalhos;
     private EstadoEvento estado;
 
     private Evento(String nome, Instituicao instituicao, Usuario usuarioResponsavel, Date dataMaximaParaSubmissaoDeTrabalhos, Date dataMaximaParaAceitacaoDeTrabalhos, Date dataDeInicio, Date dataDeFim){
@@ -33,7 +32,7 @@ public class Evento {
             this.dataMaximaParaAceitacaoDeTrabalhos = dataMaximaParaAceitacaoDeTrabalhos;
             this.dataDeInicio = dataDeInicio;
             this.dataDeFim = dataDeFim;
-            this.catalogoDeTrabalhos = new CatalagoDeTrabalhos();
+            this.trabalhos = new ArrayList<Trabalho>();
             this.estado = new EstadoEventoAguardando();
             this.perfis = new TreeMap<String, Collection<Perfil>>();
     }
@@ -48,18 +47,8 @@ public class Evento {
 		return this.estado;
 	}
 
-    public void subtmeterTrabalho(PerfilDeParticipante submissor, String titulo, String resumo, String autores, String caminhoArquivoSubmissao) throws ExcecaoDeParticipacao{
-        Trabalho trabalho = Trabalho.criarTrabalho(submissor, titulo, resumo, autores, caminhoArquivoSubmissao);
-        catalogoDeTrabalhos.adicionarTrabalho(trabalho);
-    }
 
-    public void subtmeterVersaoFinalDeTrabalho(Trabalho trabalho, String caminhoArquivoFinal) throws ExcecaoDeParticipacao{
-    	if (catalogoDeTrabalhos.obterTrabalhosAceitos().contains(trabalho)) {
-        	trabalho.submeterVersaoFinal(caminhoArquivoFinal);	
-    	} else {
-    		throw new ExcecaoDeParticipacao("evento.submeter_versao_final_de_trabalho.nao_pertence_trabalhos_aceitos");
-    	}
-    }
+	/*Referente a banca examinadora*/
     
     public BancaExaminadora criarBancaExaminadora(Collection<PerfilDeExaminador> examinadores) throws ExcecaoDeAvaliacao{
     	validarBancaComoUnica(examinadores);
@@ -93,6 +82,7 @@ public class Evento {
 		return null;
     }
 
+    /*Referente a inscricao de participante e concessao de privilegios*/
 
     public void inscreverParticipante(Usuario usuario) throws ExcecaoDeCadastro{
     	criarPerfil(usuario, PerfilDeParticipante.class);
@@ -136,6 +126,100 @@ public class Evento {
     	}    	
     }
     
+	public Collection<PerfilDeParticipante> obterParticipantes(){
+    	Class<PerfilDeParticipante> tipoPerfil = PerfilDeParticipante.class;
+    	Collection<Perfil> perfisDoTipoPerfil = perfis.get(tipoPerfil.getName());
+    	Collection<PerfilDeParticipante> perfisDeParticipante = new ArrayList<PerfilDeParticipante>();
+    	
+    	for (Perfil perfil : perfisDoTipoPerfil) {
+			perfisDeParticipante.add((PerfilDeParticipante) perfil);
+		}
+    	 
+    	return perfisDeParticipante;
+    }
+	
+	public Collection<PerfilDeExaminador> obterExaminadores(){
+    	Class<PerfilDeExaminador> tipoPerfil = PerfilDeExaminador.class;
+    	Collection<Perfil> perfisDoTipoPerfil = perfis.get(tipoPerfil.getName());
+    	Collection<PerfilDeExaminador> perfisDeExaminador = new ArrayList<PerfilDeExaminador>();
+    	
+    	for (Perfil perfil : perfisDoTipoPerfil) {
+			perfisDeExaminador.add((PerfilDeExaminador) perfil);
+		}
+    	 
+    	return perfisDeExaminador;
+    }
+	
+	public Collection<PerfilDeChair> obterChairs(){
+    	Class<PerfilDeChair> tipoPerfil = PerfilDeChair.class;
+    	Collection<Perfil> perfisDoTipoPerfil = perfis.get(tipoPerfil.getName());
+    	Collection<PerfilDeChair> perfisDeChair = new ArrayList<PerfilDeChair>();
+    	
+    	for (Perfil perfil : perfisDoTipoPerfil) {
+			perfisDeChair.add((PerfilDeChair) perfil);
+		}
+    	 
+    	return perfisDeChair;
+    }
+    
+    
+    /*Referete a trabalho*/
+    
+    public void subtmeterTrabalho(PerfilDeParticipante submissor, String titulo, String resumo, String autores, String caminhoArquivoSubmissao) throws ExcecaoDeParticipacao{
+        Trabalho trabalho = Trabalho.criarTrabalho(submissor, titulo, resumo, autores, caminhoArquivoSubmissao);
+        this.trabalhos.add(trabalho);
+    }
+
+    public void subtmeterVersaoFinalDeTrabalho(Trabalho trabalho, String caminhoArquivoFinal) throws ExcecaoDeParticipacao{
+    	if (obterTrabalhosAceitos().contains(trabalho)) {
+        	trabalho.submeterVersaoFinal(caminhoArquivoFinal);	
+    	} else {
+    		throw new ExcecaoDeParticipacao("evento.submeter_versao_final_de_trabalho.nao_pertence_trabalhos_aceitos");
+    	}
+    }
+    
+    public Collection<Trabalho> obterTrabalhosAceitos() {
+    	Collection<Trabalho> trabalhosAceitos = new ArrayList<Trabalho>();
+    	for (Trabalho trabalho: trabalhos) {
+    		if (trabalho.obterEstado() == EstadoAvaliacao.ACEITO)
+    			trabalhosAceitos.add(trabalho);
+    	}
+        return  trabalhosAceitos;
+    }
+
+    public Collection<Trabalho> obterTrabalhosRejeitados() {
+    	Collection<Trabalho> trabalhosRejeitados = new ArrayList<Trabalho>();
+    	for (Trabalho trabalho: trabalhos) {
+    		if (trabalho.obterEstado() == EstadoAvaliacao.REJEITADO)
+    			trabalhosRejeitados.add(trabalho);
+    	}
+        return  trabalhosRejeitados;
+    }
+
+    public Collection<Trabalho> obterTrabalhosNaoAvaliados() {
+    	Collection<Trabalho> trabalhosNaoAvaliados = new ArrayList<Trabalho>();
+    	for (Trabalho trabalho: trabalhos) {
+    		if (trabalho.obterEstado() == EstadoAvaliacao.NAO_AVALIADO)
+    			trabalhosNaoAvaliados.add(trabalho);
+    	}
+        return  trabalhosNaoAvaliados;
+    }
+    
+    public Collection<Trabalho> obterTrabalhosNaoAssociadosABancaExaminadora(){
+    	Collection<Trabalho> trabalhosNaoAssociadosABancaExaminadora = new ArrayList<Trabalho>();
+    	for (Trabalho trabalho: trabalhos) {
+    		if (!trabalho.associadoABancaExaminadora())
+    			trabalhosNaoAssociadosABancaExaminadora.add(trabalho);
+    	}
+        return  trabalhosNaoAssociadosABancaExaminadora;    	
+    }
+
+    public Collection<Trabalho> obterTrabalhosSubmetidos() {
+        return trabalhos;
+    }
+    
+ 
+    /*Referente ao estado do evento*/
     
 	public void cancelar() {
 		try {
@@ -173,42 +257,9 @@ public class Evento {
 		this.estado = this.estado.realizaTransicao(estadoDestino);
 	}
    
-	public Collection<PerfilDeParticipante> obterParticipantes(){
-    	Class<PerfilDeParticipante> tipoPerfil = PerfilDeParticipante.class;
-    	Collection<Perfil> perfisDoTipoPerfil = perfis.get(tipoPerfil.getName());
-    	Collection<PerfilDeParticipante> perfisDeParticipante = new ArrayList<PerfilDeParticipante>();
-    	
-    	for (Perfil perfil : perfisDoTipoPerfil) {
-			perfisDeParticipante.add((PerfilDeParticipante) perfil);
-		}
-    	 
-    	return perfisDeParticipante;
-    }
-	
-	public Collection<PerfilDeExaminador> obterExaminadores(){
-    	Class<PerfilDeExaminador> tipoPerfil = PerfilDeExaminador.class;
-    	Collection<Perfil> perfisDoTipoPerfil = perfis.get(tipoPerfil.getName());
-    	Collection<PerfilDeExaminador> perfisDeExaminador = new ArrayList<PerfilDeExaminador>();
-    	
-    	for (Perfil perfil : perfisDoTipoPerfil) {
-			perfisDeExaminador.add((PerfilDeExaminador) perfil);
-		}
-    	 
-    	return perfisDeExaminador;
-    }
-	
-	public Collection<PerfilDeChair> obterChairs(){
-    	Class<PerfilDeChair> tipoPerfil = PerfilDeChair.class;
-    	Collection<Perfil> perfisDoTipoPerfil = perfis.get(tipoPerfil.getName());
-    	Collection<PerfilDeChair> perfisDeChair = new ArrayList<PerfilDeChair>();
-    	
-    	for (Perfil perfil : perfisDoTipoPerfil) {
-			perfisDeChair.add((PerfilDeChair) perfil);
-		}
-    	 
-    	return perfisDeChair;
-    }
 
+
+	/*Metodos de validacao de dados*/
 
     private static void validarDados(String nome, Instituicao instituicao, Usuario usuarioResponsavel, Date dataMaximaParaSubmissaoDeTrabalhos, Date dataMaximaParaAceitacaoDeTrabalhos, Date dataDeInicio, Date dataDeFim) throws ExcecaoDeCadastro{
     	validarNome(nome);
@@ -255,6 +306,9 @@ public class Evento {
         	throw new ExcecaoDeCadastro("evento.data_maxima_para_submissao_de_trabalhos.invalida");
     }
     
+    
+    
+    /*Metodos de get e set*/
 
 	public String getNome() {
 		return nome;

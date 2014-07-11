@@ -3,7 +3,8 @@ package controladorGRASP;
 import java.util.Collection;
 import java.util.Date;
 
-import catalago.MantenedorDeCatalagos;
+import catalago.CatalagoDeEventos;
+import catalago.Pessoal;
 import dominio.Administrador;
 import dominio.Autenticavel;
 import dominio.Evento;
@@ -15,23 +16,23 @@ import excecao.ExcecaoDeCadastro;
 public final class ControladorDeCadastro {
 	
 	public static Evento criarEvento(String nome, Instituicao instituicao, Usuario usuarioResponsavel, Date dataMaximaParaSubmissaoDeTrabalho, Date dataMaximaParaAceitacaoDeTrabalho, Date dataDeInicio, Date dataDeFim) throws  ExcecaoDeCadastro{
-		return MantenedorDeCatalagos.obterInstancia().obterCatalagoDeEventos().criarEvento(nome, instituicao, usuarioResponsavel, dataMaximaParaSubmissaoDeTrabalho, dataMaximaParaAceitacaoDeTrabalho, dataDeInicio, dataDeFim);
+		return CatalagoDeEventos.obterInstancia().criarEvento(nome, instituicao, usuarioResponsavel, dataMaximaParaSubmissaoDeTrabalho, dataMaximaParaAceitacaoDeTrabalho, dataDeInicio, dataDeFim);
 	}
 	
 	public static Collection<Evento> obterTodosEventosDeferidos() {
-		return MantenedorDeCatalagos.obterInstancia().obterCatalagoDeEventos().obterEventosDeferidos();
+		return CatalagoDeEventos.obterInstancia().obterEventosDeferidos();
 	}
 	
 	public static Collection<Evento> obterTodosEventosIndeferidos() {
-		return MantenedorDeCatalagos.obterInstancia().obterCatalagoDeEventos().obterEventosIndeferidos();
+		return CatalagoDeEventos.obterInstancia().obterEventosIndeferidos();
 	}
 
 	public static Collection<Evento> obterTodosEventosAguardandoAprovacao() {
-		return MantenedorDeCatalagos.obterInstancia().obterCatalagoDeEventos().obterEventosAguardandoAprovacao();
+		return CatalagoDeEventos.obterInstancia().obterEventosAguardandoAprovacao();
 	}
 	
 	public static Collection<Evento> obterTodosEventos() {
-		return MantenedorDeCatalagos.obterInstancia().obterCatalagoDeEventos().obterEventos();
+		return CatalagoDeEventos.obterInstancia().obterEventos();
 	}
 	
 	public static void atualizarDadosDoEvento(Evento evento, Instituicao instituicao, String nome, Date dataDeInicio, Date dataDeFim, Date dataMaximaParaSubmissaoDeTrabalhos, Date dataMaximaParaAceitacaoDeTrabalhos) throws ExcecaoDeCadastro{
@@ -39,50 +40,50 @@ public final class ControladorDeCadastro {
 	}
 	
 	public static Usuario criarUsuario(String email, String senha, String nome, String ultimoNome, Instituicao instituicao) throws ExcecaoDeCadastro{
-		return MantenedorDeCatalagos.obterInstancia().obterCatalagoDeAutenticaveis().criarUsuario(email, senha, nome, ultimoNome, instituicao);
+		return Pessoal.obterInstancia().criarUsuario(email, senha, nome, ultimoNome, instituicao);
 	}
 
 	public static void criarAdministrador(String email, String senha) throws ExcecaoDeCadastro{
-		MantenedorDeCatalagos.obterInstancia().obterCatalagoDeAutenticaveis().criarAdministrador(email, senha);
+		Pessoal.obterInstancia().criarAdministrador(email, senha);
 	}
 	
 	public static void atualizarDadosDoUsuario(Usuario usuario, String email, String senha, String nome, String ultimoNome, Instituicao instituicao) throws ExcecaoDeCadastro{
-		MantenedorDeCatalagos.obterInstancia().obterCatalagoDeAutenticaveis().atualizarUsuario(usuario, email, senha, nome, ultimoNome, instituicao);
+		Pessoal.obterInstancia().atualizarUsuario(usuario, email, senha, nome, ultimoNome, instituicao);
 	}
 	
 	public static void atualizarDadosDoAdministrador(Administrador administrador, String email, String senha) throws ExcecaoDeCadastro{
-		MantenedorDeCatalagos.obterInstancia().obterCatalagoDeAutenticaveis().atualizarAdministrador(administrador, email, senha);
+		Pessoal.obterInstancia().atualizarAdministrador(administrador, email, senha);
 	}
 	
 	public static Collection<Autenticavel> obterTodosAutenticaveis(){
-		return MantenedorDeCatalagos.obterInstancia().obterCatalagoDeAutenticaveis().obterAutenticaveis();
+		return Pessoal.obterInstancia().obterAutenticaveis();
 	}
 	
 	public static Autenticavel obterAutenticavelPorEmail(String email) throws ExcecaoDeCadastro{
-		return MantenedorDeCatalagos.obterInstancia().obterCatalagoDeAutenticaveis().obterAutenticavelPorEmail(email);
+		return Pessoal.obterInstancia().obterAutenticavelPorEmail(email);
 	}
 	
 	public static Collection<Usuario> obterTodosUsuarios(){
-		return MantenedorDeCatalagos.obterInstancia().obterCatalagoDeAutenticaveis().obterUsuarios();
+		return Pessoal.obterInstancia().obterUsuarios();
 	}
 	
 	public static Collection<Administrador> obterTodosAdministradores(){
-		return MantenedorDeCatalagos.obterInstancia().obterCatalagoDeAutenticaveis().obterAdministradores();
+		return Pessoal.obterInstancia().obterAdministradores();
 	}
 	
 	public static Instituicao criarInstituicao(String nome, String sigla, String localizacao) throws ExcecaoDeCadastro{
-		return MantenedorDeCatalagos.obterInstancia().obterCatalagoDeInstituicoes().criarInstituicao(nome, sigla, localizacao);
+		return Pessoal.obterInstancia().criarInstituicao(nome, sigla, localizacao);
 	}
 	
 	public static Collection<Instituicao> obterTodasInstituicoes(){
-		return MantenedorDeCatalagos.obterInstancia().obterCatalagoDeInstituicoes().obterInstituicoes();
+		return Pessoal.obterInstancia().obterInstituicoes();
 	}
 	
 	public static Instituicao obterInstituicaoPorSigla(String sigla) throws ExcecaoDeCadastro{
-		return MantenedorDeCatalagos.obterInstancia().obterCatalagoDeInstituicoes().obterInstituicaoPorSigla(sigla);
+		return Pessoal.obterInstancia().obterInstituicaoPorSigla(sigla);
 	}
 	
 	public static Autenticavel entrarNoSistema(String email, String senha) throws ExcecaoDeCadastro{
-		return MantenedorDeCatalagos.obterInstancia().obterCatalagoDeAutenticaveis().entrarNoSistema(email, senha);
+		return Pessoal.obterInstancia().entrarNoSistema(email, senha);
 	}
 }

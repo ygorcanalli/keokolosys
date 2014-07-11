@@ -11,18 +11,20 @@ import dominio.Instituicao;
 import dominio.Usuario;
 import excecao.ExcecaoDeCadastro;
 
-public class CatalagoDeAutenticaveis {
+public class Pessoal {
 	
-	private Map<String, Autenticavel> autenticaveis;	
-	private static CatalagoDeAutenticaveis instancia;
+	private Map<String, Autenticavel> autenticaveis;
+	private Map<String, Instituicao> instituicoes;
+	private static Pessoal instancia;
 	
-	public CatalagoDeAutenticaveis() {
+	public Pessoal() {
 		this.autenticaveis = new HashMap<String, Autenticavel>();
+		this.instituicoes = new HashMap<String, Instituicao>();
 	}	
 	
-	public static synchronized CatalagoDeAutenticaveis obterInstancia() {
+	public static synchronized Pessoal obterInstancia() {
 		if (instancia == null)
-			instancia =  new CatalagoDeAutenticaveis();
+			instancia =  new Pessoal();
 		
 		return instancia;
 	}
@@ -34,6 +36,13 @@ public class CatalagoDeAutenticaveis {
 		autenticaveis.put(email, usuario);
 		return usuario;
     }
+		
+	public void atualizarUsuario(Usuario usuario, String nome, String ultimoNome, String email, String senha, Instituicao instituicao) throws ExcecaoDeCadastro{
+		if(usuario.getEmail().compareTo(email) != 0)
+			validarEmailComoUnico(email);
+		
+		usuario.atualizarDados(email, senha, nome, ultimoNome, instituicao);
+	}
 	
 	public void criarAdministrador(String email, String senha) throws ExcecaoDeCadastro{
 		validarEmailComoUnico(email);
@@ -41,13 +50,7 @@ public class CatalagoDeAutenticaveis {
 		Administrador administrador = Administrador.criarAdministrador(email, senha);
 		autenticaveis.put(email, administrador);
     }
-	
-	public void atualizarUsuario(Usuario usuario, String nome, String ultimoNome, String email, String senha, Instituicao instituicao) throws ExcecaoDeCadastro{
-		if(usuario.getEmail().compareTo(email) != 0)
-			validarEmailComoUnico(email);
-		
-		usuario.atualizarDados(email, senha, nome, ultimoNome, instituicao);
-	}
+
 	
 	public void atualizarAdministrador(Administrador administrador, String email, String senha) throws ExcecaoDeCadastro{
 		if(administrador.getEmail().compareTo(email) != 0)
@@ -105,6 +108,40 @@ public class CatalagoDeAutenticaveis {
 		return administradores;
 	}
 
+	
+	public Instituicao criarInstituicao(String nome, String sigla, String localizacao) throws ExcecaoDeCadastro{
+		validarSiglaComoUnica(sigla);
+		
+		Instituicao instituicao = Instituicao.criarInstituicao(nome, sigla, localizacao);
+        instituicoes.put(instituicao.getSigla(), instituicao);
+        return instituicao;
+    }
+	
+	public Collection<Instituicao> obterInstituicoes(){
+		return instituicoes.values();
+	}
+	
+	public Instituicao obterInstituicaoPorSigla(String sigla) throws ExcecaoDeCadastro{
+		Instituicao instituicao = instituicoes.get(sigla); 
+		
+		if(instituicao == null)
+			throw new ExcecaoDeCadastro("catalago_de_instituicoes.instituicao.nao_localizado");
+		
+		return instituicao;
+	}
+	
+	public void atualizarInstituicao(Instituicao instituicao, String nome, String sigla, String localizacao) throws ExcecaoDeCadastro{
+		if(sigla.compareTo(instituicao.getSigla()) != 0)
+			validarSiglaComoUnica(sigla);
+		
+		instituicao.atualizarDados(nome, sigla, localizacao);
+	}
+	
+	private void validarSiglaComoUnica(String sigla) throws ExcecaoDeCadastro{
+        if(instituicoes.containsKey(sigla))
+        	throw new ExcecaoDeCadastro("catalogo_de_insticoes.sigla.existente");
+	}
+	
 	
 	private void validarEmailComoUnico(String email) throws ExcecaoDeCadastro{
 		if(autenticaveis.containsKey(email))

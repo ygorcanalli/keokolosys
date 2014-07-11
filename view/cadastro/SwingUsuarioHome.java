@@ -17,7 +17,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.text.TabExpander;
 
-import valueobject.EventoVO;
+import transferobject.EventoTO;
 import cadastro.ControleUsuarioHome;
 
 import java.awt.GridLayout;
@@ -32,7 +32,7 @@ import java.util.Iterator;
 public class SwingUsuarioHome extends JFrame implements AbstractGUIUsuarioHome {
 	
 	ControleUsuarioHome controleUsuarioHome;
-	EventoVO[] eventos;
+	EventoTO[] eventos;
 	/**
 	 * 
 	 */
@@ -103,10 +103,10 @@ public class SwingUsuarioHome extends JFrame implements AbstractGUIUsuarioHome {
 	
 	private Object[][] dataTabelaEventosDisponiveis() {
 		
-		Collection<EventoVO> eventosDisponiveis = controleUsuarioHome.obterEventosDeferidosNaoInscritos();
-		Iterator<EventoVO> iteradorEventosDisponiveis = eventosDisponiveis.iterator();
+		Collection<EventoTO> eventosDisponiveis = controleUsuarioHome.obterEventosDeferidosNaoInscritos();
+		Iterator<EventoTO> iteradorEventosDisponiveis = eventosDisponiveis.iterator();
 		
-		eventos = new EventoVO[eventosDisponiveis.size()];
+		eventos = new EventoTO[eventosDisponiveis.size()];
 		Object[][] data = new Object[eventos.length][2];
 		for (int i = 0; i < eventos.length; i++) {
 			eventos[i] = iteradorEventosDisponiveis.next();
