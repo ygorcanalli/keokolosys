@@ -172,7 +172,6 @@ public class SwingCadastrarEvento extends JFrame implements AbstractGUICadastrar
 	
 	public SwingCadastrarEvento(ControleCadastrarEvento controleCadastrarEvento){
 		this.controleCadastrarEvento = controleCadastrarEvento;
-		inicializarFrame();
 	}
 
 	

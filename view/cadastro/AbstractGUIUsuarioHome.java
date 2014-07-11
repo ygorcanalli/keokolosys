@@ -7,7 +7,8 @@ import util.AbstractGUI;
 
 public interface AbstractGUIUsuarioHome extends AbstractGUI {
 	
-	public void atualizarTabelaEventosDisponiveis(Collection<EventoTO> eventosDisponiveis);
+	public void atualizarListaEventosDisponiveis(Collection<EventoTO> eventosDisponiveis);
+	public void atualizarListaParticipacao(Collection<EventoTO> eventosInscritos);
 	
 
 }
