@@ -30,6 +30,8 @@ import transferobject.UsuarioTO;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class SwingCadastrarEvento extends JFrame implements AbstractGUICadastrarEvento {
 
@@ -177,7 +179,7 @@ public class SwingCadastrarEvento extends JFrame implements AbstractGUICadastrar
 	private void inicializarFrame(){
 		setResizable(false);
 		setTitle("Cadastro de Evento");
-		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 667, 480);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -357,6 +359,16 @@ public class SwingCadastrarEvento extends JFrame implements AbstractGUICadastrar
 		);
 		panel.setLayout(gl_panel);
 		contentPane.setLayout(gl_contentPane);
-
+		
+		this.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent arg0) {
+				fechar();
+			}
+		});
 	}
+	
+	
 }
+	
+	
