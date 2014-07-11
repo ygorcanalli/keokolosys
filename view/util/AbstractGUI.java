@@ -1,6 +1,7 @@
 package util;
 
 public interface AbstractGUI {
+	
 	public void inicializar();
 	public void tornarVisivel();
 	public void tornarInvisivel();
