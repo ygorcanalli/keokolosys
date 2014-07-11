@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
-
+import transferobject.InstituicaoTO;
 import catalago.Pessoal;
 import controladorGRASP.ControladorDeCadastro;
 import dominio.Instituicao;
@@ -22,26 +22,25 @@ public class ControleCadastrarEvento {
 	
 	public void inicializarGUI(){
 		viewCadastroDeEvento = new SwingCadastrarEvento(this);
-		viewCadastroDeEvento.inicializar();
-		
-		Collection<String> instituicoes = obterInstituicoes();
-		viewCadastroDeEvento.carregarInstituicoes(instituicoes);
-		viewCadastroDeEvento.definirUsuarioResponsavel(usuarioAutenticado.getNome());
-		
+		viewCadastroDeEvento.inicializar();		
 		viewCadastroDeEvento.tonarVisivel();
 	}
 	
-	private Collection<String> obterInstituicoes(){
+	
+	public Collection<InstituicaoTO> obterInstituicoes(){
 		Collection<Instituicao> instituicoes = ControladorDeCadastro.obterTodasInstituicoes();
-		Collection<String> instituicoesStr = new ArrayList<String>();
+		Collection<InstituicaoTO> instituicoesTO = new ArrayList<InstituicaoTO>();
+		InstituicaoTO instituicaoTO;
 		
 		for (Instituicao instituicao : instituicoes) {
-			instituicoesStr.add(instituicao.getSigla());
+			instituicaoTO = new InstituicaoTO(instituicao.getNome(), instituicao.getSigla(), instituicao.getLocalizacao());
+			instituicoesTO.add(instituicaoTO);
 		}
 		
-		return instituicoesStr;
+		return instituicoesTO;
 	}
 
+	
 	public void criarEvento(){
 		String nomeDoEvento = viewCadastroDeEvento.obterNomeDoEvento();
 		Date dataDeInicioDoEvento = viewCadastroDeEvento.obterDataDeInicioDoEvento();

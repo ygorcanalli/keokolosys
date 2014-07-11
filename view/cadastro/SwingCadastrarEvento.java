@@ -24,6 +24,9 @@ import com.toedter.calendar.JDateChooser;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 
+import transferobject.EventoTO;
+import transferobject.InstituicaoTO;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -51,22 +54,19 @@ public class SwingCadastrarEvento extends JFrame implements AbstractGUICadastrar
 	private JDateChooser dateChooserDataAceitacaoDeTrabalhos;
 	private JLabel lblUsuarioResponsavel;
 	private JLabel lblInstituioDeOcorrncia;
-	private JComboBox<String> comboBoxInstituicao;
+	private JComboBox<InstituicaoTO> comboBoxInstituicao;
 	
-	private String nomeDoEvento;
-	private Date dataDeInicioDoEvento;
-	private Date dataDeFimDoEvento;
-	private Date dataMaximaParaSubmissaoDeTrabalho;
-	private Date dataMaximaParaAceitacaoDeTrabalho ;
+	private EventoTO evento;
 	
 	private ControleCadastrarEvento controleCadastrarEvento;
 	
+	private InstituicaoTO[] instituicoes;
 
 	@Override
 	public void inicializar() {
 		tonarVisivel();
 	}
-		
+
 	@Override
 	public void tonarVisivel(){
 		this.setVisible(true);
@@ -87,9 +87,9 @@ public class SwingCadastrarEvento extends JFrame implements AbstractGUICadastrar
 		this.setEnabled(true);
 	}
 	
-	@Override
-	public void carregarInstituicoes(Collection<String> instituicoes){
-		for (String instituicao : instituicoes) {
+	private void atualizarListaDeInstituicoes(Collection<InstituicaoTO> instituicoes){
+		instituicoes = new InstituicaoTO[instituicoes.size];
+		for (InstituicaoTO instituicao : instituicoes) {
 			this.comboBoxInstituicao.addItem(instituicao);
 		}
 	}
@@ -105,43 +105,27 @@ public class SwingCadastrarEvento extends JFrame implements AbstractGUICadastrar
 		controleCadastrarEvento.criarEvento();
 	}
 
-	@Override
-	public String obterNomeDoEvento(){
-		return this.nomeDoEvento;
+
+	public EventoTO obterEvento(){
+		String nome = textFieldNomeDoEvento.getText();
+		InstituicaoTO instituicao = capturarInstituicao();
+		String usuarioResponsavel = lblUsuarioResponsavel.getText();
+		Date dataDeInicio = dateChooserDataDeInicioDoEvento.getDate();
+		Date dataDeFim = dateChooserDataDeFimDoEvento.getDate();
+		Date dataMaximaParaSubmissaoDeTrabalhos = dateChooserDataSubmissaoDeTrabalhos.getDate();
+		Date dataMaximaParaAceitacaoDeTrabalhos = dateChooserDataAceitacaoDeTrabalhos.getDate();
+		
+		if(this.evento == null)
+			this.evento = new EventoTO(nome, instituicao, usuarioResponsavel, dataMaximaParaSubmissaoDeTrabalhos, dataMaximaParaAceitacaoDeTrabalhos, dataDeInicio, dataDeFim, estado)
+			
+		return this.evento;
 	}
+		
 	
-	@Override
-	public Date obterDataDeInicioDoEvento(){
-		return this.dataDeInicioDoEvento;
-	}
-	
-	@Override
-	public Date obterDataDeFimDoevento(){
-		return this.dataDeFimDoEvento;
-	}
-	
-	@Override
-	public Date obterDataMaximaParaSubmissaoDeTrabalho(){
-		return this.dataMaximaParaSubmissaoDeTrabalho;
-	}
-	
-	@Override
-	public Date obterDataMaximaParaAceitacaoDeTrabalho(){
-		return this.dataMaximaParaAceitacaoDeTrabalho;
-	}
-	
-	@Override
-	public String obterInstituicao(){
-		return (String) this.comboBoxInstituicao.getSelectedItem();
-	}
-	
-	
-	private void capturarDados(){
-		this.nomeDoEvento = textFieldNomeDoEvento.getText();
-		this.dataDeInicioDoEvento = dateChooserDataDeInicioDoEvento.getDate();
-		this.dataDeFimDoEvento = dateChooserDataDeFimDoEvento.getDate();
-		this.dataMaximaParaSubmissaoDeTrabalho = dateChooserDataSubmissaoDeTrabalhos.getDate();
-		this.dataMaximaParaAceitacaoDeTrabalho = dateChooserDataAceitacaoDeTrabalhos.getDate();
+	private void capturarInstituicao(){
+		Integer posicao = comboBoxInstituicao.getSelectedIndex();
+		InstituicaoTO instituicao = instituicoes
+		
 	}
 	
 	private void incluirNovaInstituicao(){
@@ -311,7 +295,7 @@ public class SwingCadastrarEvento extends JFrame implements AbstractGUICadastrar
 		lblUsuarioResponsavel = new JLabel("nome_usuario_responsavel");
 		lblInstituioDeOcorrncia = new JLabel("Instituicao de ocorrencia do evento:");
 		
-		comboBoxInstituicao = new JComboBox<String>();
+		comboBoxInstituicao = new JComboBox<InstituicaoTO>();
 		
 		btnIncluir = new JButton("Incluir");
 		btnIncluir.addActionListener(new ActionListener() {

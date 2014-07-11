@@ -3,6 +3,7 @@ package cadastro;
 import java.util.Collection;
 import java.util.Date;
 
+import transferobject.InstituicaoTO;
 import util.AbstractGUI;
 
 public interface AbstractGUICadastrarEvento extends AbstractGUI {
@@ -11,7 +12,7 @@ public interface AbstractGUICadastrarEvento extends AbstractGUI {
 	public void fechar();
 	public void bloquear();
 	public void habilitar();
-	public void carregarInstituicoes(Collection<String> instituicoes);
+	public void atualizarListaDeInstituicoes(Collection<InstituicaoTO> instituicoes);
 	public void definirUsuarioResponsavel(String nomeDoUsuarioResponsavel);
 	public void criarEvento();
 	

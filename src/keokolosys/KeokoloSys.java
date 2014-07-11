@@ -24,7 +24,7 @@ public class KeokoloSys {
 		Evento evento;
 		
 		
-		/*try {
+		try {
 			ControladorDeCadastro.criarInstituicao("Rural", "UFRRJ", "NI");
 			ControladorDeCadastro.criarInstituicao("Queridinha", "UFRJ", "Fundão");
 			ControladorDeCadastro.criarInstituicao("Poderosa", "COPPE", "Fundão");
@@ -39,11 +39,11 @@ public class KeokoloSys {
 		} catch (ExcecaoDeCadastro e) {
 
 			e.printStackTrace();
-		}*/
+		}
 		
 		
 
-		try {
+		/*try {
 			 i = ControladorDeCadastro.criarInstituicao("Rural", "UFRRJ", "Rua S/N");
 			u = ControladorDeCadastro.criarUsuario("Hugo", "Rebelo", "email", "senha", i);
 			
@@ -59,7 +59,7 @@ public class KeokoloSys {
 		}
 		
 		ControleUsuarioHome controleUsuarioHome = new ControleUsuarioHome();
-		controleUsuarioHome.inicializarGUI();
+		controleUsuarioHome.inicializarGUI();*/
 		
 	}
 

@@ -18,6 +18,24 @@ public class EventoTO {
     private Date dataDeFim;
     private Estado estado;
     
+    
+    public EventoTO(){
+    	
+    }
+     
+	public EventoTO(String nome, InstituicaoTO instituicao, UsuarioTO usuarioResponsavel, Date dataMaximaParaSubmissaoDeTrabalhos, Date dataMaximaParaAceitacaoDeTrabalhos, Date dataDeInicio, Date dataDeFim) {
+		
+		this.nome = nome;
+		this.instituicao = instituicao;
+		this.usuarioResponsavel = usuarioResponsavel;
+		this.dataMaximaParaSubmissaoDeTrabalhos = dataMaximaParaSubmissaoDeTrabalhos;
+		this.dataMaximaParaAceitacaoDeTrabalhos = dataMaximaParaAceitacaoDeTrabalhos;
+		this.dataDeInicio = dataDeInicio;
+		this.dataDeFim = dataDeFim;
+	}
+
+
+
 	public String getNome() {
 		return nome;
 	}
