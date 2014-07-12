@@ -79,6 +79,10 @@ public final class ControladorDeCadastro {
 		Pessoal.obterInstancia().atualizarInstituicao(instituicao, nome, sigla, localizacao);
 	}
 	
+	public static void removerInstituicao(Instituicao instituicao) throws ExcecaoDeCadastro{
+		Pessoal.obterInstancia().removerInstituicao(instituicao);
+	}
+	
 	public static Collection<Instituicao> obterTodasInstituicoes(){
 		return Pessoal.obterInstancia().obterInstituicoes();
 	}

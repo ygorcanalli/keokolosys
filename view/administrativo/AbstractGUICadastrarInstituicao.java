@@ -9,7 +9,9 @@ public interface AbstractGUICadastrarInstituicao extends AbstractGUI {
 
 	public void fechar();
 	public void atualizarListaDeInstituicoes(Collection<InstituicaoTO> instituicoes);
-	public InstituicaoTO obterInstituicaoCriada();
+	public InstituicaoTO obterDadosDaInstituicaoPreenchida();
+	public InstituicaoTO obterInstituicaoSelecionada();
+	public void definirSelecao(InstituicaoTO instituicao);
 	public void removerSelecao();
 	public void habilitarAcaoSelecionar();
 	public void habilitarAcaoNovo();
@@ -25,4 +27,6 @@ public interface AbstractGUICadastrarInstituicao extends AbstractGUI {
 	public void desabilitarAcaoAtualizar();
 	public void desabilitarAcaoExcluir();
 	public void desabilitarAcaoCancelar();
+	public void limparFormulario();
+	public void exibirInstituicao(InstituicaoTO instituicao);
 }

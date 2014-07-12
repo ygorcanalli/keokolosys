@@ -2,6 +2,7 @@ package keokolosys;
 
 import java.util.Date;
 
+import administrativo.ControleCadastrarInstituicao;
 import util.Sessao;
 import cadastro.ControleCadastrarEvento;
 import cadastro.ControleUsuarioHome;
@@ -41,9 +42,12 @@ public class KeokoloSys {
 		}
 		*/
 		
+		ControleCadastrarInstituicao controleCadastrarInstituicao = new ControleCadastrarInstituicao(null);
+		controleCadastrarInstituicao.inicializarGUI();
+		
 
-		try {
-			 i = ControladorDeCadastro.criarInstituicao("Rural", "UFRRJ", "Rua S/N");
+		/*try {
+			i = ControladorDeCadastro.criarInstituicao("Rural", "UFRRJ", "Rua S/N");
 			u = ControladorDeCadastro.criarUsuario("Hugo", "Rebelo", "email", "senha", i);
 			
 			for (int count = 0; count < 10; count++) {
@@ -58,7 +62,7 @@ public class KeokoloSys {
 		}
 		
 		ControleUsuarioHome controleUsuarioHome = new ControleUsuarioHome(null);
-		controleUsuarioHome.inicializarGUI();
+		controleUsuarioHome.inicializarGUI();*/
 
 	}
 

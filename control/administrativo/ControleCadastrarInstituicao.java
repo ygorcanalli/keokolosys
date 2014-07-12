@@ -22,31 +22,57 @@ public class ControleCadastrarInstituicao implements AbstractControle{
 	public void inicializarGUI(){
 		viewCadastrarInstituicao = new SwingCadastrarInstituicao(this);
 		viewCadastrarInstituicao.inicializar();
+		
+		viewCadastrarInstituicao.desabilitarAcaoAtualizar();
+		viewCadastrarInstituicao.desabilitarAcaoCancelar();
+		viewCadastrarInstituicao.desabilitarAcaoEditar();
+		viewCadastrarInstituicao.desabilitarAcaoSalvar();
+		viewCadastrarInstituicao.desabilitarAcaoExcluir();
+		viewCadastrarInstituicao.habilitarAcaoNovo();
+		viewCadastrarInstituicao.habilitarAcaoSelecionar();
+		
 		atualizarListaDeInstituicoes();
 		
 		viewCadastrarInstituicao.tornarVisivel();
 	}
 	
-	private void cadastrarInstituicao(String nome, String sigla, String localizacao){
-		try {
-			ControladorDeCadastro.criarInstituicao(nome, sigla, localizacao);
-			viewCadastrarInstituicao.exibirMensagemDeInformacao("Instituição: " + sigla + " incluída com sucesso!", "");
-		} catch (ExcecaoDeCadastro e) {
-			viewCadastrarInstituicao.exibirMensagemDeErro(e.getMessage(), "");
-		}
+	private void cadastrarInstituicao(String nome, String sigla, String localizacao) throws ExcecaoDeCadastro{
+		ControladorDeCadastro.criarInstituicao(nome, sigla, localizacao);
+		atualizarListaDeInstituicoes();
+		viewCadastrarInstituicao.exibirMensagemDeInformacao("Instituição: " + sigla + " incluída com sucesso!", "");
 	}
 	
-	private void atualizarInstituicao(String nome, String sigla, String localizacao){
-		try {
-			ControladorDeCadastro.a
-		} catch (ExcecaoDeCadastro e) {
-			viewCadastrarInstituicao.exibirMensagemDeErro(e.getMessage(), "");
-		}
+	private void excluirInstituicao(InstituicaoTO instituicaoTO) throws ExcecaoDeCadastro{
+		Instituicao instituicao;
+		instituicao = ControladorDeCadastro.obterInstituicaoPorSigla(instituicaoTO.getSigla());
+		
+		ControladorDeCadastro.removerInstituicao(instituicao);			
+		atualizarListaDeInstituicoes();
+		
+		viewCadastrarInstituicao.exibirMensagemDeInformacao("Instituicao removida com sucesso!", "");
 	}
+	
+	private void exibirInstituicaoSelecionada(){
+		InstituicaoTO instituicaoTO = viewCadastrarInstituicao.obterInstituicaoSelecionada();
+		viewCadastrarInstituicao.exibirInstituicao(instituicaoTO);
+	}
+	
+	
+	private void atualizarInstituicao(InstituicaoTO instituicaoTO, String nome, String sigla, String localizacao) throws ExcecaoDeCadastro{
+		Instituicao instituicao;
+		
+		instituicao = ControladorDeCadastro.obterInstituicaoPorSigla(instituicaoTO.getSigla());
+		ControladorDeCadastro.atualizarDadosDaInstituicao(instituicao, nome, sigla, localizacao);
+		atualizarListaDeInstituicoes();
+		
+		viewCadastrarInstituicao.exibirMensagemDeInformacao("Instituicao: " + sigla + " atualizada com sucesso!", "");
+	}
+	
 	
 	public void atualizarListaDeInstituicoes(){
 		viewCadastrarInstituicao.atualizarListaDeInstituicoes(obterInstituicoes());
 	}
+	
 	
 	private Collection<InstituicaoTO> obterInstituicoes(){
 		Collection<Instituicao> instituicoes = ControladorDeCadastro.obterTodasInstituicoes();
@@ -61,6 +87,7 @@ public class ControleCadastrarInstituicao implements AbstractControle{
 		return instituicoesTO;
 	}
 	
+	
 	public void acaoSelecionar(){
 		viewCadastrarInstituicao.desabilitarAcaoCancelar();
 		viewCadastrarInstituicao.desabilitarAcaoAtualizar();
@@ -69,9 +96,14 @@ public class ControleCadastrarInstituicao implements AbstractControle{
 		viewCadastrarInstituicao.habilitarAcaoNovo();
 		viewCadastrarInstituicao.habilitarAcaoExcluir();
 		viewCadastrarInstituicao.habilitarAcaoEditar();
+		
+		exibirInstituicaoSelecionada();
 	}
 	
 	public void acaoNovo(){
+		viewCadastrarInstituicao.desabilitarAcaoSelecionar();
+		viewCadastrarInstituicao.removerSelecao();
+		viewCadastrarInstituicao.limparFormulario();
 		viewCadastrarInstituicao.desabilitarAcaoNovo();
 		viewCadastrarInstituicao.desabilitarAcaoAtualizar();
 		viewCadastrarInstituicao.desabilitarAcaoEditar();
@@ -81,35 +113,108 @@ public class ControleCadastrarInstituicao implements AbstractControle{
 		viewCadastrarInstituicao.habilitarAcaoCancelar();
 	}
 	
-	public void acaoSalvar(){
-		viewCadastrarInstituicao.desabilitarAcaoSalvar();
-		viewCadastrarInstituicao.desabilitarAcaoCancelar();
-		viewCadastrarInstituicao.desabilitarAcaoAtualizar();
+	public void acaoSalvar(){		
+		InstituicaoTO instituicaoTO = viewCadastrarInstituicao.obterDadosDaInstituicaoPreenchida();
+		try {
+			cadastrarInstituicao(instituicaoTO.getNome(), instituicaoTO.getSigla(), instituicaoTO.getLocalizacao());
+			
+			viewCadastrarInstituicao.definirSelecao(instituicaoTO);
+			
+			viewCadastrarInstituicao.desabilitarAcaoSalvar();
+			viewCadastrarInstituicao.desabilitarAcaoCancelar();
+			viewCadastrarInstituicao.desabilitarAcaoAtualizar();
 		
-		viewCadastrarInstituicao.habilitarAcaoSelecionar();
-		viewCadastrarInstituicao.habilitarAcaoEditar();
-		viewCadastrarInstituicao.habilitarAcaoExcluir();
-		
-		
-		InstituicaoTO instituicaoTO = viewCadastrarInstituicao.obterInstituicaoCriada();
-		cadastrarInstituicao(instituicaoTO.getNome(), instituicaoTO.getSigla(), instituicaoTO.getLocalizacao());
+			viewCadastrarInstituicao.habilitarAcaoSelecionar();
+			viewCadastrarInstituicao.habilitarAcaoEditar();
+			viewCadastrarInstituicao.habilitarAcaoExcluir();
+			viewCadastrarInstituicao.habilitarAcaoNovo();
+
+			
+		} catch (ExcecaoDeCadastro e) {
+			viewCadastrarInstituicao.exibirMensagemDeErro(e.getMessage(), "");
+		}		
 	}
 	
-	public void acaoEditar(){
+	public void acaoEditar(){		
+		viewCadastrarInstituicao.desabilitarAcaoEditar();
+		viewCadastrarInstituicao.desabilitarAcaoSelecionar();
+		viewCadastrarInstituicao.desabilitarAcaoExcluir();
+		viewCadastrarInstituicao.desabilitarAcaoSalvar();
+		viewCadastrarInstituicao.desabilitarAcaoNovo();
 		
+		viewCadastrarInstituicao.habilitarAcaoCancelar();
+		viewCadastrarInstituicao.habilitarAcaoAtualizar();	
 	}
 	
 	public void acaoExcluir(){
 		
+		InstituicaoTO instituicaoTO = viewCadastrarInstituicao.obterInstituicaoSelecionada();
+		String opcoes[] = {"Sim", "Não"};
+		Integer opcaoSelecionada;
+		
+		opcaoSelecionada = viewCadastrarInstituicao.exibirMensagemDeConfirmacao("Realmente deseja remover a instituicao: " + instituicaoTO.getSigla() + "?", "", opcoes, "Não");
+		
+		if(opcaoSelecionada == 0)
+		{
+			try {
+				excluirInstituicao(instituicaoTO);
+				
+				viewCadastrarInstituicao.removerSelecao();
+				viewCadastrarInstituicao.limparFormulario();
+				viewCadastrarInstituicao.desabilitarAcaoSalvar();
+				viewCadastrarInstituicao.desabilitarAcaoCancelar();
+				viewCadastrarInstituicao.desabilitarAcaoAtualizar();
+				
+				viewCadastrarInstituicao.habilitarAcaoSelecionar();
+				viewCadastrarInstituicao.habilitarAcaoNovo();
+				viewCadastrarInstituicao.habilitarAcaoEditar();
+				viewCadastrarInstituicao.habilitarAcaoExcluir();
+				
+			} catch (ExcecaoDeCadastro e) {
+				viewCadastrarInstituicao.exibirMensagemDeErro(e.getMessage(), "");
+			}			
+		}
 	}
 	
 	public void acaoCancelar(){
+		viewCadastrarInstituicao.desabilitarAcaoCancelar();
+		viewCadastrarInstituicao.desabilitarAcaoAtualizar();
+		viewCadastrarInstituicao.desabilitarAcaoSalvar();
 		
+		viewCadastrarInstituicao.habilitarAcaoNovo();
+		viewCadastrarInstituicao.habilitarAcaoSelecionar();
+		
+		if(viewCadastrarInstituicao.obterInstituicaoSelecionada() != null)
+		{
+			viewCadastrarInstituicao.habilitarAcaoExcluir();
+			viewCadastrarInstituicao.habilitarAcaoEditar();			
+		}
+		else
+		{
+			viewCadastrarInstituicao.desabilitarAcaoExcluir();
+			viewCadastrarInstituicao.desabilitarAcaoEditar();						
+		}
 	}
 	
-	public void acaoAtualizar(){
-		InstituicaoTO instituicaoTO = viewCadastrarInstituicao.obterInstituicaoCriada();
-		atualizarInstituicao(instituicaoTO.getNome(), instituicaoTO.getSigla(), instituicaoTO.getLocalizacao());
+	public void acaoAtualizar(){				
+		InstituicaoTO instituicaoAtualizadaTO = viewCadastrarInstituicao.obterDadosDaInstituicaoPreenchida();
+		InstituicaoTO instituicaoTO = viewCadastrarInstituicao.obterInstituicaoSelecionada();
+		
+		try {
+			atualizarInstituicao(instituicaoTO, instituicaoAtualizadaTO.getNome(), instituicaoAtualizadaTO.getSigla(), instituicaoAtualizadaTO.getLocalizacao());
+			atualizarListaDeInstituicoes();
+			
+			viewCadastrarInstituicao.desabilitarAcaoSalvar();
+			viewCadastrarInstituicao.desabilitarAcaoCancelar();
+			viewCadastrarInstituicao.desabilitarAcaoAtualizar();
+		
+			viewCadastrarInstituicao.habilitarAcaoSelecionar();
+			viewCadastrarInstituicao.habilitarAcaoEditar();
+			viewCadastrarInstituicao.habilitarAcaoExcluir();
+
+		} catch (ExcecaoDeCadastro e) {
+			viewCadastrarInstituicao.exibirMensagemDeErro(e.getMessage(), "");
+		}		
 	}
 	
 	public void fechar(){

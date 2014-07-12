@@ -34,6 +34,13 @@ public class BancaExaminadora{
     	return new BancaExaminadora(examinador1, examinador2, examinador3); 
     }*/
     
+    public void atualizarExaminadores(Collection<PerfilDeExaminador> examinadores) throws ExcecaoDeAvaliacao{
+    	validarDados(examinadores);
+    	this.examinadores.clear();
+    	this.examinadores.addAll(examinadores);
+    }
+
+    
     private static void validarDados(Collection<PerfilDeExaminador> examinadores) throws ExcecaoDeAvaliacao{
     	Set<PerfilDeExaminador> setExaminadores = new HashSet<PerfilDeExaminador>();
     	setExaminadores.addAll(examinadores);
@@ -72,6 +79,7 @@ public class BancaExaminadora{
     	
 		return true;
     }
+    
     
     public Integer obterNumeroDeExaminadores() {
     	return examinadores.size();

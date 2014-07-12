@@ -3,7 +3,7 @@ package dominio;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class PerfilDeExaminador extends Perfil {
+public class PerfilDeExaminador extends Perfil{
 
     /*private Collection<BancaExaminadora> bancasExaminadoras;*/
 

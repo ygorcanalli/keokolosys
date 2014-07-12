@@ -7,6 +7,7 @@ import java.util.Map;
 
 import dominio.Administrador;
 import dominio.Autenticavel;
+import dominio.Evento;
 import dominio.Instituicao;
 import dominio.Usuario;
 import excecao.ExcecaoDeCadastro;
@@ -136,6 +137,25 @@ public class Pessoal {
 		
 		instituicao.atualizarDados(nome, sigla, localizacao);
 	}
+	
+	
+	public void removerInstituicao(Instituicao instituicao) throws ExcecaoDeCadastro{
+		Collection<Evento> eventos = CatalagoDeEventos.obterInstancia().obterEventos();
+		Collection<Usuario> usuarios = obterUsuarios();
+		
+		for (Evento evento : eventos) {
+			if(evento.getInstituicao().compareTo(instituicao) == 0)
+				throw new ExcecaoDeCadastro("pessoal.insituicao.vinculada_a_evento");
+		}
+		
+		for (Usuario usuario: usuarios) {
+			if(usuario.getInstituicao().compareTo(instituicao) == 0)
+				throw new ExcecaoDeCadastro("pessoal.insituicao.vinculada_a_usuario");
+		}
+		
+		instituicoes.remove(instituicao.getSigla());
+	}
+	
 	
 	private void validarSiglaComoUnica(String sigla) throws ExcecaoDeCadastro{
         if(instituicoes.containsKey(sigla))

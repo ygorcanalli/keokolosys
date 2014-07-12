@@ -57,6 +57,20 @@ public class Evento {
     	return bancaExaminadora;
     }
     
+    public void atualizarBancaExaminadora(BancaExaminadora bancaExaminadora, Collection<PerfilDeExaminador> examinadores) throws ExcecaoDeAvaliacao{
+    	if(!bancaExaminadora.formadaPelosExaminadores(examinadores))
+    		validarBancaComoUnica(examinadores);
+    	
+    	bancaExaminadora.atualizarExaminadores(examinadores);
+    }
+    
+    public void removerBancaExaminadora(BancaExaminadora bancaBancaExaminadora) throws ExcecaoDeAvaliacao{
+    	if(bancaBancaExaminadora.obterTrabalhosAssociados().size() > 0)
+    		throw new ExcecaoDeAvaliacao("evento.banca_examinadora.possui_trabalhos_associados");
+    	
+    	bancasExaminadoras.remove(bancaBancaExaminadora);
+    }
+    
     private void validarBancaComoUnica(Collection<PerfilDeExaminador> examinadores) throws ExcecaoDeAvaliacao{
     	BancaExaminadora bancaExaminadora = buscarBancaExaminadoraPelosExaminadores(examinadores);
     	

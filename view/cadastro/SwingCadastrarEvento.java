@@ -101,6 +101,8 @@ public class SwingCadastrarEvento extends JFrame implements AbstractGUICadastrar
 		this.instituicoes = new InstituicaoTO[instituicoes.size()];	
 		String instituicaoExibicao = "";
 		
+		this.comboBoxInstituicao.removeAllItems();
+		
 		for (InstituicaoTO instituicao : instituicoes) {
 			this.instituicoes[i] = instituicao; i++;
 			
@@ -143,7 +145,11 @@ public class SwingCadastrarEvento extends JFrame implements AbstractGUICadastrar
 	
 	private InstituicaoTO capturarInstituicao(){
 		int i = comboBoxInstituicao.getSelectedIndex();
-		return instituicoes[i];
+		
+		if(i >= 0)
+			return instituicoes[i];
+		else
+			return null;
 	}
 	
 	private void incluirNovaInstituicao(){

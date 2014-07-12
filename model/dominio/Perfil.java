@@ -1,7 +1,7 @@
 package dominio;
 
 
-public abstract class Perfil {
+public abstract class Perfil{
     private Usuario usuario;
     private Evento evento;
 

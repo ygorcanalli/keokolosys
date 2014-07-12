@@ -14,7 +14,6 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 
 import transferobject.InstituicaoTO;
-import excecao.ExcecaoDeCadastro;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -39,9 +38,8 @@ public class SwingCadastrarInstituicao extends JFrame implements AbstractGUICada
 	private JButton btnEditar;
 	private JButton btnExcluir;
 	private JButton btnSair;
-	
-	private boolean activeAction;
 
+	private Acao acaoCorrente = null; 
 	
 	private InstituicaoTO[] instituicoes;
 	
@@ -52,25 +50,51 @@ public class SwingCadastrarInstituicao extends JFrame implements AbstractGUICada
 	
 	@Override
 	public void atualizarListaDeInstituicoes(Collection<InstituicaoTO> instituicoes) {
-		
 		int i = 0;
 		this.instituicoes = new InstituicaoTO[instituicoes.size()];	
 		String instituicaoExibicao = "";
 		
+		this.comboBoxInstituicao.removeAllItems();
+		this.comboBoxInstituicao.repaint();
+		
 		for (InstituicaoTO instituicao : instituicoes) {
 			this.instituicoes[i] = instituicao; i++;
 			
-			instituicaoExibicao = String.valueOf(i) + " " + instituicao.getSigla() + " - " + instituicao.getNome();
+			instituicaoExibicao = String.valueOf(i) + " - " + instituicao.getSigla() + " : " + instituicao.getNome();
 			this.comboBoxInstituicao.addItem(instituicaoExibicao);
-		}
+		}		
 	}
-	
-	public InstituicaoTO obterInstituicaoCriada(){
+
+	@Override
+	public InstituicaoTO obterDadosDaInstituicaoPreenchida(){
 		String nomeDaInstituicao = textFieldNomeInstituicao.getText();
 		String localizacao = textFieldLocalizacao.getText();
 		String sigla = textFieldSigla.getText();
 		
 		return new InstituicaoTO(nomeDaInstituicao, sigla, localizacao);
+	}
+	
+	
+	@Override
+	public InstituicaoTO obterInstituicaoSelecionada(){
+		return capturarInstituicao();
+	}
+	
+	@Override
+	public void exibirInstituicao(InstituicaoTO instituicao) {
+		this.textFieldNomeInstituicao.setText(instituicao.getNome());
+		this.textFieldLocalizacao.setText(instituicao.getSigla());
+		this.textFieldSigla.setText(instituicao.getSigla());
+	}
+	
+	
+	private InstituicaoTO capturarInstituicao(){
+		int i = comboBoxInstituicao.getSelectedIndex();
+		
+		if(i >= 0)
+			return instituicoes[i];
+		else
+			return null;
 	}
 	
 	public void acaoSelecionar(){
@@ -132,9 +156,31 @@ public class SwingCadastrarInstituicao extends JFrame implements AbstractGUICada
 	}
 	
 	@Override
-	public void removerSelecao(){
-		this.comboBoxInstituicao.setSelectedIndex(0);
+	public void limparFormulario() {
+		this.textFieldNomeInstituicao.setText("");
+		this.textFieldSigla.setText("");
+		this.textFieldLocalizacao.setText("");
 	}
+	
+	@Override
+	public void removerSelecao(){
+		this.comboBoxInstituicao.setSelectedIndex(-1);
+	}
+	
+	@Override
+	public void definirSelecao(InstituicaoTO instituicao){
+		int i = 0;
+		
+		while((i < instituicoes.length) && (instituicoes[i].getSigla().compareTo(instituicao.getSigla()) != 0))
+			i++;
+		
+		if(i < instituicoes.length)
+			this.comboBoxInstituicao.setSelectedIndex(i);
+		else
+			this.comboBoxInstituicao.setSelectedIndex(-1);
+	}
+
+
 	
 	@Override
 	public void habilitarAcaoSelecionar(){
@@ -196,6 +242,11 @@ public class SwingCadastrarInstituicao extends JFrame implements AbstractGUICada
 	}
 	
 	@Override
+	public void desabilitarAcaoCancelar(){
+
+	}	
+	
+	@Override
 	public void desabilitarAcaoEditar(){
 		this.btnEditar.setEnabled(false);
 	}
@@ -204,11 +255,6 @@ public class SwingCadastrarInstituicao extends JFrame implements AbstractGUICada
 	public void desabilitarAcaoExcluir(){
 		this.btnExcluir.setEnabled(false);
 	}
-	
-	@Override
-	public void desabilitarAcaoCancelar(){
-				
-	}	
 	
 	
 	@Override
@@ -243,7 +289,7 @@ public class SwingCadastrarInstituicao extends JFrame implements AbstractGUICada
 	private void inicializarFrame() {
 		setTitle("Cadastrar instituicao de ensino ou pesquisa");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 539, 365);
+		setBounds(100, 100, 557, 395);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -260,40 +306,38 @@ public class SwingCadastrarInstituicao extends JFrame implements AbstractGUICada
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
 						.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(panel, GroupLayout.PREFERRED_SIZE, 512, GroupLayout.PREFERRED_SIZE)
-						.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 511, GroupLayout.PREFERRED_SIZE))
+						.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(panel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 					.addContainerGap())
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 63, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap()
+					.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 175, GroupLayout.PREFERRED_SIZE)
+					.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(37, Short.MAX_VALUE))
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		
 		this.btnNovaOuCancelar = new JButton("Nova");
 		btnNovaOuCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
-				activeAction = true;
-				
-				textFieldNomeInstituicao.setEnabled(true);
-				textFieldLocalizacao.setEnabled(true);
-				textFieldSigla.setEnabled(true);
-				
-				btnEditar.setEnabled(false);
-				btnExcluir.setEnabled(false);
-				btnNovaOuCancelar.setEnabled(false);
-				
-				btnSalvar.setEnabled(true);
-				
-				activeMnemonic = 'N';
+				if((acaoCorrente == Acao.EDITAR) || (acaoCorrente == Acao.NOVO))
+				{
+					acaoCorrente = Acao.CANCELAR;
+					acaoCancelar();
+				}
+				else
+				{
+					acaoCorrente = Acao.NOVO;
+					acaoNovo();
+				}
 			}
 		});
 		this.btnNovaOuCancelar.setMnemonic('N');
@@ -301,63 +345,26 @@ public class SwingCadastrarInstituicao extends JFrame implements AbstractGUICada
 		this.btnSalvar = new JButton("Salvar");
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
-				//acao salvar
-				
-				switch(activeMnemonic){
-				
-				case 'N':
-				{			
-												
-						controleCadastrarInstituicao.cadastrarInstituicao(textFieldNomeInstituicao.getText(), textFieldSigla.getText(), textFieldLocalizacao.getText());
-					
-					
-					comboBoxInstituicao.removeAllItems();
-					//carregarInstituicoes();
+				if(acaoCorrente == Acao.NOVO)
+				{
+					acaoCorrente = Acao.SALVAR;
+					acaoSalvar();
 				}
-		
-					break;
-					
-				case 'E':
-					
-				case 'x':
+				else
+				{
+					acaoCorrente = Acao.ATUALIZAR;
+					acaoAtualizar();
 				}
-				
-				textFieldNomeInstituicao.setText("");
-				textFieldSigla.setText("");
-				textFieldLocalizacao.setText("");
-				
-				textFieldNomeInstituicao.setEnabled(false);
-				textFieldSigla.setEnabled(false);
-				textFieldLocalizacao.setEnabled(false);
-				
-				btnNovaOuCancelar.setEnabled(true);
-				btnEditar.setEnabled(true);
-				btnExcluir.setEnabled(true);
-				
-				btnSalvar.setEnabled(false);
-				
-				activeAction = false;
 			}
 		});
+		
 		this.btnSalvar.setMnemonic('r');
 		
 		this.btnEditar = new JButton("Editar");
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
-				//acao editar
-				
-				activeAction = true;
-				
-				comboBoxInstituicao.setEnabled(true);
-				
-				btnExcluir.setEnabled(false);
-				btnNovaOuCancelar.setEnabled(false);
-				
-				btnSalvar.setEnabled(true);
-				
-				activeMnemonic = 'E';
+				acaoCorrente = Acao.EDITAR;
+				acaoEditar();
 			}
 		});
 		this.btnEditar.setMnemonic('E');
@@ -365,19 +372,8 @@ public class SwingCadastrarInstituicao extends JFrame implements AbstractGUICada
 		this.btnExcluir = new JButton("Excluir");
 		btnExcluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
-				//acao excluir
-				
-				activeAction = true;
-				
-				comboBoxInstituicao.setEnabled(true);
-				
-				btnEditar.setEnabled(false);
-				btnNovaOuCancelar.setEnabled(false);
-				
-				btnSalvar.setEnabled(true);
-				
-				activeMnemonic = 'x';
+				acaoCorrente = Acao.EXCLUIR;
+				acaoExcluir();			
 			}
 		});
 		this.btnExcluir.setMnemonic('x');
@@ -385,31 +381,7 @@ public class SwingCadastrarInstituicao extends JFrame implements AbstractGUICada
 		this.btnSair = new JButton("Sair");
 		btnSair.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
-				//acao sair
-				
-				if(activeAction){
-					
-					comboBoxInstituicao.setEnabled(false);
-					
-					textFieldNomeInstituicao.setEnabled(false);
-					textFieldLocalizacao.setEnabled(false);
-					textFieldSigla.setEnabled(false);
-					
-					btnNovaOuCancelar.setEnabled(true);
-					btnEditar.setEnabled(true);
-					btnExcluir.setEnabled(true);
-					
-					btnSalvar.setEnabled(false);
-					
-					activeAction = false;
-				}
-				
-				else{
-					
-					fechar();	
-				}
-				
+				fechar();
 			}
 		});
 		this.btnSair.setMnemonic('r');
@@ -491,6 +463,12 @@ public class SwingCadastrarInstituicao extends JFrame implements AbstractGUICada
 		panel_1.setLayout(gl_panel_1);
 		
 		comboBoxInstituicao = new JComboBox<String>();
+		comboBoxInstituicao.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(comboBoxInstituicao.getSelectedIndex() >= 0)
+					acaoSelecionar();
+			}
+		});
 		
 		JLabel lblInstituicao = new JLabel("Instituicao:");
 		GroupLayout gl_panel = new GroupLayout(panel);
