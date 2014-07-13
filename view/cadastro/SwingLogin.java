@@ -55,13 +55,13 @@ public class SwingLogin extends JFrame implements AbstractGUILogin {
 
 	@Override
 	public void bloquear() {
-		this.setEnabled(true);
+		this.setEnabled(false);
 		
 	}
 
 	@Override
 	public void desbloquear() {
-		this.setEnabled(false);
+		this.setEnabled(true);
 	}
 
 	@Override

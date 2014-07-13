@@ -6,11 +6,22 @@ public class UsuarioTO {
 	private String nome;
     private String ultimoNome;
     private InstituicaoTO instituicao;
+    private String senha;
     
     public UsuarioTO(){
     	
     }
     
+
+	public UsuarioTO(String email, String senha, String nome, String ultimoNome,
+			InstituicaoTO instituicao) {
+		super();
+		this.email = email;
+		this.senha = senha;
+		this.nome = nome;
+		this.ultimoNome = ultimoNome;
+		this.instituicao = instituicao;
+	}
     
     
 	public UsuarioTO(String email, String nome, String ultimoNome,
@@ -46,7 +57,14 @@ public class UsuarioTO {
 	public void setInstituicao(InstituicaoTO instituicao) {
 		this.instituicao = instituicao;
 	}
+	
+	public void setSenha(String senha){
+		this.senha = senha;
+	}
     
+	public String getSenha(){
+		return this.senha;
+	}
     
 
 }

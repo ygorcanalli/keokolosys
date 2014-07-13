@@ -89,7 +89,7 @@ public class ControleLogin implements AbstractControle{
 	}
 	
 	private void cadastrarUsuario(){
-		AbstractControle cadastrarUsuario = new ControleCadastrarUsuario();
+		AbstractControle cadastrarUsuario = new ControleCadastrarUsuario(this);
 		cadastrarUsuario.inicializarGUI();
 		bloquearGUI();
 	}
