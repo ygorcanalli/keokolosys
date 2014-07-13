@@ -31,6 +31,10 @@ public final class ControladorDeAvaliacao {
     public static BancaExaminadora obterBancaExaminadoraPelosExaminadores(Evento evento, Collection<PerfilDeExaminador> examinadores) throws ExcecaoDeAvaliacao{
     	return evento.obterBancaExaminadoraPelosExaminadores(examinadores);
     }
+    
+    public static Collection<BancaExaminadora> obterTodasAsBancasExaminadorasDoEvento(Evento evento){
+    	return evento.getBancasExaminadoras();
+    }
 
     public static void avaliarTrabalho(Trabalho trabalho, PerfilDeExaminador examinador, EstadoAvaliacao resultado) throws ExcecaoDeAvaliacao {
         trabalho.getBancaExaminadoraResponsavel().avaliarTrabalho(trabalho, examinador, resultado);
