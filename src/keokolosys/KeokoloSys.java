@@ -23,16 +23,21 @@ public class KeokoloSys {
 		Instituicao i;
 		Usuario u;
 		Evento evento;
-		/*
+		
 		
 		try {
-			ControladorDeCadastro.criarInstituicao("Rural", "UFRRJ", "NI");
-			ControladorDeCadastro.criarInstituicao("Queridinha", "UFRJ", "Fundão");
-			ControladorDeCadastro.criarInstituicao("Poderosa", "COPPE", "Fundão");
+			ControladorDeCadastro.criarInstituicao("Universidade Federal Rural do Rio de Janeiro", "UFRRJ", "Seropedica");
+			ControladorDeCadastro.criarInstituicao("Universidade Federal do Rio de Janeiro", "UFRJ", "Fundão");
+			ControladorDeCadastro.criarInstituicao("Universidade Federal do Estado do Rio de Janeiro", "UNIRIO", "Urca");
+			ControladorDeCadastro.criarInstituicao("Universidade Federal Fluminense", "UFF", "Niteroi");
 			
-			i = ControladorDeCadastro.obterTodasInstituicoes().iterator().next();
-			Usuario user = ControladorDeCadastro.criarUsuario("ygor.canalli@gmail.com", "rogy", "Ygor", "Canalli", i);
-			Sessao.iniciarSessao(user);
+			Instituicao rural = ControladorDeCadastro.obterInstituicaoPorSigla("UFRRJ");
+			Instituicao ufrj = ControladorDeCadastro.obterInstituicaoPorSigla("UFRJ");
+			
+			Usuario ygor = ControladorDeCadastro.criarUsuario("ygor.canalli@gmail.com", "rogy", "Ygor", "Canalli", ufrj);
+			Usuario alexsander = ControladorDeCadastro.criarUsuario("alexsander.a.m@gmail.com", "rogy", "Alexsander", "Melo", rural);
+			
+			Sessao.iniciarSessao(ygor);
 			c = new ControleCadastrarEvento(null);
 			c.inicializarGUI();
 			
@@ -40,10 +45,10 @@ public class KeokoloSys {
 
 			e.printStackTrace();
 		}
-		*/
 		
-		ControleCadastrarInstituicao controleCadastrarInstituicao = new ControleCadastrarInstituicao(null);
-		controleCadastrarInstituicao.inicializarGUI();
+		
+		/*ControleCadastrarInstituicao controleCadastrarInstituicao = new ControleCadastrarInstituicao(null);
+		controleCadastrarInstituicao.inicializarGUI();*/
 		
 
 		/*try {

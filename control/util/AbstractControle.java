@@ -6,5 +6,6 @@ public interface AbstractControle {
 	public void tornarGUIInvisivel();
 	public void bloquearGUI();
 	public void desbloquearGUI();
+	public void encerrarGUI();
 	
 }

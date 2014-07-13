@@ -146,4 +146,10 @@ public class ControleUsuarioHome implements AbstractControle{
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void encerrarGUI() {
+		// TODO Auto-generated method stub
+		
+	}
 }

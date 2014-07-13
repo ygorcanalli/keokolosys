@@ -19,6 +19,7 @@ public class ControleCadastrarInstituicao implements AbstractControle{
 		this.caller = caller;
 	}
 	
+	@Override
 	public void inicializarGUI(){
 		viewCadastrarInstituicao = new SwingCadastrarInstituicao(this);
 		viewCadastrarInstituicao.inicializar();
@@ -33,7 +34,33 @@ public class ControleCadastrarInstituicao implements AbstractControle{
 		
 		atualizarListaDeInstituicoes();
 		
+		tornarGUIVisivel();
+	}
+	
+	@Override
+	public void encerrarGUI(){
+		viewCadastrarInstituicao.tornarInvisivel();
+		caller.desbloquearGUI();
+	}
+	
+	@Override
+	public void tornarGUIVisivel() {
 		viewCadastrarInstituicao.tornarVisivel();
+	}
+
+	@Override
+	public void tornarGUIInvisivel() {
+		viewCadastrarInstituicao.tornarInvisivel();
+	}
+
+	@Override
+	public void bloquearGUI() {
+		viewCadastrarInstituicao.bloquear();
+	}
+
+	@Override
+	public void desbloquearGUI() {
+		viewCadastrarInstituicao.desbloquear();
 	}
 	
 	private void cadastrarInstituicao(String nome, String sigla, String localizacao) throws ExcecaoDeCadastro{
@@ -219,31 +246,6 @@ public class ControleCadastrarInstituicao implements AbstractControle{
 	
 	public void fechar(){
 		encerrarGUI();
-	}
-	
-	public void encerrarGUI(){
-		viewCadastrarInstituicao.tornarInvisivel();
-		caller.desbloquearGUI();
-	}
-	
-	@Override
-	public void tornarGUIVisivel() {
-		viewCadastrarInstituicao.tornarVisivel();
-	}
-
-	@Override
-	public void tornarGUIInvisivel() {
-		viewCadastrarInstituicao.tornarInvisivel();
-	}
-
-	@Override
-	public void bloquearGUI() {
-		viewCadastrarInstituicao.bloquear();
-	}
-
-	@Override
-	public void desbloquearGUI() {
-		viewCadastrarInstituicao.desbloquear();
 	}
 }
 

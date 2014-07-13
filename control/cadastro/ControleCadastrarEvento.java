@@ -29,7 +29,7 @@ public class ControleCadastrarEvento implements AbstractControle{
 		atualizarListaDeInstituicoes();
 		definirUsuario();
 		
-		viewCadastroDeEvento.tornarVisivel();
+		tornarGUIVisivel();
 	}
 	
 	public void encerrarGUI(){
@@ -87,8 +87,9 @@ public class ControleCadastrarEvento implements AbstractControle{
 	}
 	
 	public void incluirNovaInstituicao(){
+		AbstractControle controleIncluirInstituicao = new ControleIncluirInstituicao(this);
+		controleIncluirInstituicao.inicializarGUI();
 		viewCadastroDeEvento.bloquear();
-		caller.inicializarGUI();
 	}
 	
 	public void fechar(){

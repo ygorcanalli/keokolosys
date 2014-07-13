@@ -1,9 +1,8 @@
 package cadastro;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.GroupLayout;
@@ -14,43 +13,99 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JButton;
 
+import transferobject.InstituicaoTO;
 import cadastro.ControleIncluirInstituicao;
 
-public class SwingIncluirInstituicao extends JFrame {
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
-	/**
-	 * 
-	 */
+public class SwingIncluirInstituicao extends JFrame implements AbstractGUIIncluirInstituicao{
+
+
 	private static final long serialVersionUID = -3896949162725193015L;
 	private JPanel contentPane;
 	
 	private ControleIncluirInstituicao controleIncluirInstituicao;
 	private JTextField textFieldNome;
 	private JTextField textFieldLocalizacao;
-	private JTextField textField;
+	private JTextField textFieldSigla;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					SwingIncluirInstituicao frame = new SwingIncluirInstituicao();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+	public SwingIncluirInstituicao(ControleIncluirInstituicao controleIncluirInstituicao) {
+		this.controleIncluirInstituicao = controleIncluirInstituicao;
+		inicializarFrame();
 	}
 
-	/**
-	 * Create the frame.
-	 */
-	public SwingIncluirInstituicao() {
-		setTitle("Incluir nova institui\u00E7\u00E3o de ensino ou pesquisa");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	@Override
+	public void inicializar() {
+		inicializarFrame();
+	}
+
+	@Override
+	public void tornarVisivel() {
+		this.setVisible(true);
+		
+	}
+
+	@Override
+	public void tornarInvisivel() {
+		this.setVisible(false);
+	}
+
+	@Override
+	public void bloquear() {
+		this.setEnabled(true);
+		
+	}
+
+	@Override
+	public void desbloquear() {
+		this.setEnabled(false);
+	}
+
+	@Override
+	public void exibirMensagemDeErro(String mensagem, String titulo){
+		JOptionPane.showMessageDialog(this, mensagem, titulo, JOptionPane.ERROR_MESSAGE);
+	}
+	
+	@Override
+	public void exibirMensagemDeAviso(String mensagem, String titulo){
+		JOptionPane.showMessageDialog(this, mensagem, titulo, JOptionPane.WARNING_MESSAGE);
+	}
+	
+	@Override
+	public void exibirMensagemDeInformacao(String mensagem, String titulo){
+		JOptionPane.showMessageDialog(this, mensagem, titulo, JOptionPane.INFORMATION_MESSAGE);
+	}
+	
+	@Override
+	public Integer exibirMensagemDeConfirmacao(String mensagem, String titulo, Object[] opcoes, Object opcaoPadrao){
+		return JOptionPane.showOptionDialog(this, mensagem, titulo, JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcoes, opcaoPadrao);
+	}
+	
+	@Override
+	public void incluir(){
+		controleIncluirInstituicao.incluir();
+	}
+	
+	@Override
+	public void fechar(){
+		controleIncluirInstituicao.fechar();
+	}
+	
+	@Override
+	public InstituicaoTO obterDadosDaInstituicaoPreenchida() {
+		String nomeDaInstituicao = textFieldNome.getText();
+		String localizacao = textFieldLocalizacao.getText();
+		String sigla = textFieldSigla.getText();
+		
+		return new InstituicaoTO(nomeDaInstituicao, sigla, localizacao);
+	}
+	
+	private void inicializarFrame(){
+		setTitle("Incluir nova instituicao de ensino ou pesquisa");
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 503, 320);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -78,20 +133,30 @@ public class SwingIncluirInstituicao extends JFrame {
 					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		
-		JButton btnIncluirInstituicao = new JButton("Incluir institui\u00E7\u00E3o");
+		JButton btnIncluirInstituicao = new JButton("Incluir");
+		btnIncluirInstituicao.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				incluir();
+			}
+		});
 		btnIncluirInstituicao.setMnemonic('I');
 		
 		JButton btnSair = new JButton("Sair");
+		btnSair.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				fechar();
+			}
+		});
 		btnSair.setMnemonic('S');
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
 		gl_panel_1.setHorizontalGroup(
 			gl_panel_1.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_1.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(btnIncluirInstituicao)
+					.addComponent(btnIncluirInstituicao, GroupLayout.PREFERRED_SIZE, 93, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(btnSair, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(254, Short.MAX_VALUE))
+					.addContainerGap(282, Short.MAX_VALUE))
 		);
 		gl_panel_1.setVerticalGroup(
 			gl_panel_1.createParallelGroup(Alignment.LEADING)
@@ -104,20 +169,20 @@ public class SwingIncluirInstituicao extends JFrame {
 		);
 		panel_1.setLayout(gl_panel_1);
 		
-		JLabel lblNomeDaInstituicao = new JLabel("Nome da institui\u00E7\u00E3o:");
+		JLabel lblNomeDaInstituicao = new JLabel("Nome:");
 		
 		textFieldNome = new JTextField();
 		textFieldNome.setColumns(10);
 		
-		JLabel lblLocalizacao = new JLabel("Localiza\u00E7\u00E3o da institui\u00E7\u00E3o:");
+		JLabel lblLocalizacao = new JLabel("Localizacao:");
 		
 		textFieldLocalizacao = new JTextField();
 		textFieldLocalizacao.setColumns(10);
 		
-		JLabel lblSiglaDaInstituicao = new JLabel("Sigla da institui\u00E7\u00E3o:");
+		JLabel lblSiglaDaInstituicao = new JLabel("Sigla:");
 		
-		textField = new JTextField();
-		textField.setColumns(10);
+		textFieldSigla = new JTextField();
+		textFieldSigla.setColumns(10);
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -129,7 +194,7 @@ public class SwingIncluirInstituicao extends JFrame {
 						.addComponent(lblLocalizacao)
 						.addComponent(textFieldLocalizacao, GroupLayout.DEFAULT_SIZE, 393, Short.MAX_VALUE)
 						.addComponent(lblSiglaDaInstituicao)
-						.addComponent(textField, GroupLayout.PREFERRED_SIZE, 108, GroupLayout.PREFERRED_SIZE))
+						.addComponent(textFieldSigla, GroupLayout.PREFERRED_SIZE, 108, GroupLayout.PREFERRED_SIZE))
 					.addContainerGap())
 		);
 		gl_panel.setVerticalGroup(
@@ -146,11 +211,18 @@ public class SwingIncluirInstituicao extends JFrame {
 					.addGap(18)
 					.addComponent(lblSiglaDaInstituicao)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addComponent(textFieldSigla, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap(43, Short.MAX_VALUE))
 		);
 		panel.setLayout(gl_panel);
 		contentPane.setLayout(gl_contentPane);
+		
+		this.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent arg0) {
+				fechar();
+			}
+		});
 	}
 
 }
