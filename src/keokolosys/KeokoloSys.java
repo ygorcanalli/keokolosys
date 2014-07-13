@@ -4,6 +4,7 @@ import java.util.Date;
 
 import administrativo.ControleCadastrarInstituicao;
 import util.Sessao;
+import cadastro.ControleAtualizarUsuario;
 import cadastro.ControleCadastrarEvento;
 import cadastro.ControleLogin;
 import cadastro.ControleUsuarioHome;
@@ -38,8 +39,12 @@ public class KeokoloSys {
 			Usuario ygor = ControladorDeCadastro.criarUsuario("ygor.canalli@gmail.com", "rogy", "Ygor", "Canalli", ufrj);
 			Usuario alexsander = ControladorDeCadastro.criarUsuario("alexsander.a.m@gmail.com", "rogy", "Alexsander", "Melo", rural);
 			
-			ControleLogin controleLogin = new ControleLogin();
-			controleLogin.inicializarGUI();
+			/*ControleLogin controleLogin = new ControleLogin();
+			controleLogin.inicializarGUI();*/
+			
+			Sessao.iniciarSessao(ygor);
+			ControleAtualizarUsuario ca = new ControleAtualizarUsuario(null);
+			ca.inicializarGUI();
 
 			
 			//Sessao.iniciarSessao(ygor);

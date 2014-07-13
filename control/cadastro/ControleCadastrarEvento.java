@@ -46,8 +46,7 @@ public class ControleCadastrarEvento implements AbstractControle{
 		Instituicao instituicao = usuario.getInstituicao();
 		InstituicaoTO instituicaoTO = new InstituicaoTO(instituicao.getNome(), instituicao.getSigla(), instituicao.getLocalizacao());
 		UsuarioTO usuarioTO = new UsuarioTO(usuario.getEmail(), usuario.getNome(), usuario.getUltimoNome(), instituicaoTO);
-		viewCadastroDeEvento.definirUsuarioResponsavel(usuarioTO);
-		
+		viewCadastroDeEvento.definirUsuarioResponsavel(usuarioTO);	
 	}
 	
 	private Collection<InstituicaoTO> obterInstituicoes(){

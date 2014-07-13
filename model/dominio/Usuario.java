@@ -83,7 +83,7 @@ public class Usuario extends Autenticavel {
     	Boolean ultimoNomeVazio = (ultimoNome == null) || (ultimoNome.isEmpty());
     	
         if (ultimoNomeVazio)
-        	throw new ExcecaoDeCadastro("usuario.ultimoNome.vazio");
+        	throw new ExcecaoDeCadastro("usuario.ultimo_nome.vazio");
     }
     
     private static void validarEmail(String email) throws ExcecaoDeCadastro{

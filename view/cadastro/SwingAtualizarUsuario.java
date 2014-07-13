@@ -1,7 +1,9 @@
 package cadastro;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
+
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.Collection;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -9,6 +11,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.border.TitledBorder;
+import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -16,46 +19,165 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 
+import transferobject.InstituicaoTO;
+import transferobject.UsuarioTO;
 import cadastro.ControleAtualizarUsuario;
 
-public class SwingAtualizarUsuario extends JFrame {
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
-	/**
-	 * 
-	 */
+public class SwingAtualizarUsuario extends JFrame implements AbstractGUIAtualizarUsuario{
+
 	private static final long serialVersionUID = -7261933796799925187L;
 	private JPanel contentPane;
 	
+	private JComboBox<String> comboBoxInstituicao;
+	private JButton buttonAtualizar;
+	private JButton buttonSair;
+	
 	private ControleAtualizarUsuario controleAtualizarUsuario;
-	private JPasswordField passwordField;
-	private JTextField textField;
-	private JPasswordField passwordField_1;
-	private JTextField textField_1;
-	private JTextField textField_2;
+	private JPasswordField passwordFieldConfirmacaoSenha;
+	private JTextField textFieldEmail;
+	private JPasswordField passwordFieldSenha;
+	private JTextField textFieldNome;
+	private JTextField textFieldUltimoNome;
+	
+	private InstituicaoTO[] instituicoes;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					SwingAtualizarUsuario frame = new SwingAtualizarUsuario();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+
+	public SwingAtualizarUsuario(ControleAtualizarUsuario controleAtualizarUsuario) {
+		this.controleAtualizarUsuario = controleAtualizarUsuario;
+		inicializarFrame();
 	}
 
-	/**
-	 * Create the frame.
-	 */
-	public SwingAtualizarUsuario() {
+	@Override
+	public void inicializar() {
+		inicializarFrame();
+	}
+
+	@Override
+	public void tornarVisivel() {
+		this.setVisible(true);		
+	}
+
+	@Override
+	public void tornarInvisivel() {
+		this.setVisible(false);
+	}
+
+	@Override
+	public void bloquear() {
+		this.setEnabled(false);
+	}
+
+	@Override
+	public void desbloquear() {
+		this.setEnabled(true);
+	}
+
+	@Override
+	public void exibirMensagemDeErro(String mensagem, String titulo){
+		JOptionPane.showMessageDialog(this, mensagem, titulo, JOptionPane.ERROR_MESSAGE);
+	}
+	
+	@Override
+	public void exibirMensagemDeAviso(String mensagem, String titulo){
+		JOptionPane.showMessageDialog(this, mensagem, titulo, JOptionPane.WARNING_MESSAGE);
+	}
+	
+	@Override
+	public void exibirMensagemDeInformacao(String mensagem, String titulo){
+		JOptionPane.showMessageDialog(this, mensagem, titulo, JOptionPane.INFORMATION_MESSAGE);
+	}
+	
+	@Override
+	public Integer exibirMensagemDeConfirmacao(String mensagem, String titulo, Object[] opcoes, Object opcaoPadrao){
+		return JOptionPane.showOptionDialog(this, mensagem, titulo, JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcoes, opcaoPadrao);
+	}
+	
+	@Override
+	public String obterConfirmacaoSenha(){
+		char[] _confirmacaoSenha = passwordFieldSenha.getPassword();
+		String confirmcaoSenha = new String(_confirmacaoSenha);
+		
+		return confirmcaoSenha;
+	}
+	
+	@Override
+	public UsuarioTO obterAtualizacaoDosDadosDoUsuario() {
+		String email = textFieldEmail.getText();
+		char[] _senha = passwordFieldConfirmacaoSenha.getPassword();
+		String senha = new String(_senha);
+		InstituicaoTO instituicao = capturarInstituicao();
+		String nome = textFieldNome.getText();
+		String ultimoNome = textFieldUltimoNome.getText();
+		
+		return new UsuarioTO(email, senha, nome, ultimoNome, instituicao);
+	}
+	
+	
+	private InstituicaoTO capturarInstituicao(){
+		int i = comboBoxInstituicao.getSelectedIndex();
+		
+		if(i >= 0)
+			return instituicoes[i];
+		else
+			return null;
+	}
+	
+	private void atualizar(){
+		controleAtualizarUsuario.atualizar();
+	}
+	
+	private void incluirInstituicao(){
+		controleAtualizarUsuario.incluirInstituicao();
+	}
+	
+	@Override
+	public void exibirDadosDoUsuario(UsuarioTO usuario){
+		textFieldEmail.setText(usuario.getEmail());
+		textFieldNome.setText(usuario.getNome());
+		textFieldUltimoNome.setText(usuario.getUltimoNome());
+		definirSelecao(usuario.getInstituicao());
+	}
+	
+	private void definirSelecao(InstituicaoTO instituicao){
+		int i = 0;
+		
+		while((i < instituicoes.length) && (instituicoes[i].getSigla().compareTo(instituicao.getSigla()) != 0))
+			i++;
+		
+		if(i < instituicoes.length)
+			this.comboBoxInstituicao.setSelectedIndex(i);
+		else
+			this.comboBoxInstituicao.setSelectedIndex(-1);
+	}
+	
+	@Override
+	public void atualizarListaDeInstituicoes(Collection<InstituicaoTO> instituicoes){ 
+		
+		int i = 0;
+		this.instituicoes = new InstituicaoTO[instituicoes.size()];	
+		String instituicaoExibicao = "";
+		
+		this.comboBoxInstituicao.removeAllItems();
+		
+		for (InstituicaoTO instituicao : instituicoes) {
+			this.instituicoes[i] = instituicao; i++;
+			
+			instituicaoExibicao = instituicao.getSigla() + " - " + instituicao.getNome();
+			this.comboBoxInstituicao.addItem(instituicaoExibicao);
+		}
+	}
+	
+	private void fechar() {
+		controleAtualizarUsuario.fechar();
+	}
+	
+	private void inicializarFrame(){
 		setResizable(false);
 		setTitle("Atualizar dados cadastrais");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 484, 469);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -64,18 +186,18 @@ public class SwingAtualizarUsuario extends JFrame {
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		
-		passwordField = new JPasswordField();
+		passwordFieldConfirmacaoSenha = new JPasswordField();
 		
-		JLabel label = new JLabel("Confirma\u00E7\u00E3o senha:");
+		JLabel label = new JLabel("Confirmacao senha:");
 		
 		JLabel label_1 = new JLabel("Email:");
 		
 		JLabel label_2 = new JLabel("Senha:");
 		
-		textField = new JTextField();
-		textField.setColumns(10);
+		textFieldEmail = new JTextField();
+		textFieldEmail.setColumns(10);
 		
-		passwordField_1 = new JPasswordField();
+		passwordFieldSenha = new JPasswordField();
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -83,12 +205,12 @@ public class SwingAtualizarUsuario extends JFrame {
 				.addGroup(gl_panel.createSequentialGroup()
 					.addGap(18)
 					.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING, false)
-						.addComponent(passwordField, Alignment.LEADING)
+						.addComponent(passwordFieldConfirmacaoSenha, Alignment.LEADING)
 						.addComponent(label, Alignment.LEADING)
 						.addComponent(label_1, Alignment.LEADING)
 						.addComponent(label_2, Alignment.LEADING)
-						.addComponent(textField, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 401, Short.MAX_VALUE)
-						.addComponent(passwordField_1, Alignment.LEADING))
+						.addComponent(textFieldEmail, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 401, Short.MAX_VALUE)
+						.addComponent(passwordFieldSenha, Alignment.LEADING))
 					.addContainerGap(26, Short.MAX_VALUE))
 		);
 		gl_panel.setVerticalGroup(
@@ -98,15 +220,15 @@ public class SwingAtualizarUsuario extends JFrame {
 					.addContainerGap()
 					.addComponent(label_1)
 					.addGap(9)
-					.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addComponent(textFieldEmail, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(label_2)
 					.addGap(2)
-					.addComponent(passwordField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addComponent(passwordFieldSenha, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(label)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(passwordField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addComponent(passwordFieldConfirmacaoSenha, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap(26, Short.MAX_VALUE))
 		);
 		panel.setLayout(gl_panel);
@@ -114,21 +236,26 @@ public class SwingAtualizarUsuario extends JFrame {
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		
-		JLabel label_3 = new JLabel("Institui\u00E7\u00E3o:");
+		JLabel label_3 = new JLabel("Instituicao:");
 		
-		JLabel label_4 = new JLabel("\u00DAltimo nome:");
+		JLabel label_4 = new JLabel("Ultimo nome:");
 		
 		JLabel label_5 = new JLabel("Nome:");
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
+		textFieldNome = new JTextField();
+		textFieldNome.setColumns(10);
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
+		textFieldUltimoNome = new JTextField();
+		textFieldUltimoNome.setColumns(10);
 		
-		JComboBox comboBox = new JComboBox();
+		comboBoxInstituicao = new JComboBox<String>();
 		
 		JButton button = new JButton("Incluir nova");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				incluirInstituicao();
+			}
+		});
 		button.setMnemonic('i');
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
 		gl_panel_1.setHorizontalGroup(
@@ -140,10 +267,10 @@ public class SwingAtualizarUsuario extends JFrame {
 						.addComponent(label_3)
 						.addComponent(label_4)
 						.addComponent(label_5)
-						.addComponent(textField_1, GroupLayout.DEFAULT_SIZE, 396, Short.MAX_VALUE)
-						.addComponent(textField_2)
+						.addComponent(textFieldNome, GroupLayout.DEFAULT_SIZE, 396, Short.MAX_VALUE)
+						.addComponent(textFieldUltimoNome)
 						.addGroup(gl_panel_1.createSequentialGroup()
-							.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 309, GroupLayout.PREFERRED_SIZE)
+							.addComponent(comboBoxInstituicao, GroupLayout.PREFERRED_SIZE, 309, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(button, GroupLayout.PREFERRED_SIZE, 91, GroupLayout.PREFERRED_SIZE)))
 					.addContainerGap(19, Short.MAX_VALUE))
@@ -155,16 +282,16 @@ public class SwingAtualizarUsuario extends JFrame {
 					.addContainerGap()
 					.addComponent(label_5)
 					.addGap(7)
-					.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addComponent(textFieldNome, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(label_4)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addComponent(textFieldUltimoNome, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(label_3)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
-						.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(comboBoxInstituicao, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(button))
 					.addContainerGap(32, Short.MAX_VALUE))
 		);
@@ -197,19 +324,30 @@ public class SwingAtualizarUsuario extends JFrame {
 					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		
-		JButton button_1 = new JButton("Sair");
-		button_1.setMnemonic('s');
+
+		buttonSair = new JButton("Sair");
+		buttonSair.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				fechar();
+			}
+		});
+		buttonSair.setMnemonic('s');
 		
-		JButton button_2 = new JButton("Atualizar");
-		button_2.setMnemonic('A');
+		buttonAtualizar = new JButton("Atualizar");
+		buttonAtualizar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				atualizar();
+			}
+		});
+		buttonAtualizar.setMnemonic('A');
 		GroupLayout gl_panel_2 = new GroupLayout(panel_2);
 		gl_panel_2.setHorizontalGroup(
 			gl_panel_2.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_2.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(button_2, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE)
+					.addComponent(buttonAtualizar)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(button_1, GroupLayout.PREFERRED_SIZE, 73, GroupLayout.PREFERRED_SIZE)
+					.addComponent(buttonSair, GroupLayout.PREFERRED_SIZE, 73, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap(279, Short.MAX_VALUE))
 		);
 		gl_panel_2.setVerticalGroup(
@@ -217,12 +355,19 @@ public class SwingAtualizarUsuario extends JFrame {
 				.addGroup(gl_panel_2.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_panel_2.createParallelGroup(Alignment.BASELINE)
-						.addComponent(button_2)
-						.addComponent(button_1))
+						.addComponent(buttonAtualizar)
+						.addComponent(buttonSair))
 					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		panel_2.setLayout(gl_panel_2);
 		contentPane.setLayout(gl_contentPane);
+		
+		this.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent arg0) {
+				fechar();
+			}
+		});
 	}
 
 }

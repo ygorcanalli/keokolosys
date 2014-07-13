@@ -48,7 +48,7 @@ public final class ControladorDeCadastro {
 	}
 	
 	public static void atualizarDadosDoUsuario(Usuario usuario, String email, String senha, String nome, String ultimoNome, Instituicao instituicao) throws ExcecaoDeCadastro{
-		Pessoal.obterInstancia().atualizarUsuario(usuario, email, senha, nome, ultimoNome, instituicao);
+		Pessoal.obterInstancia().atualizarUsuario(usuario, nome, ultimoNome, email, senha, instituicao);
 	}
 	
 	public static void atualizarDadosDoAdministrador(Administrador administrador, String email, String senha) throws ExcecaoDeCadastro{
@@ -61,6 +61,10 @@ public final class ControladorDeCadastro {
 	
 	public static Autenticavel obterAutenticavelPorEmail(String email) throws ExcecaoDeCadastro{
 		return Pessoal.obterInstancia().obterAutenticavelPorEmail(email);
+	}
+	
+	public static Usuario obterUsuarioPorEmail(String email) throws ExcecaoDeCadastro{
+		return Pessoal.obterInstancia().obterUsuarioPorEmail(email);
 	}
 	
 	public static Collection<Usuario> obterTodosUsuarios(){

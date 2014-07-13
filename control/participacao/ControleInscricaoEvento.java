@@ -1,4 +1,4 @@
-package cadastro;
+package participacao;
 
 import participacao.AbstractGUIInscricaoEvento;
 

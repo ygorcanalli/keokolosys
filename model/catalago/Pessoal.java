@@ -83,6 +83,21 @@ public class Pessoal {
 		return autenticavel;
 	}
 	
+	public Usuario obterUsuarioPorEmail(String email) throws ExcecaoDeCadastro{
+		Usuario usuario;
+		Autenticavel autenticavel = autenticaveis.get(email);
+		
+		if(Usuario.class.isInstance(autenticavel))
+			usuario = (Usuario) autenticavel;
+		else
+			throw new ExcecaoDeCadastro("pessoal.email.nao_se_refere_a_um_usuario");
+			
+		if(autenticavel == null)
+			throw new ExcecaoDeCadastro("pessoal.autenticavel.nao_localizado");
+		
+		return usuario;
+	}
+	
 	public Collection<Usuario> obterUsuarios(){
 		Class<Usuario> tipoUsuario = Usuario.class;
 		Collection<Usuario> usuarios = new ArrayList<Usuario>();

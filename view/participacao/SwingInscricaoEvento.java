@@ -13,8 +13,6 @@ import javax.swing.JLabel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JButton;
 
-import cadastro.ControleInscricaoEvento;
-
 public class SwingInscricaoEvento extends JFrame {
 
 	/**
