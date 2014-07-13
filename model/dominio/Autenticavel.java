@@ -11,7 +11,7 @@ public abstract class Autenticavel {
 	}
 	
     public Boolean realizarAutenticacao(String senha) {
-        Boolean senhaCorreta = this.senha == senha;
+        Boolean senhaCorreta = this.senha.compareTo(senha) == 0;
 
         return senhaCorreta;
     }

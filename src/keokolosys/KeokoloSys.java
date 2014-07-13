@@ -5,6 +5,7 @@ import java.util.Date;
 import administrativo.ControleCadastrarInstituicao;
 import util.Sessao;
 import cadastro.ControleCadastrarEvento;
+import cadastro.ControleLogin;
 import cadastro.ControleUsuarioHome;
 import catalago.CatalagoDeEventos;
 import controladorGRASP.ControladorAdministrativo;
@@ -37,15 +38,19 @@ public class KeokoloSys {
 			Usuario ygor = ControladorDeCadastro.criarUsuario("ygor.canalli@gmail.com", "rogy", "Ygor", "Canalli", ufrj);
 			Usuario alexsander = ControladorDeCadastro.criarUsuario("alexsander.a.m@gmail.com", "rogy", "Alexsander", "Melo", rural);
 			
-			Sessao.iniciarSessao(ygor);
-			c = new ControleCadastrarEvento(null);
-			c.inicializarGUI();
+			ControleLogin controleLogin = new ControleLogin();
+			controleLogin.inicializarGUI();
+
+			
+			//Sessao.iniciarSessao(ygor);
+			//c = new ControleCadastrarEvento(null);
+			//c.inicializarGUI();
 			
 		} catch (ExcecaoDeCadastro e) {
 
 			e.printStackTrace();
 		}
-		
+				
 		
 		/*ControleCadastrarInstituicao controleCadastrarInstituicao = new ControleCadastrarInstituicao(null);
 		controleCadastrarInstituicao.inicializarGUI();*/
