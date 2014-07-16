@@ -15,6 +15,7 @@ import catalago.CatalagoDeEventos;
 import controladorGRASP.ControladorAdministrativo;
 import controladorGRASP.ControladorDeAvaliacao;
 import controladorGRASP.ControladorDeCadastro;
+import dominio.Administrador;
 import dominio.BancaExaminadora;
 import dominio.EstadoAvaliacao;
 import dominio.Evento;
@@ -30,18 +31,23 @@ public class KeokoloSys {
 
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
+		ControleLogin controleLogin = new ControleLogin();
+		controleLogin.inicializarGUI();
+		
+		
 		
 		ControladorDeCadastro.criarInstituicao("Stark Industries,", "SI", "USA");
 		Instituicao si = ControladorDeCadastro.obterInstituicaoPorSigla("SI");
+		ControladorDeCadastro.criarAdministrador("god@ceu.com", "god");
 		
 		Usuario stark = ControladorDeCadastro.criarUsuario("stark@stark.com", "stark", "Tony", "Stark", si);
 		Usuario pepper = ControladorDeCadastro.criarUsuario("peeper@stark.com", "stark", "Virginia", "Pepper", si);
 		Usuario obadiah = ControladorDeCadastro.criarUsuario("obadiah@stark.com", "stark", "Obadiah", "Stane", si);
 		Usuario rhodey = ControladorDeCadastro.criarUsuario("rhodey@USAForce.com", "USAForce", "James", "Rhodey", si);
 		
-		Sessao.iniciarSessao(rhodey);
 		
 		Evento evento = ControladorDeCadastro.criarEvento("Evento Iron Man", si, stark, new Date(2014, 07, 01), new Date(2014,07,02), new Date(2014,8,01), new Date(2014,8,02));
+		CatalagoDeEventos.obterInstancia().deferirEvento(evento);
 		
 		evento.concederPrivilegioDeExaminador(obadiah);
 		evento.concederPrivilegioDeExaminador(rhodey);
@@ -67,7 +73,10 @@ public class KeokoloSys {
 		
 		ControladorDeAvaliacao.avaliarTrabalho(markIV, perfilPepper, EstadoAvaliacao.ACEITO);
 		ControladorDeAvaliacao.avaliarTrabalho(markIV, perfilObadiah, EstadoAvaliacao.REJEITADO);
-		new ControleAvaliarTrabalho(null, markIV,evento);
+		
+		Sessao.iniciarSessao(stark);
+		new ControleUsuarioHome(controleLogin).inicializarGUI();
+		/*new ControleAvaliarTrabalho(null, markIV,evento);*/
 		/*ControleCadastrarEvento c;
 		Instituicao i;
 		Usuario u;

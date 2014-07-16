@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.TreeMap;
 
+import participacao.ControleSubmeterTrabalho;
 import transferobject.EventoTO;
 import transferobject.InstituicaoTO;
 import transferobject.UsuarioTO;
@@ -113,6 +114,16 @@ public class ControleUsuarioHome implements AbstractControle{
 				viewUsuarioHome.atualizarListaEventosDisponiveis(obterEventosDeferidosNaoInscritos());
 			}
 
+	}
+	
+	public void gerenciarTrabalhosSubmetidos(EventoTO eventoTO) 
+	{
+		
+	}
+	public void submeterTrabalhos(EventoTO eventoTO)
+	{
+		 Evento evento = mapaDeEventosInscritos.get(eventoTO.getNome());
+		new ControleSubmeterTrabalho(this,evento).inicializarGUI();
 	}
 	
 	public void exibirEventosDisponiveis() {

@@ -47,7 +47,7 @@ public class SwingUsuarioHome extends JFrame implements AbstractGUIUsuarioHome {
 	public SwingUsuarioHome(ControleUsuarioHome controleUsuarioHome) {
 	
 		this.controleUsuarioHome = controleUsuarioHome;
-
+		inicializarFrame();
 	}
 	
 	@Override
@@ -181,15 +181,15 @@ public class SwingUsuarioHome extends JFrame implements AbstractGUIUsuarioHome {
 	
 	private MouseAdapter mouseAdapterSubmeterTrabalho = new MouseAdapter() {
 		  public void mouseClicked(MouseEvent e) {
-			  int row = listaEventosDisponiveis.getSelectedIndex();
-		      controleUsuarioHome.realizarInscricaoEmEvento(eventosArray[row]);		    
+			  int row = listaParticipacao.getSelectedIndex();
+		      controleUsuarioHome.submeterTrabalhos(eventosArray[row]);		    
 		  }
 	};
 	
 	private MouseAdapter mouseAdapterGerenciarTrabalhoSubmetidos = new MouseAdapter() {
 		  public void mouseClicked(MouseEvent e) {
-			  int row = listaEventosDisponiveis.getSelectedIndex();
-		      controleUsuarioHome.realizarInscricaoEmEvento(eventosArray[row]);		    
+			  int row = listaParticipacao.getSelectedIndex();
+			  controleUsuarioHome.gerenciarTrabalhosSubmetidos(eventosArray[row]);	    
 		  }
 	};
 
