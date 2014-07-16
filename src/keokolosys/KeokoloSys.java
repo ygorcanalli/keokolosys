@@ -4,28 +4,19 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
-import administrativo.ControleCadastrarInstituicao;
-import avaliacao.ControleAvaliarTrabalho;
 import util.Sessao;
-import cadastro.ControleAtualizarUsuario;
-import cadastro.ControleCadastrarEvento;
 import cadastro.ControleLogin;
 import cadastro.ControleUsuarioHome;
 import catalago.CatalagoDeEventos;
-import controladorGRASP.ControladorAdministrativo;
-import controladorGRASP.ControladorDeAvaliacao;
 import controladorGRASP.ControladorDeCadastro;
-import dominio.Administrador;
+import controladorGRASP.ControladorDeParticipacao;
 import dominio.BancaExaminadora;
-import dominio.EstadoAvaliacao;
 import dominio.Evento;
 import dominio.Instituicao;
 import dominio.PerfilDeExaminador;
 import dominio.PerfilDeParticipante;
 import dominio.Trabalho;
 import dominio.Usuario;
-import excecao.ExcecaoDeCadastro;
-import excecao.ExcecaoDeParticipacao;
 
 public class KeokoloSys {
 
@@ -61,18 +52,18 @@ public class KeokoloSys {
 		
 		PerfilDeParticipante perfilParticipante = new PerfilDeParticipante(stark, evento);
 		
-		Trabalho markIV = Trabalho.criarTrabalho(perfilParticipante, "Mark IV", "Traje de defesa pessoal, Mark IV", "Tony Stark","/home/stark/ironMan.pdf");
-		
+		ControladorDeParticipacao.subtmeterTrabalho(evento,perfilParticipante, "Mark IV", "Traje de defesa pessoal, Mark IV", "Tony Stark","/home/stark/ironMan.pdf");
+		Collection<Trabalho> trabalhos = ControladorDeParticipacao.obterTodosTrabalhosSubmetidosPeloParticipante(evento, perfilParticipante);
 		Collection<PerfilDeExaminador> examinadores = new ArrayList<>();
 		
 		examinadores.add(perfilObadiah);
 		examinadores.add(perfilPepper);		
 		examinadores.add(perfilrhodey);
 		BancaExaminadora bancaExaminadora = evento.criarBancaExaminadora(examinadores);	
-		bancaExaminadora.associarTrabalho(markIV);
+		/*bancaExaminadora.associarTrabalho(markIV);
 		
 		ControladorDeAvaliacao.avaliarTrabalho(markIV, perfilPepper, EstadoAvaliacao.ACEITO);
-		ControladorDeAvaliacao.avaliarTrabalho(markIV, perfilObadiah, EstadoAvaliacao.REJEITADO);
+		ControladorDeAvaliacao.avaliarTrabalho(markIV, perfilObadiah, EstadoAvaliacao.REJEITADO);*/
 		
 		Sessao.iniciarSessao(stark);
 		new ControleUsuarioHome(controleLogin).inicializarGUI();

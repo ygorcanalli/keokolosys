@@ -20,6 +20,10 @@ public final class ControladorDeParticipacao {
 	public static void subtmeterVersaoFinalDeTrabalho(Evento evento, Trabalho trabalho, String caminhoArquivoFinal) throws ExcecaoDeParticipacao{
 		evento.subtmeterVersaoFinalDeTrabalho(trabalho, caminhoArquivoFinal);
 	}
+	
+	public static Collection<Trabalho> obterTodosTrabalhosSubmetidosPeloParticipante(Evento evento, PerfilDeParticipante participante) throws ExcecaoDeParticipacao{
+		return evento.obterTodosTrabalhosSubmetidosPeloParticipante(participante);
+	}
 
     public static void realizarInscricaoEmEvento(Evento evento, Usuario usuario) throws ExcecaoDeCadastro{
     	evento.inscreverParticipante(usuario);

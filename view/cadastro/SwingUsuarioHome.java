@@ -5,16 +5,23 @@ import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
+
 import java.awt.BorderLayout;
+
 import javax.swing.JPanel;
+
 import java.awt.Dimension;
+
 import javax.swing.JScrollPane;
+
 import transferobject.EventoTO;
 import cadastro.ControleUsuarioHome;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Collection;
 import java.util.Iterator;
+
 import javax.swing.JButton;
 import javax.swing.ListSelectionModel;
 import javax.swing.GroupLayout;
@@ -22,6 +29,8 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+
+import excecao.ExcecaoDeParticipacao;
 
 
 
@@ -189,7 +198,12 @@ public class SwingUsuarioHome extends JFrame implements AbstractGUIUsuarioHome {
 	private MouseAdapter mouseAdapterGerenciarTrabalhoSubmetidos = new MouseAdapter() {
 		  public void mouseClicked(MouseEvent e) {
 			  int row = listaParticipacao.getSelectedIndex();
-			  controleUsuarioHome.gerenciarTrabalhosSubmetidos(eventosArray[row]);	    
+			  try {
+				controleUsuarioHome.gerenciarTrabalhosSubmetidos(eventosArray[row]);
+			} catch (ExcecaoDeParticipacao e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}	    
 		  }
 	};
 

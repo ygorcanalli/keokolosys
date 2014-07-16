@@ -16,6 +16,7 @@ import controladorGRASP.ControladorDeParticipacao;
 import dominio.Evento;
 import dominio.Usuario;
 import excecao.ExcecaoDeCadastro;
+import excecao.ExcecaoDeParticipacao;
 
 public class ControleUsuarioHome implements AbstractControle{
 	
@@ -116,10 +117,13 @@ public class ControleUsuarioHome implements AbstractControle{
 
 	}
 	
-	public void gerenciarTrabalhosSubmetidos(EventoTO eventoTO) 
+	public void gerenciarTrabalhosSubmetidos(EventoTO eventoTO) throws ExcecaoDeParticipacao 
 	{
-		
+		Evento evento = mapaDeEventosInscritos.get(eventoTO.getNome());
+		new ControleGerenciarTrabalhosSubmetidos(this, evento);
+		bloquearGUI();
 	}
+	
 	public void submeterTrabalhos(EventoTO eventoTO)
 	{
 		 Evento evento = mapaDeEventosInscritos.get(eventoTO.getNome());
@@ -148,7 +152,7 @@ public class ControleUsuarioHome implements AbstractControle{
 
 	@Override
 	public void bloquearGUI() {
-		// TODO Auto-generated method stub
+		viewUsuarioHome.bloquear();
 		
 	}
 

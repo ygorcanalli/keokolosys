@@ -1,5 +1,7 @@
 package participacao;
 
+import controladorGRASP.ControladorDeAvaliacao;
+import controladorGRASP.ControladorDeParticipacao;
 import transferobject.TrabalhoTO;
 import util.AbstractControle;
 import util.Sessao;
@@ -35,7 +37,7 @@ public class ControleSubmeterTrabalho  implements AbstractControle
 	public void submeterTrabalho(TrabalhoTO trabalhoTO) throws ExcecaoDeParticipacao {
 		Usuario usuario = Sessao.getUsuarioLogado();
 		PerfilDeParticipante perfilParticipante = (PerfilDeParticipante) usuario.obterPerfilDe(evento, PerfilDeParticipante.class);
-		Trabalho.criarTrabalho(perfilParticipante, trabalhoTO.getTitulo(), trabalhoTO.getResumo(), usuario.getNome(),trabalhoTO.getCaminhoArquivoSubmissao());
+		ControladorDeParticipacao.subtmeterTrabalho(evento, perfilParticipante, trabalhoTO.getTitulo(), trabalhoTO.getResumo(), trabalhoTO.getAutores(), trabalhoTO.getCaminhoArquivoSubmissao());
 		viewSubmeterTrabalho.exibirMensagemDeInformacao("Submetido com sucesso !!!", "Sucesso");
 		encerrarGUI();		
 		caller.desbloquearGUI();

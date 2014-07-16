@@ -11,7 +11,7 @@ import estadoevento.*;
 import excecao.*;
 
 
-public class Evento {
+public class Evento{
     private String nome;
     private Instituicao instituicao;
     private Usuario usuarioResponsavel;
@@ -233,6 +233,20 @@ public class Evento {
         return trabalhos;
     }
     
+    public Collection<Trabalho> obterTodosTrabalhosSubmetidosPeloParticipante(PerfilDeParticipante submissor) throws ExcecaoDeParticipacao{
+    	Collection<Trabalho> trabalhosSubmetidos = new ArrayList<Trabalho>();
+    	
+    	if(submissor.getEvento() != this)
+    		throw new ExcecaoDeParticipacao("evento.perfil_nao_referente_ao_evento_em_questao");
+    	
+    	for (Trabalho trabalho : trabalhos) {
+			if(trabalho.getSubmissor() == submissor)
+				trabalhosSubmetidos.add(trabalho);
+		}
+    	
+    	return trabalhosSubmetidos;
+    }
+    
  
     /*Referente ao estado do evento*/
     
@@ -378,8 +392,7 @@ public class Evento {
     	if(this.dataMaximaParaAceitacaoDeTrabalhos.compareTo(dataMaximaParaAceitacaoDeTrabalhos) != 0)
     		this.dataMaximaParaAceitacaoDeTrabalhos = dataMaximaParaAceitacaoDeTrabalhos;
     }
-    
-	
+
 	/*public void setNome(String nome) throws ExcecaoDeCadastro{
 		validarNome(nome);
 		this.nome = nome;
