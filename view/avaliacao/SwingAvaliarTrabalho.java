@@ -17,32 +17,35 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 
+import dominio.EstadoAvaliacao;
+import excecao.ExcecaoDeAvaliacao;
+import transferobject.AvaliacaoTO;
 import avaliacao.ControleAvaliarTrabalho;
 
-public class SwingAvaliarTrabalho extends JFrame {
+import java.awt.GridLayout;
+import java.util.Collection;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class SwingAvaliarTrabalho extends JFrame implements AbstractGUIAvaliarTrabalho{
 
 	private JPanel contentPane;
 
 	private ControleAvaliarTrabalho controleAvaliarTrabalho;
 	private JTable tableAvaliacoesRecebidas;
-	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					SwingAvaliarTrabalho frame = new SwingAvaliarTrabalho();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	private DefaultTableModel defaultTableModel = new DefaultTableModel(); 
+	private JLabel valorTitulo;
+	private JLabel valorResumoTrabalho;
+	private JLabel valorNomeArquivo;
+	private JComboBox comboBox;
 
 	/**
 	 * Create the frame.
 	 */
-	public SwingAvaliarTrabalho() {
+	public SwingAvaliarTrabalho(ControleAvaliarTrabalho controleAvaliarTrabalho){
+		
+		this.controleAvaliarTrabalho = controleAvaliarTrabalho;
+		
 		setResizable(false);
 		setTitle("Avaliar trabalho");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -89,6 +92,16 @@ public class SwingAvaliarTrabalho extends JFrame {
 		);
 		
 		JButton btnAvaliarTrabalho = new JButton("Avaliar trabalho");
+		btnAvaliarTrabalho.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					avaliarTrabalho();
+				} catch (ExcecaoDeAvaliacao e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 		btnAvaliarTrabalho.setMnemonic('A');
 		
 		JButton btnSair = new JButton("Sair");
@@ -120,7 +133,9 @@ public class SwingAvaliarTrabalho extends JFrame {
 		
 		JLabel lblResultadoAvaliao = new JLabel("Resultado avalia\u00E7\u00E3o:");
 		
-		JComboBox comboBox = new JComboBox();
+		EstadoAvaliacao[] estados = {EstadoAvaliacao.ACEITO,EstadoAvaliacao.REJEITADO};
+		
+		comboBox = new JComboBox(estados);
 		GroupLayout gl_panel_2 = new GroupLayout(panel_2);
 		gl_panel_2.setHorizontalGroup(
 			gl_panel_2.createParallelGroup(Alignment.LEADING)
@@ -164,50 +179,124 @@ public class SwingAvaliarTrabalho extends JFrame {
 					.addGap(11)
 					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 132, GroupLayout.PREFERRED_SIZE))
 		);
+		defaultTableModel = new DefaultTableModel(new Object[][] {},new String[] {"Nome examinador", "Avalia\u00E7\u00E3o recebida"});
+		tableAvaliacoesRecebidas = new JTable(defaultTableModel);		
 		
-		tableAvaliacoesRecebidas = new JTable();
-		tableAvaliacoesRecebidas.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"Nome examinador", "Avalia\u00E7\u00E3o recebida"
-			}
-		) {
-			Class[] columnTypes = new Class[] {
-				String.class, String.class
-			};
-			public Class getColumnClass(int columnIndex) {
-				return columnTypes[columnIndex];
-			}
-		});
 		tableAvaliacoesRecebidas.getColumnModel().getColumn(0).setPreferredWidth(120);
 		tableAvaliacoesRecebidas.getColumnModel().getColumn(1).setPreferredWidth(310);
 		scrollPane.setViewportView(tableAvaliacoesRecebidas);
 		panel_1.setLayout(gl_panel_1);
+		panel.setLayout(new GridLayout(3, 3, 2, 0));
 		
 		JLabel lblTtuloDoTrabalho = new JLabel("T\u00EDtulo do trabalho:");
+		panel.add(lblTtuloDoTrabalho);
 		
-		JLabel lblTitulodotrabalho = new JLabel("titulo_do_trabalho");
-		GroupLayout gl_panel = new GroupLayout(panel);
-		gl_panel.setHorizontalGroup(
-			gl_panel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblTitulodotrabalho, GroupLayout.DEFAULT_SIZE, 513, Short.MAX_VALUE)
-						.addComponent(lblTtuloDoTrabalho))
-					.addContainerGap())
-		);
-		gl_panel.setVerticalGroup(
-			gl_panel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(lblTtuloDoTrabalho)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(lblTitulodotrabalho)
-					.addContainerGap(14, Short.MAX_VALUE))
-		);
-		panel.setLayout(gl_panel);
+		valorTitulo = new JLabel("");
+		panel.add(valorTitulo);
+		
+		JLabel lblResumoTrabalho = new JLabel("Resumo do Trabalho");
+		panel.add(lblResumoTrabalho);
+		
+		valorResumoTrabalho = new JLabel("");
+		panel.add(valorResumoTrabalho);
+		
+		JLabel lblNomeArquivo = new JLabel("Nome do arquivo");
+		panel.add(lblNomeArquivo);
+		
+		valorNomeArquivo = new JLabel("");
+		panel.add(valorNomeArquivo);
 		contentPane.setLayout(gl_contentPane);
+		
+		
 	}
+
+	@Override
+	public void inicializar() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void tornarVisivel() {
+		setVisible(true);
+		repaint();
+	}
+
+	@Override
+	public void tornarInvisivel() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void bloquear() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void desbloquear() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void exibirMensagemDeErro(String mensagem, String titulo) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void exibirMensagemDeAviso(String mensagem, String titulo) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void exibirMensagemDeInformacao(String mensagem, String titulo) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Integer exibirMensagemDeConfirmacao(String mensagem, String titulo,Object[] opcoes, Object opcaoPadrao) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setTituloTrabalho(String titulo) {
+		valorTitulo.setText(titulo);		
+	}
+
+	@Override
+	public void setResumoTrabalho(String resumo) {
+		valorResumoTrabalho.setText(resumo);
+	}
+
+	@Override
+	public void setNomeArquivo(String nomeArquivo) {
+		valorNomeArquivo.setText(nomeArquivo);
+	}
+
+	@Override
+	public void setAvaliacoes(Collection<AvaliacaoTO> nomeArquivo) {
+		for (AvaliacaoTO avaliacaoTO : nomeArquivo) 
+		{
+			String vetor[] = new String[2];
+			vetor[0] = avaliacaoTO.getNomeExaminador();
+			vetor[1] = avaliacaoTO.getEnumEstadoTrabalho().getValor();
+			defaultTableModel.addRow(vetor);
+		}		
+	}
+
+	@Override
+	public void avaliarTrabalho() throws ExcecaoDeAvaliacao {
+		AvaliacaoTO avaliacaoTO = new AvaliacaoTO();
+		avaliacaoTO.setEstadoAvaliacao((EstadoAvaliacao) comboBox.getSelectedItem());
+		controleAvaliarTrabalho.avaliarTrabalho(avaliacaoTO);
+		
+	}
+
+	
 }

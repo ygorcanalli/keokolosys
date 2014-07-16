@@ -35,6 +35,7 @@ public class Evento {
             this.trabalhos = new ArrayList<Trabalho>();
             this.estado = new EstadoEventoAguardando();
             this.perfis = new TreeMap<String, Collection<Perfil>>();
+            this.bancasExaminadoras = new ArrayList<BancaExaminadora>();
     }
     
     public static Evento criarEvento(String nome, Instituicao instituicao, Usuario usuarioResponsavel, Date dataMaximaParaSubmissaoDeTrabalhos, Date dataMaximaParaAceitacaoDeTrabalhos, Date dataDeInicio, Date dataDeFim) throws  ExcecaoDeCadastro{

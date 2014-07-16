@@ -107,7 +107,7 @@ public class Trabalho {
 
     private void validarAvaliacao(Avaliacao avaliacao) throws ExcecaoDeAvaliacao {
 		Boolean avaliacaoVazia = avaliacao == null;
-		Boolean avaliacaoTrabalhoInvalido = avaliacao.getTrabalho() == this;
+		Boolean avaliacaoTrabalhoInvalido = avaliacao.getTrabalho() != this;
 		
 		if (avaliacaoVazia)
 			throw new ExcecaoDeAvaliacao("trabalho.avaliacao.vazia");
@@ -124,6 +124,10 @@ public class Trabalho {
     public PerfilDeParticipante getSubmissor() {
         return submissor;
     }
+    
+    public Collection<Avaliacao> getAvaliacoes() {
+		return avaliacoes;
+	}
 
     public String getTitulo() {
         return titulo;
