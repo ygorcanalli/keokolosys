@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence-diagram version="1.1.6" icons="true">  
+  <object id="1" language="java" name="controladorGRASP.ControladorDeCadastro" project="keokolosys" 
+    file="/keokolosys/model/controladorGRASP/ControladorDeCadastro.java" binary="false" label="controladorDeCadastro" 
+    type="class" autoSize="true">    
+    <position height="-1" width="-1" x="63" y="0"/>    
+    <execution id="2">      
+      <position height="218" width="160" x="5" y="92"/>    
+    </execution>  
+  </object>  
+  <object id="5" language="java" name="catalago.Pessoal" project="keokolosys" 
+    file="/keokolosys/model/catalago/Pessoal.java" binary="false" label="pessoal" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="255" y="0"/>    
+    <execution id="4">      
+      <position height="180" width="69" x="169" y="111"/>    
+    </execution>    
+    <execution id="7">      
+      <position height="19" width="0" x="0" y="149"/>    
+    </execution>  
+  </object>  
+  <object id="14" language="java" name="dominio.Instituicao" project="keokolosys" 
+    file="/keokolosys/model/dominio/Instituicao.java" binary="false" label="&lt;static&gt;" type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="9">      
+      <position height="19" width="0" x="0" y="177"/>    
+    </execution>  
+  </object>  
+  <object id="15" language="java" name="java.util.Map" project="keokolosys" 
+    file="/usr/lib/jvm/java-8-oracle/jre/lib/rt.jar" binary="true" label="instituicoes" type="interface" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="11">      
+      <position height="19" width="0" x="0" y="215"/>    
+    </execution>  
+  </object>  
+  <object id="16" language="java" name="dominio.Instituicao" project="keokolosys" 
+    file="/keokolosys/model/dominio/Instituicao.java" binary="false" label="instituicao" type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="13">      
+      <position height="19" width="0" x="0" y="253"/>    
+    </execution>  
+  </object>  
+  <message id="3" operation="criarInstituicao(java.lang.String,java.lang.String,java.lang.String):dominio.Instituicao">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="4"/>  
+  </message>  
+  <message id="6" operation="validarSiglaComoUnica(java.lang.String):void">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="7"/>  
+  </message>  
+  <message id="8" operation="criarInstituicao(java.lang.String,java.lang.String,java.lang.String):dominio.Instituicao">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="9"/>  
+  </message>  
+  <message id="10" operation="put(K,V):V">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="11"/>  
+  </message>  
+  <message id="12" operation="getSigla():java.lang.String">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="13"/>  
+  </message>
+</sequence-diagram>

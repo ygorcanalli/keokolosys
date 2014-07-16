@@ -1,0 +1,61 @@
+!SESSION 2014-07-16 18:10:34.928 -----------------------------------------------
+eclipse.buildId=4.4.0.I20140606-1215
+java.version=1.8.0_05
+java.vendor=Oracle Corporation
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.jee.product
+Command-line arguments:  -os linux -ws gtk -arch x86_64 -product org.eclipse.epp.package.jee.product
+
+!ENTRY org.eclipse.core.net 1 0 2014-07-16 18:11:38.591
+!MESSAGE System property http.proxyHost is set to 192.168.25.1 but should not be set.
+
+!ENTRY org.eclipse.core.net 1 0 2014-07-16 18:11:38.593
+!MESSAGE System property http.proxyPort is set to 3128 but should not be set.
+
+!ENTRY org.eclipse.core.net 1 0 2014-07-16 18:11:38.593
+!MESSAGE System property https.proxyHost is set to 192.168.25.1 but should not be set.
+
+!ENTRY org.eclipse.core.net 1 0 2014-07-16 18:11:38.593
+!MESSAGE System property https.proxyPort is set to 3128 but should not be set.
+
+!ENTRY org.eclipse.core.net 1 0 2014-07-16 18:11:38.594
+!MESSAGE System property socksProxyHost is set to 192.168.25.1 but should not be set.
+
+!ENTRY org.eclipse.core.net 1 0 2014-07-16 18:11:38.594
+!MESSAGE System property socksProxyPort is set to 3128 but should not be set.
+
+!ENTRY org.eclipse.core.net 1 0 2014-07-16 18:11:53.313
+!MESSAGE System property http.proxyHost is set to 192.168.25.1 but should not be set.
+
+!ENTRY org.eclipse.core.net 1 0 2014-07-16 18:11:53.313
+!MESSAGE System property http.proxyPort is set to 3128 but should not be set.
+
+!ENTRY org.eclipse.core.net 1 0 2014-07-16 18:11:53.314
+!MESSAGE System property https.proxyHost is set to 192.168.25.1 but should not be set.
+
+!ENTRY org.eclipse.core.net 1 0 2014-07-16 18:11:53.314
+!MESSAGE System property https.proxyPort is set to 3128 but should not be set.
+
+!ENTRY org.eclipse.core.net 1 0 2014-07-16 18:11:53.314
+!MESSAGE System property socksProxyHost is set to 192.168.25.1 but should not be set.
+
+!ENTRY org.eclipse.core.net 1 0 2014-07-16 18:11:53.314
+!MESSAGE System property socksProxyPort is set to 3128 but should not be set.
+
+!ENTRY org.eclipse.core.net 1 0 2014-07-16 18:11:53.315
+!MESSAGE System property http.proxyHost is set to 192.168.25.1 but should not be set.
+
+!ENTRY org.eclipse.core.net 1 0 2014-07-16 18:11:53.315
+!MESSAGE System property http.proxyPort is set to 3128 but should not be set.
+
+!ENTRY org.eclipse.core.net 1 0 2014-07-16 18:11:53.315
+!MESSAGE System property https.proxyHost is set to 192.168.25.1 but should not be set.
+
+!ENTRY org.eclipse.core.net 1 0 2014-07-16 18:11:53.315
+!MESSAGE System property https.proxyPort is set to 3128 but should not be set.
+
+!ENTRY org.eclipse.core.net 1 0 2014-07-16 18:11:53.316
+!MESSAGE System property socksProxyHost is set to 192.168.25.1 but should not be set.
+
+!ENTRY org.eclipse.core.net 1 0 2014-07-16 18:11:53.316
+!MESSAGE System property socksProxyPort is set to 3128 but should not be set.

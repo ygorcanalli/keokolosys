@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence-diagram version="1.1.6" icons="true">  
+  <object id="1" language="java" name="controladorGRASP.ControladorDeCadastro" project="keokolosys" 
+    file="/keokolosys/model/controladorGRASP/ControladorDeCadastro.java" binary="false" label="controladorDeCadastro" 
+    type="class" autoSize="true">    
+    <position height="-1" width="-1" x="83" y="0"/>    
+    <execution id="2">      
+      <position height="180" width="160" x="5" y="92"/>    
+    </execution>  
+  </object>  
+  <object id="5" language="java" name="catalago.CatalagoDeEventos" project="keokolosys" 
+    file="/keokolosys/model/catalago/CatalagoDeEventos.java" binary="false" label="catalagoDeEventos" type="class" 
+    autoSize="true">    
+    <position height="-1" width="-1" x="243" y="0"/>    
+    <execution id="4">      
+      <position height="142" width="137" x="169" y="111"/>    
+    </execution>    
+    <execution id="7">      
+      <position height="19" width="0" x="0" y="149"/>    
+    </execution>  
+  </object>  
+  <object id="12" language="java" name="dominio.Evento" project="keokolosys" 
+    file="/keokolosys/model/dominio/Evento.java" binary="false" label="&lt;static&gt;" type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="9">      
+      <position height="19" width="0" x="0" y="177"/>    
+    </execution>  
+  </object>  
+  <object id="13" language="java" name="java.util.Collection" project="keokolosys" 
+    file="/usr/lib/jvm/java-8-oracle/jre/lib/rt.jar" binary="true" label="eventosAguardandoAprovacao" type="interface" 
+    autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="11">      
+      <position height="19" width="0" x="0" y="215"/>    
+    </execution>  
+  </object>  
+  <message id="3" 
+    operation="criarEvento(java.lang.String,dominio.Instituicao,dominio.Usuario,java.util.Date,java.util.Date,java.util.Date,java.util.Date):dominio.Evento">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="4"/>  
+  </message>  
+  <message id="6" operation="validarNomeDoEventoComoUnico(java.lang.String):void">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="7"/>  
+  </message>  
+  <message id="8" 
+    operation="criarEvento(java.lang.String,dominio.Instituicao,dominio.Usuario,java.util.Date,java.util.Date,java.util.Date,java.util.Date):dominio.Evento">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="9"/>  
+  </message>  
+  <message id="10" operation="add(E):boolean">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="11"/>  
+  </message>
+</sequence-diagram>
