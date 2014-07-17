@@ -2,12 +2,9 @@ package transferobject;
 
 import java.util.Date;
 
-public class EventoTO {
-	
-	public enum Estado {
-		AGUARDANDO, DEFERIDO, INDEFERIDO, CANCELADO, FINALIZADO
-	}
+import enumerados.EnumEstadoEvento;
 
+public class EventoTO {
 	
     private String nome;
     private InstituicaoTO instituicao;
@@ -16,7 +13,7 @@ public class EventoTO {
     private Date dataMaximaParaAceitacaoDeTrabalhos;
     private Date dataDeInicio;
     private Date dataDeFim;
-    private Estado estado;
+    private EnumEstadoEvento estado;
     
     
     public EventoTO(){
@@ -80,10 +77,10 @@ public class EventoTO {
 	public void setDataDeFim(Date dataDeFim) {
 		this.dataDeFim = dataDeFim;
 	}
-	public Estado getEstado() {
+	public EnumEstadoEvento getEstado() {
 		return estado;
 	}
-	public void setEstado(Estado estado) {
+	public void setEstado(EnumEstadoEvento estado) {
 		this.estado = estado;
 	}
     

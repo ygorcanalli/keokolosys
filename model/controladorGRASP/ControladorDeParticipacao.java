@@ -53,6 +53,14 @@ public final class ControladorDeParticipacao {
     	return (usuario.obterPerfilDe(evento, PerfilDeParticipante.class) != null);
     }
     
+    public static Boolean possuiPrivilegioDeChair(Usuario usuario, Evento evento) {
+    	return (usuario.obterPerfilDe(evento, PerfilDeChair.class) != null);
+    }
+    
+    public static Boolean possuiPrivilegioDeExaminador(Usuario usuario, Evento evento) {
+    	return (usuario.obterPerfilDe(evento, PerfilDeExaminador.class) != null);
+    }
+    
     public static Boolean possuiPerfil(Usuario usuario, Evento evento) {
     	return (usuario.obterPerfil(evento) != null);
     }

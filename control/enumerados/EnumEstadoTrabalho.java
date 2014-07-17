@@ -1,7 +1,7 @@
 package enumerados;
 
 public enum EnumEstadoTrabalho {
-	ACEITO("aceito"),REJEITADO("rejeitado"),NAO_AVALIADO("nao avaliado");
+	ACEITO("Aceito"),REJEITADO("Rejeitado"),NAO_AVALIADO("Não avaliado");
 	
 	private final String valor;
 	

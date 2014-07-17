@@ -1,5 +1,6 @@
 package estadoevento;
 
+import enumerados.EnumEstadoEvento;
 import excecao.ExcecaoDeCadastro;
 
 public class EstadoEventoAguardando implements EstadoEvento {
@@ -14,5 +15,10 @@ public class EstadoEventoAguardando implements EstadoEvento {
 
         throw new ExcecaoDeCadastro("evento.estado.transicao.invalida");
     }
+
+	@Override
+	public EnumEstadoEvento obterTipoEnumerado() {
+		return EnumEstadoEvento.AGUARDANDO;
+	}
     
 }

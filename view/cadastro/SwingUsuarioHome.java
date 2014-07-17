@@ -30,8 +30,11 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.table.DefaultTableModel;
 
 import excecao.ExcecaoDeParticipacao;
+
+import javax.swing.JTable;
 
 
 
@@ -47,7 +50,8 @@ public class SwingUsuarioHome extends JFrame implements AbstractGUIUsuarioHome {
 	private JList<String> listaParticipacao;
 	private JList<String> listaAdministracao;
 	private JList<String> listaExames;
-	private JList<String> listaMeusEventos;
+	private JTable tabelMeusEventos;
+
 	JTabbedPane tabbedPane;
 	
 	private static final int ABA_EVENTOS_DISPONIVEIS = 0;
@@ -59,6 +63,7 @@ public class SwingUsuarioHome extends JFrame implements AbstractGUIUsuarioHome {
 	
 	
 	public SwingUsuarioHome(ControleUsuarioHome controleUsuarioHome) {
+		setResizable(false);
 	
 		this.controleUsuarioHome = controleUsuarioHome;
 		inicializarFrame();
@@ -157,10 +162,39 @@ public class SwingUsuarioHome extends JFrame implements AbstractGUIUsuarioHome {
 		JPanel paneExames = new JPanel();
 		tabbedPane.addTab("Exames", null, paneExames, null);
 		
+		JScrollPane scrollPaneExames = new JScrollPane();
+		
+		JButton btnRealizarAvaliacoes = new JButton("Realizar avaliações");
+		GroupLayout gl_paneExames = new GroupLayout(paneExames);
+		gl_paneExames.setHorizontalGroup(
+			gl_paneExames.createParallelGroup(Alignment.LEADING)
+				.addGap(0, 793, Short.MAX_VALUE)
+				.addGroup(gl_paneExames.createSequentialGroup()
+					.addGap(34)
+					.addGroup(gl_paneExames.createParallelGroup(Alignment.TRAILING)
+						.addComponent(scrollPaneExames, GroupLayout.PREFERRED_SIZE, 723, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnRealizarAvaliacoes))
+					.addContainerGap(36, Short.MAX_VALUE))
+		);
+		gl_paneExames.setVerticalGroup(
+			gl_paneExames.createParallelGroup(Alignment.LEADING)
+				.addGap(0, 533, Short.MAX_VALUE)
+				.addGroup(gl_paneExames.createSequentialGroup()
+					.addGap(29)
+					.addComponent(scrollPaneExames, GroupLayout.PREFERRED_SIZE, 448, GroupLayout.PREFERRED_SIZE)
+					.addGap(18)
+					.addComponent(btnRealizarAvaliacoes)
+					.addGap(24))
+		);
+		
+		listaExames = new JList<String> ();
+		scrollPaneExames.setViewportView(listaExames);
+		paneExames.setLayout(gl_paneExames);
+		
 		JPanel paneAdministracao = new JPanel();
 		tabbedPane.addTab("Administração", null, paneAdministracao, null);
 		
-		JScrollPane scrollPane = new JScrollPane();
+		JScrollPane scrollPaneAdministracao = new JScrollPane();
 		
 		JButton btnGerenciarBancasExaminadoras = new JButton("Gerenciar bancas examinadoras");
 		
@@ -172,7 +206,7 @@ public class SwingUsuarioHome extends JFrame implements AbstractGUIUsuarioHome {
 				.addGroup(gl_paneAdministracao.createSequentialGroup()
 					.addGap(34)
 					.addGroup(gl_paneAdministracao.createParallelGroup(Alignment.TRAILING)
-						.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 723, GroupLayout.PREFERRED_SIZE)
+						.addComponent(scrollPaneAdministracao, GroupLayout.PREFERRED_SIZE, 723, GroupLayout.PREFERRED_SIZE)
 						.addGroup(gl_paneAdministracao.createSequentialGroup()
 							.addComponent(btnGerenciarBancasExaminadoras, GroupLayout.PREFERRED_SIZE, 272, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
@@ -184,7 +218,7 @@ public class SwingUsuarioHome extends JFrame implements AbstractGUIUsuarioHome {
 				.addGap(0, 533, Short.MAX_VALUE)
 				.addGroup(gl_paneAdministracao.createSequentialGroup()
 					.addGap(29)
-					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 448, GroupLayout.PREFERRED_SIZE)
+					.addComponent(scrollPaneAdministracao, GroupLayout.PREFERRED_SIZE, 448, GroupLayout.PREFERRED_SIZE)
 					.addGap(18)
 					.addGroup(gl_paneAdministracao.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnConcederPrivilegios)
@@ -194,11 +228,42 @@ public class SwingUsuarioHome extends JFrame implements AbstractGUIUsuarioHome {
 		
 		listaAdministracao = new JList<String>();
 		listaAdministracao.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		scrollPane.setViewportView(listaAdministracao);
+		scrollPaneAdministracao.setViewportView(listaAdministracao);
 		paneAdministracao.setLayout(gl_paneAdministracao);
 		
 		JPanel paneMeusEventos = new JPanel();
 		tabbedPane.addTab("Meus Eventos", null, paneMeusEventos, null);
+		
+		JScrollPane scrollPaneMeusEventos = new JScrollPane();
+		
+		JButton btnCriarEvento = new JButton("Criar evento");
+		btnCriarEvento.addMouseListener(mouseAdapterCriarEvento);
+		GroupLayout gl_paneMeusEventos = new GroupLayout(paneMeusEventos);
+		gl_paneMeusEventos.setHorizontalGroup(
+			gl_paneMeusEventos.createParallelGroup(Alignment.LEADING)
+				.addGap(0, 793, Short.MAX_VALUE)
+				.addGroup(gl_paneMeusEventos.createSequentialGroup()
+					.addGap(34)
+					.addGroup(gl_paneMeusEventos.createParallelGroup(Alignment.TRAILING)
+						.addComponent(scrollPaneMeusEventos, GroupLayout.PREFERRED_SIZE, 723, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnCriarEvento))
+					.addContainerGap(36, Short.MAX_VALUE))
+		);
+		gl_paneMeusEventos.setVerticalGroup(
+			gl_paneMeusEventos.createParallelGroup(Alignment.LEADING)
+				.addGap(0, 533, Short.MAX_VALUE)
+				.addGroup(gl_paneMeusEventos.createSequentialGroup()
+					.addGap(29)
+					.addComponent(scrollPaneMeusEventos, GroupLayout.PREFERRED_SIZE, 448, GroupLayout.PREFERRED_SIZE)
+					.addGap(18)
+					.addComponent(btnCriarEvento)
+					.addGap(24))
+		);
+		
+		tabelMeusEventos = new JTable();
+		tabelMeusEventos.setRowSelectionAllowed(false);
+		scrollPaneMeusEventos.setViewportView(tabelMeusEventos);
+		paneMeusEventos.setLayout(gl_paneMeusEventos);
 		
 		JPanel panePerfil = new JPanel();
 		tabbedPane.addTab("Perfil", null, panePerfil, null);
@@ -237,7 +302,7 @@ public class SwingUsuarioHome extends JFrame implements AbstractGUIUsuarioHome {
 	private MouseAdapter mouseAdapterRealizarInscricao = new MouseAdapter() {
 		  public void mouseClicked(MouseEvent e) {
 			  int row = listaEventosDisponiveis.getSelectedIndex();
-		      controleUsuarioHome.realizarInscricaoEmEvento(eventosArray[row]);		    
+		      controleUsuarioHome.acaoRealizarInscricaoEmEvento(eventosArray[row]);		    
 		  }
 	};
 	
@@ -245,7 +310,7 @@ public class SwingUsuarioHome extends JFrame implements AbstractGUIUsuarioHome {
 	private MouseAdapter mouseAdapterSubmeterTrabalho = new MouseAdapter() {
 		  public void mouseClicked(MouseEvent e) {
 			  int row = listaParticipacao.getSelectedIndex();
-		      controleUsuarioHome.submeterTrabalhos(eventosArray[row]);		    
+		      controleUsuarioHome.acaoSubmeterTrabalhos(eventosArray[row]);		    
 		  }
 	};
 	
@@ -253,11 +318,17 @@ public class SwingUsuarioHome extends JFrame implements AbstractGUIUsuarioHome {
 		  public void mouseClicked(MouseEvent e) {
 			  int row = listaParticipacao.getSelectedIndex();
 			  try {
-				controleUsuarioHome.gerenciarTrabalhosSubmetidos(eventosArray[row]);
+				controleUsuarioHome.acaoGerenciarTrabalhosSubmetidos(eventosArray[row]);
 			} catch (ExcecaoDeParticipacao e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}	    
+		  }
+	};
+	
+	private MouseAdapter mouseAdapterCriarEvento = new MouseAdapter() {
+		  public void mouseClicked(MouseEvent e) {
+			  controleUsuarioHome.acaoCriarEvento();    
 		  }
 	};
 
@@ -321,10 +392,26 @@ public class SwingUsuarioHome extends JFrame implements AbstractGUIUsuarioHome {
 	}
 
 	@Override
-	public void atualizarListaMeusEventos(Collection<EventoTO> meusExames) {
-		atualizarListaEventos(listaMeusEventos, meusExames);
+	public void atualizarListaMeusEventos(Collection<EventoTO> meusEventos) {
+		atualizarTabelaMeusEventos(meusEventos);
 	}
 	
+	private void atualizarTabelaMeusEventos(Collection<EventoTO> meusEventos) {
+		Iterator<EventoTO> iteradorMeusEventos = meusEventos.iterator();
+		
+		String[] colunas = {"Evento","Instituicao","Estado"};
+		String[][] dados = new String[meusEventos.size()][3];
+		for (int i = 0; i < meusEventos.size(); i++) {
+			EventoTO evento = iteradorMeusEventos.next();
+			dados[i][0] = evento.getNome();
+			dados[i][1] = evento.getInstituicao().getSigla() + " - " + evento.getInstituicao().getNome();
+			dados[i][2] = evento.getEstado().toString();
+		}
+		
+		tabelMeusEventos.setModel(new DefaultTableModel(dados,colunas));
+		
+	}
+
 	@Override
 	public void atualizarPerfil(UsuarioTO suarioLogado) {
 		// TODO Auto-generated method stub
