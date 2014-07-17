@@ -153,6 +153,21 @@ public class Evento{
     	return perfisDeParticipante;
     }
 	
+	
+	public PerfilDeExaminador obterExaminadorPorEmail(String email) throws ExcecaoDeAvaliacao{
+		Collection<PerfilDeExaminador> examinadores = obterExaminadores();
+		Usuario usarioReferenteAoExaminador;
+		
+		for (PerfilDeExaminador examinador : examinadores) {
+			usarioReferenteAoExaminador = examinador.getUsuario();
+			
+			if(usarioReferenteAoExaminador.getEmail().equals(email))
+				return examinador;
+		}
+		
+		throw new ExcecaoDeAvaliacao("evento.email_nao_associado_a_um_examinador_no_evento");
+	}
+	
 	public Collection<PerfilDeExaminador> obterExaminadores(){
     	Class<PerfilDeExaminador> tipoPerfil = PerfilDeExaminador.class;
     	Collection<Perfil> perfisDoTipoPerfil = perfis.get(tipoPerfil.getName());

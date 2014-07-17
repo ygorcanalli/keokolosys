@@ -21,7 +21,7 @@ public final class ControladorDeAvaliacao {
     }
     
     public static Collection<BancaExaminadora> listarBancasExaminadoras(Evento evento) {
-    	return evento.getBancasExaminadoras();
+    	return obterTodasAsBancasExaminadorasDoEvento(evento);
     }
     
     public static Collection<BancaExaminadora> obterBancasExaminadorasAssociadasAoExaminador(PerfilDeExaminador examinador){
@@ -38,6 +38,10 @@ public final class ControladorDeAvaliacao {
     
     public static Collection<PerfilDeExaminador> obterTodosExaminadoresDoEvento(Evento evento){
     	return evento.obterExaminadores();
+    }
+    
+    public static PerfilDeExaminador obterExaminadorDoEventoPorEmail(Evento evento, String email) throws ExcecaoDeAvaliacao{
+    	return evento.obterExaminadorPorEmail(email);
     }
 
     public static void avaliarTrabalho(Trabalho trabalho, PerfilDeExaminador examinador, EstadoAvaliacao resultado) throws ExcecaoDeAvaliacao {
