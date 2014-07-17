@@ -9,9 +9,11 @@ import util.AbstractGUI;
 public interface AbstractGUICadastrarBancaExaminadora extends AbstractGUI{
 
 	public void atualizarListaDeBancasExaminadoras(Collection<BancaExaminadoraTO> bancasExaminadoras);
-	public void atualizarListaDeExaminadores(Collection<UsuarioTO> examinadores);
+	public void atualizarListaDeExaminadoresDisponiveis(Collection<UsuarioTO> examinadores);
 	public BancaExaminadoraTO obterDadosDaBancaExaminadoraPreenchida();
 	public BancaExaminadoraTO obterBancaExaminadoraSelecionada();
+	public UsuarioTO obterExaminadorPertencenteSelecionado();
+	public UsuarioTO obterExaminadorNaoPertencenteSelecionado();
 	public void definirSelecaoBancaExaminadora(BancaExaminadoraTO bancaExaminadora);
 	public void definirSelecaoExaminador(UsuarioTO examinador);
 	public void removerSelecaoBancaExaminadora();
@@ -34,5 +36,6 @@ public interface AbstractGUICadastrarBancaExaminadora extends AbstractGUI{
 	public void desabilitarAcaoCancelar();
 	public void limparFormulario();
 	public void exibirBancaExaminadora(BancaExaminadoraTO bancaExaminadora);
+	public void atualizarListaDeExaminadoresPertencesABanca(Collection<UsuarioTO> examinadores);
 
 }
