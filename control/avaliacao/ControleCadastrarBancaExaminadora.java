@@ -65,7 +65,7 @@ public class ControleCadastrarBancaExaminadora implements AbstractControle{
 	}
 	
 	private void atualizarListaDeExaminadores(){
-		viewCadastroBancaExaminadora.atualizarListaDeExaminadores(obterExaminadores());
+		viewCadastroBancaExaminadora.atualizarListaDeExaminadoresDisponiveis(obterExaminadores());
 	}
 	
 	
@@ -167,18 +167,7 @@ public class ControleCadastrarBancaExaminadora implements AbstractControle{
 		ControladorDeAvaliacao.removerBancaExaminadora(evento, bancaExaminadora);
 		viewCadastroBancaExaminadora.exibirMensagemDeInformacao("Banca examinadora removida com sucesso!", "");
 	}
-	
-	public void acaoSelecionar(){
-		viewCadastroBancaExaminadora.desabilitarAcaoCancelar();
-		viewCadastroBancaExaminadora.desabilitarAcaoAtualizar();
-		viewCadastroBancaExaminadora.desabilitarAcaoSalvar();
-		
-		viewCadastroBancaExaminadora.habilitarAcaoNovo();
-		viewCadastroBancaExaminadora.habilitarAcaoExcluir();
-		viewCadastroBancaExaminadora.habilitarAcaoEditar();
-		
-		exibirBancaExaminadoraSelecionada();
-	}
+
 	
 	private void exibirBancaExaminadoraSelecionada() {
 		BancaExaminadoraTO bancaExaminadoraTO = viewCadastroBancaExaminadora.obterBancaExaminadoraSelecionada();
@@ -207,6 +196,18 @@ public class ControleCadastrarBancaExaminadora implements AbstractControle{
 	
 	private InstituicaoTO converterInstituicaoParaInstituicaoTO(Instituicao instituicao){
 		return new InstituicaoTO(instituicao.getNome(), instituicao.getSigla(), instituicao.getLocalizacao());
+	}
+	
+	public void acaoSelecionar(){
+		viewCadastroBancaExaminadora.desabilitarAcaoCancelar();
+		viewCadastroBancaExaminadora.desabilitarAcaoAtualizar();
+		viewCadastroBancaExaminadora.desabilitarAcaoSalvar();
+		
+		viewCadastroBancaExaminadora.habilitarAcaoNovo();
+		viewCadastroBancaExaminadora.habilitarAcaoExcluir();
+		viewCadastroBancaExaminadora.habilitarAcaoEditar();
+		
+		exibirBancaExaminadoraSelecionada();
 	}
 
 	public void acaoNovo(){

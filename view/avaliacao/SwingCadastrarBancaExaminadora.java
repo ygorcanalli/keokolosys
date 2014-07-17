@@ -40,9 +40,13 @@ public class SwingCadastrarBancaExaminadora extends JFrame implements AbstractGU
 	private JButton btnAdicionar;
 	private JButton btnRemover;
 	
-	private JComboBox<String> comboBoxBancaExaminadora;
-	private JComboBox<String> comboBoxExaminadora;
+	private JComboBox<String> comboBoxBancasExaminadoras;
+	private JComboBox<String> comboBoxExaminadoresDisponiveis;
 	private JList<String> listExaminadores;
+	
+	private BancaExaminadoraTO bancasExaminadoras[];
+	private List<UsuarioTO> examinadoresDisponiveis;
+	private List<UsuarioTO> examinadoresDisponiveis;
 	
 	private ControleCadastrarBancaExaminadora controleCadastroBancaExaminadora;
 	
@@ -145,13 +149,45 @@ public class SwingCadastrarBancaExaminadora extends JFrame implements AbstractGU
 
 	@Override
 	public void atualizarListaDeBancasExaminadoras(Collection<BancaExaminadoraTO> bancasExaminadoras) {
-		// TODO Auto-generated method stub
+		int i = 0;
+		this.bancasExaminadoras = new BancaExaminadoraTO[bancasExaminadoras.size()];
 		
+		String bancaExaminadoraExibicao = "";
+		String examinadorExibicao = "";
+		
+		comboBoxBancasExaminadoras.removeAllItems();
+		comboBoxBancasExaminadoras.repaint();
+		
+		for (BancaExaminadoraTO bancaExaminadora : bancasExaminadoras) {
+			this.bancasExaminadoras[i] = bancaExaminadora; i++;
+			
+			for (UsuarioTO examinador : bancaExaminadora.getExaminadores()) {
+				examinadorExibicao += examinador.getNome() + " : " + examinador.getEmail() + ";";
+			}
+			
+			bancaExaminadoraExibicao += String.valueOf(i) + " - " + examinadorExibicao;
+			comboBoxBancasExaminadoras.addItem(bancaExaminadoraExibicao);
+		}		
 	}
 
 	@Override
-	public void atualizarListaDeExaminadores(Collection<UsuarioTO> examinadores) {
-		// TODO Auto-generated method stub
+	public void atualizarListaDeExaminadoresDisponiveis(Collection<UsuarioTO> examinadores) {
+		int i = 0;
+		this.examinadoresDisponiveis = new UsuarioTO[examinadores.size()];
+		
+		String examinadorExibicao = "";
+		
+		for (UsuarioTO examinador : examinadores) {
+			this.examinadoresDisponiveis[i] = examinador; i++;
+			
+			examinadorExibicao = examinador.getNome() + " : " + examinador.getEmail() + ";";
+		}
+		
+		comboBoxExaminadoresDisponiveis.addItem(examinadorExibicao);
+	}
+	
+	@Override
+	public void atualizarListaDeExaminadoresPertencesABanca(Collection<UsuarioTO> examinadores) {
 		
 	}
 
@@ -166,7 +202,20 @@ public class SwingCadastrarBancaExaminadora extends JFrame implements AbstractGU
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	@Override
+	public UsuarioTO obterExaminadorPertencenteSelecionado() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
+	@Override
+	public UsuarioTO obterExaminadorNaoPertencenteSelecionado() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
 	@Override
 	public void definirSelecaoBancaExaminadora(
 			BancaExaminadoraTO bancaExaminadora) {
@@ -347,8 +396,8 @@ public class SwingCadastrarBancaExaminadora extends JFrame implements AbstractGU
 		);
 		
 		
-		comboBoxBancaExaminadora = new JComboBox<String>();
-		comboBoxBancaExaminadora.addActionListener(new ActionListener() {
+		comboBoxBancasExaminadoras = new JComboBox<String>();
+		comboBoxBancasExaminadoras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
@@ -357,14 +406,14 @@ public class SwingCadastrarBancaExaminadora extends JFrame implements AbstractGU
 			gl_panel_2.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_2.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(comboBoxBancaExaminadora, 0, 479, Short.MAX_VALUE)
+					.addComponent(comboBoxBancasExaminadoras, 0, 479, Short.MAX_VALUE)
 					.addContainerGap())
 		);
 		gl_panel_2.setVerticalGroup(
 			gl_panel_2.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_2.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(comboBoxBancaExaminadora, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addComponent(comboBoxBancasExaminadoras, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		panel_2.setLayout(gl_panel_2);
@@ -461,8 +510,8 @@ public class SwingCadastrarBancaExaminadora extends JFrame implements AbstractGU
 		
 		JLabel lblNomeExaminador = new JLabel("Examinador:");
 		
-		comboBoxExaminadora = new JComboBox<String>();
-		comboBoxExaminadora.addActionListener(new ActionListener() {
+		comboBoxExaminadoresDisponiveis = new JComboBox<String>();
+		comboBoxExaminadoresDisponiveis.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				acaoSelecionar();
 			}
@@ -492,7 +541,7 @@ public class SwingCadastrarBancaExaminadora extends JFrame implements AbstractGU
 					.addContainerGap()
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addComponent(lblNomeExaminador)
-						.addComponent(comboBoxExaminadora, 0, 477, Short.MAX_VALUE)
+						.addComponent(comboBoxExaminadoresDisponiveis, 0, 477, Short.MAX_VALUE)
 						.addGroup(gl_panel.createSequentialGroup()
 							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 								.addComponent(btnAdicionar)
@@ -507,7 +556,7 @@ public class SwingCadastrarBancaExaminadora extends JFrame implements AbstractGU
 					.addContainerGap()
 					.addComponent(lblNomeExaminador)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(comboBoxExaminadora, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addComponent(comboBoxExaminadoresDisponiveis, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 						.addGroup(gl_panel.createSequentialGroup()
@@ -527,4 +576,6 @@ public class SwingCadastrarBancaExaminadora extends JFrame implements AbstractGU
 			}
 		});
 	}
+
+
 }
