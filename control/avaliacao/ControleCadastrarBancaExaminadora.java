@@ -114,7 +114,7 @@ public class ControleCadastrarBancaExaminadora implements AbstractControle{
 		return bancasExaminadoraTO;
 	}
 	
-	private void cadastrarBancaExaminadora(Collection<UsuarioTO> examinadoresTO) throws ExcecaoDeAvaliacao{
+	private Collection<PerfilDeExaminador> recuperarExaminadores(Collection<UsuarioTO> examinadoresTO) throws ExcecaoDeAvaliacao{
 		Collection<PerfilDeExaminador> examinadores = new ArrayList<PerfilDeExaminador>();
 		PerfilDeExaminador examinador;
 		String emailDoExaminador = null;
@@ -127,19 +127,45 @@ public class ControleCadastrarBancaExaminadora implements AbstractControle{
 			examinadores.add(examinador);
 		}
 		
-		ControladorDeAvaliacao.criarBancaExaminadora(evento, examinadores);
+		return examinadores;
 	}
+
 	
-	
-	private void atualizarBancaExaminadora(BancaExaminadoraTO bancaExaminadoraTO, Collection<UsuarioTO> examinadores) throws ExcecaoDeAvaliacao{
-		// TODO Auto-generated method stub
+	private void cadastrarBancaExaminadora(Collection<UsuarioTO> examinadoresTO) throws ExcecaoDeAvaliacao{
+		Collection<PerfilDeExaminador> examinadores = recuperarExaminadores(examinadoresTO);
+		ControladorDeAvaliacao.criarBancaExaminadora(evento, examinadores);
 		
+		viewCadastroBancaExaminadora.exibirMensagemDeInformacao("Banca examinadora criada com sucesso!", "");
+	}
+		
+	
+	private void atualizarBancaExaminadora(BancaExaminadoraTO bancaExaminadoraTO, Collection<UsuarioTO> examinadoresTO) throws ExcecaoDeAvaliacao{
+		
+		BancaExaminadora bancaExaminadora;
+		Collection<PerfilDeExaminador> examinadores;
+		Collection<PerfilDeExaminador> examinadoresNovos;
+		
+		examinadores = recuperarExaminadores(bancaExaminadoraTO.getExaminadores());
+		examinadoresNovos = recuperarExaminadores(examinadoresTO);
+		
+		bancaExaminadora = evento.obterBancaExaminadoraPelosExaminadores(examinadores);
+		
+		ControladorDeAvaliacao.atualizarBancaExaminadora(bancaExaminadora, examinadoresNovos);
+		
+		viewCadastroBancaExaminadora.exibirMensagemDeInformacao("Banca examinadora atualizada com sucesso!", "");
 	}
 	
 	
 	private void excluirBancaExaminadora(BancaExaminadoraTO bancaExaminadoraTO) throws ExcecaoDeAvaliacao{
-		// TODO Auto-generated method stub
+		BancaExaminadora bancaExaminadora;
+		Collection<PerfilDeExaminador> examinadores;
 		
+		examinadores = recuperarExaminadores(bancaExaminadoraTO.getExaminadores());
+		
+		bancaExaminadora = evento.obterBancaExaminadoraPelosExaminadores(examinadores);
+		
+		ControladorDeAvaliacao.removerBancaExaminadora(evento, bancaExaminadora);
+		viewCadastroBancaExaminadora.exibirMensagemDeInformacao("Banca examinadora removida com sucesso!", "");
 	}
 	
 	public void acaoSelecionar(){
@@ -155,8 +181,8 @@ public class ControleCadastrarBancaExaminadora implements AbstractControle{
 	}
 	
 	private void exibirBancaExaminadoraSelecionada() {
-		// TODO Auto-generated method stub
-		
+		BancaExaminadoraTO bancaExaminadoraTO = viewCadastroBancaExaminadora.obterBancaExaminadoraSelecionada();
+		viewCadastroBancaExaminadora.exibirBancaExaminadora(bancaExaminadoraTO);		
 	}
 	
 	private UsuarioTO converterPerfilDeExaminadorParaUsuarioTO(PerfilDeExaminador examinador){

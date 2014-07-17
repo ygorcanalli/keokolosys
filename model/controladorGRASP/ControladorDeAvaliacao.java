@@ -15,6 +15,14 @@ public final class ControladorDeAvaliacao {
     public static BancaExaminadora criarBancaExaminadora(Evento evento, Collection<PerfilDeExaminador> examinadores) throws ExcecaoDeAvaliacao {
         return evento.criarBancaExaminadora(examinadores);
     }
+    
+    public static void atualizarBancaExaminadora(BancaExaminadora bancaExaminadora, Collection<PerfilDeExaminador> examinadores) throws ExcecaoDeAvaliacao {
+        bancaExaminadora.atualizarExaminadores(examinadores);
+    }
+    
+    public static void removerBancaExaminadora(Evento evento, BancaExaminadora bancaExaminadora) throws ExcecaoDeAvaliacao{
+    	evento.removerBancaExaminadora(bancaExaminadora);
+    }
 
     public static void associarBancaExaminadoraATrabalho(BancaExaminadora bancaExaminadora, Trabalho trabalho) throws ExcecaoDeAvaliacao {
         bancaExaminadora.associarTrabalho(trabalho);

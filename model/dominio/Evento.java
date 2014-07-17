@@ -64,13 +64,7 @@ public class Evento{
     	
     	bancaExaminadora.atualizarExaminadores(examinadores);
     }
-    
-    public void removerBancaExaminadora(BancaExaminadora bancaBancaExaminadora) throws ExcecaoDeAvaliacao{
-    	if(bancaBancaExaminadora.obterTrabalhosAssociados().size() > 0)
-    		throw new ExcecaoDeAvaliacao("evento.banca_examinadora.possui_trabalhos_associados");
-    	
-    	bancasExaminadoras.remove(bancaBancaExaminadora);
-    }
+
     
     private void validarBancaComoUnica(Collection<PerfilDeExaminador> examinadores) throws ExcecaoDeAvaliacao{
     	BancaExaminadora bancaExaminadora = buscarBancaExaminadoraPelosExaminadores(examinadores);
@@ -95,6 +89,14 @@ public class Evento{
     	}
     	
 		return null;
+    }
+    
+    public void removerBancaExaminadora(BancaExaminadora bancaExaminadora) throws ExcecaoDeAvaliacao{
+
+    	if(bancaExaminadora.possuiTrabalhosAssociados())
+    		throw new ExcecaoDeAvaliacao("evento.banca_examinadora.possui_trabalhos_associados");
+    	
+    	bancasExaminadoras.remove(bancaExaminadora);
     }
 
     /*Referente a inscricao de participante e concessao de privilegios*/
