@@ -233,14 +233,16 @@ public class Evento{
         return trabalhos;
     }
     
-    public Collection<Trabalho> obterTodosTrabalhosSubmetidosPeloParticipante(PerfilDeParticipante submissor) throws ExcecaoDeParticipacao{
+    public Collection<Trabalho> obterTodosTrabalhosSubmetidosPeloParticipante(PerfilDeParticipante participante) throws ExcecaoDeParticipacao{
     	Collection<Trabalho> trabalhosSubmetidos = new ArrayList<Trabalho>();
     	
-    	if(submissor.getEvento() != this)
+    	if(participante.getEvento() != this)
     		throw new ExcecaoDeParticipacao("evento.perfil_nao_referente_ao_evento_em_questao");
     	
     	for (Trabalho trabalho : trabalhos) {
-			if(trabalho.getSubmissor() == submissor)
+    		Usuario usuarioSubmissor = trabalho.getSubmissor().getUsuario();
+    		Usuario usuarioParticipante = participante.getUsuario();
+			if(usuarioSubmissor == usuarioParticipante)
 				trabalhosSubmetidos.add(trabalho);
 		}
     	

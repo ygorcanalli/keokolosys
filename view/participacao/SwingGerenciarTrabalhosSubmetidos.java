@@ -14,13 +14,26 @@ import javax.swing.JPanel;
 
 import cadastro.ControleGerenciarTrabalhosSubmetidos;
 import transferobject.TrabalhoTO;
+import java.awt.Dimension;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class SwingGerenciarTrabalhosSubmetidos extends JFrame implements
 		AbstractGUIGerenciarTrabalhosSubmetidos {
-	private JList list;
+	private JList<String> list;
 	List<TrabalhoTO> trabalhoTOs;
 	ControleGerenciarTrabalhosSubmetidos controleGerenciarTrabalhosSubmetidos;
-	public SwingGerenciarTrabalhosSubmetidos(ControleGerenciarTrabalhosSubmetidos controleGerenciarTrabalhosSubmetidos) {
+	DefaultListModel defaultListModel;
+	public SwingGerenciarTrabalhosSubmetidos(final ControleGerenciarTrabalhosSubmetidos controleGerenciarTrabalhosSubmetidos) {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				controleGerenciarTrabalhosSubmetidos.debloquearGUICaller();
+			}
+		});
+		setSize(new Dimension(600, 300));
 		
 		this.controleGerenciarTrabalhosSubmetidos = controleGerenciarTrabalhosSubmetidos;
 		getContentPane().setLayout(new BorderLayout(0, 0));
@@ -28,8 +41,10 @@ public class SwingGerenciarTrabalhosSubmetidos extends JFrame implements
 		JPanel centro = new JPanel();
 		getContentPane().add(centro, BorderLayout.CENTER);
 		
-		list = new JList();
-		centro.add(list);
+		defaultListModel = new DefaultListModel();
+		centro.setLayout(new BorderLayout(0, 0));
+		list = new  JList<String>();
+		centro.add(list);	
 		
 		JPanel sul = new JPanel();
 		getContentPane().add(sul, BorderLayout.SOUTH);
@@ -42,16 +57,20 @@ public class SwingGerenciarTrabalhosSubmetidos extends JFrame implements
 			}
 		});
 		sul.add(btnS, BorderLayout.EAST);
+		
+		JLabel lblSubmeterVersoFinal = new JLabel("Submeter Versão Final");
+		lblSubmeterVersoFinal.setHorizontalAlignment(SwingConstants.CENTER);
+		getContentPane().add(lblSubmeterVersoFinal, BorderLayout.NORTH);
 	}
 	public void setTrabalhos(List<TrabalhoTO> trabalhoTOs) {
 		this.trabalhoTOs = trabalhoTOs;
 		
-		DefaultListModel defaultListModel = new DefaultListModel();
-		list = new JList(defaultListModel);
+		
 		for (TrabalhoTO trabalhoTO : trabalhoTOs) {			
 			defaultListModel.addElement(trabalhoTO.getTitulo());
 		}
-		
+		list.setModel(defaultListModel);
+		list.repaint();		
 	}
 	private void submeterVersaoFinal() {
 		TrabalhoTO trabalhoTO = trabalhoTOs.get(list.getSelectedIndex());
@@ -60,13 +79,14 @@ public class SwingGerenciarTrabalhosSubmetidos extends JFrame implements
 
 	@Override
 	public void inicializar() {
-		// TODO Auto-generated method stub
+		tornarVisivel();
 		
 	}
 
 	@Override
 	public void tornarVisivel() {
-		// TODO Auto-generated method stub
+		setVisible(true);
+		//repaint();
 		
 	}
 
