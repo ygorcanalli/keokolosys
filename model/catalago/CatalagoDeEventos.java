@@ -40,6 +40,7 @@ public class CatalagoDeEventos {
     	validarNomeDoEventoComoUnico(nome);
         Evento evento = Evento.criarEvento(nome, instituicao, usuarioResponsavel, dataMaximaParaSubmissaoDeTrabalho, dataMaximaParaAceitacaoDeTrabalho, dataDeInicio, dataDeFim);
         eventosAguardandoAprovacao.add(evento);
+        evento.concederPrivilegioDeChair(usuarioResponsavel);
         return evento;
     }
     

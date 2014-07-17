@@ -23,6 +23,7 @@ import excecao.ExcecaoDeParticipacao;
 
 public class ControleUsuarioHome implements AbstractControle{
 	
+	private Map<String, Evento> mapaDeEventosDeferidosNaoInscritos;
 	private Map<String, Evento> mapaDeEventosInscritos;
 	private Map<String, Evento> mapaDeEventosComPerfilDeChair;
 	private Map<String, Evento> mapaDeEventosComPerfilDeExaminador;
@@ -46,7 +47,7 @@ public class ControleUsuarioHome implements AbstractControle{
 		UsuarioTO usuarioTO = null;
 		InstituicaoTO instituicaoTO = null;
 		
-		mapaDeEventosInscritos = new TreeMap<String, Evento>();
+		mapaDeEventosDeferidosNaoInscritos = new TreeMap<String, Evento>();
 		
 		Collection<Evento> eventosDeferidos = ControladorDeCadastro.obterTodosEventosDeferidos();
 		Collection<EventoTO> eventosDeferidosNaoInscritos = new ArrayList<EventoTO>();
@@ -64,7 +65,7 @@ public class ControleUsuarioHome implements AbstractControle{
 				instituicaoTO.setSigla(evento.getInstituicao().getSigla());
 				eventoTO.setInstituicao(instituicaoTO);
 				
-				mapaDeEventosInscritos.put(eventoTO.getNome(), evento);
+				mapaDeEventosDeferidosNaoInscritos.put(eventoTO.getNome(), evento);
 				eventosDeferidosNaoInscritos.add(eventoTO);
 			}
 		}

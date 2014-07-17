@@ -52,7 +52,7 @@ public class BancaExaminadora{
     		throw new ExcecaoDeAvaliacao("banca_examinadora.examinador.vazio");
     	
     	if(NUMEROS_DE_EXAMINADORES_PERMITIDO.contains(setExaminadores.size()))
-    		throw new ExcecaoDeAvaliacao("banca_examinadora.examinador.repetido");    	
+    		throw new ExcecaoDeAvaliacao("banca_examinadora.numero_de_examinadores_nao_permitido");    	
     }
     
     public void associarTrabalho(Trabalho trabalho) throws ExcecaoDeAvaliacao{

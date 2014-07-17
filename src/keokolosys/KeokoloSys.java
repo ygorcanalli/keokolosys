@@ -35,6 +35,7 @@ public class KeokoloSys {
 		Usuario pepper = ControladorDeCadastro.criarUsuario("peeper@stark.com", "stark", "Virginia", "Pepper", si);
 		Usuario obadiah = ControladorDeCadastro.criarUsuario("obadiah@stark.com", "stark", "Obadiah", "Stane", si);
 		Usuario rhodey = ControladorDeCadastro.criarUsuario("rhodey@USAForce.com", "USAForce", "James", "Rhodey", si);
+		Usuario hulk = ControladorDeCadastro.criarUsuario("hulk@hulk.com", "stark", "Bruce", "Banner", si);
 		
 		
 		Evento evento = ControladorDeCadastro.criarEvento("Evento Iron Man", si, stark, new Date(2014, 07, 01), new Date(2014,07,02), new Date(2014,8,01), new Date(2014,8,02));
@@ -42,25 +43,23 @@ public class KeokoloSys {
 		
 		evento.concederPrivilegioDeExaminador(obadiah);
 		evento.concederPrivilegioDeExaminador(rhodey);
-		evento.concederPrivilegioDeExaminador(pepper);		
+		evento.concederPrivilegioDeExaminador(hulk);
 		
-		
-		
-		PerfilDeExaminador perfilrhodey = (PerfilDeExaminador) rhodey.obterPerfilDe(evento, PerfilDeExaminador.class);	
-		PerfilDeExaminador perfilPepper = (PerfilDeExaminador) pepper.obterPerfilDe(evento, PerfilDeExaminador.class);
+		PerfilDeExaminador perfilRhodey = (PerfilDeExaminador) rhodey.obterPerfilDe(evento, PerfilDeExaminador.class);	
 		PerfilDeExaminador perfilObadiah = (PerfilDeExaminador) obadiah.obterPerfilDe(evento, PerfilDeExaminador.class);
+		PerfilDeExaminador perfilHulk = (PerfilDeExaminador) hulk.obterPerfilDe(evento, PerfilDeExaminador.class);
 		
-		evento.inscreverParticipante(stark);
+		evento.inscreverParticipante(pepper);
 		
-		PerfilDeParticipante perfilParticipante = (PerfilDeParticipante) stark.obterPerfilDe(evento, PerfilDeParticipante.class);
+		PerfilDeParticipante perfilPepper = (PerfilDeParticipante) pepper.obterPerfilDe(evento, PerfilDeParticipante.class);
 		
-		ControladorDeParticipacao.subtmeterTrabalho(evento,perfilParticipante, "Mark IV", "Traje de defesa pessoal, Mark IV", "Tony Stark","/home/stark/ironMan.pdf");
-		Collection<Trabalho> trabalhos = ControladorDeParticipacao.obterTodosTrabalhosSubmetidosPeloParticipante(evento, perfilParticipante);
+		ControladorDeParticipacao.subtmeterTrabalho(evento,perfilPepper, "Mark IV", "Traje de defesa pessoal, Mark IV", "Tony Stark","/home/stark/ironMan.pdf");
+		Collection<Trabalho> trabalhos = ControladorDeParticipacao.obterTodosTrabalhosSubmetidosPeloParticipante(evento, perfilPepper);
 		Collection<PerfilDeExaminador> examinadores = new ArrayList<>();
 		
-		examinadores.add(perfilObadiah);
-		examinadores.add(perfilPepper);		
-		examinadores.add(perfilrhodey);
+		examinadores.add(perfilHulk);
+		examinadores.add(perfilObadiah);		
+		examinadores.add(perfilRhodey);
 		BancaExaminadora bancaExaminadora = evento.criarBancaExaminadora(examinadores);	
 		/*bancaExaminadora.associarTrabalho(markIV);
 		
