@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence-diagram version="1.1.6" icons="true">  
+  <object id="1" language="java" name="controladorGRASP.ControladorAdministrativo" project="keokolosys" 
+    file="/keokolosys/model/controladorGRASP/ControladorAdministrativo.java" binary="false" 
+    label="controladorAdministrativo" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="218" y="0"/>    
+    <execution id="2">      
+      <position height="171" width="175" x="5" y="92"/>    
+    </execution>  
+  </object>  
+  <object id="5" language="java" name="catalago.CatalagoDeEventos" project="keokolosys" 
+    file="/keokolosys/model/catalago/CatalagoDeEventos.java" binary="false" label="catalagoDeEventos" type="class" 
+    autoSize="true">    
+    <position height="-1" width="-1" x="230" y="0"/>    
+    <execution id="4">      
+      <position height="133" width="137" x="184" y="111"/>    
+    </execution>  
+  </object>  
+  <object id="12" language="java" name="dominio.Evento" project="keokolosys" 
+    file="/keokolosys/model/dominio/Evento.java" binary="false" label="evento" type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="7">      
+      <position height="19" width="0" x="0" y="130"/>    
+    </execution>  
+  </object>  
+  <object id="13" language="java" name="java.util.Collection" project="keokolosys" 
+    file="/usr/lib/jvm/java-8-oracle/jre/lib/rt.jar" binary="true" label="eventosAguardandoAprovacao" type="interface" 
+    autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="9">      
+      <position height="19" width="0" x="0" y="168"/>    
+    </execution>  
+  </object>  
+  <object id="14" language="java" name="java.util.Collection" project="keokolosys" 
+    file="/usr/lib/jvm/java-8-oracle/jre/lib/rt.jar" binary="true" label="eventosDeferios" type="interface" 
+    autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="11">      
+      <position height="19" width="0" x="0" y="206"/>    
+    </execution>  
+  </object>  
+  <message id="3" operation="deferirEvento(dominio.Evento):void">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="4"/>  
+  </message>  
+  <message id="6" operation="deferir():void">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="7"/>  
+  </message>  
+  <message id="8" operation="remove(java.lang.Object):boolean">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="9"/>  
+  </message>  
+  <message id="10" operation="add(E):boolean">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="11"/>  
+  </message>
+</sequence-diagram>

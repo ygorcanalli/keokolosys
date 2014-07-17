@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence-diagram version="1.1.6" icons="true">  
+  <object id="1" language="java" name="controladorGRASP.ControladorDeAvaliacao" project="keokolosys" 
+    file="/keokolosys/model/controladorGRASP/ControladorDeAvaliacao.java" binary="false" label="controladorDeAvaliacao" 
+    type="class" autoSize="true">    
+    <position height="-1" width="-1" x="170" y="0"/>    
+    <execution id="2">      
+      <position height="218" width="164" x="5" y="92"/>    
+    </execution>  
+  </object>  
+  <object id="5" language="java" name="dominio.Trabalho" project="keokolosys" 
+    file="/keokolosys/model/dominio/Trabalho.java" binary="false" label="trabalho" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="318" y="0"/>    
+    <execution id="4">      
+      <position height="180" width="73" x="173" y="111"/>    
+    </execution>    
+    <execution id="8">      
+      <position height="19" width="0" x="0" y="234"/>    
+    </execution>  
+  </object>  
+  <object id="9" language="java" name="dominio.BancaExaminadora" project="keokolosys" 
+    file="/keokolosys/model/dominio/BancaExaminadora.java" binary="false" label="bancaExaminadora" type="class" 
+    autoSize="true">    
+    <position height="-1" width="-1" x="423" y="0"/>    
+    <execution id="7">      
+      <position height="142" width="136" x="250" y="130"/>    
+    </execution>    
+    <execution id="11">      
+      <position height="19" width="0" x="0" y="168"/>    
+    </execution>  
+  </object>  
+  <object id="15" language="java" name="dominio.Avaliacao" project="keokolosys" 
+    file="/keokolosys/model/dominio/Avaliacao.java" binary="false" label="&lt;static&gt;" type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="13">      
+      <position height="19" width="0" x="0" y="196"/>    
+    </execution>  
+  </object>  
+  <message id="3" operation="getBancaExaminadoraResponsavel():dominio.BancaExaminadora">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="4"/>  
+  </message>  
+  <message id="6" operation="avaliarTrabalho(dominio.Trabalho,dominio.PerfilDeExaminador,dominio.EstadoAvaliacao):void">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="7"/>  
+  </message>  
+  <message id="10" operation="validarAvaliacao(dominio.Trabalho,dominio.PerfilDeExaminador):void">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="11"/>  
+  </message>  
+  <message id="12" 
+    operation="criarAvaliacao(dominio.Trabalho,dominio.PerfilDeExaminador,dominio.EstadoAvaliacao):dominio.Avaliacao">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="13"/>  
+  </message>  
+  <message id="14" operation="atribuirAvaliacao(dominio.Avaliacao):void">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="8"/>  
+  </message>
+</sequence-diagram>

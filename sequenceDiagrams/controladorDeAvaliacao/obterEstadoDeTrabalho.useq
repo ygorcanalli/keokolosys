@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence-diagram version="1.1.6" icons="true">  
+  <object id="1" language="java" name="controladorGRASP.ControladorDeAvaliacao" project="keokolosys" 
+    file="/keokolosys/model/controladorGRASP/ControladorDeAvaliacao.java" binary="false" label="controladorDeAvaliacao" 
+    type="class" autoSize="true">    
+    <position height="-1" width="-1" x="183" y="0"/>    
+    <execution id="2">      
+      <position height="171" width="164" x="5" y="92"/>    
+    </execution>  
+  </object>  
+  <object id="5" language="java" name="dominio.Trabalho" project="keokolosys" 
+    file="/keokolosys/model/dominio/Trabalho.java" binary="false" label="trabalho" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="304" y="0"/>    
+    <execution id="4">      
+      <position height="133" width="73" x="173" y="111"/>    
+    </execution>  
+  </object>  
+  <object id="12" language="java" name="java.util.Collection" project="keokolosys" 
+    file="/usr/lib/jvm/java-8-oracle/jre/lib/rt.jar" binary="true" label="avaliacoes" type="interface" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="7">      
+      <position height="19" width="0" x="0" y="130"/>    
+    </execution>  
+  </object>  
+  <object id="13" language="java" name="dominio.BancaExaminadora" project="keokolosys" 
+    file="/keokolosys/model/dominio/BancaExaminadora.java" binary="false" label="bancaExaminadoraResponsavel" 
+    type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="9">      
+      <position height="19" width="0" x="0" y="168"/>    
+    </execution>  
+  </object>  
+  <object id="14" language="java" name="dominio.Avaliacao" project="keokolosys" 
+    file="/keokolosys/model/dominio/Avaliacao.java" binary="false" label="avaliacao" type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="11">      
+      <position height="19" width="0" x="0" y="206"/>    
+    </execution>  
+  </object>  
+  <message id="3" operation="obterEstado():dominio.EstadoAvaliacao">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="4"/>  
+  </message>  
+  <message id="6" operation="size():int">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="7"/>  
+  </message>  
+  <message id="8" operation="obterNumeroDeExaminadores():java.lang.Integer">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="9"/>  
+  </message>  
+  <message id="10" operation="getResultado():dominio.EstadoAvaliacao">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="11"/>  
+  </message>
+</sequence-diagram>

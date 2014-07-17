@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence-diagram version="1.1.6" icons="true">  
+  <object id="1" language="java" name="controladorGRASP.ControladorDeCadastro" project="keokolosys" 
+    file="/keokolosys/model/controladorGRASP/ControladorDeCadastro.java" binary="false" label="controladorDeCadastro" 
+    type="class" autoSize="true">    
+    <position height="-1" width="-1" x="141" y="0"/>    
+    <execution id="2">      
+      <position height="180" width="160" x="5" y="92"/>    
+    </execution>  
+  </object>  
+  <object id="5" language="java" name="catalago.Pessoal" project="keokolosys" 
+    file="/keokolosys/model/catalago/Pessoal.java" binary="false" label="pessoal" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="224" y="0"/>    
+    <execution id="4">      
+      <position height="142" width="69" x="169" y="111"/>    
+    </execution>    
+    <execution id="9">      
+      <position height="19" width="0" x="0" y="187"/>    
+    </execution>  
+  </object>  
+  <object id="12" language="java" name="java.util.ArrayList" project="keokolosys" 
+    file="/usr/lib/jvm/java-8-oracle/jre/lib/rt.jar" binary="true" label="administradores" type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="7">      
+      <position height="19" width="0" x="0" y="130"/>    
+    </execution>    
+    <execution id="11">      
+      <position height="19" width="0" x="0" y="215"/>    
+    </execution>  
+  </object>  
+  <message id="3" operation="obterAdministradores():java.util.Collection&lt;Administrador&gt;">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="4"/>  
+  </message>  
+  <message id="6" operation="ArrayList()">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="7"/>  
+  </message>  
+  <message id="8" operation="obterAutenticaveis():java.util.Collection&lt;Autenticavel&gt;">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="9"/>  
+  </message>  
+  <message id="10" operation="add(E):boolean">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="11"/>  
+  </message>
+</sequence-diagram>

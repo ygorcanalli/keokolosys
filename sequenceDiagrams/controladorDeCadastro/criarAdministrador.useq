@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence-diagram version="1.1.6" icons="true">  
+  <object id="1" language="java" name="controladorGRASP.ControladorDeCadastro" project="keokolosys" 
+    file="/keokolosys/model/controladorGRASP/ControladorDeCadastro.java" binary="false" label="controladorDeCadastro" 
+    type="class" autoSize="true">    
+    <position height="-1" width="-1" x="124" y="0"/>    
+    <execution id="2">      
+      <position height="180" width="160" x="5" y="92"/>    
+    </execution>  
+  </object>  
+  <object id="5" language="java" name="catalago.Pessoal" project="keokolosys" 
+    file="/keokolosys/model/catalago/Pessoal.java" binary="false" label="pessoal" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="238" y="0"/>    
+    <execution id="4">      
+      <position height="142" width="69" x="169" y="111"/>    
+    </execution>    
+    <execution id="7">      
+      <position height="19" width="0" x="0" y="149"/>    
+    </execution>  
+  </object>  
+  <object id="12" language="java" name="dominio.Administrador" project="keokolosys" 
+    file="/keokolosys/model/dominio/Administrador.java" binary="false" label="&lt;static&gt;" type="class" 
+    autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="9">      
+      <position height="19" width="0" x="0" y="177"/>    
+    </execution>  
+  </object>  
+  <object id="13" language="java" name="java.util.Map" project="keokolosys" 
+    file="/usr/lib/jvm/java-8-oracle/jre/lib/rt.jar" binary="true" label="autenticaveis" type="interface" 
+    autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="11">      
+      <position height="19" width="0" x="0" y="215"/>    
+    </execution>  
+  </object>  
+  <message id="3" operation="criarAdministrador(java.lang.String,java.lang.String):void">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="4"/>  
+  </message>  
+  <message id="6" operation="validarEmailComoUnico(java.lang.String):void">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="7"/>  
+  </message>  
+  <message id="8" operation="criarAdministrador(java.lang.String,java.lang.String):dominio.Administrador">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="9"/>  
+  </message>  
+  <message id="10" operation="put(K,V):V">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="11"/>  
+  </message>
+</sequence-diagram>

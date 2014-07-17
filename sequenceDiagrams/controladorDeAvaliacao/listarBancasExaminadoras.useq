@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence-diagram version="1.1.6" icons="true">  
+  <object id="1" language="java" name="controladorGRASP.ControladorDeAvaliacao" project="keokolosys" 
+    file="/keokolosys/model/controladorGRASP/ControladorDeAvaliacao.java" binary="false" label="controladorDeAvaliacao" 
+    type="class" autoSize="true">    
+    <position height="-1" width="-1" x="133" y="0"/>    
+    <execution id="2">      
+      <position height="57" width="164" x="5" y="92"/>    
+    </execution>  
+  </object>  
+  <object id="5" language="java" name="dominio.Evento" project="keokolosys" file="/keokolosys/model/dominio/Evento.java" 
+    binary="false" label="evento" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="195" y="0"/>    
+    <execution id="4">      
+      <position height="19" width="63" x="173" y="111"/>    
+    </execution>  
+  </object>  
+  <message id="3" operation="getBancasExaminadoras():java.util.Collection&lt;BancaExaminadora&gt;">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="4"/>  
+  </message>
+</sequence-diagram>

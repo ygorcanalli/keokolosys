@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence-diagram version="1.1.6" icons="true">  
+  <object id="1" language="java" name="controladorGRASP.ControladorDeParticipacao" project="keokolosys" 
+    file="/keokolosys/model/controladorGRASP/ControladorDeParticipacao.java" binary="false" 
+    label="controladorDeParticipacao" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="254" y="0"/>    
+    <execution id="2">      
+      <position height="114" width="179" x="5" y="92"/>    
+    </execution>  
+  </object>  
+  <object id="5" language="java" name="dominio.Usuario" project="keokolosys" 
+    file="/keokolosys/model/dominio/Usuario.java" binary="false" label="usuario" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="176" y="0"/>    
+    <execution id="4">      
+      <position height="76" width="68" x="188" y="111"/>    
+    </execution>    
+    <execution id="7">      
+      <position height="19" width="0" x="0" y="149"/>    
+    </execution>  
+  </object>  
+  <message id="3" 
+    operation="obterPerfilDe(dominio.Evento,java.lang.Class&lt;? extends dominio.Perfil&gt;):dominio.Perfil">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="4"/>  
+  </message>  
+  <message id="6" operation="obterPerfil(dominio.Evento):dominio.Perfil">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="7"/>  
+  </message>
+</sequence-diagram>

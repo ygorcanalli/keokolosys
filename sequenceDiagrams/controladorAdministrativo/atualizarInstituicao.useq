@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence-diagram version="1.1.6" icons="true">  
+  <object id="1" language="java" name="controladorGRASP.ControladorAdministrativo" project="keokolosys" 
+    file="/keokolosys/model/controladorGRASP/ControladorAdministrativo.java" binary="false" 
+    label="controladorAdministrativo" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="228" y="0"/>    
+    <execution id="2">      
+      <position height="180" width="175" x="5" y="95"/>    
+    </execution>  
+  </object>  
+  <object id="5" language="java" name="catalago.Pessoal" project="keokolosys" 
+    file="/keokolosys/model/catalago/Pessoal.java" binary="false" label="pessoal" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="180" y="0"/>    
+    <execution id="4">      
+      <position height="142" width="69" x="184" y="114"/>    
+    </execution>    
+    <execution id="9">      
+      <position height="19" width="0" x="0" y="190"/>    
+    </execution>  
+  </object>  
+  <object id="12" language="java" name="dominio.Instituicao" project="keokolosys" 
+    file="/keokolosys/model/dominio/Instituicao.java" binary="false" label="instituicao" type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="7">      
+      <position height="19" width="0" x="0" y="133"/>    
+    </execution>    
+    <execution id="11">      
+      <position height="19" width="0" x="0" y="218"/>    
+    </execution>  
+  </object>  
+  <message id="3" 
+    operation="atualizarInstituicao(dominio.Instituicao,java.lang.String,java.lang.String,java.lang.String):void">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="4"/>  
+  </message>  
+  <message id="6" operation="getSigla():java.lang.String">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="7"/>  
+  </message>  
+  <message id="8" operation="validarSiglaComoUnica(java.lang.String):void">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="9"/>  
+  </message>  
+  <message id="10" operation="atualizarDados(java.lang.String,java.lang.String,java.lang.String):void">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="11"/>  
+  </message>
+</sequence-diagram>

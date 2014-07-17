@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence-diagram version="1.1.6" icons="true">  
+  <object id="1" language="java" name="controladorGRASP.ControladorDeAvaliacao" project="keokolosys" 
+    file="/keokolosys/model/controladorGRASP/ControladorDeAvaliacao.java" binary="false" label="controladorDeAvaliacao" 
+    type="class" autoSize="true">    
+    <position height="-1" width="-1" x="126" y="0"/>    
+    <execution id="2">      
+      <position height="256" width="164" x="5" y="92"/>    
+    </execution>  
+  </object>  
+  <object id="5" language="java" name="dominio.PerfilDeExaminador" project="keokolosys" 
+    file="/keokolosys/model/dominio/PerfilDeExaminador.java" binary="false" label="perfilDeExaminador" type="class" 
+    autoSize="true">    
+    <position height="-1" width="-1" x="245" y="0"/>    
+    <execution id="4">      
+      <position height="218" width="138" x="173" y="111"/>    
+    </execution>    
+    <execution id="9">      
+      <position height="19" width="0" x="0" y="187"/>    
+    </execution>  
+  </object>  
+  <object id="16" language="java" name="java.util.ArrayList" project="keokolosys" 
+    file="/usr/lib/jvm/java-8-oracle/jre/lib/rt.jar" binary="true" label="bancasExaminadorasAssociadas" type="class" 
+    autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="7">      
+      <position height="19" width="0" x="0" y="130"/>    
+    </execution>    
+    <execution id="15">      
+      <position height="19" width="0" x="0" y="291"/>    
+    </execution>  
+  </object>  
+  <object id="17" language="java" name="dominio.Evento" project="keokolosys" 
+    file="/keokolosys/model/dominio/Evento.java" binary="false" type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="11">      
+      <position height="19" width="0" x="0" y="215"/>    
+    </execution>  
+  </object>  
+  <object id="18" language="java" name="dominio.BancaExaminadora" project="keokolosys" 
+    file="/keokolosys/model/dominio/BancaExaminadora.java" binary="false" label="bancaExaminadora" type="class" 
+    autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="13">      
+      <position height="19" width="0" x="0" y="253"/>    
+    </execution>  
+  </object>  
+  <message id="3" operation="obterBancasExaminadorasAssociadas():java.util.Collection&lt;BancaExaminadora&gt;">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="4"/>  
+  </message>  
+  <message id="6" operation="ArrayList()">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="7"/>  
+  </message>  
+  <message id="8" operation="getEvento():dominio.Evento">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="9"/>  
+  </message>  
+  <message id="10" operation="getBancasExaminadoras():java.util.Collection&lt;BancaExaminadora&gt;">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="11"/>  
+  </message>  
+  <message id="12" operation="possuiOExaminador(dominio.PerfilDeExaminador):java.lang.Boolean">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="13"/>  
+  </message>  
+  <message id="14" operation="add(E):boolean">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="15"/>  
+  </message>
+</sequence-diagram>

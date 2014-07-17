@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence-diagram version="1.1.6" icons="true">  
+  <object id="1" language="java" name="controladorGRASP.ControladorDeParticipacao" project="keokolosys" 
+    file="/keokolosys/model/controladorGRASP/ControladorDeParticipacao.java" binary="false" 
+    label="controladorDeParticipacao" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="223" y="0"/>    
+    <execution id="2">      
+      <position height="133" width="179" x="5" y="93"/>    
+    </execution>  
+  </object>  
+  <object id="5" language="java" name="dominio.Evento" project="keokolosys" file="/keokolosys/model/dominio/Evento.java" 
+    binary="false" label="evento" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="170" y="0"/>    
+    <execution id="4">      
+      <position height="95" width="63" x="188" y="112"/>    
+    </execution>  
+  </object>  
+  <object id="10" language="java" name="dominio.Trabalho" project="keokolosys" 
+    file="/keokolosys/model/dominio/Trabalho.java" binary="false" label="&lt;static&gt;" type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="7">      
+      <position height="19" width="0" x="0" y="131"/>    
+    </execution>  
+  </object>  
+  <object id="11" language="java" name="java.util.Collection" project="keokolosys" 
+    file="/usr/lib/jvm/java-8-oracle/jre/lib/rt.jar" binary="true" label="trabalhos" type="interface" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="9">      
+      <position height="19" width="0" x="0" y="169"/>    
+    </execution>  
+  </object>  
+  <message id="3" 
+    operation="subtmeterTrabalho(dominio.PerfilDeParticipante,java.lang.String,java.lang.String,java.lang.String,java.lang.String):void">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="4"/>  
+  </message>  
+  <message id="6" 
+    operation="criarTrabalho(dominio.PerfilDeParticipante,java.lang.String,java.lang.String,java.lang.String,java.lang.String):dominio.Trabalho">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="7"/>  
+  </message>  
+  <message id="8" operation="add(E):boolean">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="9"/>  
+  </message>
+</sequence-diagram>
