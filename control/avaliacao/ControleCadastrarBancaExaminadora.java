@@ -10,6 +10,7 @@ import dominio.BancaExaminadora;
 import dominio.Evento;
 import dominio.Instituicao;
 import dominio.PerfilDeExaminador;
+import excecao.ExcecaoDeAvaliacao;
 import excecao.ExcecaoDeCadastro;
 import transferobject.BancaExaminadoraTO;
 import transferobject.InstituicaoTO;
@@ -31,6 +32,8 @@ public class ControleCadastrarBancaExaminadora implements AbstractControle{
 	public void inicializarGUI() {
 		viewCadastroBancaExaminadora = new SwingCadastrarBancaExaminadora(this);
 		viewCadastroBancaExaminadora.inicializar();
+		atualizarListaDeBancasExaminadoras();
+		atualizarListaDeExaminadores();
 		
 		tornarGUIVisivel();
 	}
@@ -52,6 +55,8 @@ public class ControleCadastrarBancaExaminadora implements AbstractControle{
 
 	@Override
 	public void desbloquearGUI() {
+		atualizarListaDeBancasExaminadoras();
+		atualizarListaDeExaminadores();
 		viewCadastroBancaExaminadora.desbloquear();
 	}
 
@@ -75,12 +80,15 @@ public class ControleCadastrarBancaExaminadora implements AbstractControle{
 			String email = examinador.getUsuario().getEmail();
 			String nome = examinador.getUsuario().getNome();
 			String ultimoNome = examinador.getUsuario().getUltimoNome();
-			String instituicao = examinador.getUsuario().getInstituicao();
 			
-			examinadorTO = new UsuarioTO(, nome, ultimoNome, instituicao)
+			examinadorTO = new UsuarioTO();
+			
+			examinadorTO.setEmail(email);
+			examinadorTO.setNome(nome);
+			examinadorTO.setUltimoNome(ultimoNome);
 		}
 		
-		return bancasExaminadoraTO;
+		return examinadoresTO;
 	}
 	
 
@@ -101,6 +109,22 @@ public class ControleCadastrarBancaExaminadora implements AbstractControle{
 		return bancasExaminadoraTO;
 	}
 	
+	private void cadastrarBancaExaminadora(Collection<UsuarioTO> examinadores) throws ExcecaoDeAvaliacao{
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
+	private void atualizarBancaExaminadora(BancaExaminadoraTO bancaExaminadoraTO, Collection<UsuarioTO> examinadores) throws ExcecaoDeAvaliacao{
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
+	private void excluirBancaExaminadora(BancaExaminadoraTO bancaExaminadoraTO) throws ExcecaoDeAvaliacao{
+		// TODO Auto-generated method stub
+		
+	}
 	
 	public void acaoSelecionar(){
 		viewCadastroBancaExaminadora.desabilitarAcaoCancelar();
@@ -114,6 +138,11 @@ public class ControleCadastrarBancaExaminadora implements AbstractControle{
 		exibirBancaExaminadoraSelecionada();
 	}
 	
+	private void exibirBancaExaminadoraSelecionada() {
+		// TODO Auto-generated method stub
+		
+	}
+
 	public void acaoNovo(){
 		viewCadastroBancaExaminadora.desabilitarAcaoSelecionar();
 		viewCadastroBancaExaminadora.removerSelecaoBancaExaminadora();
@@ -128,11 +157,11 @@ public class ControleCadastrarBancaExaminadora implements AbstractControle{
 	}
 	
 	public void acaoSalvar(){		
-		InstituicaoTO instituicaoTO = viewCadastroBancaExaminadora.obterDadosDaInstituicaoPreenchida();
+		BancaExaminadoraTO bancaExaminadoraTO = viewCadastroBancaExaminadora.obterDadosDaBancaExaminadoraPreenchida();
 		try {
-			cadastrarInstituicao(instituicaoTO.getNome(), instituicaoTO.getSigla(), instituicaoTO.getLocalizacao());
+			cadastrarBancaExaminadora(bancaExaminadoraTO.getExaminadores());
 			
-			viewCadastroBancaExaminadora.definirSelecaoBancaExaminadora(instituicaoTO);
+			viewCadastroBancaExaminadora.definirSelecaoBancaExaminadora(bancaExaminadoraTO);
 			
 			viewCadastroBancaExaminadora.desabilitarAcaoSalvar();
 			viewCadastroBancaExaminadora.desabilitarAcaoCancelar();
@@ -144,11 +173,11 @@ public class ControleCadastrarBancaExaminadora implements AbstractControle{
 			viewCadastroBancaExaminadora.habilitarAcaoNovo();
 
 			
-		} catch (ExcecaoDeCadastro e) {
+		} catch (ExcecaoDeAvaliacao e) {
 			viewCadastroBancaExaminadora.exibirMensagemDeErro(e.getMessage(), "");
 		}		
 	}
-	
+
 	public void acaoEditar(){		
 		viewCadastroBancaExaminadora.desabilitarAcaoEditar();
 		viewCadastroBancaExaminadora.desabilitarAcaoSelecionar();
@@ -162,18 +191,23 @@ public class ControleCadastrarBancaExaminadora implements AbstractControle{
 	
 	public void acaoExcluir(){
 		
-		InstituicaoTO instituicaoTO = viewCadastroBancaExaminadora.obterInstituicaoSelecionada();
+		BancaExaminadoraTO bancaExaminadoraTO = viewCadastroBancaExaminadora.obterBancaExaminadoraSelecionada();
 		String opcoes[] = {"Sim", "Não"};
 		Integer opcaoSelecionada;
+		String informacaoDosExaminadores = "";
 		
-		opcaoSelecionada = viewCadastroBancaExaminadora.exibirMensagemDeConfirmacao("Realmente deseja remover a instituicao: " + instituicaoTO.getSigla() + "?", "", opcoes, "Não");
+		for (UsuarioTO examinador : bancaExaminadoraTO.getExaminadores()) {
+			informacaoDosExaminadores += examinador.getNome() + ":" + examinador.getEmail();  
+		}
+		
+		opcaoSelecionada = viewCadastroBancaExaminadora.exibirMensagemDeConfirmacao("Realmente deseja remover a banca examinadora formanda pelos examinadores:" + informacaoDosExaminadores + "?", "", opcoes, "Não");
 		
 		if(opcaoSelecionada == 0)
 		{
 			try {
-				excluirInstituicao(instituicaoTO);
+				excluirBancaExaminadora(bancaExaminadoraTO);
 				
-				viewCadastroBancaExaminadora.removerSelecao();
+				viewCadastroBancaExaminadora.removerSelecaoBancaExaminadora();
 				viewCadastroBancaExaminadora.limparFormulario();
 				viewCadastroBancaExaminadora.desabilitarAcaoSalvar();
 				viewCadastroBancaExaminadora.desabilitarAcaoCancelar();
@@ -184,12 +218,13 @@ public class ControleCadastrarBancaExaminadora implements AbstractControle{
 				viewCadastroBancaExaminadora.habilitarAcaoEditar();
 				viewCadastroBancaExaminadora.habilitarAcaoExcluir();
 				
-			} catch (ExcecaoDeCadastro e) {
+			} catch (ExcecaoDeAvaliacao e) {
 				viewCadastroBancaExaminadora.exibirMensagemDeErro(e.getMessage(), "");
 			}			
 		}
 	}
 	
+
 	public void acaoCancelar(){
 		viewCadastroBancaExaminadora.desabilitarAcaoCancelar();
 		viewCadastroBancaExaminadora.desabilitarAcaoAtualizar();
@@ -198,7 +233,7 @@ public class ControleCadastrarBancaExaminadora implements AbstractControle{
 		viewCadastroBancaExaminadora.habilitarAcaoNovo();
 		viewCadastroBancaExaminadora.habilitarAcaoSelecionar();
 		
-		if(viewCadastroBancaExaminadora.obterInstituicaoSelecionada() != null)
+		if(viewCadastroBancaExaminadora.obterBancaExaminadoraSelecionada() != null)
 		{
 			viewCadastroBancaExaminadora.habilitarAcaoExcluir();
 			viewCadastroBancaExaminadora.habilitarAcaoEditar();			
@@ -210,13 +245,14 @@ public class ControleCadastrarBancaExaminadora implements AbstractControle{
 		}
 	}
 	
+	
 	public void acaoAtualizar(){				
-		InstituicaoTO instituicaoAtualizadaTO = viewCadastroBancaExaminadora.obterDadosDaInstituicaoPreenchida();
-		InstituicaoTO instituicaoTO = viewCadastroBancaExaminadora.obterInstituicaoSelecionada();
+		BancaExaminadoraTO bancaExaminadoraAtualizadaTO = viewCadastroBancaExaminadora.obterDadosDaBancaExaminadoraPreenchida();
+		BancaExaminadoraTO bancaExaminadoraTO = viewCadastroBancaExaminadora.obterBancaExaminadoraSelecionada();
 		
 		try {
-			atualizarInstituicao(instituicaoTO, instituicaoAtualizadaTO.getNome(), instituicaoAtualizadaTO.getSigla(), instituicaoAtualizadaTO.getLocalizacao());
-			atualizarListaDeInstituicoes();
+
+			atualizarBancaExaminadora(bancaExaminadoraTO, bancaExaminadoraAtualizadaTO.getExaminadores());
 			
 			viewCadastroBancaExaminadora.desabilitarAcaoSalvar();
 			viewCadastroBancaExaminadora.desabilitarAcaoCancelar();
@@ -226,14 +262,16 @@ public class ControleCadastrarBancaExaminadora implements AbstractControle{
 			viewCadastroBancaExaminadora.habilitarAcaoEditar();
 			viewCadastroBancaExaminadora.habilitarAcaoExcluir();
 
-		} catch (ExcecaoDeCadastro e) {
+		} catch (ExcecaoDeAvaliacao e) {
 			viewCadastroBancaExaminadora.exibirMensagemDeErro(e.getMessage(), "");
 		}		
 	}
 	
+
 	public void acaoRemoverExaminador(){
 		
 	}
+	
 	
 	public void acaoAdicionarExaminador(){
 		
