@@ -32,9 +32,16 @@ public class SwingSubmeterTrabalho extends JFrame  implements AbstractGUISubmete
 	 */
 	private static final long serialVersionUID = 854489031198612100L;
 	private JPanel contentPane;
+	private JFileChooser jFileChooser;
+	
 	private JTextField txtTitulo;
 	private JTextField txtAutores;
 	private JTextField txtCaminhoArquivo;
+	
+	private JButton btnSubmeterTrabalho;
+	private JButton btnSair;
+	
+	private JLabel lblQtdcaracteres;
 	
 	private ControleSubmeterTrabalho controleSubmeterTrabalho;
 	private JLabel lblNomeusuariosubmissor;
@@ -42,6 +49,91 @@ public class SwingSubmeterTrabalho extends JFrame  implements AbstractGUISubmete
 
 	public SwingSubmeterTrabalho(ControleSubmeterTrabalho controleSubmeterTrabalho) {
 		this.controleSubmeterTrabalho = controleSubmeterTrabalho;
+		inicializarFrame();
+	}
+	
+	public void setNomeusuariosubmissor(String nomeusuariosubmissor) {
+		this.lblNomeusuariosubmissor.setText(nomeusuariosubmissor);
+	}
+	
+	private void submeterTrabalho() {
+		TrabalhoTO trabalhoTO = new TrabalhoTO();
+		trabalhoTO.setTitulo(txtTitulo.getText());
+		trabalhoTO.setAutores(txtAutores.getText());
+		trabalhoTO.setResumo(txtResumo.getText());
+		trabalhoTO.setCaminhoArquivoSubmissao(txtCaminhoArquivo.getText());
+		try {
+			controleSubmeterTrabalho.submeterTrabalho(trabalhoTO);
+		} catch (ExcecaoDeParticipacao e)
+		{			
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void inicializar() {
+		inicializarFrame();
+	}
+
+	@Override
+	public void tornarVisivel() {
+		setVisible(true);
+		repaint();
+		
+	}
+
+	@Override
+	public void tornarInvisivel() {
+		setVisible(false);
+		
+	}
+
+	@Override
+	public void bloquear() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void desbloquear() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void exibirMensagemDeErro(String mensagem, String titulo) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void exibirMensagemDeAviso(String mensagem, String titulo) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void exibirMensagemDeInformacao(String mensagem, String titulo) {
+		JOptionPane.showMessageDialog(this, mensagem, titulo, JOptionPane.INFORMATION_MESSAGE);
+		
+	}
+
+	@Override
+	public Integer exibirMensagemDeConfirmacao(String mensagem, String titulo,
+			Object[] opcoes, Object opcaoPadrao) {
+		return JOptionPane.showOptionDialog(this, mensagem, titulo, JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcoes, opcaoPadrao);
+	}
+	
+	private void acaoSelecionarArquivo(){
+		File file = jFileChooser.getSelectedFile();
+		txtCaminhoArquivo.setText(file.getAbsolutePath());
+	}
+	
+	private void acaoDigitarResumo(){
+		lblQtdcaracteres.setText(String.valueOf(txtResumo.getText().length()));
+	}
+	
+	private void inicializarFrame(){
 		setResizable(false);
 		setTitle("Submeter trabalho");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -81,7 +173,7 @@ public class SwingSubmeterTrabalho extends JFrame  implements AbstractGUISubmete
 					.addContainerGap(36, Short.MAX_VALUE))
 		);
 		
-		JButton btnSubmeterTrabalho = new JButton("Submeter trabalho");
+		btnSubmeterTrabalho = new JButton("Submeter trabalho");
 		btnSubmeterTrabalho.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				submeterTrabalho();
@@ -89,7 +181,7 @@ public class SwingSubmeterTrabalho extends JFrame  implements AbstractGUISubmete
 		});
 		btnSubmeterTrabalho.setMnemonic('S');
 		
-		JButton btnSair = new JButton("Sair");
+		btnSair = new JButton("Sair");
 		btnSair.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controleSubmeterTrabalho.sair();
@@ -117,7 +209,7 @@ public class SwingSubmeterTrabalho extends JFrame  implements AbstractGUISubmete
 		);
 		panel_2.setLayout(gl_panel_2);
 		
-		JLabel lblTtuloDoTrabalho = new JLabel("T\u00EDtulo do trabalho:");
+		JLabel lblTtuloDoTrabalho = new JLabel("Titulo do trabalho:");
 		
 		txtTitulo = new JTextField();
 		txtTitulo.setColumns(10);
@@ -128,7 +220,7 @@ public class SwingSubmeterTrabalho extends JFrame  implements AbstractGUISubmete
 		
 		JLabel lblCaracteres = new JLabel("Caracteres:");
 		
-		JLabel lblQtdcaracteres = new JLabel("0");
+		lblQtdcaracteres = new JLabel("0");
 		lblQtdcaracteres.setHorizontalAlignment(SwingConstants.RIGHT);
 		
 		JLabel lblAutores = new JLabel("Autores:");
@@ -141,7 +233,7 @@ public class SwingSubmeterTrabalho extends JFrame  implements AbstractGUISubmete
 		txtCaminhoArquivo = new JTextField();
 		txtCaminhoArquivo.setColumns(10);
 		
-		JFileChooser jFileChooser = new JFileChooser();
+		jFileChooser = new JFileChooser();
 		
 		
 		JButton abrirFileChoose = new JButton("Abrir");
@@ -149,8 +241,7 @@ public class SwingSubmeterTrabalho extends JFrame  implements AbstractGUISubmete
 			public void actionPerformed(ActionEvent e) {				
 				Integer integer = jFileChooser.showOpenDialog(txtCaminhoArquivo);
 				if (integer == JFileChooser.APPROVE_OPTION) {
-					File file = jFileChooser.getSelectedFile();
-					txtCaminhoArquivo.setText(file.getAbsolutePath());
+					acaoSelecionarArquivo();
 				}
 			}
 		});
@@ -229,7 +320,7 @@ public class SwingSubmeterTrabalho extends JFrame  implements AbstractGUISubmete
 		txtResumo.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
-				lblQtdcaracteres.setText(String.valueOf(txtResumo.getText().length()));
+				acaoDigitarResumo();
 			}
 		});
 		scrollPane.setViewportView(txtResumo);
@@ -253,78 +344,5 @@ public class SwingSubmeterTrabalho extends JFrame  implements AbstractGUISubmete
 		);
 		panel.setLayout(gl_panel);
 		contentPane.setLayout(gl_contentPane);
-	}
-	
-	public void setNomeusuariosubmissor(String nomeusuariosubmissor) {
-		this.lblNomeusuariosubmissor.setText(nomeusuariosubmissor);
-	}
-	
-	private void submeterTrabalho() {
-		TrabalhoTO trabalhoTO = new TrabalhoTO();
-		trabalhoTO.setTitulo(txtTitulo.getText());
-		trabalhoTO.setAutores(txtAutores.getText());
-		trabalhoTO.setResumo(txtResumo.getText());
-		trabalhoTO.setCaminhoArquivoSubmissao(txtCaminhoArquivo.getText());
-		try {
-			controleSubmeterTrabalho.submeterTrabalho(trabalhoTO);
-		} catch (ExcecaoDeParticipacao e)
-		{			
-			e.printStackTrace();
-		}
-	}
-
-	@Override
-	public void inicializar() {
-		tornarVisivel();
-		
-	}
-
-	@Override
-	public void tornarVisivel() {
-		setVisible(true);
-		repaint();
-		
-	}
-
-	@Override
-	public void tornarInvisivel() {
-		setVisible(false);
-		
-	}
-
-	@Override
-	public void bloquear() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void desbloquear() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void exibirMensagemDeErro(String mensagem, String titulo) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void exibirMensagemDeAviso(String mensagem, String titulo) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void exibirMensagemDeInformacao(String mensagem, String titulo) {
-		JOptionPane.showMessageDialog(this, mensagem, titulo, JOptionPane.INFORMATION_MESSAGE);
-		
-	}
-
-	@Override
-	public Integer exibirMensagemDeConfirmacao(String mensagem, String titulo,
-			Object[] opcoes, Object opcaoPadrao) {
-		return JOptionPane.showOptionDialog(this, mensagem, titulo, JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcoes, opcaoPadrao);
 	}
 }

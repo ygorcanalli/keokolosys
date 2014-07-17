@@ -1,14 +1,11 @@
 package participacao;
 
-import controladorGRASP.ControladorDeAvaliacao;
 import controladorGRASP.ControladorDeParticipacao;
 import transferobject.TrabalhoTO;
 import util.AbstractControle;
 import util.Sessao;
 import dominio.Evento;
-import dominio.PerfilDeExaminador;
 import dominio.PerfilDeParticipante;
-import dominio.Trabalho;
 import dominio.Usuario;
 import excecao.ExcecaoDeParticipacao;
 
