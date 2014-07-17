@@ -17,6 +17,10 @@ public class BancaExaminadora{
         return trabalhosAssociados;
     }
     
+    public Boolean possuiTrabalhosAssociados(){
+    	return trabalhosAssociados.size() > 0;
+    }
+    
     private BancaExaminadora(Collection<PerfilDeExaminador> examinadores) {
     	this.examinadores = new HashSet<PerfilDeExaminador>();
     	this.examinadores.addAll(examinadores);
