@@ -13,8 +13,8 @@ import excecao.ExcecaoDeParticipacao;
 
 public final class ControladorDeParticipacao {
 
-	public static void subtmeterTrabalho(Evento evento, PerfilDeParticipante submissor, String titulo, String resumo, String autores, String caminhoArquivoSubmissao) throws ExcecaoDeParticipacao{
-		evento.subtmeterTrabalho(submissor, titulo, resumo, autores, caminhoArquivoSubmissao);
+	public static Trabalho subtmeterTrabalho(Evento evento, PerfilDeParticipante submissor, String titulo, String resumo, String autores, String caminhoArquivoSubmissao) throws ExcecaoDeParticipacao{
+		return evento.subtmeterTrabalho(submissor, titulo, resumo, autores, caminhoArquivoSubmissao);
 	}
 	
 	public static void subtmeterVersaoFinalDeTrabalho(Evento evento, Trabalho trabalho, String caminhoArquivoFinal) throws ExcecaoDeParticipacao{

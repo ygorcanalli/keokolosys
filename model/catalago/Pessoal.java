@@ -45,11 +45,12 @@ public class Pessoal {
 		usuario.atualizarDados(email, senha, nome, ultimoNome, instituicao);
 	}
 	
-	public void criarAdministrador(String email, String senha) throws ExcecaoDeCadastro{
+	public Administrador criarAdministrador(String email, String senha) throws ExcecaoDeCadastro{
 		validarEmailComoUnico(email);
 		
 		Administrador administrador = Administrador.criarAdministrador(email, senha);
 		autenticaveis.put(email, administrador);
+		return administrador;
     }
 
 	

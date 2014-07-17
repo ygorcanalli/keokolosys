@@ -220,11 +220,11 @@ public class ControleUsuarioHome implements AbstractControle{
 	public void acaoRealizarInscricaoEmEvento(EventoTO eventoTO) {
 		
 		Usuario usuario = Sessao.getUsuarioLogado();
-		Evento evento = mapaDeEventosInscritos.get(eventoTO.getNome());
+		Evento evento = mapaDeEventosDeferidosNaoInscritos.get(eventoTO.getNome());
 			
 			try {
 				ControladorDeParticipacao.realizarInscricaoEmEvento(evento, usuario);
-				mapaDeEventosInscritos.remove(evento.getNome());
+				mapaDeEventosDeferidosNaoInscritos.remove(evento.getNome());
 				viewUsuarioHome.exibirMensagemDeInformacao("Inscrição no evento \"" + eventoTO.getNome() + "\" realizada com sucesso.", "Inscrição realizada com sucesso!");
 			} catch (ExcecaoDeCadastro e) {
 				// TODO Auto-generated catch block
@@ -278,6 +278,12 @@ public class ControleUsuarioHome implements AbstractControle{
 	public void exibirPerfil() {
 		viewUsuarioHome.atualizarPerfil(obterUsuarioLogado());
 		
+	}
+	
+	public void acaoDeslogar() {
+		Sessao.encerrarSessao();
+		caller.desbloquearGUI();
+		encerrarGUI();
 	}
 
 

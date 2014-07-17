@@ -197,9 +197,10 @@ public class Evento{
     
     /*Referete a trabalho*/
     
-    public void subtmeterTrabalho(PerfilDeParticipante submissor, String titulo, String resumo, String autores, String caminhoArquivoSubmissao) throws ExcecaoDeParticipacao{
+    public Trabalho subtmeterTrabalho(PerfilDeParticipante submissor, String titulo, String resumo, String autores, String caminhoArquivoSubmissao) throws ExcecaoDeParticipacao{
         Trabalho trabalho = Trabalho.criarTrabalho(submissor, titulo, resumo, autores, caminhoArquivoSubmissao);
         this.trabalhos.add(trabalho);
+        return trabalho;
     }
 
     public void subtmeterVersaoFinalDeTrabalho(Trabalho trabalho, String caminhoArquivoFinal) throws ExcecaoDeParticipacao{

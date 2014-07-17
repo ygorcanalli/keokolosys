@@ -268,6 +268,25 @@ public class SwingUsuarioHome extends JFrame implements AbstractGUIUsuarioHome {
 		JPanel panePerfil = new JPanel();
 		tabbedPane.addTab("Perfil", null, panePerfil, null);
 		
+		JButton btnDeslogar = new JButton("Deslogar");
+		btnDeslogar.addMouseListener(mouseAdapterDeslogar);
+		GroupLayout gl_panePerfil = new GroupLayout(panePerfil);
+		gl_panePerfil.setHorizontalGroup(
+			gl_panePerfil.createParallelGroup(Alignment.LEADING)
+				.addGroup(Alignment.TRAILING, gl_panePerfil.createSequentialGroup()
+					.addContainerGap(664, Short.MAX_VALUE)
+					.addComponent(btnDeslogar)
+					.addContainerGap())
+		);
+		gl_panePerfil.setVerticalGroup(
+			gl_panePerfil.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panePerfil.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(btnDeslogar)
+					.addContainerGap(496, Short.MAX_VALUE))
+		);
+		panePerfil.setLayout(gl_panePerfil);
+		
 		tabbedPane.addChangeListener(changeListenerAbas);
 	}
 	
@@ -334,6 +353,12 @@ public class SwingUsuarioHome extends JFrame implements AbstractGUIUsuarioHome {
 	private MouseAdapter mouseAdapterCriarEvento = new MouseAdapter() {
 		  public void mouseClicked(MouseEvent e) {
 			  controleUsuarioHome.acaoCriarEvento();    
+		  }
+	};
+	
+	private MouseAdapter mouseAdapterDeslogar = new MouseAdapter() {
+		  public void mouseClicked(MouseEvent e) {
+		      controleUsuarioHome.acaoDeslogar();	    
 		  }
 	};
 
