@@ -1,5 +1,6 @@
 package cadastro;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -75,7 +76,7 @@ public class ControleCadastrarEvento implements AbstractControle{
 			try{
 				ControladorDeCadastro.criarEvento(eventoTO.getNome(), instituicao, Sessao.getUsuarioLogado(), eventoTO.getDataMaximaParaSubmissaoDeTrabalhos(), eventoTO.getDataMaximaParaAceitacaoDeTrabalhos(), eventoTO.getDataDeInicio(), eventoTO.getDataDeFim());
 				viewCadastroDeEvento.exibirMensagemDeInformacao("Evento: '" + eventoTO.getNome() + "' cadastrado com sucesso!", "");
-				
+				fechar();
 			}
 			catch (ExcecaoDeCadastro ec){
 				viewCadastroDeEvento.exibirMensagemDeErro(ec.getMessage(), "");

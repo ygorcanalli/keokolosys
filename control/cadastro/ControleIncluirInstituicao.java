@@ -62,6 +62,7 @@ public class ControleIncluirInstituicao implements AbstractControle{
 		
 		try {
 			incluirInstituicao(instituicaoTO.getNome(), instituicaoTO.getSigla(), instituicaoTO.getLocalizacao());
+			fechar();
 		} catch (ExcecaoDeCadastro e) {
 			viewIncluirInstituicao.exibirMensagemDeErro(e.getMessage(), "");
 		}

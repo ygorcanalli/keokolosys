@@ -275,29 +275,34 @@ public class SwingUsuarioHome extends JFrame implements AbstractGUIUsuarioHome {
 		
 		@Override
 		public void stateChanged(ChangeEvent e) {
-			// TODO Auto-generated method stub
-			switch (tabbedPane.getSelectedIndex()) {
-				case ABA_EVENTOS_DISPONIVEIS: 
-					controleUsuarioHome.exibirEventosDisponiveis();
-					break;
-				case ABA_PARTICIPACAO:
-					controleUsuarioHome.exibirParticipacao();
-					break;
-				case ABA_EXAMES:
-					controleUsuarioHome.exibirParticipacao();
-					break;
-				case ABA_ADMINISTRACAO:
-					controleUsuarioHome.exibirAdministracao();
-					break;
-				case ABA_MEUS_EVENTOS:
-					controleUsuarioHome.exibirMeusEventos();
-					break;
-				case ABA_PERFIL:
-					controleUsuarioHome.exibirPerfil();
-					break;
-			}
+			atualizarExibicaoSelecionada();
+
 		}
 	};
+	
+	@Override
+	public void atualizarExibicaoSelecionada() {
+		switch (tabbedPane.getSelectedIndex()) {
+		case ABA_EVENTOS_DISPONIVEIS: 
+			controleUsuarioHome.exibirEventosDisponiveis();
+			break;
+		case ABA_PARTICIPACAO:
+			controleUsuarioHome.exibirParticipacao();
+			break;
+		case ABA_EXAMES:
+			controleUsuarioHome.exibirParticipacao();
+			break;
+		case ABA_ADMINISTRACAO:
+			controleUsuarioHome.exibirAdministracao();
+			break;
+		case ABA_MEUS_EVENTOS:
+			controleUsuarioHome.exibirMeusEventos();
+			break;
+		case ABA_PERFIL:
+			controleUsuarioHome.exibirPerfil();
+			break;
+	}
+	}
 	
 	private MouseAdapter mouseAdapterRealizarInscricao = new MouseAdapter() {
 		  public void mouseClicked(MouseEvent e) {

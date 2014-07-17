@@ -1,5 +1,7 @@
 package cadastro;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
@@ -28,7 +30,6 @@ public class ControleUsuarioHome implements AbstractControle{
 	private AbstractGUIUsuarioHome viewUsuarioHome;
 	
 	public ControleUsuarioHome(AbstractControle caller) {
-		
 		
 	}
 	
@@ -281,31 +282,31 @@ public class ControleUsuarioHome implements AbstractControle{
 
 	@Override
 	public void tornarGUIVisivel() {
-		// TODO Auto-generated method stub
-		
+		viewUsuarioHome.tornarVisivel();
 	}
+
 
 	@Override
 	public void tornarGUIInvisivel() {
-		// TODO Auto-generated method stub
-		
+		viewUsuarioHome.tornarInvisivel();
 	}
+
 
 	@Override
 	public void bloquearGUI() {
 		viewUsuarioHome.bloquear();
-		
 	}
+
 
 	@Override
 	public void desbloquearGUI() {
-		// TODO Auto-generated method stub
-		
+		viewUsuarioHome.desbloquear();
+		viewUsuarioHome.atualizarExibicaoSelecionada();
 	}
 
 	@Override
 	public void encerrarGUI() {
-		// TODO Auto-generated method stub
+		viewUsuarioHome.tornarInvisivel();
 		
-	}
+	}	
 }

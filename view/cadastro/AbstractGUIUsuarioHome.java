@@ -14,6 +14,7 @@ public interface AbstractGUIUsuarioHome extends AbstractGUI {
 	public void atualizarListaExames(Collection<EventoTO> eventosComPerfilDeExaminador);
 	public void atualizarListaMeusEventos(Collection<EventoTO> meusEventos);
 	public void atualizarPerfil(UsuarioTO suarioLogado);
+	void atualizarExibicaoSelecionada();
 	
 
 }
