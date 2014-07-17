@@ -8,7 +8,7 @@ import util.AbstractGUI;
 
 public interface AbstractGUICadastrarBancaExaminadora extends AbstractGUI{
 
-	public void atualizarListaDeBancasExaminadoras(Collection<BancaExaminadoraTO> instituicoes);
+	public void atualizarListaDeBancasExaminadoras(Collection<BancaExaminadoraTO> bancasExaminadoras);
 	public void atualizarListaDeExaminadores(Collection<UsuarioTO> examinadores);
 	public BancaExaminadoraTO obterDadosDaBancaExaminadoraPreenchida();
 	public BancaExaminadoraTO obterBancaExaminadoraSelecionada();

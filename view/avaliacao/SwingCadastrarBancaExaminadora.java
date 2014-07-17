@@ -144,8 +144,7 @@ public class SwingCadastrarBancaExaminadora extends JFrame implements AbstractGU
 	}
 
 	@Override
-	public void atualizarListaDeBancasExaminadoras(
-			Collection<BancaExaminadoraTO> instituicoes) {
+	public void atualizarListaDeBancasExaminadoras(Collection<BancaExaminadoraTO> bancasExaminadoras) {
 		// TODO Auto-generated method stub
 		
 	}

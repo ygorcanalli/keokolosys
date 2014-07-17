@@ -1,5 +1,6 @@
 package avaliacao;
 
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -8,9 +9,11 @@ import controladorGRASP.ControladorDeCadastro;
 import dominio.BancaExaminadora;
 import dominio.Evento;
 import dominio.Instituicao;
+import dominio.PerfilDeExaminador;
 import excecao.ExcecaoDeCadastro;
 import transferobject.BancaExaminadoraTO;
 import transferobject.InstituicaoTO;
+import transferobject.UsuarioTO;
 import util.AbstractControle;
 
 
@@ -58,8 +61,31 @@ public class ControleCadastrarBancaExaminadora implements AbstractControle{
 		caller.desbloquearGUI();
 	}
 	
-	public void atualizarListaDeInstituicoes(){
-		viewCadastrarInstituicao.atualizarListaDeInstituicoes(obterInstituicoes());
+	private void atualizarListaDeExaminadores(){
+		viewCadastroBancaExaminadora.atualizarListaDeExaminadores(obterExaminadores());
+	}
+	
+	
+	private Collection<UsuarioTO> obterExaminadores() {
+		Collection<PerfilDeExaminador> examinadores = ControladorDeAvaliacao.obterTodosExaminadoresDoEvento(evento);
+		Collection<UsuarioTO> examinadoresTO = new ArrayList<UsuarioTO>();
+		UsuarioTO examinadorTO;
+		
+		for (PerfilDeExaminador	examinador : examinadores) {
+			String email = examinador.getUsuario().getEmail();
+			String nome = examinador.getUsuario().getNome();
+			String ultimoNome = examinador.getUsuario().getUltimoNome();
+			String instituicao = examinador.getUsuario().getInstituicao();
+			
+			examinadorTO = new UsuarioTO(, nome, ultimoNome, instituicao)
+		}
+		
+		return bancasExaminadoraTO;
+	}
+	
+
+	private void atualizarListaDeBancasExaminadoras(){
+		viewCadastroBancaExaminadora.atualizarListaDeBancasExaminadoras(obterBancasExaminadoras());
 	}
 	
 	
