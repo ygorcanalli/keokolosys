@@ -52,4 +52,8 @@ public final class ControladorDeParticipacao {
     public static Boolean possuiInscricao(Usuario usuario, Evento evento) {
     	return (usuario.obterPerfilDe(evento, PerfilDeParticipante.class) != null);
     }
+    
+    public static Boolean possuiPerfil(Usuario usuario, Evento evento) {
+    	return (usuario.obterPerfil(evento) != null);
+    }
 }
