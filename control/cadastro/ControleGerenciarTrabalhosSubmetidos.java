@@ -38,6 +38,7 @@ public class ControleGerenciarTrabalhosSubmetidos  implements AbstractControle{
 			trabalhoTO.setTitulo(trabalho.getTitulo());
 			trabalhoTOs.add(trabalhoTO);
 			
+			
 		}
 		swingGerenciarTrabalhosSubmetidos.setTrabalhos(trabalhoTOs);
 	}
