@@ -116,6 +116,10 @@ public class Usuario extends Autenticavel {
     public String getUltimoNome() {
         return ultimoNome;
     }
+    
+    public String getNomeCompleto() {
+    	return nome + " " + ultimoNome;
+    }
 
     public Instituicao getInstituicao() {
         return instituicao;
