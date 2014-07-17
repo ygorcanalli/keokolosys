@@ -1,7 +1,6 @@
 package cadastro;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
@@ -29,9 +28,10 @@ public class ControleUsuarioHome implements AbstractControle{
 	private Map<String, Evento> mapaDeEventosComPerfilDeExaminador;
 	private Map<String, Evento> mapaDeMeusEventos;
 	private AbstractGUIUsuarioHome viewUsuarioHome;
+	private AbstractControle caller;
 	
 	public ControleUsuarioHome(AbstractControle caller) {
-		
+		this.caller = caller;
 	}
 	
 	@Override
@@ -308,6 +308,7 @@ public class ControleUsuarioHome implements AbstractControle{
 	@Override
 	public void encerrarGUI() {
 		viewUsuarioHome.tornarInvisivel();
-		
+		//caller.desbloquearGUI();
+		caller.tornarGUIVisivel();
 	}	
 }

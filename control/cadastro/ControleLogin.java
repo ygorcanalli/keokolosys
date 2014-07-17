@@ -52,7 +52,7 @@ public class ControleLogin implements AbstractControle{
 	@Override
 	public void encerrarGUI() {
 		Sessao.encerrarSessao();
-		viewLogin.tornarInvisivel();
+		tornarGUIInvisivel();
 		System.exit(0);
 	}
 
