@@ -5,7 +5,7 @@
     type="class" autoSize="true">    
     <position height="-1" width="-1" x="125" y="0"/>    
     <execution id="2">      
-      <position height="133" width="164" x="5" y="104"/>    
+      <position height="190" width="164" x="5" y="104"/>    
     </execution>  
   </object>  
   <object id="5" language="java" name="dominio.BancaExaminadora" project="keokolosys" 
@@ -13,22 +13,25 @@
     autoSize="true">    
     <position height="-1" width="-1" x="315" y="0"/>    
     <execution id="4">      
-      <position height="95" width="136" x="173" y="123"/>    
+      <position height="152" width="136" x="173" y="123"/>    
     </execution>  
   </object>  
   <object id="10" language="java" name="dominio.Trabalho" project="keokolosys" 
     file="/keokolosys/model/dominio/Trabalho.java" binary="false" label="trabalho" type="class" autoSize="true">    
     <position height="0" width="0" x="0" y="0"/>    
     <execution id="7">      
-      <position height="19" width="0" x="0" y="142"/>    
+      <position height="76" width="0" x="0" y="142"/>    
+    </execution>    
+    <execution id="12">      
+      <position height="19" width="0" x="0" y="180"/>    
     </execution>  
   </object>  
-  <object id="11" language="java" name="java.util.Set" project="keokolosys" 
+  <object id="13" language="java" name="java.util.Set" project="keokolosys" 
     file="/usr/lib/jvm/java-8-oracle/jre/lib/rt.jar" binary="true" label="trabalhosAssociados" type="interface" 
     autoSize="true">    
     <position height="0" width="0" x="0" y="0"/>    
     <execution id="9">      
-      <position height="19" width="0" x="0" y="180"/>    
+      <position height="19" width="0" x="0" y="237"/>    
     </execution>  
   </object>  
   <message id="3" operation="associarTrabalho(dominio.Trabalho):void">    
@@ -42,5 +45,9 @@
   <message id="8" operation="add(E):boolean">    
     <end type="SOURCE" refId="4"/>    
     <end type="TARGET" refId="9"/>  
+  </message>  
+  <message id="11" operation="associadoABancaExaminadora():java.lang.Boolean">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="12"/>  
   </message>
 </sequence-diagram>
