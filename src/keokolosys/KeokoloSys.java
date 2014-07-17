@@ -23,7 +23,7 @@ public class KeokoloSys {
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
 		ControleLogin controleLogin = new ControleLogin();
-		controleLogin.inicializarGUI();
+		//controleLogin.inicializarGUI();
 		
 		
 		
@@ -50,7 +50,9 @@ public class KeokoloSys {
 		PerfilDeExaminador perfilPepper = (PerfilDeExaminador) pepper.obterPerfilDe(evento, PerfilDeExaminador.class);
 		PerfilDeExaminador perfilObadiah = (PerfilDeExaminador) obadiah.obterPerfilDe(evento, PerfilDeExaminador.class);
 		
-		PerfilDeParticipante perfilParticipante = new PerfilDeParticipante(stark, evento);
+		evento.inscreverParticipante(stark);
+		
+		PerfilDeParticipante perfilParticipante = (PerfilDeParticipante) stark.obterPerfilDe(evento, PerfilDeParticipante.class);
 		
 		ControladorDeParticipacao.subtmeterTrabalho(evento,perfilParticipante, "Mark IV", "Traje de defesa pessoal, Mark IV", "Tony Stark","/home/stark/ironMan.pdf");
 		Collection<Trabalho> trabalhos = ControladorDeParticipacao.obterTodosTrabalhosSubmetidosPeloParticipante(evento, perfilParticipante);
@@ -65,8 +67,11 @@ public class KeokoloSys {
 		ControladorDeAvaliacao.avaliarTrabalho(markIV, perfilPepper, EstadoAvaliacao.ACEITO);
 		ControladorDeAvaliacao.avaliarTrabalho(markIV, perfilObadiah, EstadoAvaliacao.REJEITADO);*/
 		
+		
 		Sessao.iniciarSessao(stark);
 		new ControleUsuarioHome(controleLogin).inicializarGUI();
+		
+		
 		/*new ControleAvaliarTrabalho(null, markIV,evento);*/
 		/*ControleCadastrarEvento c;
 		Instituicao i;

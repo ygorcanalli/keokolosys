@@ -14,27 +14,14 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
-public class SwingSubmeterVersaoFinalDeTrabalho extends JFrame {
+import util.AbstractGUI;
+
+public class SwingSubmeterVersaoFinalDeTrabalho extends JFrame implements AbstractGUI{
 
 	private JPanel contentPane;
 	private JTextField textField;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					SwingSubmeterVersaoFinalDeTrabalho frame = new SwingSubmeterVersaoFinalDeTrabalho();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
+	
 	/**
 	 * Create the frame.
 	 */
@@ -133,5 +120,70 @@ public class SwingSubmeterVersaoFinalDeTrabalho extends JFrame {
 		);
 		panel.setLayout(gl_panel);
 		contentPane.setLayout(gl_contentPane);
+	}
+
+
+	@Override
+	public void inicializar() {
+		tornarVisivel();
+		repaint();
+		
+	}
+
+
+	@Override
+	public void tornarVisivel() {
+		setVisible(true);
+		
+	}
+
+
+	@Override
+	public void tornarInvisivel() {
+		setVisible(false);
+		
+	}
+
+
+	@Override
+	public void bloquear() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void desbloquear() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void exibirMensagemDeErro(String mensagem, String titulo) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void exibirMensagemDeAviso(String mensagem, String titulo) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void exibirMensagemDeInformacao(String mensagem, String titulo) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public Integer exibirMensagemDeConfirmacao(String mensagem, String titulo,
+			Object[] opcoes, Object opcaoPadrao) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

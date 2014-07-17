@@ -15,6 +15,7 @@ import java.awt.Dimension;
 import javax.swing.JScrollPane;
 
 import transferobject.EventoTO;
+import transferobject.UsuarioTO;
 import cadastro.ControleUsuarioHome;
 
 import java.awt.event.MouseAdapter;
@@ -44,13 +45,17 @@ public class SwingUsuarioHome extends JFrame implements AbstractGUIUsuarioHome {
 	private static final long serialVersionUID = 1L;
 	private JList<String> listaEventosDisponiveis;
 	private JList<String> listaParticipacao;
+	private JList<String> listaAdministracao;
+	private JList<String> listaExames;
+	private JList<String> listaMeusEventos;
 	JTabbedPane tabbedPane;
 	
 	private static final int ABA_EVENTOS_DISPONIVEIS = 0;
 	private static final int ABA_PARTICIPACAO = 1;
-	/*private static final Integer ABA_EVENTOS_DISPONIVEIS = 0;
-	private static final Integer ABA_EVENTOS_DISPONIVEIS = 0;
-	private static final Integer ABA_EVENTOS_DISPONIVEIS = 0;*/
+	private static final int ABA_EXAMES = 2;
+	private static final int ABA_ADMINISTRACAO = 3;
+	private static final int ABA_MEUS_EVENTOS = 4;
+	private static final int ABA_PERFIL = 5;
 	
 	
 	public SwingUsuarioHome(ControleUsuarioHome controleUsuarioHome) {
@@ -148,12 +153,49 @@ public class SwingUsuarioHome extends JFrame implements AbstractGUIUsuarioHome {
 		listaParticipacao.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPaneParticipacao.setViewportView(listaParticipacao);
 		paneParticipacao.setLayout(gl_paneParticipacao);
-			
-		JPanel paneAdministracao = new JPanel();
-		tabbedPane.addTab("Administração", null, paneAdministracao, null);
 		
 		JPanel paneExames = new JPanel();
 		tabbedPane.addTab("Exames", null, paneExames, null);
+		
+		JPanel paneAdministracao = new JPanel();
+		tabbedPane.addTab("Administração", null, paneAdministracao, null);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		
+		JButton btnGerenciarBancasExaminadoras = new JButton("Gerenciar bancas examinadoras");
+		
+		JButton btnConcederPrivilegios = new JButton("Conceder privilégios");
+		GroupLayout gl_paneAdministracao = new GroupLayout(paneAdministracao);
+		gl_paneAdministracao.setHorizontalGroup(
+			gl_paneAdministracao.createParallelGroup(Alignment.LEADING)
+				.addGap(0, 793, Short.MAX_VALUE)
+				.addGroup(gl_paneAdministracao.createSequentialGroup()
+					.addGap(34)
+					.addGroup(gl_paneAdministracao.createParallelGroup(Alignment.TRAILING)
+						.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 723, GroupLayout.PREFERRED_SIZE)
+						.addGroup(gl_paneAdministracao.createSequentialGroup()
+							.addComponent(btnGerenciarBancasExaminadoras, GroupLayout.PREFERRED_SIZE, 272, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnConcederPrivilegios)))
+					.addContainerGap(36, Short.MAX_VALUE))
+		);
+		gl_paneAdministracao.setVerticalGroup(
+			gl_paneAdministracao.createParallelGroup(Alignment.LEADING)
+				.addGap(0, 533, Short.MAX_VALUE)
+				.addGroup(gl_paneAdministracao.createSequentialGroup()
+					.addGap(29)
+					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 448, GroupLayout.PREFERRED_SIZE)
+					.addGap(18)
+					.addGroup(gl_paneAdministracao.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnConcederPrivilegios)
+						.addComponent(btnGerenciarBancasExaminadoras))
+					.addGap(24))
+		);
+		
+		listaAdministracao = new JList<String>();
+		listaAdministracao.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		scrollPane.setViewportView(listaAdministracao);
+		paneAdministracao.setLayout(gl_paneAdministracao);
 		
 		JPanel paneMeusEventos = new JPanel();
 		tabbedPane.addTab("Meus Eventos", null, paneMeusEventos, null);
@@ -175,6 +217,18 @@ public class SwingUsuarioHome extends JFrame implements AbstractGUIUsuarioHome {
 					break;
 				case ABA_PARTICIPACAO:
 					controleUsuarioHome.exibirParticipacao();
+					break;
+				case ABA_EXAMES:
+					controleUsuarioHome.exibirParticipacao();
+					break;
+				case ABA_ADMINISTRACAO:
+					controleUsuarioHome.exibirAdministracao();
+					break;
+				case ABA_MEUS_EVENTOS:
+					controleUsuarioHome.exibirMeusEventos();
+					break;
+				case ABA_PERFIL:
+					controleUsuarioHome.exibirPerfil();
 					break;
 			}
 		}
@@ -245,39 +299,55 @@ public class SwingUsuarioHome extends JFrame implements AbstractGUIUsuarioHome {
 	@Override
 	public void atualizarListaEventosDisponiveis(
 			Collection<EventoTO> eventosDisponiveis) {
-		// TODO Auto-generated method stub
 		atualizarListaEventos(listaEventosDisponiveis, eventosDisponiveis);
 		
 	}
-	
 	@Override
 	public void atualizarListaParticipacao(
 			Collection<EventoTO> eventosInscritos) {
-		// TODO Auto-generated method stub
 		atualizarListaEventos(listaParticipacao, eventosInscritos);
+	}
+	
+	@Override
+	public void atualizarListaAdministracao(
+			Collection<EventoTO> eventosComPerfilDeChair) {
+		atualizarListaEventos(listaAdministracao, eventosComPerfilDeChair);
+	}
+	
+	@Override
+	public void atualizarListaExames(
+			Collection<EventoTO> eventosComPerfilDeExaminador) {
+		atualizarListaEventos(listaExames, eventosComPerfilDeExaminador);
+	}
+
+	@Override
+	public void atualizarListaMeusEventos(Collection<EventoTO> meusExames) {
+		atualizarListaEventos(listaMeusEventos, meusExames);
+	}
+	
+	@Override
+	public void atualizarPerfil(UsuarioTO suarioLogado) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
 	public void tornarVisivel() {
-		// TODO Auto-generated method stub
 		this.setVisible(true);
 	}
 
 	@Override
 	public void tornarInvisivel() {
-		// TODO Auto-generated method stub
 		this.setVisible(false);
 	}
 
 	@Override
 	public void bloquear() {
-		// TODO Auto-generated method stub
 		this.setEnabled(false);
 	}
 
 	@Override
 	public void desbloquear() {
-		// TODO Auto-generated method stub
 		this.setEnabled(true);
 		
 	}

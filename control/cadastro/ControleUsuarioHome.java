@@ -14,6 +14,7 @@ import util.Sessao;
 import controladorGRASP.ControladorDeCadastro;
 import controladorGRASP.ControladorDeParticipacao;
 import dominio.Evento;
+import dominio.Instituicao;
 import dominio.Usuario;
 import excecao.ExcecaoDeCadastro;
 import excecao.ExcecaoDeParticipacao;
@@ -21,6 +22,9 @@ import excecao.ExcecaoDeParticipacao;
 public class ControleUsuarioHome implements AbstractControle{
 	
 	private Map<String, Evento> mapaDeEventosInscritos;
+	private Map<String, Evento> mapaDeEventosComPerfilDeChair;
+	private Map<String, Evento> mapaDeEventosComPerfilDeExaminador;
+	private Map<String, Evento> mapaDeMeusEventos;
 	private AbstractGUIUsuarioHome viewUsuarioHome;
 	
 	public ControleUsuarioHome(AbstractControle caller) {
@@ -47,7 +51,7 @@ public class ControleUsuarioHome implements AbstractControle{
 		Collection<EventoTO> eventosDeferidosNaoInscritos = new ArrayList<EventoTO>();
 		
 		for (Evento evento: eventosDeferidos) {
-			if (!ControladorDeParticipacao.possuiInscricao(Sessao.getUsuarioLogado(), evento)) {
+			if (!ControladorDeParticipacao.possuiPerfil(Sessao.getUsuarioLogado(), evento)) {
 				eventoVO = new EventoTO();
 				eventoVO.setNome(evento.getNome());
 				
@@ -99,6 +103,42 @@ public class ControleUsuarioHome implements AbstractControle{
 		return eventosDeferidosInscritos;
 	}
 	
+	private Collection<EventoTO> obterEventosComPerfilDeChair() {
+		// TODO Auto-generated method stub
+		mapaDeEventosComPerfilDeChair = new TreeMap<String, Evento>();
+		return null;
+	}
+	
+	private Collection<EventoTO> obterEventosComPerfilDeExaminador() {
+		// TODO Auto-generated method stub
+		mapaDeEventosComPerfilDeExaminador = new TreeMap<String, Evento>();
+		return null;
+	}
+	
+	private Collection<EventoTO> obterMeusEventos() {
+		// TODO Auto-generated method stub
+		mapaDeMeusEventos = new TreeMap<String, Evento>();
+		return null;
+	}
+	
+	private UsuarioTO obterUsuarioLogado() {
+		UsuarioTO usuarioTO = new UsuarioTO();
+		Usuario usuarioLogado = Sessao.getUsuarioLogado();
+		
+		usuarioTO.setEmail(usuarioLogado.getEmail());
+		usuarioTO.setNome(usuarioLogado.getNome());
+		usuarioTO.setUltimoNome(usuarioLogado.getUltimoNome());
+		
+		InstituicaoTO instituicaoTO = new InstituicaoTO();
+		Instituicao instituicao = usuarioLogado.getInstituicao();
+		instituicaoTO.setSigla(instituicao.getSigla());
+		instituicaoTO.setNome(instituicao.getNome());
+		instituicaoTO.setLocalizacao(instituicao.getLocalizacao());
+		usuarioTO.setInstituicao(instituicaoTO);	
+		
+		return usuarioTO;
+	}
+	
 	public void realizarInscricaoEmEvento(EventoTO eventoVO) {
 		
 		Usuario usuario = Sessao.getUsuarioLogado();
@@ -137,6 +177,24 @@ public class ControleUsuarioHome implements AbstractControle{
 	public void exibirParticipacao() {
 		viewUsuarioHome.atualizarListaParticipacao(obterEventosInscritos());
 	}
+	
+	public void exibirAdministracao() {
+		viewUsuarioHome.atualizarListaAdministracao(obterEventosComPerfilDeChair());
+	}
+	
+	public void exibirExames() {
+		viewUsuarioHome.atualizarListaExames(obterEventosComPerfilDeChair());
+	}
+	
+	public void exibirMeusEventos() {
+		viewUsuarioHome.atualizarListaMeusEventos(obterEventosComPerfilDeChair());
+	}
+	
+	public void exibirPerfil() {
+		viewUsuarioHome.atualizarPerfil(obterUsuarioLogado());
+		
+	}
+
 
 	@Override
 	public void tornarGUIVisivel() {
