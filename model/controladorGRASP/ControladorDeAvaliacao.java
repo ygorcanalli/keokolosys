@@ -15,13 +15,21 @@ public final class ControladorDeAvaliacao {
     public static BancaExaminadora criarBancaExaminadora(Evento evento, Collection<PerfilDeExaminador> examinadores) throws ExcecaoDeAvaliacao {
         return evento.criarBancaExaminadora(examinadores);
     }
+    
+    public static void atualizarBancaExaminadora(BancaExaminadora bancaExaminadora, Collection<PerfilDeExaminador> examinadores) throws ExcecaoDeAvaliacao {
+        bancaExaminadora.atualizarExaminadores(examinadores);
+    }
+    
+    public static void removerBancaExaminadora(Evento evento, BancaExaminadora bancaExaminadora) throws ExcecaoDeAvaliacao{
+    	evento.removerBancaExaminadora(bancaExaminadora);
+    }
 
     public static void associarBancaExaminadoraATrabalho(BancaExaminadora bancaExaminadora, Trabalho trabalho) throws ExcecaoDeAvaliacao {
         bancaExaminadora.associarTrabalho(trabalho);
     }
     
     public static Collection<BancaExaminadora> listarBancasExaminadoras(Evento evento) {
-    	return evento.getBancasExaminadoras();
+    	return obterTodasAsBancasExaminadorasDoEvento(evento);
     }
     
     public static Collection<BancaExaminadora> obterBancasExaminadorasAssociadasAoExaminador(PerfilDeExaminador examinador){
@@ -38,6 +46,10 @@ public final class ControladorDeAvaliacao {
     
     public static Collection<PerfilDeExaminador> obterTodosExaminadoresDoEvento(Evento evento){
     	return evento.obterExaminadores();
+    }
+    
+    public static PerfilDeExaminador obterExaminadorDoEventoPorEmail(Evento evento, String email) throws ExcecaoDeAvaliacao{
+    	return evento.obterExaminadorPorEmail(email);
     }
 
     public static void avaliarTrabalho(Trabalho trabalho, PerfilDeExaminador examinador, EstadoAvaliacao resultado) throws ExcecaoDeAvaliacao {

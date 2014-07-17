@@ -160,12 +160,12 @@ public class Pessoal {
 		
 		for (Evento evento : eventos) {
 			if(evento.getInstituicao().compareTo(instituicao) == 0)
-				throw new ExcecaoDeCadastro("pessoal.insituicao.vinculada_a_evento");
+				throw new ExcecaoDeCadastro("pessoal.instituicao.vinculada_a_evento");
 		}
 		
 		for (Usuario usuario: usuarios) {
 			if(usuario.getInstituicao().compareTo(instituicao) == 0)
-				throw new ExcecaoDeCadastro("pessoal.insituicao.vinculada_a_usuario");
+				throw new ExcecaoDeCadastro("pessoal.instituicao.vinculada_a_usuario");
 		}
 		
 		instituicoes.remove(instituicao.getSigla());
