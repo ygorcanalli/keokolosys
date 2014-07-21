@@ -2,6 +2,7 @@ package cadastro;
 
 
 import controladorGRASP.ControladorDeCadastro;
+import dominio.Administrador;
 import dominio.Autenticavel;
 import dominio.Usuario;
 import excecao.ExcecaoDeCadastro;
@@ -95,10 +96,14 @@ public class ControleLogin implements AbstractControle{
 	}
 	
 	
-	private AbstractControle obterCalling(Autenticavel autenticavel){
+	private AbstractControle	obterCalling(Autenticavel autenticavel){
 		if(Usuario.class.isInstance(autenticavel))
 			return new ControleUsuarioHome(this);
+		else if (Administrador.class.isInstance(autenticavel))
+		{
+			return new ControleAdministradorHome();
+		}
 		
-		return null;
+		return null; 
 	}
 }
