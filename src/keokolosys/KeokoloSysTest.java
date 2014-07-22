@@ -36,9 +36,10 @@ public class KeokoloSysTest {
 		Usuario obadiah = ControladorDeCadastro.criarUsuario("obadiah@stark.com", "stark", "Obadiah", "Stane", si);
 		Usuario rhodey = ControladorDeCadastro.criarUsuario("rhodey@USAForce.com", "USAForce", "James", "Rhodey", si);
 		Usuario hulk = ControladorDeCadastro.criarUsuario("hulk@hulk.com", "stark", "Bruce", "Banner", si);
+		Usuario nick = ControladorDeCadastro.criarUsuario("nick@SHIELD.com", "shield", "nick", "fury", si);
 		
 		
-		Evento evento = ControladorDeCadastro.criarEvento("Evento Iron Man", si, stark, new Date(2014, 07, 01), new Date(2014,07,02), new Date(2014,8,01), new Date(2014,8,02));
+		Evento evento = ControladorDeCadastro.criarEvento("Evento Iron Man", si, nick, new Date(2014, 07, 01), new Date(2014,07,02), new Date(2014,8,01), new Date(2014,8,02));
 		CatalagoDeEventos.obterInstancia().deferirEvento(evento);
 		
 		evento.concederPrivilegioDeExaminador(obadiah);
@@ -80,7 +81,7 @@ public class KeokoloSysTest {
 		
 		try {
 			ControladorDeCadastro.criarInstituicao("Universidade Federal Rural do Rio de Janeiro", "UFRRJ", "Seropedica");
-			ControladorDeCadastro.criarInstituicao("Universidade Federal do Rio de Janeiro", "UFRJ", "Fund√£o");
+			ControladorDeCadastro.criarInstituicao("Universidade Federal do Rio de Janeiro", "UFRJ", "Fund„o");
 			ControladorDeCadastro.criarInstituicao("Universidade Federal do Estado do Rio de Janeiro", "UNIRIO", "Urca");
 			ControladorDeCadastro.criarInstituicao("Universidade Federal Fluminense", "UFF", "Niteroi");
 			

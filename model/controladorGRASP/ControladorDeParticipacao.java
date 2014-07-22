@@ -1,6 +1,7 @@
 package controladorGRASP;
 
 import java.util.Collection;
+import java.util.List;
 
 import dominio.Evento;
 import dominio.PerfilDeChair;
@@ -21,7 +22,7 @@ public final class ControladorDeParticipacao {
 		evento.subtmeterVersaoFinalDeTrabalho(trabalho, caminhoArquivoFinal);
 	}
 	
-	public static Collection<Trabalho> obterTodosTrabalhosSubmetidosPeloParticipante(Evento evento, PerfilDeParticipante participante) throws ExcecaoDeParticipacao{
+	public static List<Trabalho> obterTodosTrabalhosSubmetidosPeloParticipante(Evento evento, PerfilDeParticipante participante) throws ExcecaoDeParticipacao{
 		return evento.obterTodosTrabalhosSubmetidosPeloParticipante(participante);
 	}
 

@@ -6,6 +6,8 @@ import java.util.List;
 
 import participacao.ControleSubmeterVersaoFinalDeTrabalho;
 import participacao.SwingGerenciarTrabalhosSubmetidos;
+import controladorGRASP.ControladorDeAvaliacao;
+import controladorGRASP.ControladorDeCadastro;
 import controladorGRASP.ControladorDeParticipacao;
 import dominio.Evento;
 import dominio.PerfilDeParticipante;
@@ -20,12 +22,16 @@ public class ControleGerenciarTrabalhosSubmetidos  implements AbstractControle{
 	
 	AbstractControle caller;
 	SwingGerenciarTrabalhosSubmetidos swingGerenciarTrabalhosSubmetidos;
+	List<Trabalho> trabalhos;
+	Evento evento;
+	
 	public ControleGerenciarTrabalhosSubmetidos(AbstractControle caller,Evento evento) throws ExcecaoDeParticipacao {
 		
 		this.caller = caller;
 		Usuario usuario = Sessao.getUsuarioLogado();
 		PerfilDeParticipante perfilParticipante = (PerfilDeParticipante) usuario.obterPerfilDe(evento, PerfilDeParticipante.class);
-		Collection<Trabalho> trabalhos = ControladorDeParticipacao.obterTodosTrabalhosSubmetidosPeloParticipante(evento, perfilParticipante);
+		trabalhos = ControladorDeParticipacao.obterTodosTrabalhosSubmetidosPeloParticipante(evento, perfilParticipante);
+		this.evento = evento;
 		
 		inicializarGUI();
 		
@@ -45,7 +51,8 @@ public class ControleGerenciarTrabalhosSubmetidos  implements AbstractControle{
 	
 	public void submeterVersaoFinal(TrabalhoTO trabalhoTO) 
 	{
-		new ControleSubmeterVersaoFinalDeTrabalho(this).inicializarGUI();
+		Trabalho trabalho = trabalhos.get(trabalhoTO.getPosicao());
+		new ControleSubmeterVersaoFinalDeTrabalho(this,trabalho, evento);
 	}
 
 	@Override

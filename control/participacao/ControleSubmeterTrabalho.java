@@ -22,8 +22,9 @@ public class ControleSubmeterTrabalho  implements AbstractControle
 		this.evento = evento;
 		caller.bloquearGUI();
 		
-		Usuario usuario = Sessao.getUsuarioLogado();
+		Usuario usuario = Sessao.getUsuarioLogado();		
 		
+		inicializarGUI();
 		viewSubmeterTrabalho.setNomeusuariosubmissor(usuario.getNome());
 	}
 	public void sair()

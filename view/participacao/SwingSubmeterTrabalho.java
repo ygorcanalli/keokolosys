@@ -24,6 +24,7 @@ import javax.swing.border.TitledBorder;
 
 import excecao.ExcecaoDeParticipacao;
 import transferobject.TrabalhoTO;
+import java.awt.GridLayout;
 
 public class SwingSubmeterTrabalho extends JFrame  implements AbstractGUISubmeterTrabalho{
 
@@ -48,12 +49,13 @@ public class SwingSubmeterTrabalho extends JFrame  implements AbstractGUISubmete
 	private JEditorPane txtResumo;
 
 	public SwingSubmeterTrabalho(ControleSubmeterTrabalho controleSubmeterTrabalho) {
-		this.controleSubmeterTrabalho = controleSubmeterTrabalho;
-		inicializarFrame();
+		this.controleSubmeterTrabalho = controleSubmeterTrabalho;		
+		inicializar();
 	}
 	
-	public void setNomeusuariosubmissor(String nomeusuariosubmissor) {
-		this.lblNomeusuariosubmissor.setText(nomeusuariosubmissor);
+	public void setNomeusuariosubmissor(String nomeusuariosubmissor) 
+	{
+		this.lblNomeusuariosubmissor.setText(nomeusuariosubmissor);		
 	}
 	
 	private void submeterTrabalho() {
@@ -68,11 +70,13 @@ public class SwingSubmeterTrabalho extends JFrame  implements AbstractGUISubmete
 		{			
 			e.printStackTrace();
 		}
+		
 	}
 
 	@Override
 	public void inicializar() {
 		inicializarFrame();
+		tornarVisivel();
 	}
 
 	@Override
@@ -325,24 +329,10 @@ public class SwingSubmeterTrabalho extends JFrame  implements AbstractGUISubmete
 		});
 		scrollPane.setViewportView(txtResumo);
 		panel_1.setLayout(gl_panel_1);
+		panel.setLayout(new GridLayout(0, 1, 0, 0));
 		
-		lblNomeusuariosubmissor = new JLabel();
-		GroupLayout gl_panel = new GroupLayout(panel);
-		gl_panel.setHorizontalGroup(
-			gl_panel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(lblNomeusuariosubmissor, GroupLayout.DEFAULT_SIZE, 506, Short.MAX_VALUE)
-					.addContainerGap())
-		);
-		gl_panel.setVerticalGroup(
-			gl_panel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(lblNomeusuariosubmissor)
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-		);
-		panel.setLayout(gl_panel);
+		lblNomeusuariosubmissor = new JLabel();		
+		panel.add(lblNomeusuariosubmissor);
 		contentPane.setLayout(gl_contentPane);
 	}
 }

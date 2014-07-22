@@ -4,11 +4,19 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-import estadoevento.*;
-import excecao.*;
+import estadoevento.EstadoEvento;
+import estadoevento.EstadoEventoAguardando;
+import estadoevento.EstadoEventoCancelado;
+import estadoevento.EstadoEventoDeferido;
+import estadoevento.EstadoEventoFinalizado;
+import estadoevento.EstadoEventoIndeferido;
+import excecao.ExcecaoDeAvaliacao;
+import excecao.ExcecaoDeCadastro;
+import excecao.ExcecaoDeParticipacao;
 
 
 public class Evento{
@@ -251,8 +259,8 @@ public class Evento{
         return trabalhos;
     }
     
-    public Collection<Trabalho> obterTodosTrabalhosSubmetidosPeloParticipante(PerfilDeParticipante participante) throws ExcecaoDeParticipacao{
-    	Collection<Trabalho> trabalhosSubmetidos = new ArrayList<Trabalho>();
+    public List<Trabalho> obterTodosTrabalhosSubmetidosPeloParticipante(PerfilDeParticipante participante) throws ExcecaoDeParticipacao{
+    	List<Trabalho> trabalhosSubmetidos = new ArrayList<Trabalho>();
     	
     	if(participante.getEvento() != this)
     		throw new ExcecaoDeParticipacao("evento.perfil_nao_referente_ao_evento_em_questao");

@@ -3,6 +3,7 @@ package participacao;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -14,18 +15,51 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
+import excecao.ExcecaoDeParticipacao;
+import transferobject.TrabalhoTO;
 import util.AbstractGUI;
+
+import java.awt.GridLayout;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.io.File;
 
 public class SwingSubmeterVersaoFinalDeTrabalho extends JFrame implements AbstractGUI{
 
 	private JPanel contentPane;
 	private JTextField textField;
+	private JLabel titulodotrabalho;
+	
+	private JFileChooser jFileChooser;
 
+	private ControleSubmeterVersaoFinalDeTrabalho controleSubmeterVersaoFinalTrabalho;
+	
 	
 	/**
 	 * Create the frame.
 	 */
-	public SwingSubmeterVersaoFinalDeTrabalho() {
+	private void acaoSelecionarArquivo(){
+		File file = jFileChooser.getSelectedFile();
+		textField.setText(file.getAbsolutePath());
+	}
+	
+	private void submeterVersaoFinal(){
+		
+		TrabalhoTO trabalhoTO = new TrabalhoTO();
+		trabalhoTO.setCaminhoArquivoFinal(textField.getText());
+		
+		try {
+			controleSubmeterVersaoFinalTrabalho.submeterVersaoFinal(trabalhoTO);
+			
+		} catch (ExcecaoDeParticipacao e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public SwingSubmeterVersaoFinalDeTrabalho(final ControleSubmeterVersaoFinalDeTrabalho controleSubmeterVersaoFinalTrabalho) {
+		this.controleSubmeterVersaoFinalTrabalho = controleSubmeterVersaoFinalTrabalho;
+		
 		setResizable(false);
 		setTitle("Submeter vers\u00E3o final de trabalho");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -41,9 +75,19 @@ public class SwingSubmeterVersaoFinalDeTrabalho extends JFrame implements Abstra
 		panel_1.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		
 		JButton btnSubmeterVersoFinal = new JButton("Submeter vers\u00E3o final");
+		btnSubmeterVersoFinal.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				submeterVersaoFinal();
+			}
+		});
 		btnSubmeterVersoFinal.setMnemonic('S');
 		
 		JButton btnSair = new JButton("Sair");
+		btnSair.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controleSubmeterVersaoFinalTrabalho.sair();
+			}
+		});
 		btnSair.setMnemonic('r');
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
@@ -75,13 +119,28 @@ public class SwingSubmeterVersaoFinalDeTrabalho extends JFrame implements Abstra
 		
 		textField = new JTextField();
 		textField.setColumns(10);
+		
+		jFileChooser = new JFileChooser();
+		
+		JButton abrirFileChooser = new JButton("Abrir");
+		abrirFileChooser.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Integer integer = jFileChooser.showOpenDialog(textField);
+				if (integer == JFileChooser.APPROVE_OPTION) {
+					acaoSelecionarArquivo();
+				}
+			}
+		});
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
 		gl_panel_1.setHorizontalGroup(
 			gl_panel_1.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_1.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
-						.addComponent(textField, GroupLayout.DEFAULT_SIZE, 510, Short.MAX_VALUE)
+						.addGroup(gl_panel_1.createSequentialGroup()
+							.addComponent(textField, GroupLayout.PREFERRED_SIZE, 402, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+							.addComponent(abrirFileChooser, GroupLayout.PREFERRED_SIZE, 94, GroupLayout.PREFERRED_SIZE))
 						.addComponent(lblCaminhoVersoFinal))
 					.addContainerGap())
 		);
@@ -91,42 +150,30 @@ public class SwingSubmeterVersaoFinalDeTrabalho extends JFrame implements Abstra
 					.addContainerGap()
 					.addComponent(lblCaminhoVersoFinal)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
+						.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(abrirFileChooser))
 					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		panel_1.setLayout(gl_panel_1);
+		panel.setLayout(new GridLayout(0, 1, 0, 0));
 		
 		JLabel lblTtuloDoTrabalho = new JLabel("T\u00EDtulo do trabalho:");
+		panel.add(lblTtuloDoTrabalho);
 		
-		JLabel lblTitulodotrabalho = new JLabel("titulo_do_trabalho");
-		GroupLayout gl_panel = new GroupLayout(panel);
-		gl_panel.setHorizontalGroup(
-			gl_panel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblTitulodotrabalho, GroupLayout.DEFAULT_SIZE, 510, Short.MAX_VALUE)
-						.addComponent(lblTtuloDoTrabalho))
-					.addContainerGap())
-		);
-		gl_panel.setVerticalGroup(
-			gl_panel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(lblTtuloDoTrabalho)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(lblTitulodotrabalho)
-					.addContainerGap(41, Short.MAX_VALUE))
-		);
-		panel.setLayout(gl_panel);
+		titulodotrabalho = new JLabel("titulo_do_trabalho");
+		panel.add(titulodotrabalho);
 		contentPane.setLayout(gl_contentPane);
 	}
-
+	
+	public void setTitulodotrabalho(String titulodotrabalho) {
+		this.titulodotrabalho.setText(titulodotrabalho);
+	}
 
 	@Override
 	public void inicializar() {
 		tornarVisivel();
-		repaint();
+		repaint(10);
 		
 	}
 
