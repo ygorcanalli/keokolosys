@@ -197,8 +197,11 @@ public class SwingUsuarioHome extends JFrame implements AbstractGUIUsuarioHome {
 		JScrollPane scrollPaneAdministracao = new JScrollPane();
 		
 		JButton btnGerenciarBancasExaminadoras = new JButton("Gerenciar bancas examinadoras");
+		btnGerenciarBancasExaminadoras.addMouseListener(mouseAdapterGerenciarBancasExaminadoras);
 		
 		JButton btnConcederPrivilegios = new JButton("Conceder privilégios");
+		btnConcederPrivilegios.addMouseListener(mouseAdapterConcederPrivilegios);
+		
 		GroupLayout gl_paneAdministracao = new GroupLayout(paneAdministracao);
 		gl_paneAdministracao.setHorizontalGroup(
 			gl_paneAdministracao.createParallelGroup(Alignment.LEADING)
@@ -320,7 +323,7 @@ public class SwingUsuarioHome extends JFrame implements AbstractGUIUsuarioHome {
 		case ABA_PERFIL:
 			controleUsuarioHome.exibirPerfil();
 			break;
-	}
+		}
 	}
 	
 	private MouseAdapter mouseAdapterRealizarInscricao = new MouseAdapter() {
@@ -341,12 +344,24 @@ public class SwingUsuarioHome extends JFrame implements AbstractGUIUsuarioHome {
 	private MouseAdapter mouseAdapterGerenciarTrabalhoSubmetidos = new MouseAdapter() {
 		  public void mouseClicked(MouseEvent e) {
 			  int row = listaParticipacao.getSelectedIndex();
-			  try {
-				controleUsuarioHome.acaoGerenciarTrabalhosSubmetidos(eventosArray[row]);
-			} catch (ExcecaoDeParticipacao e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}	    
+			  controleUsuarioHome.acaoGerenciarTrabalhosSubmetidos(eventosArray[row]);
+			    
+		  }
+	};
+	
+	private MouseAdapter mouseAdapterGerenciarBancasExaminadoras = new MouseAdapter() {
+		  public void mouseClicked(MouseEvent e) {
+			  int row = listaAdministracao.getSelectedIndex();
+			  controleUsuarioHome.acaoGerenciarBancasExaminadoras(eventosArray[row]);
+				    
+		  }
+	};
+	
+	private MouseAdapter mouseAdapterConcederPrivilegios = new MouseAdapter() {
+		  public void mouseClicked(MouseEvent e) {
+			  int row = listaAdministracao.getSelectedIndex();
+			  controleUsuarioHome.acaoConcederPrivilegios(eventosArray[row]);
+			    
 		  }
 	};
 	

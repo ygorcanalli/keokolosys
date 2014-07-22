@@ -24,6 +24,8 @@ public class ControleCadastrarBancaExaminadora implements AbstractControle{
 	public ControleCadastrarBancaExaminadora(AbstractControle caller, Evento evento) {
 		this.caller = caller;
 		this.evento = evento;
+		
+		inicializarGUI();
 	}
 
 	@Override

@@ -6,6 +6,8 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.TreeMap;
 
+import avaliacao.ControleCadastrarBancaExaminadora;
+import participacao.ControleConcederPrivilegios;
 import participacao.ControleSubmeterTrabalho;
 import transferobject.EventoTO;
 import transferobject.InstituicaoTO;
@@ -235,10 +237,30 @@ public class ControleUsuarioHome implements AbstractControle{
 
 	}
 	
-	public void acaoGerenciarTrabalhosSubmetidos(EventoTO eventoTO) throws ExcecaoDeParticipacao 
+	public void acaoGerenciarTrabalhosSubmetidos(EventoTO eventoTO)
 	{
 		Evento evento = mapaDeEventosInscritos.get(eventoTO.getNome());
-		new ControleGerenciarTrabalhosSubmetidos(this, evento);
+		try {
+			new ControleGerenciarTrabalhosSubmetidos(this, evento);
+			bloquearGUI();
+		} catch (ExcecaoDeParticipacao e) {
+			// TODO Auto-generated catch block
+			viewUsuarioHome.exibirMensagemDeErro(e.getMessage(), "Erro ao gerenciar trabalhos submetidos");
+		}
+		
+	}
+	
+	public void acaoGerenciarBancasExaminadoras(EventoTO eventoTO) 
+	{
+		Evento evento = mapaDeEventosComPerfilDeChair.get(eventoTO.getNome());
+		new ControleCadastrarBancaExaminadora(this, evento);
+		bloquearGUI();
+	}
+	
+	public void acaoConcederPrivilegios(EventoTO eventoTO) 
+	{
+		Evento evento = mapaDeEventosComPerfilDeChair.get(eventoTO.getNome());
+		new ControleConcederPrivilegios(this, evento);
 		bloquearGUI();
 	}
 	
