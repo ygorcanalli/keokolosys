@@ -81,7 +81,7 @@ public class KeokoloSysTest {
 		
 		try {
 			ControladorDeCadastro.criarInstituicao("Universidade Federal Rural do Rio de Janeiro", "UFRRJ", "Seropedica");
-			ControladorDeCadastro.criarInstituicao("Universidade Federal do Rio de Janeiro", "UFRJ", "Fundão");
+			ControladorDeCadastro.criarInstituicao("Universidade Federal do Rio de Janeiro", "UFRJ", "Fundï¿½o");
 			ControladorDeCadastro.criarInstituicao("Universidade Federal do Estado do Rio de Janeiro", "UNIRIO", "Urca");
 			ControladorDeCadastro.criarInstituicao("Universidade Federal Fluminense", "UFF", "Niteroi");
 			

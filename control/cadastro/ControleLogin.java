@@ -101,7 +101,7 @@ public class ControleLogin implements AbstractControle{
 			return new ControleUsuarioHome(this);
 		else if (Administrador.class.isInstance(autenticavel))
 		{
-			return new ControleAdministradorHome();
+			return new ControleAdministradorHome(this);
 		}
 		
 		return null; 

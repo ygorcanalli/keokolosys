@@ -8,7 +8,6 @@ import util.AbstractGUI;
 public interface AbstractGUIAdministradorHome extends AbstractGUI {
 
 	public void fechar();
-	void atualizarExibicaoSelecionada();	
 	public void atualizarListaDeInstituicoes(Collection<InstituicaoTO> instituicoes);
 	public InstituicaoTO obterDadosDaInstituicaoPreenchida();
 	public InstituicaoTO obterInstituicaoSelecionada();

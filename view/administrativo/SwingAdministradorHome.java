@@ -6,10 +6,8 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 
-import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -23,35 +21,91 @@ import javax.swing.border.TitledBorder;
 
 import cadastro.ControleAdministradorHome;
 import transferobject.InstituicaoTO;
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import javax.swing.JTabbedPane;
 
-import java.awt.Dimension;
+public class SwingAdministradorHome extends JFrame implements AbstractGUIAdministradorHome
+{
+	
 
-public class SwingAdministradorHome extends JFrame implements AbstractGUIAdministradorHome{
+
+	private static final long serialVersionUID = 7379748951410562202L;
+	private JPanel contentPane,panelConteudo;
+	
+	private ControleAdministradorHome controleAdministradorHome;
 	
 	private JComboBox<String> comboBoxInstituicao;
+	
 	private JTextField textFieldNomeInstituicao;
 	private JTextField textFieldLocalizacao;
 	private JTextField textFieldSigla;
+	
 	private JButton btnNovaOuCancelar;
 	private JButton btnSalvar;
 	private JButton btnEditar;
 	private JButton btnExcluir;
 	private JButton btnSair;
-	
+
 	private Acao acaoCorrente = null; 
 	
-	JTabbedPane tabbedPane;
-	
-	private static final int ABA_GERENCIAR = 0;
-	private static final int ABA_DEFERIR_INDEFERIR = 1;
-	private static final int ABA_CANCELAR = 2;
-	
 	private InstituicaoTO[] instituicoes;
-	
-	private ControleAdministradorHome controleAdministradorHome;
+	private JTabbedPane tabbedPane;
+	private JPanel defirirIndefirirEventosPanel;
+	private JPanel panel_3;
 	
 	private enum Acao {
 		NOVO, SALVAR, EDITAR, EXCLUIR, CANCELAR, ATUALIZAR, SELECIONAR
+	}
+	
+	
+	@Override
+	public void atualizarListaDeInstituicoes(Collection<InstituicaoTO> instituicoes) {
+		int i = 0;
+		this.instituicoes = new InstituicaoTO[instituicoes.size()];	
+		String instituicaoExibicao = "";
+		
+		this.comboBoxInstituicao.removeAllItems();
+		this.comboBoxInstituicao.repaint();
+		
+		for (InstituicaoTO instituicao : instituicoes) {
+			this.instituicoes[i] = instituicao; i++;
+			
+			instituicaoExibicao = String.valueOf(i) + " - " + instituicao.getSigla() + " : " + instituicao.getNome();
+			this.comboBoxInstituicao.addItem(instituicaoExibicao);
+		}		
+	}
+
+	@Override
+	public InstituicaoTO obterDadosDaInstituicaoPreenchida(){
+		String nomeDaInstituicao = textFieldNomeInstituicao.getText();
+		String localizacao = textFieldLocalizacao.getText();
+		String sigla = textFieldSigla.getText();
+		
+		return new InstituicaoTO(nomeDaInstituicao, sigla, localizacao);
+	}
+	
+	
+	@Override
+	public InstituicaoTO obterInstituicaoSelecionada(){
+		return capturarInstituicao();
+	}
+	
+	@Override
+	public void exibirInstituicao(InstituicaoTO instituicao) {
+		this.textFieldNomeInstituicao.setText(instituicao.getNome());
+		this.textFieldLocalizacao.setText(instituicao.getSigla());
+		this.textFieldSigla.setText(instituicao.getSigla());
+	}
+	
+	
+	private InstituicaoTO capturarInstituicao(){
+		int i = comboBoxInstituicao.getSelectedIndex();
+		
+		if(i >= 0)
+			return instituicoes[i];
+		else
+			return null;
 	}
 	
 	public void acaoSelecionar(){
@@ -80,15 +134,184 @@ public class SwingAdministradorHome extends JFrame implements AbstractGUIAdminis
 	
 	public void acaoAtualizar(){
 		controleAdministradorHome.acaoAtualizar();
+	}
+	
+	@Override
+	public void fechar(){
+		controleAdministradorHome.fechar();
+	}
+	
+	public SwingAdministradorHome(ControleAdministradorHome controleAdministradorHome)
+	{		
+		inicializarFrame();
+		this.controleAdministradorHome = controleAdministradorHome;
+	}
+	
+	@Override
+	public void exibirMensagemDeErro(String mensagem, String titulo){
+		JOptionPane.showMessageDialog(this, mensagem, titulo, JOptionPane.ERROR_MESSAGE);
+	}
+	
+	@Override
+	public void exibirMensagemDeAviso(String mensagem, String titulo){
+		JOptionPane.showMessageDialog(this, mensagem, titulo, JOptionPane.WARNING_MESSAGE);
+	}
+	
+	@Override
+	public void exibirMensagemDeInformacao(String mensagem, String titulo){
+		JOptionPane.showMessageDialog(this, mensagem, titulo, JOptionPane.INFORMATION_MESSAGE);
+	}
+	
+	@Override
+	public Integer exibirMensagemDeConfirmacao(String mensagem, String titulo, Object[] opcoes, Object opcaoPadrao){
+		return JOptionPane.showOptionDialog(this, mensagem, titulo, JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcoes, opcaoPadrao);
+	}
+	
+	@Override
+	public void limparFormulario() {
+		this.textFieldNomeInstituicao.setText("");
+		this.textFieldSigla.setText("");
+		this.textFieldLocalizacao.setText("");
+	}
+	
+	@Override
+	public void removerSelecao(){
+		this.comboBoxInstituicao.setSelectedIndex(-1);
+	}
+	
+	@Override
+	public void definirSelecao(InstituicaoTO instituicao){
+		int i = 0;
+		
+		while((i < instituicoes.length) && (instituicoes[i].getSigla().compareTo(instituicao.getSigla()) != 0))
+			i++;
+		
+		if(i < instituicoes.length)
+			this.comboBoxInstituicao.setSelectedIndex(i);
+		else
+			this.comboBoxInstituicao.setSelectedIndex(-1);
+	}
+
+
+	
+	@Override
+	public void habilitarAcaoSelecionar(){
+		this.comboBoxInstituicao.setEnabled(true);
+	}
+		
+	@Override
+	public void habilitarAcaoNovo(){
+		this.btnNovaOuCancelar.setText("Nova");
+		this.btnNovaOuCancelar.setEnabled(true);
+	}
+	
+	@Override
+	public void habilitarAcaoSalvar(){
+		this.btnSalvar.setText("Salvar");
+		this.btnSalvar.setEnabled(true);
+	}
+	
+	@Override
+	public void habilitarAcaoAtualizar(){
+		this.btnSalvar.setText("Atualizar");
+		this.btnSalvar.setEnabled(true);
+	}
+	
+	@Override
+	public void habilitarAcaoEditar(){
+		this.btnEditar.setEnabled(true);
+	}
+	
+	@Override
+	public void habilitarAcaoExcluir(){
+		this.btnExcluir.setEnabled(true);
+	}
+	
+	@Override
+	public void habilitarAcaoCancelar(){
+		this.btnNovaOuCancelar.setText("Cancelar");
+		this.btnNovaOuCancelar.setEnabled(true);		
+	}	
+	
+	@Override
+	public void desabilitarAcaoSelecionar(){
+		this.comboBoxInstituicao.setEnabled(true);
+	}
+	
+	@Override
+	public void desabilitarAcaoNovo(){
+		this.btnNovaOuCancelar.setEnabled(false);
+	}
+	
+	@Override
+	public void desabilitarAcaoSalvar(){
+		this.btnSalvar.setEnabled(false);
+	}
+	
+	@Override
+	public void desabilitarAcaoAtualizar(){
 		
 	}
 	
-	public void inicializarFrame() {
+	@Override
+	public void desabilitarAcaoCancelar(){
+
+	}	
+	
+	@Override
+	public void desabilitarAcaoEditar(){
+		this.btnEditar.setEnabled(false);
+	}
+	
+	@Override
+	public void desabilitarAcaoExcluir(){
+		this.btnExcluir.setEnabled(false);
+	}
+	
+	
+	@Override
+	public void tornarVisivel() {
+		this.setVisible(true);
+	}
+
+	@Override
+	public void tornarInvisivel() {
+		this.setVisible(false);
+	}
+
+	@Override
+	public void bloquear() {
+		this.setEnabled(true);
+	}
+
+	@Override
+	public void desbloquear() {
+		this.setEnabled(false);
+	}
+
+	@Override
+	public void inicializar() {
+		inicializarFrame();
+	}
+	
+
+	/**
+	 * Create the frame.
+	 */
+	private void inicializarFrame() {
+		setTitle("Home de Adminstracao");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 557, 395);
+		panelConteudo = new JPanel();
+		
+		setContentPane(panelConteudo);
+		panelConteudo.setLayout(new GridLayout(0, 1, 0, 0));
 		
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		getContentPane().add(tabbedPane, BorderLayout.NORTH);
+		panelConteudo.add(tabbedPane);
+		contentPane = new JPanel();
+		tabbedPane.addTab("Cadastrar Instituicao", null, contentPane, null);
 		
-		JPanel contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		
 		JPanel panel = new JPanel();
@@ -99,28 +322,6 @@ public class SwingAdministradorHome extends JFrame implements AbstractGUIAdminis
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
-						.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(panel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-					.addContainerGap())
-		);
-		gl_contentPane.setVerticalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-		);
 		
 		this.btnNovaOuCancelar = new JButton("Nova");
 		btnNovaOuCancelar.addActionListener(new ActionListener() {
@@ -288,7 +489,16 @@ public class SwingAdministradorHome extends JFrame implements AbstractGUIAdminis
 					.addContainerGap())
 		);
 		panel.setLayout(gl_panel);
-		contentPane.setLayout(gl_contentPane);
+		contentPane.setLayout(new BorderLayout(0, 0));
+		contentPane.add(panel_1, BorderLayout.CENTER);
+		contentPane.add(panel_2, BorderLayout.SOUTH);
+		contentPane.add(panel, BorderLayout.NORTH);
+		
+		defirirIndefirirEventosPanel = new JPanel();
+		tabbedPane.addTab("Deferir/Inderir eventos", null, defirirIndefirirEventosPanel, null);
+		
+		panel_3 = new JPanel();
+		tabbedPane.addTab("Cancelar Evento", null, panel_3, null);
 		
 		this.addWindowListener(new WindowAdapter() {
 			@Override
@@ -296,253 +506,5 @@ public class SwingAdministradorHome extends JFrame implements AbstractGUIAdminis
 				fechar();
 			}
 		});
-		
-		tabbedPane.addTab("Gerenciar Instituição", null, contentPane, null);
-		
-		
-		
-		/**/
-		
-		JPanel painel2 = new JPanel();
-		tabbedPane.addTab("Deferir/Indeferir Evento", null, painel2, null);
-		
-		/**/
-		
-		JPanel painel3 = new JPanel();
-		tabbedPane.addTab("Cancelar Evento", null, painel3, null);
 	}
-
-	
-	public SwingAdministradorHome(ControleAdministradorHome controleAdministradorHome){
-		setSize(new Dimension(591, 422));
-		inicializarFrame();
-		this.controleAdministradorHome = controleAdministradorHome;		
-	}
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-
-	@Override
-	public void inicializar() {
-		// TODO Auto-generated method stub
-		inicializarFrame();
-	}
-
-	@Override
-	public void tornarVisivel() {
-		setVisible(true);
-		repaint(10);
-		
-	}
-
-	@Override
-	public void tornarInvisivel() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void bloquear() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void desbloquear() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void exibirMensagemDeErro(String mensagem, String titulo){
-		JOptionPane.showMessageDialog(this, mensagem, titulo, JOptionPane.ERROR_MESSAGE);
-	}
-	
-	@Override
-	public void exibirMensagemDeAviso(String mensagem, String titulo){
-		JOptionPane.showMessageDialog(this, mensagem, titulo, JOptionPane.WARNING_MESSAGE);
-	}
-	
-	@Override
-	public void exibirMensagemDeInformacao(String mensagem, String titulo){
-		JOptionPane.showMessageDialog(this, mensagem, titulo, JOptionPane.INFORMATION_MESSAGE);
-	}
-	
-	@Override
-	public Integer exibirMensagemDeConfirmacao(String mensagem, String titulo, Object[] opcoes, Object opcaoPadrao){
-		return JOptionPane.showOptionDialog(this, mensagem, titulo, JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcoes, opcaoPadrao);
-	}
-	
-	@Override
-	public void fechar(){
-		controleAdministradorHome.fechar();
-	}
-	
-	@Override
-	public void atualizarExibicaoSelecionada() {
-		switch (tabbedPane.getSelectedIndex()) {
-		case ABA_GERENCIAR: 
-			controleAdministradorHome.exibirEventosDisponiveis();
-			break;
-		case ABA_DEFERIR_INDEFERIR:
-			controleAdministradorHome.exibirParticipacao();
-			break;
-		case ABA_CANCELAR:
-			controleAdministradorHome.exibirParticipacao();
-			break;
-	}
-	}
-
-	@Override
-	public void limparFormulario() {
-		this.textFieldNomeInstituicao.setText("");
-		this.textFieldSigla.setText("");
-		this.textFieldLocalizacao.setText("");
-	}
-	
-	@Override
-	public void removerSelecao(){
-		this.comboBoxInstituicao.setSelectedIndex(-1);
-	}
-	
-	@Override
-	public void definirSelecao(InstituicaoTO instituicao){
-		int i = 0;
-		
-		while((i < instituicoes.length) && (instituicoes[i].getSigla().compareTo(instituicao.getSigla()) != 0))
-			i++;
-		
-		if(i < instituicoes.length)
-			this.comboBoxInstituicao.setSelectedIndex(i);
-		else
-			this.comboBoxInstituicao.setSelectedIndex(-1);
-	}
-
-
-	
-	@Override
-	public void habilitarAcaoSelecionar(){
-		this.comboBoxInstituicao.setEnabled(true);
-	}
-		
-	@Override
-	public void habilitarAcaoNovo(){
-		this.btnNovaOuCancelar.setText("Nova");
-		this.btnNovaOuCancelar.setEnabled(true);
-	}
-	
-	@Override
-	public void habilitarAcaoSalvar(){
-		this.btnSalvar.setText("Salvar");
-		this.btnSalvar.setEnabled(true);
-	}
-	
-	@Override
-	public void habilitarAcaoAtualizar(){
-		this.btnSalvar.setText("Atualizar");
-		this.btnSalvar.setEnabled(true);
-	}
-	
-	@Override
-	public void habilitarAcaoEditar(){
-		this.btnEditar.setEnabled(true);
-	}
-	
-	@Override
-	public void habilitarAcaoExcluir(){
-		this.btnExcluir.setEnabled(true);
-	}
-	
-	@Override
-	public void habilitarAcaoCancelar(){
-		this.btnNovaOuCancelar.setText("Cancelar");
-		this.btnNovaOuCancelar.setEnabled(true);		
-	}	
-	
-	@Override
-	public void desabilitarAcaoSelecionar(){
-		this.comboBoxInstituicao.setEnabled(true);
-	}
-	
-	@Override
-	public void desabilitarAcaoNovo(){
-		this.btnNovaOuCancelar.setEnabled(false);
-	}
-	
-	@Override
-	public void desabilitarAcaoSalvar(){
-		this.btnSalvar.setEnabled(false);
-	}
-	
-	@Override
-	public void desabilitarAcaoAtualizar(){
-		
-	}
-	
-	@Override
-	public void desabilitarAcaoCancelar(){
-
-	}	
-	
-	@Override
-	public void desabilitarAcaoEditar(){
-		this.btnEditar.setEnabled(false);
-	}
-	
-	@Override
-	public void desabilitarAcaoExcluir(){
-		this.btnExcluir.setEnabled(false);
-	}
-
-	@Override
-	public void atualizarListaDeInstituicoes(Collection<InstituicaoTO> instituicoes) {
-		int i = 0;
-		this.instituicoes = new InstituicaoTO[instituicoes.size()];	
-		String instituicaoExibicao = "";
-		
-		this.comboBoxInstituicao.removeAllItems();
-		this.comboBoxInstituicao.repaint();
-		
-		for (InstituicaoTO instituicao : instituicoes) {
-			this.instituicoes[i] = instituicao; i++;
-			
-			instituicaoExibicao = String.valueOf(i) + " - " + instituicao.getSigla() + " : " + instituicao.getNome();
-			this.comboBoxInstituicao.addItem(instituicaoExibicao);
-		}		
-	}
-
-	@Override
-	public InstituicaoTO obterDadosDaInstituicaoPreenchida(){
-		String nomeDaInstituicao = textFieldNomeInstituicao.getText();
-		String localizacao = textFieldLocalizacao.getText();
-		String sigla = textFieldSigla.getText();
-		
-		return new InstituicaoTO(nomeDaInstituicao, sigla, localizacao);
-	}
-	
-	
-	@Override
-	public InstituicaoTO obterInstituicaoSelecionada(){
-		return capturarInstituicao();
-	}
-	
-	@Override
-	public void exibirInstituicao(InstituicaoTO instituicao) {
-		this.textFieldNomeInstituicao.setText(instituicao.getNome());
-		this.textFieldLocalizacao.setText(instituicao.getSigla());
-		this.textFieldSigla.setText(instituicao.getSigla());
-	}
-	
-	private InstituicaoTO capturarInstituicao(){
-		int i = comboBoxInstituicao.getSelectedIndex();
-		
-		if(i >= 0)
-			return instituicoes[i];
-		else
-			return null;
-	}
-	
-	
-
 }

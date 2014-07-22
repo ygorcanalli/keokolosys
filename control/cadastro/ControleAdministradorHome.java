@@ -7,7 +7,9 @@ import controladorGRASP.ControladorDeCadastro;
 import dominio.Instituicao;
 import excecao.ExcecaoDeCadastro;
 import administrativo.AbstractGUIAdministradorHome;
+import administrativo.AbstractGUICadastrarInstituicao;
 import administrativo.SwingAdministradorHome;
+import administrativo.SwingCadastrarInstituicao;
 import transferobject.InstituicaoTO;
 import util.AbstractControle;
 
@@ -15,17 +17,33 @@ public class ControleAdministradorHome implements AbstractControle{
 
 	private AbstractGUIAdministradorHome viewAdministradorHome;
 	private AbstractControle caller;
-	public ControleAdministradorHome() {
+	
+	public ControleAdministradorHome(AbstractControle caller){
+		this.caller = caller;
+	}
+	
+	@Override
+	public void inicializarGUI(){
 		viewAdministradorHome = new SwingAdministradorHome(this);
-		inicializarGUI();
+		viewAdministradorHome.inicializar();
+		
+		viewAdministradorHome.desabilitarAcaoAtualizar();
+		viewAdministradorHome.desabilitarAcaoCancelar();
+		viewAdministradorHome.desabilitarAcaoEditar();
+		viewAdministradorHome.desabilitarAcaoSalvar();
+		viewAdministradorHome.desabilitarAcaoExcluir();
+		viewAdministradorHome.habilitarAcaoNovo();
+		viewAdministradorHome.habilitarAcaoSelecionar();
+		
+		atualizarListaDeInstituicoes();
+		
 		tornarGUIVisivel();
 	}
 	
 	@Override
-	public void inicializarGUI() {
-		
-		viewAdministradorHome.inicializar();
-		
+	public void encerrarGUI(){
+		viewAdministradorHome.tornarInvisivel();
+		caller.desbloquearGUI();
 	}
 	
 	@Override
@@ -33,50 +51,19 @@ public class ControleAdministradorHome implements AbstractControle{
 		viewAdministradorHome.tornarVisivel();
 	}
 
-
 	@Override
 	public void tornarGUIInvisivel() {
 		viewAdministradorHome.tornarInvisivel();
 	}
 
-
 	@Override
 	public void bloquearGUI() {
 		viewAdministradorHome.bloquear();
 	}
-	public void desbloquearGUI(){
+
+	@Override
+	public void desbloquearGUI() {
 		viewAdministradorHome.desbloquear();
-		viewAdministradorHome.atualizarExibicaoSelecionada();
-	}
-	public void encerrarGUI(){
-		viewAdministradorHome.tornarInvisivel();
-		//caller.desbloquearGUI();
-		caller.tornarGUIVisivel();
-	}
-	
-	public void exibirEventosDisponiveis() {
-		//viewAdministradorHome.atualizarListaEventosDisponiveis(obterEventosDeferidosNaoInscritos());
-	}
-	
-	public void exibirParticipacao() {
-		//viewAdministradorHome.atualizarListaParticipacao(obterEventosInscritos());
-	}
-	
-	public void exibirExames() {
-		//viewAdministradorHome.atualizarListaExames(obterEventosComPerfilDeExaminador());
-	}
-	
-	public void exibirAdministracao() {
-		//viewAdministradorHome.atualizarListaAdministracao(obterEventosComPerfilDeChair());
-	}
-	
-	public void exibirMeusEventos() {
-		//viewAdministradorHome.atualizarListaMeusEventos(obterMeusEventos());
-	}
-	
-	public void exibirPerfil() {
-		//viewAdministradorHome.atualizarPerfil(obterUsuarioLogado());
-		
 	}
 	
 	private void cadastrarInstituicao(String nome, String sigla, String localizacao) throws ExcecaoDeCadastro{
