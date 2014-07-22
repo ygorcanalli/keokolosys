@@ -1,6 +1,7 @@
 package dominio;
 
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -11,7 +12,7 @@ import excecao.ExcecaoDeAvaliacao;
 public class BancaExaminadora{
     private Set<PerfilDeExaminador> examinadores;
     private Set<Trabalho> trabalhosAssociados;
-    private static final Set<Integer> NUMEROS_DE_EXAMINADORES_PERMITIDO = new HashSet<Integer>(1,3);
+    private static final Set<Integer> NUMEROS_DE_EXAMINADORES_PERMITIDO = new HashSet<Integer>(Arrays.asList(1, 3));
 
     public Set<Trabalho> obterTrabalhosAssociados() {
         return trabalhosAssociados;
@@ -51,8 +52,8 @@ public class BancaExaminadora{
     	if (setExaminadores.contains(null))
     		throw new ExcecaoDeAvaliacao("banca_examinadora.examinador.vazio");
     	
-    	if(NUMEROS_DE_EXAMINADORES_PERMITIDO.contains(setExaminadores.size()))
-    		throw new ExcecaoDeAvaliacao("banca_examinadora.numero_de_examinadores_nao_permitido");    	
+    	if(NUMEROS_DE_EXAMINADORES_PERMITIDO.contains(setExaminadores.size()) == false)
+    		throw new ExcecaoDeAvaliacao("banca_examinadora.numero_de_examinadores_nao_permitido");
     }
     
     public void associarTrabalho(Trabalho trabalho) throws ExcecaoDeAvaliacao{
@@ -76,8 +77,11 @@ public class BancaExaminadora{
     }
     
     public Boolean formadaPelosExaminadores(Collection<PerfilDeExaminador> examinadores){
+    	if(this.examinadores.size() != examinadores.size())
+    		return false;
+    	
     	for (PerfilDeExaminador examinador : examinadores) {
-			if(!possuiOExaminador(examinador))
+			if(possuiOExaminador(examinador) == false)
 				return false;
     	}
     	

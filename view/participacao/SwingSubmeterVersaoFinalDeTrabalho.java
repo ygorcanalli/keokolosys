@@ -1,7 +1,5 @@
 package participacao;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -26,6 +24,8 @@ import java.io.File;
 
 public class SwingSubmeterVersaoFinalDeTrabalho extends JFrame implements AbstractGUI{
 
+
+	private static final long serialVersionUID = -1352371570036698266L;
 	private JPanel contentPane;
 	private JTextField textField;
 	private JLabel titulodotrabalho;

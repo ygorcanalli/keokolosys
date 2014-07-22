@@ -9,16 +9,17 @@ import util.AbstractGUI;
 public interface AbstractGUICadastrarBancaExaminadora extends AbstractGUI{
 
 	public void atualizarListaDeBancasExaminadoras(Collection<BancaExaminadoraTO> bancasExaminadoras);
-	public void atualizarListaDeExaminadoresDisponiveis(Collection<UsuarioTO> examinadores);
+	public void atualizarListaDeExaminadoresNaoPertencentesABanca(Collection<UsuarioTO> examinadores);
+	public void atualizarListaDeExaminadoresPertencesABanca(Collection<UsuarioTO> examinadores);
 	public BancaExaminadoraTO obterDadosDaBancaExaminadoraPreenchida();
 	public BancaExaminadoraTO obterBancaExaminadoraSelecionada();
 	public UsuarioTO obterExaminadorPertencenteSelecionado();
 	public UsuarioTO obterExaminadorNaoPertencenteSelecionado();
 	public void definirSelecaoBancaExaminadora(BancaExaminadoraTO bancaExaminadora);
-	public void definirSelecaoExaminador(UsuarioTO examinador);
 	public void removerSelecaoBancaExaminadora();
-	public void removerSelecaoExaminador();
-	public void habilitarAcaoSelecionar();
+	public void removerSelecaoExaminadorNaoPertencenteABanca();
+	public void habilitarAcaoSelecionarBanca();
+	public void habilitarAcaoSelecionarExaminadorNaoPertencente();
 	public void habilitarAcaoAdicionarExaminador();
 	public void habilitarAcaoNovo();
 	public void habilitarAcaoSalvar();
@@ -26,7 +27,8 @@ public interface AbstractGUICadastrarBancaExaminadora extends AbstractGUI{
 	public void habilitarAcaoAtualizar();
 	public void habilitarAcaoExcluir();
 	public void habilitarAcaoCancelar();
-	public void desabilitarAcaoSelecionar();
+	public void desabilitarAcaoSelecionarBanca();
+	public void desabilitarAcaoSelecionarExaminadorNaoPertencente();
 	public void desabilitarAcaoAdicionarExaminador();
 	public void desabilitarAcaoNovo();
 	public void desabilitarAcaoSalvar();
@@ -36,6 +38,6 @@ public interface AbstractGUICadastrarBancaExaminadora extends AbstractGUI{
 	public void desabilitarAcaoCancelar();
 	public void limparFormulario();
 	public void exibirBancaExaminadora(BancaExaminadoraTO bancaExaminadora);
-	public void atualizarListaDeExaminadoresPertencesABanca(Collection<UsuarioTO> examinadores);
-
+	public void habilitarAcaoRemoverExaminador();
+	public void desabilitarAcaoRemoverExaminador();
 }

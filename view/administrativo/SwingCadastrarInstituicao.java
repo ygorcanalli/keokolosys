@@ -35,20 +35,15 @@ public class SwingCadastrarInstituicao extends JFrame implements AbstractGUICada
 	private JTextField textFieldLocalizacao;
 	private JTextField textFieldSigla;
 	
-	private JButton btnNovaOuCancelar;
+	private JButton btnNovo;
 	private JButton btnSalvar;
 	private JButton btnEditar;
 	private JButton btnExcluir;
 	private JButton btnSair;
-
-	private Acao acaoCorrente = null; 
+	private JButton btnAtualizar;
+	private JButton btnCancelar;
 	
 	private InstituicaoTO[] instituicoes;
-	
-	private enum Acao {
-		NOVO, SALVAR, EDITAR, EXCLUIR, CANCELAR, ATUALIZAR, SELECIONAR
-	}
-	
 	
 	@Override
 	public void atualizarListaDeInstituicoes(Collection<InstituicaoTO> instituicoes) {
@@ -173,7 +168,7 @@ public class SwingCadastrarInstituicao extends JFrame implements AbstractGUICada
 	public void definirSelecao(InstituicaoTO instituicao){
 		int i = 0;
 		
-		while((i < instituicoes.length) && (instituicoes[i].getSigla().compareTo(instituicao.getSigla()) != 0))
+		while((i < instituicoes.length) && (controleCadastrarInstituicao.compareInstituicoes(instituicoes[i], instituicao) != 0))
 			i++;
 		
 		if(i < instituicoes.length)
@@ -191,20 +186,17 @@ public class SwingCadastrarInstituicao extends JFrame implements AbstractGUICada
 		
 	@Override
 	public void habilitarAcaoNovo(){
-		this.btnNovaOuCancelar.setText("Nova");
-		this.btnNovaOuCancelar.setEnabled(true);
+		this.btnNovo.setEnabled(true);
 	}
 	
 	@Override
 	public void habilitarAcaoSalvar(){
-		this.btnSalvar.setText("Salvar");
 		this.btnSalvar.setEnabled(true);
 	}
 	
 	@Override
 	public void habilitarAcaoAtualizar(){
-		this.btnSalvar.setText("Atualizar");
-		this.btnSalvar.setEnabled(true);
+		this.btnAtualizar.setEnabled(true);
 	}
 	
 	@Override
@@ -219,8 +211,7 @@ public class SwingCadastrarInstituicao extends JFrame implements AbstractGUICada
 	
 	@Override
 	public void habilitarAcaoCancelar(){
-		this.btnNovaOuCancelar.setText("Cancelar");
-		this.btnNovaOuCancelar.setEnabled(true);		
+		this.btnCancelar.setEnabled(true);	
 	}	
 	
 	@Override
@@ -230,7 +221,7 @@ public class SwingCadastrarInstituicao extends JFrame implements AbstractGUICada
 	
 	@Override
 	public void desabilitarAcaoNovo(){
-		this.btnNovaOuCancelar.setEnabled(false);
+		this.btnNovo.setEnabled(false);
 	}
 	
 	@Override
@@ -240,12 +231,12 @@ public class SwingCadastrarInstituicao extends JFrame implements AbstractGUICada
 	
 	@Override
 	public void desabilitarAcaoAtualizar(){
-		
+		this.btnAtualizar.setEnabled(false);
 	}
 	
 	@Override
 	public void desabilitarAcaoCancelar(){
-
+		this.btnCancelar.setEnabled(false);
 	}	
 	
 	@Override
@@ -291,7 +282,7 @@ public class SwingCadastrarInstituicao extends JFrame implements AbstractGUICada
 	private void inicializarFrame() {
 		setTitle("Cadastrar instituicao de ensino ou pesquisa");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 557, 395);
+		setBounds(100, 100, 557, 416);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -307,12 +298,13 @@ public class SwingCadastrarInstituicao extends JFrame implements AbstractGUICada
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
-						.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+					.addContainerGap(21, Short.MAX_VALUE)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
 						.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(panel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
+							.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addComponent(panel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
 					.addContainerGap())
 		);
 		gl_contentPane.setVerticalGroup(
@@ -323,40 +315,22 @@ public class SwingCadastrarInstituicao extends JFrame implements AbstractGUICada
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addComponent(panel_2, GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
+					.addContainerGap())
 		);
 		
-		this.btnNovaOuCancelar = new JButton("Nova");
-		btnNovaOuCancelar.addActionListener(new ActionListener() {
+		this.btnNovo = new JButton("Nova");
+		btnNovo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if((acaoCorrente == Acao.EDITAR) || (acaoCorrente == Acao.NOVO))
-				{
-					acaoCorrente = Acao.CANCELAR;
-					acaoCancelar();
-				}
-				else
-				{
-					acaoCorrente = Acao.NOVO;
-					acaoNovo();
-				}
+				acaoNovo();
 			}
 		});
-		this.btnNovaOuCancelar.setMnemonic('N');
+		this.btnNovo.setMnemonic('N');
 		
 		this.btnSalvar = new JButton("Salvar");
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if(acaoCorrente == Acao.NOVO)
-				{
-					acaoCorrente = Acao.SALVAR;
-					acaoSalvar();
-				}
-				else
-				{
-					acaoCorrente = Acao.ATUALIZAR;
-					acaoAtualizar();
-				}
+				acaoSalvar();
 			}
 		});
 		
@@ -365,7 +339,6 @@ public class SwingCadastrarInstituicao extends JFrame implements AbstractGUICada
 		this.btnEditar = new JButton("Editar");
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				acaoCorrente = Acao.EDITAR;
 				acaoEditar();
 			}
 		});
@@ -374,7 +347,6 @@ public class SwingCadastrarInstituicao extends JFrame implements AbstractGUICada
 		this.btnExcluir = new JButton("Excluir");
 		btnExcluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				acaoCorrente = Acao.EXCLUIR;
 				acaoExcluir();			
 			}
 		});
@@ -387,32 +359,54 @@ public class SwingCadastrarInstituicao extends JFrame implements AbstractGUICada
 			}
 		});
 		this.btnSair.setMnemonic('r');
+		
+		btnAtualizar = new JButton("Atualizar");
+		btnAtualizar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				acaoAtualizar();
+			}
+		});
+		
+		btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				acaoCancelar();
+			}
+		});
 		GroupLayout gl_panel_2 = new GroupLayout(panel_2);
 		gl_panel_2.setHorizontalGroup(
 			gl_panel_2.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_2.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(this.btnNovaOuCancelar, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(this.btnSalvar, GroupLayout.PREFERRED_SIZE, 96, GroupLayout.PREFERRED_SIZE)
+					.addComponent(btnNovo, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(this.btnEditar, GroupLayout.PREFERRED_SIZE, 87, GroupLayout.PREFERRED_SIZE)
+					.addGroup(gl_panel_2.createParallelGroup(Alignment.TRAILING, false)
+						.addComponent(btnAtualizar, Alignment.LEADING, 0, 0, Short.MAX_VALUE)
+						.addComponent(btnSalvar, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(this.btnExcluir, GroupLayout.PREFERRED_SIZE, 84, GroupLayout.PREFERRED_SIZE)
+					.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING, false)
+						.addComponent(btnCancelar, 0, 0, Short.MAX_VALUE)
+						.addComponent(btnEditar, GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(this.btnSair, GroupLayout.PREFERRED_SIZE, 91, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(21, Short.MAX_VALUE))
+					.addComponent(btnExcluir, GroupLayout.PREFERRED_SIZE, 84, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(btnSair, GroupLayout.PREFERRED_SIZE, 91, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(27, Short.MAX_VALUE))
 		);
 		gl_panel_2.setVerticalGroup(
-			gl_panel_2.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_panel_2.createSequentialGroup()
-					.addContainerGap(25, Short.MAX_VALUE)
+			gl_panel_2.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_panel_2.createSequentialGroup()
+					.addContainerGap(15, Short.MAX_VALUE)
 					.addGroup(gl_panel_2.createParallelGroup(Alignment.BASELINE)
-						.addComponent(this.btnNovaOuCancelar)
-						.addComponent(this.btnSalvar)
-						.addComponent(this.btnEditar)
-						.addComponent(this.btnExcluir)
-						.addComponent(this.btnSair))
+						.addComponent(btnNovo)
+						.addComponent(btnSalvar)
+						.addComponent(btnEditar)
+						.addComponent(btnExcluir)
+						.addComponent(btnSair))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
+						.addComponent(btnAtualizar)
+						.addComponent(btnCancelar))
 					.addContainerGap())
 		);
 		panel_2.setLayout(gl_panel_2);

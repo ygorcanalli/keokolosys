@@ -77,8 +77,10 @@ public class Evento{
     private void validarBancaComoUnica(Collection<PerfilDeExaminador> examinadores) throws ExcecaoDeAvaliacao{
     	BancaExaminadora bancaExaminadora = buscarBancaExaminadoraPelosExaminadores(examinadores);
     	
-    	if(bancaExaminadora != null)
+    	if(bancaExaminadora != null){
     		throw new ExcecaoDeAvaliacao("evento.banca_examinadora.existente");
+    	}
+    		
     }
     
     public BancaExaminadora obterBancaExaminadoraPelosExaminadores(Collection<PerfilDeExaminador> examinadores) throws ExcecaoDeAvaliacao{

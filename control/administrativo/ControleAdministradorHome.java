@@ -198,8 +198,10 @@ public class ControleAdministradorHome implements AbstractControle{
 				
 				viewAdministradorHome.habilitarAcaoSelecionarInstituicao();
 				viewAdministradorHome.habilitarAcaoNovoInstituicao();
-				viewAdministradorHome.habilitarAcaoEditarInstituicao();
-				viewAdministradorHome.habilitarAcaoExcluirInstituicao();
+				//viewAdministradorHome.habilitarAcaoEditarInstituicao();
+				//viewAdministradorHome.habilitarAcaoExcluirInstituicao();
+				viewAdministradorHome.desabilitarAcaoEditarInstituicao();
+				viewAdministradorHome.desabilitarAcaoExcluirInstituicao();
 				
 			} catch (ExcecaoDeCadastro e) {
 				viewAdministradorHome.exibirMensagemDeErro(e.getMessage(), "");
@@ -250,5 +252,10 @@ public class ControleAdministradorHome implements AbstractControle{
 	
 	public void fechar(){
 		encerrarGUI();
+	}
+
+	/*Nao deveria ter esta regra de negocio aqui*/
+	public int compareInstituicoes(InstituicaoTO instituicaoTO1,	InstituicaoTO instituicaoTO2) {
+		return instituicaoTO1.getSigla().compareTo(instituicaoTO2.getSigla());
 	}
 }

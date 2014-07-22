@@ -1,7 +1,6 @@
 package transferobject;
 
 import dominio.EstadoAvaliacao;
-import enumerados.EnumEstadoTrabalho;
 
 public class AvaliacaoTO 
 {

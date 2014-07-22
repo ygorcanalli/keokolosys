@@ -194,8 +194,10 @@ public class ControleCadastrarInstituicao implements AbstractControle{
 				
 				viewCadastrarInstituicao.habilitarAcaoSelecionar();
 				viewCadastrarInstituicao.habilitarAcaoNovo();
-				viewCadastrarInstituicao.habilitarAcaoEditar();
-				viewCadastrarInstituicao.habilitarAcaoExcluir();
+				//viewCadastrarInstituicao.habilitarAcaoEditar();
+				//viewCadastrarInstituicao.habilitarAcaoExcluir();
+				viewCadastrarInstituicao.desabilitarAcaoEditar();
+				viewCadastrarInstituicao.desabilitarAcaoExcluir();
 				
 			} catch (ExcecaoDeCadastro e) {
 				viewCadastrarInstituicao.exibirMensagemDeErro(e.getMessage(), "");
@@ -247,5 +249,9 @@ public class ControleCadastrarInstituicao implements AbstractControle{
 	public void fechar(){
 		encerrarGUI();
 	}
-}
+
+	/*Nao deveria ter esta regra de negocio aqui*/
+	public int compareInstituicoes(InstituicaoTO instituicaoTO1,	InstituicaoTO instituicaoTO2) {
+		return instituicaoTO1.getSigla().compareTo(instituicaoTO2.getSigla());
+	}}
 

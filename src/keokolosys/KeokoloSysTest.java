@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
+import avaliacao.ControleCadastrarBancaExaminadora;
 import util.Sessao;
 import cadastro.ControleLogin;
 import cadastro.ControleUsuarioHome;
@@ -69,7 +70,9 @@ public class KeokoloSysTest {
 		
 		
 		Sessao.iniciarSessao(stark);
-		new ControleUsuarioHome(controleLogin).inicializarGUI();
+		//new ControleUsuarioHome(controleLogin).inicializarGUI();
+		
+		new ControleCadastrarBancaExaminadora(null, evento).inicializarGUI();
 		
 		
 		/*new ControleAvaliarTrabalho(null, markIV,evento);*/
