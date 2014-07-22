@@ -65,25 +65,16 @@ public class ControleCadastrarBancaExaminadora implements AbstractControle{
 	}
 	
 	private void atualizarListaDeExaminadores(){
-		viewCadastroBancaExaminadora.atualizarListaDeExaminadoresDisponiveis(obterExaminadores());
+		viewCadastroBancaExaminadora.atualizarListaDeExaminadoresDisponiveis(obterExaminadoresTO());
 	}
 	
 	
-	private Collection<UsuarioTO> obterExaminadores() {
+	private Collection<UsuarioTO> obterExaminadoresTO() {
 		Collection<PerfilDeExaminador> examinadores = ControladorDeAvaliacao.obterTodosExaminadoresDoEvento(evento);
 		Collection<UsuarioTO> examinadoresTO = new ArrayList<UsuarioTO>();
-		UsuarioTO examinadorTO;
 		
 		for (PerfilDeExaminador	examinador : examinadores) {
-			String email = examinador.getUsuario().getEmail();
-			String nome = examinador.getUsuario().getNome();
-			String ultimoNome = examinador.getUsuario().getUltimoNome();
-			
-			examinadorTO = new UsuarioTO();
-			
-			examinadorTO.setEmail(email);
-			examinadorTO.setNome(nome);
-			examinadorTO.setUltimoNome(ultimoNome);
+			examinadoresTO.add(converterPerfilDeExaminadorParaUsuarioTO(examinador));
 		}
 		
 		return examinadoresTO;
@@ -91,11 +82,11 @@ public class ControleCadastrarBancaExaminadora implements AbstractControle{
 	
 
 	private void atualizarListaDeBancasExaminadoras(){
-		viewCadastroBancaExaminadora.atualizarListaDeBancasExaminadoras(obterBancasExaminadoras());
+		viewCadastroBancaExaminadora.atualizarListaDeBancasExaminadoras(obterBancasExaminadorasTO());
 	}
 	
 	
-	private Collection<BancaExaminadoraTO> obterBancasExaminadoras(){
+	private Collection<BancaExaminadoraTO> obterBancasExaminadorasTO(){
 		Collection<BancaExaminadora> bancasExaminadora = ControladorDeAvaliacao.obterTodasAsBancasExaminadorasDoEvento(evento);
 		Collection<BancaExaminadoraTO> bancasExaminadoraTO = new ArrayList<BancaExaminadoraTO>();
 		Collection<UsuarioTO> examinadoresTO;
@@ -198,7 +189,7 @@ public class ControleCadastrarBancaExaminadora implements AbstractControle{
 		return new InstituicaoTO(instituicao.getNome(), instituicao.getSigla(), instituicao.getLocalizacao());
 	}
 	
-	public void acaoSelecionar(){
+	public void acaoSelecionarBancaExaminadora(){
 		viewCadastroBancaExaminadora.desabilitarAcaoCancelar();
 		viewCadastroBancaExaminadora.desabilitarAcaoAtualizar();
 		viewCadastroBancaExaminadora.desabilitarAcaoSalvar();

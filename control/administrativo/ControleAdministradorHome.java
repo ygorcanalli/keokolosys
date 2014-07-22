@@ -1,4 +1,4 @@
-package cadastro;
+package administrativo;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -7,9 +7,7 @@ import controladorGRASP.ControladorDeCadastro;
 import dominio.Instituicao;
 import excecao.ExcecaoDeCadastro;
 import administrativo.AbstractGUIAdministradorHome;
-import administrativo.AbstractGUICadastrarInstituicao;
 import administrativo.SwingAdministradorHome;
-import administrativo.SwingCadastrarInstituicao;
 import transferobject.InstituicaoTO;
 import util.AbstractControle;
 
@@ -27,16 +25,7 @@ public class ControleAdministradorHome implements AbstractControle{
 		viewAdministradorHome = new SwingAdministradorHome(this);
 		viewAdministradorHome.inicializar();
 		
-		viewAdministradorHome.desabilitarAcaoAtualizar();
-		viewAdministradorHome.desabilitarAcaoCancelar();
-		viewAdministradorHome.desabilitarAcaoEditar();
-		viewAdministradorHome.desabilitarAcaoSalvar();
-		viewAdministradorHome.desabilitarAcaoExcluir();
-		viewAdministradorHome.habilitarAcaoNovo();
-		viewAdministradorHome.habilitarAcaoSelecionar();
-		
-		atualizarListaDeInstituicoes();
-		
+		inicializarCadastroDeInstituicoes();
 		tornarGUIVisivel();
 	}
 	
@@ -64,6 +53,18 @@ public class ControleAdministradorHome implements AbstractControle{
 	@Override
 	public void desbloquearGUI() {
 		viewAdministradorHome.desbloquear();
+	}
+	
+	private void inicializarCadastroDeInstituicoes(){
+		viewAdministradorHome.desabilitarAcaoAtualizarInstituicao();
+		viewAdministradorHome.desabilitarAcaoCancelarInstituicao();
+		viewAdministradorHome.desabilitarAcaoEditarInstituicao();
+		viewAdministradorHome.desabilitarAcaoSalvarInstituicao();
+		viewAdministradorHome.desabilitarAcaoExcluirInstituicao();
+		viewAdministradorHome.habilitarAcaoNovoInstituicao();
+		viewAdministradorHome.habilitarAcaoSelecionarInstituicao();
+		
+		atualizarListaDeInstituicoes();
 	}
 	
 	private void cadastrarInstituicao(String nome, String sigla, String localizacao) throws ExcecaoDeCadastro{
@@ -118,46 +119,46 @@ public class ControleAdministradorHome implements AbstractControle{
 	}
 	
 	
-	public void acaoSelecionar(){
-		viewAdministradorHome.desabilitarAcaoCancelar();
-		viewAdministradorHome.desabilitarAcaoAtualizar();
-		viewAdministradorHome.desabilitarAcaoSalvar();
+	public void acaoSelecionarInstituicao(){
+		viewAdministradorHome.desabilitarAcaoCancelarInstituicao();
+		viewAdministradorHome.desabilitarAcaoAtualizarInstituicao();
+		viewAdministradorHome.desabilitarAcaoSalvarInstituicao();
 		
-		viewAdministradorHome.habilitarAcaoNovo();
-		viewAdministradorHome.habilitarAcaoExcluir();
-		viewAdministradorHome.habilitarAcaoEditar();
+		viewAdministradorHome.habilitarAcaoNovoInstituicao();
+		viewAdministradorHome.habilitarAcaoExcluirInstituicao();
+		viewAdministradorHome.habilitarAcaoEditarInstituicao();
 		
 		exibirInstituicaoSelecionada();
 	}
 	
-	public void acaoNovo(){
-		viewAdministradorHome.desabilitarAcaoSelecionar();
-		viewAdministradorHome.removerSelecao();
-		viewAdministradorHome.limparFormulario();
-		viewAdministradorHome.desabilitarAcaoNovo();
-		viewAdministradorHome.desabilitarAcaoAtualizar();
-		viewAdministradorHome.desabilitarAcaoEditar();
-		viewAdministradorHome.desabilitarAcaoExcluir();
+	public void acaoNovoInstituicao(){
+		viewAdministradorHome.desabilitarAcaoSelecionarInstituicao();
+		viewAdministradorHome.removerSelecaoInstituicao();
+		viewAdministradorHome.limparFormularioInstituicao();
+		viewAdministradorHome.desabilitarAcaoNovoInstituicao();
+		viewAdministradorHome.desabilitarAcaoAtualizarInstituicao();
+		viewAdministradorHome.desabilitarAcaoEditarInstituicao();
+		viewAdministradorHome.desabilitarAcaoExcluirInstituicao();
 		
-		viewAdministradorHome.habilitarAcaoSalvar();
-		viewAdministradorHome.habilitarAcaoCancelar();
+		viewAdministradorHome.habilitarAcaoSalvarInstituicao();
+		viewAdministradorHome.habilitarAcaoCancelarInstituicao();
 	}
 	
-	public void acaoSalvar(){		
+	public void acaoSalvarInstituicao(){		
 		InstituicaoTO instituicaoTO = viewAdministradorHome.obterDadosDaInstituicaoPreenchida();
 		try {
 			cadastrarInstituicao(instituicaoTO.getNome(), instituicaoTO.getSigla(), instituicaoTO.getLocalizacao());
 			
-			viewAdministradorHome.definirSelecao(instituicaoTO);
+			viewAdministradorHome.definirSelecaoInstituicao(instituicaoTO);
 			
-			viewAdministradorHome.desabilitarAcaoSalvar();
-			viewAdministradorHome.desabilitarAcaoCancelar();
-			viewAdministradorHome.desabilitarAcaoAtualizar();
+			viewAdministradorHome.desabilitarAcaoSalvarInstituicao();
+			viewAdministradorHome.desabilitarAcaoCancelarInstituicao();
+			viewAdministradorHome.desabilitarAcaoAtualizarInstituicao();
 		
-			viewAdministradorHome.habilitarAcaoSelecionar();
-			viewAdministradorHome.habilitarAcaoEditar();
-			viewAdministradorHome.habilitarAcaoExcluir();
-			viewAdministradorHome.habilitarAcaoNovo();
+			viewAdministradorHome.habilitarAcaoSelecionarInstituicao();
+			viewAdministradorHome.habilitarAcaoEditarInstituicao();
+			viewAdministradorHome.habilitarAcaoExcluirInstituicao();
+			viewAdministradorHome.habilitarAcaoNovoInstituicao();
 
 			
 		} catch (ExcecaoDeCadastro e) {
@@ -165,18 +166,18 @@ public class ControleAdministradorHome implements AbstractControle{
 		}		
 	}
 	
-	public void acaoEditar(){		
-		viewAdministradorHome.desabilitarAcaoEditar();
-		viewAdministradorHome.desabilitarAcaoSelecionar();
-		viewAdministradorHome.desabilitarAcaoExcluir();
-		viewAdministradorHome.desabilitarAcaoSalvar();
-		viewAdministradorHome.desabilitarAcaoNovo();
+	public void acaoEditarInstituicao(){		
+		viewAdministradorHome.desabilitarAcaoEditarInstituicao();
+		viewAdministradorHome.desabilitarAcaoSelecionarInstituicao();
+		viewAdministradorHome.desabilitarAcaoExcluirInstituicao();
+		viewAdministradorHome.desabilitarAcaoSalvarInstituicao();
+		viewAdministradorHome.desabilitarAcaoNovoInstituicao();
 		
-		viewAdministradorHome.habilitarAcaoCancelar();
-		viewAdministradorHome.habilitarAcaoAtualizar();	
+		viewAdministradorHome.habilitarAcaoCancelarInstituicao();
+		viewAdministradorHome.habilitarAcaoAtualizarInstituicao();	
 	}
 	
-	public void acaoExcluir(){
+	public void acaoExcluirInstituicao(){
 		
 		InstituicaoTO instituicaoTO = viewAdministradorHome.obterInstituicaoSelecionada();
 		String opcoes[] = {"Sim", "Não"};
@@ -189,16 +190,16 @@ public class ControleAdministradorHome implements AbstractControle{
 			try {
 				excluirInstituicao(instituicaoTO);
 				
-				viewAdministradorHome.removerSelecao();
-				viewAdministradorHome.limparFormulario();
-				viewAdministradorHome.desabilitarAcaoSalvar();
-				viewAdministradorHome.desabilitarAcaoCancelar();
-				viewAdministradorHome.desabilitarAcaoAtualizar();
+				viewAdministradorHome.removerSelecaoInstituicao();
+				viewAdministradorHome.limparFormularioInstituicao();
+				viewAdministradorHome.desabilitarAcaoSalvarInstituicao();
+				viewAdministradorHome.desabilitarAcaoCancelarInstituicao();
+				viewAdministradorHome.desabilitarAcaoAtualizarInstituicao();
 				
-				viewAdministradorHome.habilitarAcaoSelecionar();
-				viewAdministradorHome.habilitarAcaoNovo();
-				viewAdministradorHome.habilitarAcaoEditar();
-				viewAdministradorHome.habilitarAcaoExcluir();
+				viewAdministradorHome.habilitarAcaoSelecionarInstituicao();
+				viewAdministradorHome.habilitarAcaoNovoInstituicao();
+				viewAdministradorHome.habilitarAcaoEditarInstituicao();
+				viewAdministradorHome.habilitarAcaoExcluirInstituicao();
 				
 			} catch (ExcecaoDeCadastro e) {
 				viewAdministradorHome.exibirMensagemDeErro(e.getMessage(), "");
@@ -206,27 +207,27 @@ public class ControleAdministradorHome implements AbstractControle{
 		}
 	}
 	
-	public void acaoCancelar(){
-		viewAdministradorHome.desabilitarAcaoCancelar();
-		viewAdministradorHome.desabilitarAcaoAtualizar();
-		viewAdministradorHome.desabilitarAcaoSalvar();
+	public void acaoCancelarInstituicao(){
+		viewAdministradorHome.desabilitarAcaoCancelarInstituicao();
+		viewAdministradorHome.desabilitarAcaoAtualizarInstituicao();
+		viewAdministradorHome.desabilitarAcaoSalvarInstituicao();
 		
-		viewAdministradorHome.habilitarAcaoNovo();
-		viewAdministradorHome.habilitarAcaoSelecionar();
+		viewAdministradorHome.habilitarAcaoNovoInstituicao();
+		viewAdministradorHome.habilitarAcaoSelecionarInstituicao();
 		
 		if(viewAdministradorHome.obterInstituicaoSelecionada() != null)
 		{
-			viewAdministradorHome.habilitarAcaoExcluir();
-			viewAdministradorHome.habilitarAcaoEditar();			
+			viewAdministradorHome.habilitarAcaoExcluirInstituicao();
+			viewAdministradorHome.habilitarAcaoEditarInstituicao();			
 		}
 		else
 		{
-			viewAdministradorHome.desabilitarAcaoExcluir();
-			viewAdministradorHome.desabilitarAcaoEditar();						
+			viewAdministradorHome.desabilitarAcaoExcluirInstituicao();
+			viewAdministradorHome.desabilitarAcaoEditarInstituicao();						
 		}
 	}
 	
-	public void acaoAtualizar(){				
+	public void acaoAtualizarInstituicao(){				
 		InstituicaoTO instituicaoAtualizadaTO = viewAdministradorHome.obterDadosDaInstituicaoPreenchida();
 		InstituicaoTO instituicaoTO = viewAdministradorHome.obterInstituicaoSelecionada();
 		
@@ -234,13 +235,13 @@ public class ControleAdministradorHome implements AbstractControle{
 			atualizarInstituicao(instituicaoTO, instituicaoAtualizadaTO.getNome(), instituicaoAtualizadaTO.getSigla(), instituicaoAtualizadaTO.getLocalizacao());
 			atualizarListaDeInstituicoes();
 			
-			viewAdministradorHome.desabilitarAcaoSalvar();
-			viewAdministradorHome.desabilitarAcaoCancelar();
-			viewAdministradorHome.desabilitarAcaoAtualizar();
+			viewAdministradorHome.desabilitarAcaoSalvarInstituicao();
+			viewAdministradorHome.desabilitarAcaoCancelarInstituicao();
+			viewAdministradorHome.desabilitarAcaoAtualizarInstituicao();
 		
-			viewAdministradorHome.habilitarAcaoSelecionar();
-			viewAdministradorHome.habilitarAcaoEditar();
-			viewAdministradorHome.habilitarAcaoExcluir();
+			viewAdministradorHome.habilitarAcaoSelecionarInstituicao();
+			viewAdministradorHome.habilitarAcaoEditarInstituicao();
+			viewAdministradorHome.habilitarAcaoExcluirInstituicao();
 
 		} catch (ExcecaoDeCadastro e) {
 			viewAdministradorHome.exibirMensagemDeErro(e.getMessage(), "");

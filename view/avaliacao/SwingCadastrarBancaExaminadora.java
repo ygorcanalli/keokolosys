@@ -45,8 +45,8 @@ public class SwingCadastrarBancaExaminadora extends JFrame implements AbstractGU
 	private JList<String> listExaminadores;
 	
 	private BancaExaminadoraTO bancasExaminadoras[];
-	private List<UsuarioTO> examinadoresDisponiveis;
-	private List<UsuarioTO> examinadoresDisponiveis;
+	private Collection<UsuarioTO> examinadoresPertencesABancaSelecionada;
+	private Collection<UsuarioTO> examinadoresNaoPertencentesABancaSelecionada;
 	
 	private ControleCadastrarBancaExaminadora controleCadastroBancaExaminadora;
 	
@@ -111,39 +111,39 @@ public class SwingCadastrarBancaExaminadora extends JFrame implements AbstractGU
 	}
 
 	
-	public void acaoSelecionar(){
-		controleCadastroBancaExaminadora.acaoSelecionar();
+	private void acaoSelecionarBancaExaminadora(){
+		controleCadastroBancaExaminadora.acaoSelecionarBancaExaminadora();
 	}	
 	
-	public void acaoNovo(){
+	private void acaoNovo(){
 		controleCadastroBancaExaminadora.acaoNovo();
 	}
 	
-	public void acaoSalvar(){
+	private void acaoSalvar(){
 		controleCadastroBancaExaminadora.acaoSalvar();
 	}
 	
-	public void acaoEditar(){
+	private void acaoEditar(){
 		controleCadastroBancaExaminadora.acaoEditar();
 	}
 	
-	public void acaoExcluir(){
+	private void acaoExcluir(){
 		controleCadastroBancaExaminadora.acaoExcluir();
 	}
 	
-	public void acaoCancelar(){
+	private void acaoCancelar(){
 		controleCadastroBancaExaminadora.acaoCancelar();
 	}
 	
-	public void acaoAtualizar(){
+	private void acaoAtualizar(){
 		controleCadastroBancaExaminadora.acaoAtualizar();
 	}
 
-	public void acaoAdicionarExaminador(){
+	private void acaoAdicionarExaminador(){
 		controleCadastroBancaExaminadora.acaoAdicionarExaminador();
 	}
 	
-	public void acaoRemoverExaminador(){
+	private void acaoRemoverExaminador(){
 		controleCadastroBancaExaminadora.acaoRemoverExaminador();
 	}
 
@@ -513,7 +513,7 @@ public class SwingCadastrarBancaExaminadora extends JFrame implements AbstractGU
 		comboBoxExaminadoresDisponiveis = new JComboBox<String>();
 		comboBoxExaminadoresDisponiveis.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				acaoSelecionar();
+				acaoSelecionarBancaExaminadora();
 			}
 		});
 		

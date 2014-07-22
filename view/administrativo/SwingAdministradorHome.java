@@ -13,16 +13,18 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Collection;
+
 import javax.swing.JPanel;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
-import cadastro.ControleAdministradorHome;
 import transferobject.InstituicaoTO;
+
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+
 import javax.swing.JTabbedPane;
 
 public class SwingAdministradorHome extends JFrame implements AbstractGUIAdministradorHome
@@ -108,32 +110,32 @@ public class SwingAdministradorHome extends JFrame implements AbstractGUIAdminis
 			return null;
 	}
 	
-	public void acaoSelecionar(){
-		controleAdministradorHome.acaoSelecionar();
+	private void acaoSelecionarInstituicao(){
+		controleAdministradorHome.acaoSelecionarInstituicao();
 	}	
 	
-	public void acaoNovo(){
-		controleAdministradorHome.acaoNovo();
+	private void acaoNovoInstituicao(){
+		controleAdministradorHome.acaoNovoInstituicao();
 	}
 	
-	public void acaoSalvar(){
-		controleAdministradorHome.acaoSalvar();
+	private void acaoSalvarInstituicao(){
+		controleAdministradorHome.acaoSalvarInstituicao();
 	}
 	
-	public void acaoEditar(){
-		controleAdministradorHome.acaoEditar();
+	private void acaoEditarInstituicao(){
+		controleAdministradorHome.acaoEditarInstituicao();
 	}
 	
-	public void acaoExcluir(){
-		controleAdministradorHome.acaoExcluir();
+	private void acaoExcluirInstituicao(){
+		controleAdministradorHome.acaoExcluirInstituicao();
 	}
 	
-	public void acaoCancelar(){
-		controleAdministradorHome.acaoCancelar();
+	private void acaoCancelarInstituicao(){
+		controleAdministradorHome.acaoCancelarInstituicao();
 	}
 	
-	public void acaoAtualizar(){
-		controleAdministradorHome.acaoAtualizar();
+	private void acaoAtualizarInstituicao(){
+		controleAdministradorHome.acaoAtualizarInstituicao();
 	}
 	
 	@Override
@@ -168,19 +170,19 @@ public class SwingAdministradorHome extends JFrame implements AbstractGUIAdminis
 	}
 	
 	@Override
-	public void limparFormulario() {
+	public void limparFormularioInstituicao() {
 		this.textFieldNomeInstituicao.setText("");
 		this.textFieldSigla.setText("");
 		this.textFieldLocalizacao.setText("");
 	}
 	
 	@Override
-	public void removerSelecao(){
+	public void removerSelecaoInstituicao(){
 		this.comboBoxInstituicao.setSelectedIndex(-1);
 	}
 	
 	@Override
-	public void definirSelecao(InstituicaoTO instituicao){
+	public void definirSelecaoInstituicao(InstituicaoTO instituicao){
 		int i = 0;
 		
 		while((i < instituicoes.length) && (instituicoes[i].getSigla().compareTo(instituicao.getSigla()) != 0))
@@ -195,76 +197,76 @@ public class SwingAdministradorHome extends JFrame implements AbstractGUIAdminis
 
 	
 	@Override
-	public void habilitarAcaoSelecionar(){
+	public void habilitarAcaoSelecionarInstituicao(){
 		this.comboBoxInstituicao.setEnabled(true);
 	}
 		
 	@Override
-	public void habilitarAcaoNovo(){
+	public void habilitarAcaoNovoInstituicao(){
 		this.btnNovaOuCancelar.setText("Nova");
 		this.btnNovaOuCancelar.setEnabled(true);
 	}
 	
 	@Override
-	public void habilitarAcaoSalvar(){
+	public void habilitarAcaoSalvarInstituicao(){
 		this.btnSalvar.setText("Salvar");
 		this.btnSalvar.setEnabled(true);
 	}
 	
 	@Override
-	public void habilitarAcaoAtualizar(){
+	public void habilitarAcaoAtualizarInstituicao(){
 		this.btnSalvar.setText("Atualizar");
 		this.btnSalvar.setEnabled(true);
 	}
 	
 	@Override
-	public void habilitarAcaoEditar(){
+	public void habilitarAcaoEditarInstituicao(){
 		this.btnEditar.setEnabled(true);
 	}
 	
 	@Override
-	public void habilitarAcaoExcluir(){
+	public void habilitarAcaoExcluirInstituicao(){
 		this.btnExcluir.setEnabled(true);
 	}
 	
 	@Override
-	public void habilitarAcaoCancelar(){
+	public void habilitarAcaoCancelarInstituicao(){
 		this.btnNovaOuCancelar.setText("Cancelar");
 		this.btnNovaOuCancelar.setEnabled(true);		
 	}	
 	
 	@Override
-	public void desabilitarAcaoSelecionar(){
+	public void desabilitarAcaoSelecionarInstituicao(){
 		this.comboBoxInstituicao.setEnabled(true);
 	}
 	
 	@Override
-	public void desabilitarAcaoNovo(){
+	public void desabilitarAcaoNovoInstituicao(){
 		this.btnNovaOuCancelar.setEnabled(false);
 	}
 	
 	@Override
-	public void desabilitarAcaoSalvar(){
+	public void desabilitarAcaoSalvarInstituicao(){
 		this.btnSalvar.setEnabled(false);
 	}
 	
 	@Override
-	public void desabilitarAcaoAtualizar(){
+	public void desabilitarAcaoAtualizarInstituicao(){
 		
 	}
 	
 	@Override
-	public void desabilitarAcaoCancelar(){
+	public void desabilitarAcaoCancelarInstituicao(){
 
 	}	
 	
 	@Override
-	public void desabilitarAcaoEditar(){
+	public void desabilitarAcaoEditarInstituicao(){
 		this.btnEditar.setEnabled(false);
 	}
 	
 	@Override
-	public void desabilitarAcaoExcluir(){
+	public void desabilitarAcaoExcluirInstituicao(){
 		this.btnExcluir.setEnabled(false);
 	}
 	
@@ -329,12 +331,12 @@ public class SwingAdministradorHome extends JFrame implements AbstractGUIAdminis
 				if((acaoCorrente == Acao.EDITAR) || (acaoCorrente == Acao.NOVO))
 				{
 					acaoCorrente = Acao.CANCELAR;
-					acaoCancelar();
+					acaoCancelarInstituicao();
 				}
 				else
 				{
 					acaoCorrente = Acao.NOVO;
-					acaoNovo();
+					acaoNovoInstituicao();
 				}
 			}
 		});
@@ -346,12 +348,12 @@ public class SwingAdministradorHome extends JFrame implements AbstractGUIAdminis
 				if(acaoCorrente == Acao.NOVO)
 				{
 					acaoCorrente = Acao.SALVAR;
-					acaoSalvar();
+					acaoSalvarInstituicao();
 				}
 				else
 				{
 					acaoCorrente = Acao.ATUALIZAR;
-					acaoAtualizar();
+					acaoAtualizarInstituicao();
 				}
 			}
 		});
@@ -362,7 +364,7 @@ public class SwingAdministradorHome extends JFrame implements AbstractGUIAdminis
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				acaoCorrente = Acao.EDITAR;
-				acaoEditar();
+				acaoEditarInstituicao();
 			}
 		});
 		this.btnEditar.setMnemonic('E');
@@ -371,7 +373,7 @@ public class SwingAdministradorHome extends JFrame implements AbstractGUIAdminis
 		btnExcluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				acaoCorrente = Acao.EXCLUIR;
-				acaoExcluir();			
+				acaoExcluirInstituicao();			
 			}
 		});
 		this.btnExcluir.setMnemonic('x');
@@ -464,7 +466,7 @@ public class SwingAdministradorHome extends JFrame implements AbstractGUIAdminis
 		comboBoxInstituicao.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(comboBoxInstituicao.getSelectedIndex() >= 0)
-					acaoSelecionar();
+					acaoSelecionarInstituicao();
 			}
 		});
 		
