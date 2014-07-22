@@ -6,6 +6,7 @@ import java.util.Collection;
 public class BancaExaminadoraTO{
 	
 	private Collection<UsuarioTO> examinadores;
+	private Integer quantidadeDeTrabalhosAssociados;
 	
 	public BancaExaminadoraTO(){
 		examinadores = new ArrayList<UsuarioTO>();
@@ -21,6 +22,14 @@ public class BancaExaminadoraTO{
 
 	public void setExaminadores(Collection<UsuarioTO> examinadores) {
 		this.examinadores = examinadores;
+	}
+
+	public Integer getQuantidadeDeTrabalhosAssociados() {
+		return quantidadeDeTrabalhosAssociados;
+	}
+	
+	public void setQuantidadeDeTrabalhosAssociados(Integer quantidadeDeTrabalhosAssociados){
+		this.quantidadeDeTrabalhosAssociados = quantidadeDeTrabalhosAssociados;
 	}
 	
 	/*public BancaExaminadoraTO clone(){

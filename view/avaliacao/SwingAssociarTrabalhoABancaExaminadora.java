@@ -43,11 +43,12 @@ public class SwingAssociarTrabalhoABancaExaminadora extends JFrame implements Ab
 	private JLabel lblNomesubmissor;
 	private JLabel lblCaminho;
 	private JTextField textFieldCaminho;
-	private JTextArea textAreaResumo;
 	private JLabel lblAutores;
 	private JLabel lblNomeDosAutores;
 	
 	private BancaExaminadoraTO bancasExaminadoras[];
+	private JScrollPane scrollPane_1;
+	private JTextArea textAreaResumo;
 	
 	public SwingAssociarTrabalhoABancaExaminadora(ControleAssociarTrabalhoABancaExaminadora controleAssociarTrabalhoABancaExaminadora) {
 		this.controleAssociarTrabalhoABancaExaminadora = controleAssociarTrabalhoABancaExaminadora;
@@ -132,8 +133,8 @@ public class SwingAssociarTrabalhoABancaExaminadora extends JFrame implements Ab
 	
 	private void atualizarTabelaDeBancasExaminadoras(Collection<BancaExaminadoraTO> bancasExaminadoras){
 		Iterator<BancaExaminadoraTO> iteradorBancasExaminadoras = bancasExaminadoras.iterator();
-		String[] colunas = {" ", "Examinador[1]","Examinador[2]","Quantidade de trabalhos associados"};
-		String[][] dados = new String[bancasExaminadoras.size()][4];
+		String[] colunas = {" ", "Examinador[1]","Examinador[2]", "Examinador[3]", "Quantidade de trabalhos associados"};
+		String[][] dados = new String[bancasExaminadoras.size()][5];
 		int j;
 		
 		this.bancasExaminadoras = new BancaExaminadoraTO[bancasExaminadoras.size()];
@@ -142,14 +143,15 @@ public class SwingAssociarTrabalhoABancaExaminadora extends JFrame implements Ab
 			BancaExaminadoraTO bancaExaminadoraTO = iteradorBancasExaminadoras.next();
 			this.bancasExaminadoras[i] = bancaExaminadoraTO;
 			
-			dados[i][0] = String.valueOf(i);
-			
+			dados[i][0] = String.valueOf(i + 1);
 			j = 1;
 			
 			for (UsuarioTO examinador : bancaExaminadoraTO.getExaminadores()) {
 				dados[i][j] = examinador.getNome() + " : " + examinador.getEmail();
 				j++;
 			}
+			
+			dados[i][4] = String.valueOf(bancaExaminadoraTO.getQuantidadeDeTrabalhosAssociados());
 			
 			tabelaDeBancasExaminadoras.setModel(new DefaultTableModel(dados, colunas));
 		}
@@ -166,7 +168,7 @@ public class SwingAssociarTrabalhoABancaExaminadora extends JFrame implements Ab
 	
 	private void inicializarFrame(){
 		setTitle("Associar trabalho a banca examinadora");
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 635, 597);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -260,10 +262,6 @@ public class SwingAssociarTrabalhoABancaExaminadora extends JFrame implements Ab
 		);
 		
 		tabelaDeBancasExaminadoras = new JTable();
-		tabelaDeBancasExaminadoras.getColumnModel().getColumn(0).setPreferredWidth(168);
-		tabelaDeBancasExaminadoras.getColumnModel().getColumn(1).setPreferredWidth(168);
-		tabelaDeBancasExaminadoras.getColumnModel().getColumn(2).setPreferredWidth(168);
-		tabelaDeBancasExaminadoras.getColumnModel().getColumn(2).setPreferredWidth(160);
 		scrollPane.setViewportView(tabelaDeBancasExaminadoras);
 		panel_1.setLayout(gl_panel_1);
 		
@@ -282,11 +280,11 @@ public class SwingAssociarTrabalhoABancaExaminadora extends JFrame implements Ab
 		textFieldCaminho.setEditable(false);
 		textFieldCaminho.setColumns(10);
 		
-		textAreaResumo = new JTextArea();
-		
 		lblAutores = new JLabel("Autores:");
 		
 		lblNomeDosAutores = new JLabel("");
+		
+		scrollPane_1 = new JScrollPane();
 		
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
@@ -294,24 +292,27 @@ public class SwingAssociarTrabalhoABancaExaminadora extends JFrame implements Ab
 				.addGroup(gl_panel.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel.createSequentialGroup()
-							.addComponent(lblSubmissor, GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(lblNomesubmissor, GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE))
-						.addGroup(gl_panel.createSequentialGroup()
+						.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
 							.addComponent(lblCaminho, GroupLayout.PREFERRED_SIZE, 96, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(textFieldCaminho, GroupLayout.DEFAULT_SIZE, 459, Short.MAX_VALUE))
-						.addGroup(gl_panel.createSequentialGroup()
+						.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
 							.addComponent(lblTtulo)
 							.addPreferredGap(ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
 							.addComponent(lblTitulodotrabalho, GroupLayout.PREFERRED_SIZE, 463, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_panel.createSequentialGroup()
-							.addComponent(lblResumo)
-							.addGap(18)
-							.addComponent(lblNomeDosAutores, GroupLayout.DEFAULT_SIZE, 488, Short.MAX_VALUE))
-						.addComponent(lblAutores, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE)
-						.addComponent(textAreaResumo, GroupLayout.PREFERRED_SIZE, 557, GroupLayout.PREFERRED_SIZE))
+						.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
+							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_panel.createSequentialGroup()
+									.addComponent(lblSubmissor, GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
+									.addPreferredGap(ComponentPlacement.UNRELATED))
+								.addGroup(gl_panel.createSequentialGroup()
+									.addComponent(lblAutores, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE)
+									.addGap(46)))
+							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblNomeDosAutores, GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE)
+								.addComponent(lblNomesubmissor, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE)))
+						.addComponent(scrollPane_1, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 567, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblResumo))
 					.addContainerGap())
 		);
 		gl_panel.setVerticalGroup(
@@ -328,20 +329,23 @@ public class SwingAssociarTrabalhoABancaExaminadora extends JFrame implements Ab
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(lblNomesubmissor, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)))
 					.addGap(31)
-					.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
-						.addGroup(gl_panel.createSequentialGroup()
-							.addComponent(lblAutores)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(lblResumo))
+					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblAutores)
 						.addComponent(lblNomeDosAutores, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(lblResumo)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(textAreaResumo, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE)
-					.addGap(14)
+					.addComponent(scrollPane_1, GroupLayout.PREFERRED_SIZE, 101, GroupLayout.PREFERRED_SIZE)
+					.addGap(19)
 					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblCaminho)
 						.addComponent(textFieldCaminho, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addContainerGap(26, Short.MAX_VALUE))
 		);
+		
+		textAreaResumo = new JTextArea();
+		textAreaResumo.setEditable(false);
+		scrollPane_1.setViewportView(textAreaResumo);
 		panel.setLayout(gl_panel);
 		contentPane.setLayout(gl_contentPane);
 	}

@@ -60,4 +60,8 @@ public final class ControladorDeAvaliacao {
     	return trabalho.obterEstado();
     }
 
+	public static Integer obterQuantidadeDeTrabalhosAssociadosABancaExaminadora(BancaExaminadora bancaExaminadora) {
+		return bancaExaminadora.obterQuantidadeDeTrabalhosAssociados();
+	}
+
 }

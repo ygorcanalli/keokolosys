@@ -104,6 +104,10 @@ public class BancaExaminadora{
     		throw new ExcecaoDeAvaliacao("banca_examinadora.examinador.nao_pertence");
     }
 
+	public Integer obterQuantidadeDeTrabalhosAssociados() {
+		return trabalhosAssociados.size();
+	}
+
 	/*@Override
 	public int compareTo(BancaExaminadora bancaExaminadora) {
 		

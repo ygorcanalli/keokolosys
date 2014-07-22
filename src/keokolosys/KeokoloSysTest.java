@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
+import avaliacao.ControleAssociarTrabalhoABancaExaminadora;
 import avaliacao.ControleCadastrarBancaExaminadora;
 import util.Sessao;
 import cadastro.ControleLogin;
@@ -55,8 +56,8 @@ public class KeokoloSysTest {
 		
 		PerfilDeParticipante perfilPepper = (PerfilDeParticipante) pepper.obterPerfilDe(evento, PerfilDeParticipante.class);
 		
-		ControladorDeParticipacao.subtmeterTrabalho(evento,perfilPepper, "Mark IV", "Traje de defesa pessoal, Mark IV", "Tony Stark","/home/stark/ironMan.pdf");
-		Collection<Trabalho> trabalhos = ControladorDeParticipacao.obterTodosTrabalhosSubmetidosPeloParticipante(evento, perfilPepper);
+		Trabalho markIV = ControladorDeParticipacao.subtmeterTrabalho(evento, perfilPepper, "Mark IV", "Traje de defesa pessoal, Mark IV", "Tony Stark","/home/stark/ironMan.pdf");
+		//Collection<Trabalho> trabalhos = ControladorDeParticipacao.obterTodosTrabalhosSubmetidosPeloParticipante(evento, perfilPepper);
 		Collection<PerfilDeExaminador> examinadores = new ArrayList<>();
 		
 		examinadores.add(perfilHulk);
@@ -72,8 +73,9 @@ public class KeokoloSysTest {
 		Sessao.iniciarSessao(stark);
 		//new ControleUsuarioHome(controleLogin).inicializarGUI();
 		
-		new ControleCadastrarBancaExaminadora(null, evento).inicializarGUI();
+		//new ControleCadastrarBancaExaminadora(null, evento).inicializarGUI();
 		
+		new ControleAssociarTrabalhoABancaExaminadora(null, evento, markIV).inicializarGUI();;	
 		
 		/*new ControleAvaliarTrabalho(null, markIV,evento);*/
 		/*ControleCadastrarEvento c;

@@ -8,6 +8,7 @@ import dominio.BancaExaminadora;
 import dominio.Evento;
 import dominio.Instituicao;
 import dominio.PerfilDeExaminador;
+import dominio.PerfilDeParticipante;
 import dominio.Trabalho;
 import dominio.Usuario;
 import excecao.ExcecaoDeAvaliacao;
@@ -45,8 +46,10 @@ public class ControleAssociarTrabalhoABancaExaminadora implements AbstractContro
 		TrabalhoTO trabalhoTO = new TrabalhoTO();
 		trabalhoTO.setAutores(trabalho.getAutores());
 		trabalhoTO.setTitulo(trabalho.getTitulo());
-		trabalhoTO.setResumo(trabalhoTO.getResumo());
-		trabalhoTO.setSubmissor(trabalhoTO.getSubmissor());
+		trabalhoTO.setResumo(trabalho.getResumo());
+		trabalhoTO.setSubmissor(converterPerfilDeParticipanteParaUsuarioTO(trabalho.getSubmissor()));
+		
+		viewAssociarTrabalhoABancaExaminadora.definirTrabalho(trabalhoTO);
 	}
 
 	private void atualizarListaDeBancasExaminadoras() {
@@ -72,10 +75,15 @@ public class ControleAssociarTrabalhoABancaExaminadora implements AbstractContro
 			examinadoresTO.add(converterPerfilDeExaminadorParaUsuarioTO(examinador));
 		}
 		
+		bancaExaminadoraTO.setQuantidadeDeTrabalhosAssociados(obterQuantidadeDeTrabalhosAssociadosABancaExaminadora(bancaExaminadora));
 		bancaExaminadoraTO.setExaminadores(examinadoresTO);
 		return bancaExaminadoraTO;
 	}
 	
+	private Integer obterQuantidadeDeTrabalhosAssociadosABancaExaminadora(BancaExaminadora bancaExaminadora) {
+		return ControladorDeAvaliacao.obterQuantidadeDeTrabalhosAssociadosABancaExaminadora(bancaExaminadora);
+	}
+
 	private UsuarioTO converterPerfilDeExaminadorParaUsuarioTO(PerfilDeExaminador examinador){
 		UsuarioTO examinadorTO;
 		Usuario usuarioReferenteAoExaminador;
@@ -94,6 +102,18 @@ public class ControleAssociarTrabalhoABancaExaminadora implements AbstractContro
 		examinadorTO.setInstituicao(converterInstituicaoParaInstituicaoTO(usuarioReferenteAoExaminador.getInstituicao()));
 		
 		return examinadorTO;
+	}
+	
+	private UsuarioTO converterPerfilDeParticipanteParaUsuarioTO(PerfilDeParticipante participante){
+		UsuarioTO usuarioTO = new UsuarioTO();
+		Usuario usuario = participante.getUsuario();
+		
+		usuarioTO.setEmail(usuario.getEmail());
+		usuarioTO.setInstituicao(converterInstituicaoParaInstituicaoTO(usuario.getInstituicao()));
+		usuarioTO.setNome(usuario.getNome());
+		usuarioTO.setUltimoNome(usuario.getUltimoNome());
+		
+		return usuarioTO;
 	}
 	
 	private InstituicaoTO converterInstituicaoParaInstituicaoTO(Instituicao instituicao){
