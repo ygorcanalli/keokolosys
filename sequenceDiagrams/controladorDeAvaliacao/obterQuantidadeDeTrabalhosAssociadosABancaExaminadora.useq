@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence-diagram version="1.1.6" icons="true">  
+  <object id="1" language="java" name="controladorGRASP.ControladorDeAvaliacao" project="keokolosys" 
+    file="/keokolosys/model/controladorGRASP/ControladorDeAvaliacao.java" binary="false" label="controladorDeAvaliacao" 
+    type="class" autoSize="true">    
+    <position height="-1" width="-1" x="73" y="0"/>    
+    <execution id="2">      
+      <position height="161" width="0" x="0" y="73"/>    
+    </execution>    
+    <execution id="4">      
+      <position height="104" width="0" x="0" y="111"/>    
+    </execution>  
+  </object>  
+  <object id="7" language="java" name="dominio.BancaExaminadora" project="keokolosys" 
+    file="/keokolosys/model/dominio/BancaExaminadora.java" binary="false" label="bancaExaminadora" type="class" 
+    autoSize="true">    
+    <position height="-1" width="-1" x="259" y="0"/>    
+    <execution id="6">      
+      <position height="57" width="0" x="0" y="139"/>    
+    </execution>  
+  </object>  
+  <object id="10" language="java" name="java.util.Set" project="keokolosys" 
+    file="/usr/lib/jvm/java-8-oracle/jre/lib/rt.jar" binary="true" label="trabalhosAssociados" type="interface" 
+    autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="9">      
+      <position height="19" width="0" x="0" y="158"/>    
+    </execution>  
+  </object>  
+  <message id="3" 
+    operation="obterQuantidadeDeTrabalhosAssociadosABancaExaminadora(dominio.BancaExaminadora):java.lang.Integer">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="4"/>  
+  </message>  
+  <message id="5" operation="obterQuantidadeDeTrabalhosAssociados():java.lang.Integer">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="6"/>  
+  </message>  
+  <message id="8" operation="size():int">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="9"/>  
+  </message>
+</sequence-diagram>
