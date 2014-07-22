@@ -1,7 +1,5 @@
 package avaliacao;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -29,6 +27,8 @@ import java.awt.event.ActionEvent;
 
 public class SwingAvaliarTrabalho extends JFrame implements AbstractGUIAvaliarTrabalho{
 
+	private static final long serialVersionUID = 9137116392817320487L;
+
 	private JPanel contentPane;
 
 	private ControleAvaliarTrabalho controleAvaliarTrabalho;
@@ -37,7 +37,7 @@ public class SwingAvaliarTrabalho extends JFrame implements AbstractGUIAvaliarTr
 	private JLabel valorTitulo;
 	private JLabel valorResumoTrabalho;
 	private JLabel valorNomeArquivo;
-	private JComboBox comboBox;
+	private JComboBox<EstadoAvaliacao> comboBox;
 
 	/**
 	 * Create the frame.
@@ -135,7 +135,7 @@ public class SwingAvaliarTrabalho extends JFrame implements AbstractGUIAvaliarTr
 		
 		EstadoAvaliacao[] estados = {EstadoAvaliacao.ACEITO,EstadoAvaliacao.REJEITADO};
 		
-		comboBox = new JComboBox(estados);
+		comboBox = new JComboBox<EstadoAvaliacao>(estados);
 		GroupLayout gl_panel_2 = new GroupLayout(panel_2);
 		gl_panel_2.setHorizontalGroup(
 			gl_panel_2.createParallelGroup(Alignment.LEADING)

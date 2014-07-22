@@ -1,6 +1,5 @@
 package cadastro;
 
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
 
