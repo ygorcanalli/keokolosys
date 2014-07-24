@@ -6,6 +6,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import java.awt.event.ActionEvent;
@@ -69,6 +70,11 @@ public class SwingAdministradorHome extends JFrame implements AbstractGUIAdminis
 	private JButton btnCancelarEvento;
 	private JPanel panel_4;
 	private JButton btnDeslogar;
+	private JTextField textSenhaAntiga;
+	private JTextField textNovaSenha;
+	private JLabel lblSenhaAntiga;
+	private JLabel lblSenhaNova;
+	private JButton btnAlterarSenha;
 	
 	
 	@Override
@@ -234,6 +240,13 @@ public class SwingAdministradorHome extends JFrame implements AbstractGUIAdminis
 	private void acaoDeslogar()
 	{
 		controleAdministradorHome.acaoDeslogar();
+	}
+	
+	private void acaoTrocarSenha()
+	{
+		controleAdministradorHome.AlterarSenha(textSenhaAntiga.getText(), textNovaSenha.getText());
+		textSenhaAntiga.setText("");
+		textNovaSenha.setText("");
 	}
 	
 	@Override
@@ -691,6 +704,34 @@ public class SwingAdministradorHome extends JFrame implements AbstractGUIAdminis
 		btnDeslogar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				acaoDeslogar();
+			}
+		});
+		
+		textSenhaAntiga = new JPasswordField();
+		textSenhaAntiga.setBounds(57, 66, 123, 20);
+		panel_4.add(textSenhaAntiga);
+		textSenhaAntiga.setColumns(10);
+		
+		textNovaSenha = new JPasswordField();
+		textNovaSenha.setBounds(57, 127, 123, 20);
+		panel_4.add(textNovaSenha);
+		textNovaSenha.setColumns(10);
+		
+		lblSenhaAntiga = new JLabel("Senha antiga:");
+		lblSenhaAntiga.setBounds(57, 41, 100, 14);
+		panel_4.add(lblSenhaAntiga);
+		
+		lblSenhaNova = new JLabel("Senha nova:");
+		lblSenhaNova.setBounds(59, 108, 98, 14);
+		panel_4.add(lblSenhaNova);
+		
+		btnAlterarSenha = new JButton("Alterar Senha");
+		btnAlterarSenha.setBounds(57, 188, 89, 23);
+		panel_4.add(btnAlterarSenha);
+		
+		btnAlterarSenha.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				acaoTrocarSenha();
 			}
 		});
 		

@@ -7,6 +7,7 @@ import catalago.CatalagoDeEventos;
 import controladorGRASP.ControladorAdministrativo;
 import controladorGRASP.ControladorDeCadastro;
 import controladorGRASP.ControladorDeParticipacao;
+import dominio.Administrador;
 import dominio.Evento;
 import dominio.Instituicao;
 import dominio.Usuario;
@@ -377,6 +378,28 @@ public class ControleAdministradorHome implements AbstractControle{
 		}
 		catch (ExcecaoDeCadastro e){
 			viewAdministradorHome.exibirMensagemDeErro(e.getMessage(), "");
+		}
+	}
+	
+	public void AlterarSenha(String senhaAntiga, String senhaNova)
+	{
+		Administrador adminLogado = Sessao.getAdminLogado();
+
+		if(adminLogado.realizarAutenticacao(senhaAntiga))
+		{
+			try
+			{
+				adminLogado.atualizarDados(adminLogado.getEmail(), senhaNova);
+				viewAdministradorHome.exibirMensagemDeAviso("Sua senha foi alterada com sucesso!", "Sucesso");
+			}
+			catch(ExcecaoDeCadastro e)
+			{
+				viewAdministradorHome.exibirMensagemDeErro(e.getMessage(), "");
+			}
+		}
+		else
+		{
+			viewAdministradorHome.exibirMensagemDeErro("Senha Incorreta!", "Erro");
 		}
 	}
 	

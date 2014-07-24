@@ -78,7 +78,10 @@ public class ControleLogin implements AbstractControle{
 				viewLogin.exibirMensagemDeInformacao("Seja bem vindo: " + usuario.getNomeCompleto() + "!", "");
 			}
 			else{
-				viewLogin.exibirMensagemDeInformacao("Seja bem vindo!", "");
+				Administrador admin = (Administrador) autenticado;
+				
+				Sessao.iniciarSessaoDeAdministrador(admin);
+				viewLogin.exibirMensagemDeInformacao("Seja bem vindo, Administrador!", "");
 			}
 			
 			AbstractControle calling = obterCalling(autenticado);
