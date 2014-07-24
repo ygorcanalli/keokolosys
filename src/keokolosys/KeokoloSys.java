@@ -45,6 +45,7 @@ public class KeokoloSys {
 
 		Evento eventoPrimeiro = ControladorDeCadastro.criarEvento("Primeira Apresentacao de Projeto de Sistemas", ufrrj, chair, new Date(2014, 07, 01), new Date(2014,07,02), new Date(2014,8,01), new Date(2014,8,02));
 		Evento eventoFinal = ControladorDeCadastro.criarEvento("Apresentacao Final de Projeto de Sistemas", ufrrj, chair, new Date(2014, 07, 01), new Date(2014,07,02), new Date(2014,8,01), new Date(2014,8,02));
+		Evento teste = ControladorDeCadastro.criarEvento("Evento Teste para Aprovar", ufrrj, chair, new Date(2014, 07, 01), new Date(2014,07,02), new Date(2014,8,01), new Date(2014,8,02));
 		CatalagoDeEventos.obterInstancia().deferirEvento(eventoPrimeiro);
 		CatalagoDeEventos.obterInstancia().deferirEvento(eventoFinal);
 		
@@ -63,6 +64,7 @@ public class KeokoloSys {
 		BancaExaminadora bancaExaminadora = eventoPrimeiro.criarBancaExaminadora(examinadores);	
 		
 		eventoPrimeiro.inscreverParticipante(participante);	
+		teste.inscreverParticipante(participante);
 		PerfilDeParticipante perfilParticipante = (PerfilDeParticipante) participante.obterPerfilDe(eventoPrimeiro, PerfilDeParticipante.class);
 		Trabalho trabalho = ControladorDeParticipacao.subtmeterTrabalho(eventoPrimeiro, perfilParticipante, "KeokoloSys 1.0",  "Eventos cientificos", "Tony Stark", "/home/stark/ironMan.pdf");
 

@@ -2,6 +2,7 @@ package administrativo;
 
 import java.util.Collection;
 
+import transferobject.EventoTO;
 import transferobject.InstituicaoTO;
 import util.AbstractGUI;
 
@@ -11,6 +12,8 @@ public interface AbstractGUIAdministradorHome extends AbstractGUI {
 	public void atualizarListaDeInstituicoes(Collection<InstituicaoTO> instituicoes);
 	public InstituicaoTO obterDadosDaInstituicaoPreenchida();
 	public InstituicaoTO obterInstituicaoSelecionada();
+	public EventoTO obterEventoAguardandoAvaliacaoSelecionado();
+	public EventoTO obterEventoDeferidoSelecionado();
 	public void definirSelecaoInstituicao(InstituicaoTO instituicao);
 	public void removerSelecaoInstituicao();
 	public void habilitarAcaoSelecionarInstituicao();
@@ -29,4 +32,6 @@ public interface AbstractGUIAdministradorHome extends AbstractGUI {
 	public void desabilitarAcaoCancelarInstituicao();
 	public void limparFormularioInstituicao();
 	public void exibirInstituicao(InstituicaoTO instituicao);
+	public void atualizarListaDeEventosParaDeferir(Collection<EventoTO> eventos);
+	public void atualizarListaDeEventosParaCancelar(Collection<EventoTO> eventos);
 }

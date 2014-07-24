@@ -3,6 +3,7 @@ package dominio;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -157,6 +158,9 @@ public class Evento{
     	Class<PerfilDeParticipante> tipoPerfil = PerfilDeParticipante.class;
     	Collection<Perfil> perfisDoTipoPerfil = perfis.get(tipoPerfil.getName());
     	Collection<PerfilDeParticipante> perfisDeParticipante = new ArrayList<PerfilDeParticipante>();
+    	
+    	if(perfisDoTipoPerfil == null)
+    		return Collections.<PerfilDeParticipante>emptyList();
     	
     	for (Perfil perfil : perfisDoTipoPerfil) {
 			perfisDeParticipante.add((PerfilDeParticipante) perfil);

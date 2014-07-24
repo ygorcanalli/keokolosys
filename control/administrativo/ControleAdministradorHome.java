@@ -3,13 +3,21 @@ package administrativo;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import catalago.CatalagoDeEventos;
+import controladorGRASP.ControladorAdministrativo;
 import controladorGRASP.ControladorDeCadastro;
+import controladorGRASP.ControladorDeParticipacao;
+import dominio.Evento;
 import dominio.Instituicao;
+import dominio.Usuario;
 import excecao.ExcecaoDeCadastro;
 import administrativo.AbstractGUIAdministradorHome;
 import administrativo.SwingAdministradorHome;
+import transferobject.EventoTO;
 import transferobject.InstituicaoTO;
+import transferobject.UsuarioTO;
 import util.AbstractControle;
+import util.Sessao;
 
 public class ControleAdministradorHome implements AbstractControle{
 
@@ -26,6 +34,7 @@ public class ControleAdministradorHome implements AbstractControle{
 		viewAdministradorHome.inicializar();
 		
 		inicializarCadastroDeInstituicoes();
+		inicializarAbasDeEvento();
 		tornarGUIVisivel();
 	}
 	
@@ -67,6 +76,12 @@ public class ControleAdministradorHome implements AbstractControle{
 		atualizarListaDeInstituicoes();
 	}
 	
+	private void inicializarAbasDeEvento()
+	{
+		atualizarListaDeEventosParaDeferir();
+		atualizarListaDeEventosParaCancelar();
+	}
+	
 	private void cadastrarInstituicao(String nome, String sigla, String localizacao) throws ExcecaoDeCadastro{
 		ControladorDeCadastro.criarInstituicao(nome, sigla, localizacao);
 		atualizarListaDeInstituicoes();
@@ -104,6 +119,15 @@ public class ControleAdministradorHome implements AbstractControle{
 		viewAdministradorHome.atualizarListaDeInstituicoes(obterInstituicoes());
 	}
 	
+	public void atualizarListaDeEventosParaDeferir()
+	{
+		viewAdministradorHome.atualizarListaDeEventosParaDeferir(obterEventosAguardandoAprovacao());
+	}
+	
+	public void atualizarListaDeEventosParaCancelar()
+	{
+		viewAdministradorHome.atualizarListaDeEventosParaCancelar(obterEventosDeferidos());
+	}
 	
 	private Collection<InstituicaoTO> obterInstituicoes(){
 		Collection<Instituicao> instituicoes = ControladorDeCadastro.obterTodasInstituicoes();
@@ -116,6 +140,52 @@ public class ControleAdministradorHome implements AbstractControle{
 		}
 		
 		return instituicoesTO;
+	}
+	
+	private Collection<EventoTO> obterEventosAguardandoAprovacao(){
+		Collection<Evento> eventos = ControladorDeCadastro.obterTodosEventosAguardandoAprovacao();
+		Collection<EventoTO> eventosTO = new ArrayList<EventoTO>();
+		EventoTO eventoTO;
+		
+		for (Evento evento : eventos) {
+			Instituicao instituicao = evento.getInstituicao();
+			InstituicaoTO instTO = new InstituicaoTO(instituicao.getNome(), instituicao.getSigla(), instituicao.getLocalizacao());
+			
+			Usuario resp = evento.getUsuarioResponsavel();
+			Instituicao instituicaoResp = resp.getInstituicao();
+			InstituicaoTO instituicaoRespTO = new InstituicaoTO(instituicaoResp.getNome(), instituicaoResp.getSigla(), instituicaoResp.getLocalizacao());
+			
+			UsuarioTO respTO = new UsuarioTO(resp.getEmail(),resp.getNome(), resp.getUltimoNome(), instituicaoRespTO);
+			eventoTO = new EventoTO(evento.getNome(), instTO, respTO,evento.getDataMaximaParaSubmissaoDeTrabalhos(), 
+					evento.getDataMaximaParaAceitacaoDeTrabalhos(),evento.getDataDeInicio(), evento.getDataDeFim(), evento.obterParticipantes() == null ? 0 : evento.obterParticipantes().size());
+			
+			eventosTO.add(eventoTO);
+		}
+		
+		return eventosTO;
+	}
+	
+	private Collection<EventoTO> obterEventosDeferidos(){
+		Collection<Evento> eventos = ControladorDeCadastro.obterTodosEventosDeferidos();
+		Collection<EventoTO> eventosTO = new ArrayList<EventoTO>();
+		EventoTO eventoTO;
+		
+		for (Evento evento : eventos) {
+			Instituicao instituicao = evento.getInstituicao();
+			InstituicaoTO instTO = new InstituicaoTO(instituicao.getNome(), instituicao.getSigla(), instituicao.getLocalizacao());
+			
+			Usuario resp = evento.getUsuarioResponsavel();
+			Instituicao instituicaoResp = resp.getInstituicao();
+			InstituicaoTO instituicaoRespTO = new InstituicaoTO(instituicaoResp.getNome(), instituicaoResp.getSigla(), instituicaoResp.getLocalizacao());
+			
+			UsuarioTO respTO = new UsuarioTO(resp.getEmail(),resp.getNome(), resp.getUltimoNome(), instituicaoRespTO);
+			eventoTO = new EventoTO(evento.getNome(), instTO, respTO,evento.getDataMaximaParaSubmissaoDeTrabalhos(), 
+					evento.getDataMaximaParaAceitacaoDeTrabalhos(),evento.getDataDeInicio(), evento.getDataDeFim(), evento.obterParticipantes() == null ? 0 : evento.obterParticipantes().size());
+			
+			eventosTO.add(eventoTO);
+		}
+		
+		return eventosTO;
 	}
 	
 	
@@ -250,7 +320,74 @@ public class ControleAdministradorHome implements AbstractControle{
 		}		
 	}
 	
+	public void acaoDeferirEvento(){
+		EventoTO eventoTO = viewAdministradorHome.obterEventoAguardandoAvaliacaoSelecionado();
+		
+		try{
+			int confirmacao = viewAdministradorHome.exibirMensagemDeConfirmacao("Deseja deferir o evento?", "Aviso", null, null);
+			if(confirmacao == 0)
+			{
+				Evento evento = CatalagoDeEventos.obterInstancia().obterEventoPorNome(eventoTO.getNome());
+				ControladorAdministrativo.deferirEvento(evento);
+				viewAdministradorHome.exibirMensagemDeAviso("Evento deferido com sucesso!", "Sucesso");
+				
+				atualizarListaDeEventosParaDeferir();
+				atualizarListaDeEventosParaCancelar();
+			}
+		}
+		catch (ExcecaoDeCadastro e){
+			viewAdministradorHome.exibirMensagemDeErro(e.getMessage(), "");
+		}
+	}
+	
+	public void acaoIndeferirEvento(){
+		EventoTO eventoTO = viewAdministradorHome.obterEventoAguardandoAvaliacaoSelecionado();
+		
+		try{
+			int confirmacao = viewAdministradorHome.exibirMensagemDeConfirmacao("Deseja indeferir o evento?", "Aviso", null, null);
+			if(confirmacao == 0)
+			{
+				Evento evento = CatalagoDeEventos.obterInstancia().obterEventoPorNome(eventoTO.getNome());
+				ControladorAdministrativo.indeferirEvento(evento);
+				viewAdministradorHome.exibirMensagemDeAviso("Evento indeferido com sucesso!", "Sucesso");
+				
+				atualizarListaDeEventosParaDeferir();
+				atualizarListaDeEventosParaCancelar();
+			}
+		}
+		catch (ExcecaoDeCadastro e){
+			viewAdministradorHome.exibirMensagemDeErro(e.getMessage(), "");
+		}
+	}
+	
+	public void acaoCancelarEvento(){
+		EventoTO eventoTO = viewAdministradorHome.obterEventoDeferidoSelecionado();
+		
+		try{
+			int confirmacao = viewAdministradorHome.exibirMensagemDeConfirmacao("Deseja cancelar o evento?", "Aviso", null, null);
+			if(confirmacao == 0)
+			{
+				Evento evento = CatalagoDeEventos.obterInstancia().obterEventoPorNome(eventoTO.getNome());
+				ControladorAdministrativo.cancelarEvento(evento);
+				viewAdministradorHome.exibirMensagemDeAviso("Evento cancelado com sucesso!", "Sucesso");
+				
+				atualizarListaDeEventosParaDeferir();
+				atualizarListaDeEventosParaCancelar();
+			}
+		}
+		catch (ExcecaoDeCadastro e){
+			viewAdministradorHome.exibirMensagemDeErro(e.getMessage(), "");
+		}
+	}
+	
 	public void fechar(){
+		encerrarGUI();
+	}
+	
+	public void acaoDeslogar() {
+		Sessao.encerrarSessao();
+		caller.desbloquearGUI();
+		caller.tornarGUIVisivel();
 		encerrarGUI();
 	}
 

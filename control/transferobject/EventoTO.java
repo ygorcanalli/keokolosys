@@ -14,13 +14,14 @@ public class EventoTO {
     private Date dataDeInicio;
     private Date dataDeFim;
     private EnumEstadoEvento estado;
+    private Integer quantidadeDeInscritos;
     
     
     public EventoTO(){
     	
     }
      
-	public EventoTO(String nome, InstituicaoTO instituicao, UsuarioTO usuarioResponsavel, Date dataMaximaParaSubmissaoDeTrabalhos, Date dataMaximaParaAceitacaoDeTrabalhos, Date dataDeInicio, Date dataDeFim) {
+	public EventoTO(String nome, InstituicaoTO instituicao, UsuarioTO usuarioResponsavel, Date dataMaximaParaSubmissaoDeTrabalhos, Date dataMaximaParaAceitacaoDeTrabalhos, Date dataDeInicio, Date dataDeFim, Integer quantidadeDeInscritos) {
 		
 		this.nome = nome;
 		this.instituicao = instituicao;
@@ -29,6 +30,7 @@ public class EventoTO {
 		this.dataMaximaParaAceitacaoDeTrabalhos = dataMaximaParaAceitacaoDeTrabalhos;
 		this.dataDeInicio = dataDeInicio;
 		this.dataDeFim = dataDeFim;
+		this.quantidadeDeInscritos = quantidadeDeInscritos;
 	}
 
 
@@ -47,6 +49,9 @@ public class EventoTO {
 	}
 	public UsuarioTO getUsuarioResponsavel() {
 		return usuarioResponsavel;
+	}
+	public Integer getQuantidadeDeInscritos(){
+		return quantidadeDeInscritos;
 	}
 	public void setUsuarioResponsavel(UsuarioTO usuarioResponsavel) {
 		this.usuarioResponsavel = usuarioResponsavel;

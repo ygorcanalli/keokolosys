@@ -12,6 +12,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
 
 import javax.swing.JPanel;
@@ -19,19 +21,19 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
 
+import transferobject.EventoTO;
 import transferobject.InstituicaoTO;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 
 import javax.swing.JTabbedPane;
+import javax.swing.JTable;
 
 public class SwingAdministradorHome extends JFrame implements AbstractGUIAdministradorHome
 {
-	
-
-
 	private static final long serialVersionUID = 7379748951410562202L;
 	private JPanel contentPane,panelConteudo;
 	
@@ -53,9 +55,20 @@ public class SwingAdministradorHome extends JFrame implements AbstractGUIAdminis
 	private JButton btnCancelar; 
 	
 	private InstituicaoTO[] instituicoes;
+	private EventoTO[] eventosAguardandoAprovacao;
+	private EventoTO[] eventosDeferidos;
 	private JTabbedPane tabbedPane;
 	private JPanel defirirIndefirirEventosPanel;
 	private JPanel panel_3;
+	private JTable tableDeferirIndeferir;
+	private JTable tableEventosDeferidos;
+	private JButton btnIndeferirEvento;
+	private JButton btnDeferirEvento;
+	private DefaultTableModel defaultTableModel1;
+	private DefaultTableModel defaultTableModel2;
+	private JButton btnCancelarEvento;
+	private JPanel panel_4;
+	private JButton btnDeslogar;
 	
 	
 	@Override
@@ -74,6 +87,45 @@ public class SwingAdministradorHome extends JFrame implements AbstractGUIAdminis
 			this.comboBoxInstituicao.addItem(instituicaoExibicao);
 		}		
 	}
+	
+	@Override
+	public void atualizarListaDeEventosParaDeferir(Collection<EventoTO> eventos) {
+		int i = 0;
+		this.eventosAguardandoAprovacao = new EventoTO[eventos.size()];
+		
+		int rowCount = defaultTableModel1.getRowCount();
+		for(int j = 0; j < rowCount; j++)
+			this.defaultTableModel1.removeRow(0);
+		
+		this.tableDeferirIndeferir.repaint();
+		
+		for(EventoTO evento : eventos)
+		{
+			this.eventosAguardandoAprovacao[i] = evento;i++;
+			DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+			defaultTableModel1.addRow(new Object[] {evento.getNome(), evento.getQuantidadeDeInscritos(),df.format(evento.getDataDeInicio())});
+		}
+	}
+	
+	@Override
+	public void atualizarListaDeEventosParaCancelar(Collection<EventoTO> eventos) {
+		int i = 0;
+		this.eventosDeferidos = new EventoTO[eventos.size()];
+		
+		int rowCount = defaultTableModel2.getRowCount();
+		for(int j = 0; j < rowCount; j++)
+			this.defaultTableModel2.removeRow(0);
+		
+		this.tableEventosDeferidos.repaint();
+		
+		for(EventoTO evento : eventos)
+		{
+			this.eventosDeferidos[i] = evento;i++;
+			DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+			defaultTableModel2.addRow(new Object[] {evento.getNome(), evento.getQuantidadeDeInscritos(),df.format(evento.getDataDeInicio())});
+		}
+		
+	}
 
 	@Override
 	public InstituicaoTO obterDadosDaInstituicaoPreenchida(){
@@ -90,6 +142,17 @@ public class SwingAdministradorHome extends JFrame implements AbstractGUIAdminis
 		return capturarInstituicao();
 	}
 	
+
+	@Override
+	public EventoTO obterEventoAguardandoAvaliacaoSelecionado() {
+		return capturarEventoAguardandoAprovacao();
+	}
+	
+	@Override
+	public EventoTO obterEventoDeferidoSelecionado() {
+		return capturarEventoDeferido();
+	}
+	
 	@Override
 	public void exibirInstituicao(InstituicaoTO instituicao) {
 		this.textFieldNomeInstituicao.setText(instituicao.getNome());
@@ -103,6 +166,24 @@ public class SwingAdministradorHome extends JFrame implements AbstractGUIAdminis
 		
 		if(i >= 0)
 			return instituicoes[i];
+		else
+			return null;
+	}
+	
+	private EventoTO capturarEventoAguardandoAprovacao(){
+		int i = tableDeferirIndeferir.getSelectedRow();
+		
+		if(i >= 0)
+			return eventosAguardandoAprovacao[i];
+		else
+			return null;
+	}
+	
+	private EventoTO capturarEventoDeferido(){
+		int i = tableEventosDeferidos.getSelectedRow();
+		
+		if(i >= 0)
+			return eventosDeferidos[i];
 		else
 			return null;
 	}
@@ -133,6 +214,26 @@ public class SwingAdministradorHome extends JFrame implements AbstractGUIAdminis
 	
 	private void acaoAtualizarInstituicao(){
 		controleAdministradorHome.acaoAtualizarInstituicao();
+	}
+	
+	private void acaoDeferirEvento()
+	{
+		controleAdministradorHome.acaoDeferirEvento();
+	}
+	
+	private void acaoIndeferirEvento()
+	{
+		controleAdministradorHome.acaoIndeferirEvento();
+	}
+	
+	private void acaoCancelarEvento()
+	{
+		controleAdministradorHome.acaoCancelarEvento();
+	}
+	
+	private void acaoDeslogar()
+	{
+		controleAdministradorHome.acaoDeslogar();
 	}
 	
 	@Override
@@ -495,9 +596,104 @@ public class SwingAdministradorHome extends JFrame implements AbstractGUIAdminis
 		
 		defirirIndefirirEventosPanel = new JPanel();
 		tabbedPane.addTab("Deferir/Inderir eventos", null, defirirIndefirirEventosPanel, null);
+		defirirIndefirirEventosPanel.setLayout(null);
+		
+		defaultTableModel1 = new DefaultTableModel(new Object[][] {},new String[] {"Nome do Evento", "Quantidade de Inscritos", "Data de Inicio"})
+		{
+		    public boolean isCellEditable(int row, int column)
+		    {
+		      return false;
+		    }
+		 };
+		tableDeferirIndeferir = new JTable(defaultTableModel1);
+		tableDeferirIndeferir.setBounds(10, 40, 534, 257);
+		tableDeferirIndeferir.getColumnModel().getColumn(1).setMaxWidth(50);
+		defirirIndefirirEventosPanel.add(tableDeferirIndeferir);
+		
+		btnIndeferirEvento = new JButton("Indeferir Evento");
+		btnIndeferirEvento.setBounds(413, 323, 131, 23);
+		defirirIndefirirEventosPanel.add(btnIndeferirEvento);
+		
+		btnDeferirEvento = new JButton("Deferir Evento");
+		btnDeferirEvento.setBounds(266, 323, 138, 23);
+		defirirIndefirirEventosPanel.add(btnDeferirEvento);
+		
+		btnDeferirEvento.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				acaoDeferirEvento();
+			}
+		});
+		
+		btnIndeferirEvento.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				acaoIndeferirEvento();
+			}
+		});
+		
+		JLabel lblNomeDoEvento = new JLabel("Nome do Evento");
+		lblNomeDoEvento.setBounds(10, 11, 131, 14);
+		defirirIndefirirEventosPanel.add(lblNomeDoEvento);
+		
+		JLabel lblQuantidadeDeInscritos = new JLabel("Quantidade de Inscritos");
+		lblQuantidadeDeInscritos.setBounds(212, 11, 138, 14);
+		defirirIndefirirEventosPanel.add(lblQuantidadeDeInscritos);
+		
+		JLabel lblDataDeInicio = new JLabel("Data de Inicio");
+		lblDataDeInicio.setBounds(404, 11, 103, 14);
+		defirirIndefirirEventosPanel.add(lblDataDeInicio);
 		
 		panel_3 = new JPanel();
 		tabbedPane.addTab("Cancelar Evento", null, panel_3, null);
+		panel_3.setLayout(null);
+		
+		defaultTableModel2 = new DefaultTableModel(new Object[][] {},new String[] {"Nome do Evento", "Quantidade de Inscritos", "Data de Inicio"})
+		{
+		    public boolean isCellEditable(int row, int column)
+		    {
+		      return false;
+		    }
+		 };
+		tableEventosDeferidos = new JTable(defaultTableModel2);
+		tableEventosDeferidos.setBounds(10, 41, 534, 257);
+		tableEventosDeferidos.getColumnModel().getColumn(1).setMaxWidth(50);
+		panel_3.add(tableEventosDeferidos);
+		
+		JLabel label = new JLabel("Nome do Evento");
+		label.setBounds(20, 11, 131, 14);
+		panel_3.add(label);
+		
+		JLabel label_1 = new JLabel("Quantidade de Inscritos");
+		label_1.setBounds(222, 11, 138, 14);
+		panel_3.add(label_1);
+		
+		JLabel label_2 = new JLabel("Data de Inicio");
+		label_2.setBounds(414, 11, 103, 14);
+		panel_3.add(label_2);
+		
+		btnCancelarEvento = new JButton("Cancelar Evento");
+		btnCancelarEvento.setBounds(384, 323, 160, 23);
+		panel_3.add(btnCancelarEvento);
+		
+		btnCancelarEvento.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				acaoCancelarEvento();
+			}
+		});
+		
+		panel_4 = new JPanel();
+		tabbedPane.addTab("Perfil", null, panel_4, null);
+		panel_4.setLayout(null);
+		
+		btnDeslogar = new JButton("Deslogar");
+		btnDeslogar.setBounds(421, 26, 123, 23);
+		panel_4.add(btnDeslogar);
+		
+		btnDeslogar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				acaoDeslogar();
+			}
+		});
+		
 		
 		this.addWindowListener(new WindowAdapter() {
 			@Override
