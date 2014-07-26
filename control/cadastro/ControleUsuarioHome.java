@@ -377,4 +377,10 @@ public class ControleUsuarioHome implements AbstractControle{
 		deslogar();
 	}
 
+	public void atualizarUsuario() {
+		bloquearGUI();
+		AbstractControle atualizarUsuario = new ControleAtualizarUsuario(this);
+		atualizarUsuario.inicializarGUI();
+	}
+
 }

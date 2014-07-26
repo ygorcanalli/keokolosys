@@ -55,6 +55,8 @@ public class SwingUsuarioHome extends JFrame implements AbstractGUIUsuarioHome {
 
 	JTabbedPane tabbedPane;
 	
+	private JButton btnAtualizarUsuario;
+	
 	private static final int ABA_EVENTOS_DISPONIVEIS = 0;
 	private static final int ABA_PARTICIPACAO = 1;
 	private static final int ABA_EXAMES = 2;
@@ -289,20 +291,31 @@ public class SwingUsuarioHome extends JFrame implements AbstractGUIUsuarioHome {
 		
 		JButton btnDeslogar = new JButton("Deslogar");
 		btnDeslogar.addMouseListener(mouseAdapterDeslogar);
+		
+		btnAtualizarUsuario = new JButton("Atualizar usuario");
+		btnAtualizarUsuario.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				atualizarUsuario();
+			}
+		});
 		GroupLayout gl_panePerfil = new GroupLayout(panePerfil);
 		gl_panePerfil.setHorizontalGroup(
-			gl_panePerfil.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_panePerfil.createSequentialGroup()
-					.addContainerGap(664, Short.MAX_VALUE)
-					.addComponent(btnDeslogar)
-					.addContainerGap())
+			gl_panePerfil.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_panePerfil.createSequentialGroup()
+					.addContainerGap(619, Short.MAX_VALUE)
+					.addGroup(gl_panePerfil.createParallelGroup(Alignment.LEADING, false)
+						.addComponent(btnDeslogar, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(btnAtualizarUsuario, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addGap(20))
 		);
 		gl_panePerfil.setVerticalGroup(
 			gl_panePerfil.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panePerfil.createSequentialGroup()
-					.addContainerGap()
+					.addGap(25)
+					.addComponent(btnAtualizarUsuario)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(btnDeslogar)
-					.addContainerGap(496, Short.MAX_VALUE))
+					.addContainerGap(458, Short.MAX_VALUE))
 		);
 		panePerfil.setLayout(gl_panePerfil);
 		
@@ -400,6 +413,10 @@ public class SwingUsuarioHome extends JFrame implements AbstractGUIUsuarioHome {
 		  }
 	};
 
+	private void atualizarUsuario(){
+		controleUsuarioHome.atualizarUsuario();
+	}
+	
 	@Override
 	public void exibirMensagemDeErro(String mensagem, String titulo){
 		JOptionPane.showMessageDialog(this, mensagem, titulo, JOptionPane.ERROR_MESSAGE);
