@@ -82,6 +82,11 @@ public class SwingAdministradorHome extends JFrame implements AbstractGUIAdminis
 	private JLabel lblSenhaAntiga;
 	private JLabel lblSenhaNova;
 	private JButton btnAlterarSenha;
+	private JPanel panelCriacaoAdmin;
+	private JTextField textEmail;
+	private JPasswordField senhaNovoAdmin;
+	private JLabel lblSenha;
+	private JButton btnCriarAdmin;
 	
 	
 	@Override
@@ -289,6 +294,12 @@ public class SwingAdministradorHome extends JFrame implements AbstractGUIAdminis
 	
 	private void acaoConcederPrivilegio() {
 		controleAdministradorHome.ConcederPrivilegioDeAdministrador();
+	}
+	
+	private void acaoCriarAdministrador(){
+		controleAdministradorHome.CriarAdministrador(textEmail.getText(), senhaNovoAdmin.getText());
+		textEmail.setText("");
+		senhaNovoAdmin.setText("");
 	}
 	
 	@Override
@@ -815,6 +826,39 @@ public class SwingAdministradorHome extends JFrame implements AbstractGUIAdminis
 			}
 		});
 		
+		panelCriacaoAdmin = new JPanel();
+		panelCriacaoAdmin.setBounds(10, 177, 534, 169);
+		panelCriacaoAdmin.setBorder(BorderFactory.createTitledBorder("Criação de Administrador"));
+		panel_5.add(panelCriacaoAdmin);
+		panelCriacaoAdmin.setLayout(null);
+		
+		textEmail = new JTextField();
+		textEmail.setBounds(155, 53, 251, 20);
+		panelCriacaoAdmin.add(textEmail);
+		textEmail.setColumns(10);
+		
+		JLabel lblEmail = new JLabel("Email");
+		lblEmail.setBounds(155, 28, 223, 14);
+		panelCriacaoAdmin.add(lblEmail);
+		
+		senhaNovoAdmin = new JPasswordField();
+		senhaNovoAdmin.setBounds(155, 103, 251, 20);
+		panelCriacaoAdmin.add(senhaNovoAdmin);
+		
+		lblSenha = new JLabel("Senha");
+		lblSenha.setBounds(155, 84, 46, 14);
+		panelCriacaoAdmin.add(lblSenha);
+		
+		btnCriarAdmin = new JButton("Criar");
+		btnCriarAdmin.setBounds(235, 134, 89, 23);
+		panelCriacaoAdmin.add(btnCriarAdmin);
+		
+		btnCriarAdmin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				acaoCriarAdministrador();
+			}
+		});
+		
 		
 		this.addWindowListener(new WindowAdapter() {
 			@Override
@@ -823,5 +867,4 @@ public class SwingAdministradorHome extends JFrame implements AbstractGUIAdminis
 			}
 		});
 	}
-
 }

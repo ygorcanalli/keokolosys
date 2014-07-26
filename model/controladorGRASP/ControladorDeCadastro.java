@@ -98,4 +98,8 @@ public final class ControladorDeCadastro {
 	public static Autenticavel entrarNoSistema(String email, String senha) throws ExcecaoDeCadastro{
 		return Pessoal.obterInstancia().entrarNoSistema(email, senha);
 	}
+	
+	public static void validarEmail(String email) throws ExcecaoDeCadastro{
+		Pessoal.obterInstancia().autenticavelExiste(email);
+	}
 }

@@ -108,6 +108,11 @@ public class Pessoal {
 		return usuario;
 	}
 	
+	public void autenticavelExiste(String email) throws ExcecaoDeCadastro
+	{
+		validarEmailComoUnico(email);
+	}
+	
 	public Collection<Usuario> obterUsuarios(){
 		Class<Usuario> tipoUsuario = Usuario.class;
 		Collection<Usuario> usuarios = new ArrayList<Usuario>();

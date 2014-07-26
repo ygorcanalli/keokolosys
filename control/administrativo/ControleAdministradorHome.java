@@ -443,6 +443,20 @@ public class ControleAdministradorHome implements AbstractControle{
 		}
 	}
 	
+	public void CriarAdministrador(String email, String senha){
+		try 
+		{
+			ControladorDeCadastro.validarEmail(email);
+			ControladorDeCadastro.criarAdministrador(email, senha);
+			
+			viewAdministradorHome.exibirMensagemDeAviso("Administrador criado com sucesso!", "Sucesso");
+		} 
+		catch (ExcecaoDeCadastro e) 
+		{
+			viewAdministradorHome.exibirMensagemDeErro(e.getMessage(), "Erro");
+		}
+	}
+	
 	public void fechar(){
 		encerrarGUI();
 	}
