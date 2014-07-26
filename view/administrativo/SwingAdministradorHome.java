@@ -1,5 +1,6 @@
 package administrativo;
 
+import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -27,6 +28,7 @@ import javax.swing.table.DefaultTableModel;
 import transferobject.AdministradorTO;
 import transferobject.EventoTO;
 import transferobject.InstituicaoTO;
+import transferobject.UsuarioTO;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -42,6 +44,7 @@ public class SwingAdministradorHome extends JFrame implements AbstractGUIAdminis
 	private ControleAdministradorHome controleAdministradorHome;
 	
 	private JComboBox<String> comboBoxInstituicao;
+	private JComboBox<String> comboBoxUsuarioConcede;
 	
 	private JTextField textFieldNomeInstituicao;
 	private JTextField textFieldLocalizacao;
@@ -59,6 +62,8 @@ public class SwingAdministradorHome extends JFrame implements AbstractGUIAdminis
 	private InstituicaoTO[] instituicoes;
 	private EventoTO[] eventosAguardandoAprovacao;
 	private EventoTO[] eventosDeferidos;
+	private UsuarioTO[] usuariosDoSistema;
+	
 	private JTabbedPane tabbedPane;
 	private JPanel defirirIndefirirEventosPanel;
 	private JPanel panel_3;
@@ -71,13 +76,17 @@ public class SwingAdministradorHome extends JFrame implements AbstractGUIAdminis
 	private JButton btnCancelarEvento;
 	private JPanel panel_4;
 	private JButton btnDeslogar;
-	private JPasswordField passwordField;
-	private JPasswordField passwordField_1;
-	private JPanel panel_6;
-	private JTextField textFieldEmailNovoAdministrador;
+	private JPasswordField passwordFieldSenhaAntigaAdministrador;
+	private JPasswordField passwordFieldNovaSenhaAdministrador;
 	private JLabel lblSenha;
-	private JPasswordField passwordFieldSenhaNovoAdministrador;
-	private JPasswordField passwordFieldConfirmacaoSenhaNovoAdministrador;
+	private JLabel lblSenhaAntiga;
+	private JLabel lblSenhaNova;
+	private JButton btnAlterarSenha;
+	private JPanel panelCriacaoAdmin;
+	private JTextField textFieldEmailNovoAdministrador;
+	private JPasswordField senhaNovoAdmin;
+	private JButton btnCriarAdmin;
+	private JPasswordField passwordFieldConfirmacaoSenha;
 	
 	
 	@Override
@@ -137,6 +146,23 @@ public class SwingAdministradorHome extends JFrame implements AbstractGUIAdminis
 	}
 
 	@Override
+	public void atualizarListaDeUsuarios(Collection<UsuarioTO> usuarios) {
+		int i = 0;
+		this.usuariosDoSistema = new UsuarioTO[usuarios.size()];
+		
+		comboBoxUsuarioConcede.removeAllItems();
+		comboBoxUsuarioConcede.repaint();
+		
+		for(UsuarioTO usuario : usuarios)
+		{
+			this.usuariosDoSistema[i] = usuario; i++;
+			
+			String nomeEmail = usuario.getNome() + " " + usuario.getUltimoNome() + " - " + usuario.getEmail();
+			comboBoxUsuarioConcede.addItem(nomeEmail);
+		}
+	}
+
+	@Override
 	public InstituicaoTO obterDadosDaInstituicaoPreenchida(){
 		String nomeDaInstituicao = textFieldNomeInstituicao.getText();
 		String localizacao = textFieldLocalizacao.getText();
@@ -163,6 +189,11 @@ public class SwingAdministradorHome extends JFrame implements AbstractGUIAdminis
 	}
 	
 	@Override
+	public UsuarioTO obterUsuarioSelecionado() {
+		return capturarUsuarioSelecionado();
+	}
+	
+	@Override
 	public void exibirInstituicao(InstituicaoTO instituicao) {
 		this.textFieldNomeInstituicao.setText(instituicao.getNome());
 		this.textFieldLocalizacao.setText(instituicao.getSigla());
@@ -175,6 +206,15 @@ public class SwingAdministradorHome extends JFrame implements AbstractGUIAdminis
 		
 		if(i >= 0)
 			return instituicoes[i];
+		else
+			return null;
+	}
+	
+	private UsuarioTO capturarUsuarioSelecionado(){
+		int i = comboBoxUsuarioConcede.getSelectedIndex();
+		
+		if(i >= 0)
+			return usuariosDoSistema[i];
 		else
 			return null;
 	}
@@ -244,6 +284,50 @@ public class SwingAdministradorHome extends JFrame implements AbstractGUIAdminis
 	{
 		controleAdministradorHome.acaoDeslogar();
 	}
+	
+	private void acaoTrocarSenha()
+	{
+		char[] _senhaAntiga = passwordFieldSenhaAntigaAdministrador.getPassword();
+		String senhaAntiga = new String(_senhaAntiga);
+
+		char[] _senhaNova = passwordFieldNovaSenhaAdministrador.getPassword();
+		String senhaNova = new String(_senhaNova);
+
+		
+		controleAdministradorHome.AlterarSenha(senhaAntiga, senhaNova);
+		passwordFieldSenhaAntigaAdministrador.setText("");
+		passwordFieldNovaSenhaAdministrador.setText("");
+	}
+	
+	private void acaoConcederPrivilegio() {
+		controleAdministradorHome.ConcederPrivilegioDeAdministrador();
+	}
+	
+	private void acaoCriarAdministrador(){
+		controleAdministradorHome.novoAdministrador();
+	}
+	
+	@Override
+	public AdministradorTO obterDadosDoNovoAdministrador(){
+		AdministradorTO administradorTO = new AdministradorTO();
+		String email = textFieldEmailNovoAdministrador.getText();
+		char[] _senha = senhaNovoAdmin.getPassword();
+		String senha = new String(_senha);
+		
+		administradorTO.setSenha(senha);
+		administradorTO.setLogin(email);
+		
+		return administradorTO;
+	}
+	
+	@Override
+	public String obterConfirmacaoDeSenhaNovoAdministrador(){
+		char[] _confirmacaoSenha = passwordFieldConfirmacaoSenha.getPassword();
+		String confirmacaoSenha = new String(_confirmacaoSenha);
+		
+		return confirmacaoSenha;
+	}
+	
 	
 	@Override
 	public void fechar(){
@@ -399,474 +483,423 @@ public class SwingAdministradorHome extends JFrame implements AbstractGUIAdminis
 		inicializarFrame();
 	}
 	
-	@Override
-	public AdministradorTO obterDadosDoNovoAdministrador(){
-		AdministradorTO administradorTO = new AdministradorTO();
-		String email = textFieldEmailNovoAdministrador.getText();
-		char[] _senha = passwordFieldSenhaNovoAdministrador.getPassword();
-		String senha = new String(_senha);
-		
-		administradorTO.setSenha(senha);
-		administradorTO.setLogin(email);
-		
-		return administradorTO;
-	}
 	
-	@Override
-	public String obterConfirmacaoDeSenhaNovoAdministrador(){
-		char[] _confirmacaoSenha = passwordFieldConfirmacaoSenhaNovoAdministrador.getPassword();
-		String confirmacaoSenha = new String(_confirmacaoSenha);
-		
-		return confirmacaoSenha;
-	}
-	
-	private void novoAdministrador(){
-		controleAdministradorHome.novoAdministrador();
-	}
-
 	/**
 	 * Create the frame.
 	 */
 	private void inicializarFrame() {
 		setTitle("Home de Adminstracao");
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		setBounds(100, 100, 575, 424);
+		setBounds(100, 100, 575, 453);
 		panelConteudo = new JPanel();
-		
+
 		setContentPane(panelConteudo);
 		panelConteudo.setLayout(new GridLayout(0, 1, 0, 0));
-		
+
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		panelConteudo.add(tabbedPane);
-		
-		panel_4 = new JPanel();
-		tabbedPane.addTab("Perfil", null, panel_4, null);
-		panel_4.setLayout(null);
-		
-		btnDeslogar = new JButton("Deslogar");
-		btnDeslogar.setBounds(421, 26, 123, 23);
-		panel_4.add(btnDeslogar);
-		
-		btnDeslogar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				acaoDeslogar();
-			}
-		});
-		
-		JPanel panel_5 = new JPanel();
-		panel_5.setBorder(new TitledBorder(null, "Atualizar senha", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel_5.setBounds(28, 53, 313, 245);
-		panel_4.add(panel_5);
-		
-		JLabel label_3 = new JLabel("Senha antiga:");
-		
-		passwordField = new JPasswordField();
-		passwordField.setColumns(10);
-		
-		JLabel label_4 = new JLabel("Senha nova:");
-		
-		passwordField_1 = new JPasswordField();
-		passwordField_1.setColumns(10);
-		
-		JButton button = new JButton("Alterar Senha");
-		GroupLayout gl_panel_5 = new GroupLayout(panel_5);
-		gl_panel_5.setHorizontalGroup(
-			gl_panel_5.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_5.createSequentialGroup()
-					.addGap(30)
-					.addGroup(gl_panel_5.createParallelGroup(Alignment.LEADING)
-						.addComponent(button, GroupLayout.PREFERRED_SIZE, 159, GroupLayout.PREFERRED_SIZE)
-						.addComponent(label_3, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
-						.addComponent(passwordField, GroupLayout.PREFERRED_SIZE, 123, GroupLayout.PREFERRED_SIZE)
-						.addGroup(gl_panel_5.createSequentialGroup()
-							.addGap(2)
-							.addComponent(label_4, GroupLayout.PREFERRED_SIZE, 98, GroupLayout.PREFERRED_SIZE))
-						.addComponent(passwordField_1, GroupLayout.PREFERRED_SIZE, 123, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(114, Short.MAX_VALUE))
-		);
-		gl_panel_5.setVerticalGroup(
-			gl_panel_5.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_panel_5.createSequentialGroup()
-					.addContainerGap(29, Short.MAX_VALUE)
-					.addComponent(label_3, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
-					.addGap(11)
-					.addComponent(passwordField, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-					.addGap(22)
-					.addComponent(label_4, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
-					.addGap(5)
-					.addComponent(passwordField_1, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-					.addGap(18)
-					.addComponent(button, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
-					.addGap(23))
-		);
-		panel_5.setLayout(gl_panel_5);
-		
-		panel_6 = new JPanel();
-		tabbedPane.addTab("Cadastrar novo administrador", null, panel_6, null);
-		
-		JPanel panel_7 = new JPanel();
-		panel_7.setBorder(new TitledBorder(null, "Dados do novo administrador", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		GroupLayout gl_panel_6 = new GroupLayout(panel_6);
-		gl_panel_6.setHorizontalGroup(
-			gl_panel_6.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_6.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(panel_7, GroupLayout.PREFERRED_SIZE, 519, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(39, Short.MAX_VALUE))
-		);
-		gl_panel_6.setVerticalGroup(
-			gl_panel_6.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_6.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(panel_7, GroupLayout.PREFERRED_SIZE, 268, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(71, Short.MAX_VALUE))
-		);
-		
-		JLabel lblEmail = new JLabel("Email:");
-		
-		textFieldEmailNovoAdministrador = new JTextField();
-		textFieldEmailNovoAdministrador.setColumns(10);
-		
-		lblSenha = new JLabel("Senha:");
-		
-		passwordFieldSenhaNovoAdministrador = new JPasswordField();
-		
-		JLabel lblConfirmaoDeSenha = new JLabel("Confirmação de senha:");
-		
-		passwordFieldConfirmacaoSenhaNovoAdministrador = new JPasswordField();
-		
-		JButton btnAdicionarAdministrador = new JButton("Adicionar administrador");
-		btnAdicionarAdministrador.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				novoAdministrador();
-			}
-		});
-		GroupLayout gl_panel_7 = new GroupLayout(panel_7);
-		gl_panel_7.setHorizontalGroup(
-			gl_panel_7.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_7.createSequentialGroup()
-					.addGap(24)
-					.addGroup(gl_panel_7.createParallelGroup(Alignment.LEADING)
-						.addComponent(btnAdicionarAdministrador)
-						.addComponent(passwordFieldConfirmacaoSenhaNovoAdministrador, GroupLayout.PREFERRED_SIZE, 446, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblConfirmaoDeSenha)
-						.addComponent(passwordFieldSenhaNovoAdministrador, GroupLayout.PREFERRED_SIZE, 443, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblSenha)
-						.addComponent(textFieldEmailNovoAdministrador, GroupLayout.PREFERRED_SIZE, 441, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblEmail))
-					.addContainerGap(39, Short.MAX_VALUE))
-		);
-		gl_panel_7.setVerticalGroup(
-			gl_panel_7.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_7.createSequentialGroup()
-					.addGap(20)
-					.addComponent(lblEmail)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(textFieldEmailNovoAdministrador, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addGap(18)
-					.addComponent(lblSenha)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(passwordFieldSenhaNovoAdministrador, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addGap(18)
-					.addComponent(lblConfirmaoDeSenha)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(passwordFieldConfirmacaoSenhaNovoAdministrador, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE)
-					.addGap(18)
-					.addComponent(btnAdicionarAdministrador)
-					.addContainerGap(28, Short.MAX_VALUE))
-		);
-		panel_7.setLayout(gl_panel_7);
-		panel_6.setLayout(gl_panel_6);
-		
-		defirirIndefirirEventosPanel = new JPanel();
-		tabbedPane.addTab("Deferir/Inderir eventos", null, defirirIndefirirEventosPanel, null);
-		defirirIndefirirEventosPanel.setLayout(null);
-		
-		defaultTableModel1 = new DefaultTableModel(new Object[][] {},new String[] {"Nome do Evento", "Quantidade de Inscritos", "Data de Inicio"})
-		{
-		    /**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
-
-			public boolean isCellEditable(int row, int column)
-		    {
-		      return false;
-		    }
-		 };
-		tableDeferirIndeferir = new JTable(defaultTableModel1);
-		tableDeferirIndeferir.setBounds(10, 40, 534, 257);
-		tableDeferirIndeferir.getColumnModel().getColumn(1).setMaxWidth(50);
-		defirirIndefirirEventosPanel.add(tableDeferirIndeferir);
-		
-		btnIndeferirEvento = new JButton("Indeferir Evento");
-		btnIndeferirEvento.setBounds(413, 323, 131, 23);
-		defirirIndefirirEventosPanel.add(btnIndeferirEvento);
-		
-		btnDeferirEvento = new JButton("Deferir Evento");
-		btnDeferirEvento.setBounds(266, 323, 138, 23);
-		defirirIndefirirEventosPanel.add(btnDeferirEvento);
-		
-		btnDeferirEvento.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				acaoDeferirEvento();
-			}
-		});
-		
-		btnIndeferirEvento.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				acaoIndeferirEvento();
-			}
-		});
-		
-		JLabel lblNomeDoEvento = new JLabel("Nome do Evento");
-		lblNomeDoEvento.setBounds(10, 11, 131, 14);
-		defirirIndefirirEventosPanel.add(lblNomeDoEvento);
-		
-		JLabel lblQuantidadeDeInscritos = new JLabel("Quantidade de Inscritos");
-		lblQuantidadeDeInscritos.setBounds(212, 11, 138, 14);
-		defirirIndefirirEventosPanel.add(lblQuantidadeDeInscritos);
-		
-		JLabel lblDataDeInicio = new JLabel("Data de Inicio");
-		lblDataDeInicio.setBounds(404, 11, 103, 14);
-		defirirIndefirirEventosPanel.add(lblDataDeInicio);
-		
-		defaultTableModel2 = new DefaultTableModel(new Object[][] {},new String[] {"Nome do Evento", "Quantidade de Inscritos", "Data de Inicio"})
-		{
-		    /**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
-
-			public boolean isCellEditable(int row, int column)
-		    {
-		      return false;
-		    }
-		 };
 		contentPane = new JPanel();
 		tabbedPane.addTab("Cadastrar Instituicao", null, contentPane, null);
-		
+
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		
+
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		
+
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		
+
 		JLabel lblNome = new JLabel("Nome:");
-		
+
 		this.textFieldNomeInstituicao = new JTextField();
 		this.textFieldNomeInstituicao.setColumns(10);
-		
+
 		JLabel lblLocalizacao = new JLabel("Localizacao:");
-		
+
 		this.textFieldLocalizacao = new JTextField();
 		this.textFieldLocalizacao.setColumns(10);
-		
+
 		JLabel lblSigla = new JLabel("Sigla:");
-		
+
 		this.textFieldSigla = new JTextField();
 		this.textFieldSigla.setColumns(10);
-		
+
 		JPanel panel_2 = new JPanel();
 		panel_2.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		
+
 		this.btnNovo = new JButton("Nova");
 		btnNovo.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				acaoNovoInstituicao();
-			}
+		public void actionPerformed(ActionEvent arg0) {
+		acaoNovoInstituicao();
+		}
 		});
 		this.btnNovo.setMnemonic('N');
-		
+
 		this.btnSalvar = new JButton("Salvar");
 		btnSalvar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				acaoSalvarInstituicao();					
-			}
+		public void actionPerformed(ActionEvent arg0) {
+		acaoSalvarInstituicao();	
+		}
 		});
-		
+
 		this.btnSalvar.setMnemonic('r');
-		
+
 		this.btnEditar = new JButton("Editar");
 		btnEditar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				acaoEditarInstituicao();
-			}
+		public void actionPerformed(ActionEvent arg0) {
+		acaoEditarInstituicao();
+		}
 		});
 		this.btnEditar.setMnemonic('E');
-		
+
 		this.btnExcluir = new JButton("Excluir");
 		btnExcluir.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				acaoExcluirInstituicao();			
-			}
+		public void actionPerformed(ActionEvent arg0) {
+		acaoExcluirInstituicao();	
+		}
 		});
 		this.btnExcluir.setMnemonic('x');
-		
+
 		this.btnSair = new JButton("Sair");
 		btnSair.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				fechar();
-			}
+		public void actionPerformed(ActionEvent arg0) {
+		fechar();
+		}
 		});
 		this.btnSair.setMnemonic('r');
-		
+
 		btnAtualizar = new JButton("Atualizar");
 		btnAtualizar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				acaoAtualizarInstituicao();
-			}
+		public void actionPerformed(ActionEvent e) {
+		acaoAtualizarInstituicao();
+		}
 		});
-		
+
 		btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				acaoCancelarInstituicao();
-			}
+		public void actionPerformed(ActionEvent e) {
+		acaoCancelarInstituicao();
+		}
 		});
 		GroupLayout gl_panel_2 = new GroupLayout(panel_2);
 		gl_panel_2.setHorizontalGroup(
-			gl_panel_2.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_2.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(btnNovo, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(gl_panel_2.createParallelGroup(Alignment.TRAILING, false)
-						.addComponent(btnAtualizar, Alignment.LEADING, 0, 0, Short.MAX_VALUE)
-						.addComponent(btnSalvar, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING, false)
-						.addComponent(btnCancelar, 0, 0, Short.MAX_VALUE)
-						.addComponent(btnEditar, GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(btnExcluir, GroupLayout.PREFERRED_SIZE, 84, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(btnSair, GroupLayout.PREFERRED_SIZE, 91, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(44, Short.MAX_VALUE))
+		gl_panel_2.createParallelGroup(Alignment.LEADING)
+		.addGroup(gl_panel_2.createSequentialGroup()
+		.addContainerGap()
+		.addComponent(btnNovo, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
+		.addPreferredGap(ComponentPlacement.UNRELATED)
+		.addGroup(gl_panel_2.createParallelGroup(Alignment.TRAILING, false)
+		.addComponent(btnAtualizar, Alignment.LEADING, 0, 0, Short.MAX_VALUE)
+		.addComponent(btnSalvar, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE))
+		.addPreferredGap(ComponentPlacement.RELATED)
+		.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING, false)
+		.addComponent(btnCancelar, 0, 0, Short.MAX_VALUE)
+		.addComponent(btnEditar, GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE))
+		.addPreferredGap(ComponentPlacement.UNRELATED)
+		.addComponent(btnExcluir, GroupLayout.PREFERRED_SIZE, 84, GroupLayout.PREFERRED_SIZE)
+		.addPreferredGap(ComponentPlacement.RELATED)
+		.addComponent(btnSair, GroupLayout.PREFERRED_SIZE, 91, GroupLayout.PREFERRED_SIZE)
+		.addContainerGap(44, Short.MAX_VALUE))
 		);
 		gl_panel_2.setVerticalGroup(
-			gl_panel_2.createParallelGroup(Alignment.TRAILING)
-				.addGroup(Alignment.LEADING, gl_panel_2.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_panel_2.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnNovo)
-						.addComponent(btnSalvar)
-						.addComponent(btnEditar)
-						.addComponent(btnExcluir)
-						.addComponent(btnSair))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_panel_2.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnAtualizar)
-						.addComponent(btnCancelar))
-					.addContainerGap(30, Short.MAX_VALUE))
+		gl_panel_2.createParallelGroup(Alignment.TRAILING)
+		.addGroup(Alignment.LEADING, gl_panel_2.createSequentialGroup()
+		.addContainerGap()
+		.addGroup(gl_panel_2.createParallelGroup(Alignment.BASELINE)
+		.addComponent(btnNovo)
+		.addComponent(btnSalvar)
+		.addComponent(btnEditar)
+		.addComponent(btnExcluir)
+		.addComponent(btnSair))
+		.addPreferredGap(ComponentPlacement.RELATED)
+		.addGroup(gl_panel_2.createParallelGroup(Alignment.BASELINE)
+		.addComponent(btnAtualizar)
+		.addComponent(btnCancelar))
+		.addContainerGap(30, Short.MAX_VALUE))
 		);
 		panel_2.setLayout(gl_panel_2);
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
 		gl_panel_1.setHorizontalGroup(
-			gl_panel_1.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_1.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
-						.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 542, GroupLayout.PREFERRED_SIZE)
-						.addComponent(textFieldNomeInstituicao, GroupLayout.DEFAULT_SIZE, 516, Short.MAX_VALUE)
-						.addComponent(lblNome)
-						.addComponent(lblLocalizacao)
-						.addComponent(textFieldLocalizacao, GroupLayout.DEFAULT_SIZE, 516, Short.MAX_VALUE)
-						.addComponent(lblSigla)
-						.addComponent(textFieldSigla, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap())
+		gl_panel_1.createParallelGroup(Alignment.LEADING)
+		.addGroup(gl_panel_1.createSequentialGroup()
+		.addContainerGap()
+		.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
+		.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 542, GroupLayout.PREFERRED_SIZE)
+		.addComponent(textFieldNomeInstituicao, GroupLayout.DEFAULT_SIZE, 516, Short.MAX_VALUE)
+		.addComponent(lblNome)
+		.addComponent(lblLocalizacao)
+		.addComponent(textFieldLocalizacao, GroupLayout.DEFAULT_SIZE, 516, Short.MAX_VALUE)
+		.addComponent(lblSigla)
+		.addComponent(textFieldSigla, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+		.addContainerGap())
 		);
 		gl_panel_1.setVerticalGroup(
-			gl_panel_1.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_1.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(lblNome)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(textFieldNomeInstituicao, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(lblLocalizacao)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(textFieldLocalizacao, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(lblSigla)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(textFieldSigla, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
-					.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap())
+		gl_panel_1.createParallelGroup(Alignment.LEADING)
+		.addGroup(gl_panel_1.createSequentialGroup()
+		.addContainerGap()
+		.addComponent(lblNome)
+		.addPreferredGap(ComponentPlacement.RELATED)
+		.addComponent(textFieldNomeInstituicao, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+		.addPreferredGap(ComponentPlacement.UNRELATED)
+		.addComponent(lblLocalizacao)
+		.addPreferredGap(ComponentPlacement.UNRELATED)
+		.addComponent(textFieldLocalizacao, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+		.addPreferredGap(ComponentPlacement.UNRELATED)
+		.addComponent(lblSigla)
+		.addPreferredGap(ComponentPlacement.RELATED)
+		.addComponent(textFieldSigla, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+		.addPreferredGap(ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+		.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
+		.addContainerGap())
 		);
 		panel_1.setLayout(gl_panel_1);
-		
+
 		comboBoxInstituicao = new JComboBox<String>();
 		comboBoxInstituicao.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(comboBoxInstituicao.getSelectedIndex() >= 0)
-					acaoSelecionarInstituicao();
-			}
+		public void actionPerformed(ActionEvent e) {
+		if(comboBoxInstituicao.getSelectedIndex() >= 0)
+		acaoSelecionarInstituicao();
+		}
 		});
-		
+
 		JLabel lblInstituicao = new JLabel("Instituicao:");
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
-			gl_panel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addComponent(this.comboBoxInstituicao, 0, 488, Short.MAX_VALUE)
-						.addComponent(lblInstituicao))
-					.addContainerGap())
+		gl_panel.createParallelGroup(Alignment.LEADING)
+		.addGroup(gl_panel.createSequentialGroup()
+		.addContainerGap()
+		.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+		.addComponent(this.comboBoxInstituicao, 0, 488, Short.MAX_VALUE)
+		.addComponent(lblInstituicao))
+		.addContainerGap())
 		);
 		gl_panel.setVerticalGroup(
-			gl_panel.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_panel.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(lblInstituicao)
-					.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-					.addComponent(this.comboBoxInstituicao, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap())
+		gl_panel.createParallelGroup(Alignment.TRAILING)
+		.addGroup(gl_panel.createSequentialGroup()
+		.addContainerGap()
+		.addComponent(lblInstituicao)
+		.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+		.addComponent(this.comboBoxInstituicao, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+		.addContainerGap())
 		);
 		panel.setLayout(gl_panel);
 		contentPane.setLayout(new BorderLayout(0, 0));
 		contentPane.add(panel_1, BorderLayout.CENTER);
 		contentPane.add(panel, BorderLayout.NORTH);
-		
+
+		defirirIndefirirEventosPanel = new JPanel();
+		tabbedPane.addTab("Deferir/Inderir eventos", null, defirirIndefirirEventosPanel, null);
+		defirirIndefirirEventosPanel.setLayout(null);
+
+		defaultTableModel1 = new DefaultTableModel(new Object[][] {},new String[] {"Nome do Evento", "Quantidade de Inscritos", "Data de Inicio"})
+		{
+		/**
+		*
+		*/
+		private static final long serialVersionUID = 1L;
+
+		public boolean isCellEditable(int row, int column)
+		{
+		return false;
+		}
+		};
+		tableDeferirIndeferir = new JTable(defaultTableModel1);
+		tableDeferirIndeferir.setBounds(10, 40, 534, 257);
+		tableDeferirIndeferir.getColumnModel().getColumn(1).setMaxWidth(50);
+		defirirIndefirirEventosPanel.add(tableDeferirIndeferir);
+
+		btnIndeferirEvento = new JButton("Indeferir Evento");
+		btnIndeferirEvento.setBounds(413, 323, 131, 23);
+		defirirIndefirirEventosPanel.add(btnIndeferirEvento);
+
+		btnDeferirEvento = new JButton("Deferir Evento");
+		btnDeferirEvento.setBounds(266, 323, 138, 23);
+		defirirIndefirirEventosPanel.add(btnDeferirEvento);
+
+		btnDeferirEvento.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+		acaoDeferirEvento();
+		}
+		});
+
+		btnIndeferirEvento.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+		acaoIndeferirEvento();
+		}
+		});
+
+		JLabel lblNomeDoEvento = new JLabel("Nome do Evento");
+		lblNomeDoEvento.setBounds(10, 11, 131, 14);
+		defirirIndefirirEventosPanel.add(lblNomeDoEvento);
+
+		JLabel lblQuantidadeDeInscritos = new JLabel("Quantidade de Inscritos");
+		lblQuantidadeDeInscritos.setBounds(212, 11, 138, 14);
+		defirirIndefirirEventosPanel.add(lblQuantidadeDeInscritos);
+
+		JLabel lblDataDeInicio = new JLabel("Data de Inicio");
+		lblDataDeInicio.setBounds(404, 11, 103, 14);
+		defirirIndefirirEventosPanel.add(lblDataDeInicio);
+
 		panel_3 = new JPanel();
 		tabbedPane.addTab("Cancelar Evento", null, panel_3, null);
 		panel_3.setLayout(null);
+
+		defaultTableModel2 = new DefaultTableModel(new Object[][] {},new String[] {"Nome do Evento", "Quantidade de Inscritos", "Data de Inicio"})
+		{
+		/**
+		*
+		*/
+		private static final long serialVersionUID = 1L;
+
+		public boolean isCellEditable(int row, int column)
+		{
+		return false;
+		}
+		};
 		tableEventosDeferidos = new JTable(defaultTableModel2);
 		tableEventosDeferidos.setBounds(10, 41, 534, 257);
 		tableEventosDeferidos.getColumnModel().getColumn(1).setMaxWidth(50);
 		panel_3.add(tableEventosDeferidos);
-		
+
 		JLabel label = new JLabel("Nome do Evento");
 		label.setBounds(20, 11, 131, 14);
 		panel_3.add(label);
-		
+
 		JLabel label_1 = new JLabel("Quantidade de Inscritos");
 		label_1.setBounds(222, 11, 138, 14);
 		panel_3.add(label_1);
-		
+
 		JLabel label_2 = new JLabel("Data de Inicio");
 		label_2.setBounds(414, 11, 103, 14);
 		panel_3.add(label_2);
-		
+
 		btnCancelarEvento = new JButton("Cancelar Evento");
 		btnCancelarEvento.setBounds(384, 323, 160, 23);
 		panel_3.add(btnCancelarEvento);
-		
+
 		btnCancelarEvento.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				acaoCancelarEvento();
-			}
+		public void actionPerformed(ActionEvent e) {
+		acaoCancelarEvento();
+		}
 		});
+
+		panel_4 = new JPanel();
+		tabbedPane.addTab("Perfil", null, panel_4, null);
+		panel_4.setLayout(null);
+
+		btnDeslogar = new JButton("Deslogar");
+		btnDeslogar.setBounds(421, 26, 123, 23);
+		panel_4.add(btnDeslogar);
+
+		btnDeslogar.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+		acaoDeslogar();
+		}
+		});
+
+		passwordFieldSenhaAntigaAdministrador = new JPasswordField();
+		passwordFieldSenhaAntigaAdministrador.setBounds(57, 66, 123, 20);
+		panel_4.add(passwordFieldSenhaAntigaAdministrador);
+		passwordFieldSenhaAntigaAdministrador.setColumns(10);
+
+		passwordFieldNovaSenhaAdministrador = new JPasswordField();
+		passwordFieldNovaSenhaAdministrador.setBounds(57, 127, 123, 20);
+		panel_4.add(passwordFieldNovaSenhaAdministrador);
+		passwordFieldNovaSenhaAdministrador.setColumns(10);
+
+		lblSenhaAntiga = new JLabel("Senha antiga:");
+		lblSenhaAntiga.setBounds(57, 41, 100, 14);
+		panel_4.add(lblSenhaAntiga);
+
+		lblSenhaNova = new JLabel("Senha nova:");
+		lblSenhaNova.setBounds(59, 108, 98, 14);
+		panel_4.add(lblSenhaNova);
+
+		btnAlterarSenha = new JButton("Alterar Senha");
+		btnAlterarSenha.setBounds(57, 188, 89, 23);
+		panel_4.add(btnAlterarSenha);
+
+		btnAlterarSenha.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+		acaoTrocarSenha();
+		}
+		});
+
+		JPanel panel_5 = new JPanel();
+		tabbedPane.addTab("Gerenciamento de Administradores", null, panel_5, null);
+		panel_5.setLayout(null);
+
+		JPanel panelConceder = new JPanel();
+		panelConceder.setBounds(10, 11, 534, 155);
+		panelConceder.setBorder(BorderFactory.createTitledBorder("Concessão de Privilégio"));
+		panel_5.add(panelConceder);
+		panelConceder.setLayout(null);
+
+		comboBoxUsuarioConcede = new JComboBox<String>();
+		comboBoxUsuarioConcede.setBounds(10, 66, 514, 20);
+		panelConceder.add(comboBoxUsuarioConcede);
+
+		JLabel lblUsurioDoSistema = new JLabel("Usu\u00E1rio do Sistema:");
+		lblUsurioDoSistema.setBounds(10, 43, 275, 14);
+		panelConceder.add(lblUsurioDoSistema);
+
+		JButton btnConceder = new JButton("Conceder Privil\u00E9gio de Administrador");
+		btnConceder.setBounds(88, 121, 364, 23);
+		panelConceder.add(btnConceder);
+
+		btnConceder.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+		acaoConcederPrivilegio();
+		}
+		});
+
+		panelCriacaoAdmin = new JPanel();
+		panelCriacaoAdmin.setBounds(10, 177, 534, 191);
+		panelCriacaoAdmin.setBorder(BorderFactory.createTitledBorder("Criação de Administrador"));
+		panel_5.add(panelCriacaoAdmin);
+		panelCriacaoAdmin.setLayout(null);
+
+		textFieldEmailNovoAdministrador = new JTextField();
+		textFieldEmailNovoAdministrador.setBounds(22, 49, 251, 20);
+		panelCriacaoAdmin.add(textFieldEmailNovoAdministrador);
+		textFieldEmailNovoAdministrador.setColumns(10);
+
+		JLabel lblEmail = new JLabel("Email");
+		lblEmail.setBounds(22, 24, 223, 14);
+		panelCriacaoAdmin.add(lblEmail);
+
+		senhaNovoAdmin = new JPasswordField();
+		senhaNovoAdmin.setBounds(22, 99, 251, 20);
+		panelCriacaoAdmin.add(senhaNovoAdmin);
+
+		lblSenha = new JLabel("Senha");
+		lblSenha.setBounds(22, 80, 46, 14);
+		panelCriacaoAdmin.add(lblSenha);
+
+		btnCriarAdmin = new JButton("Criar");
+		btnCriarAdmin.setBounds(433, 156, 89, 23);
+		panelCriacaoAdmin.add(btnCriarAdmin);
 		
+		JLabel lblConfirmacaoSenha = new JLabel("Confirmacao senha:");
+		lblConfirmacaoSenha.setBounds(22, 127, 146, 15);
+		panelCriacaoAdmin.add(lblConfirmacaoSenha);
+		
+		passwordFieldConfirmacaoSenha = new JPasswordField();
+		passwordFieldConfirmacaoSenha.setBounds(22, 156, 251, 21);
+		panelCriacaoAdmin.add(passwordFieldConfirmacaoSenha);
+
+		btnCriarAdmin.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+		acaoCriarAdministrador();
+		}
+		});
+
+
 		this.addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent arg0) {
-				fechar();
-			}
+		@Override
+		public void windowClosing(WindowEvent arg0) {
+		fechar();
+		}
 		});
 	}
 }

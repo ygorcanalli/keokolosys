@@ -5,6 +5,7 @@ import java.util.Collection;
 import transferobject.AdministradorTO;
 import transferobject.EventoTO;
 import transferobject.InstituicaoTO;
+import transferobject.UsuarioTO;
 import util.AbstractGUI;
 
 public interface AbstractGUIAdministradorHome extends AbstractGUI {
@@ -15,6 +16,7 @@ public interface AbstractGUIAdministradorHome extends AbstractGUI {
 	public InstituicaoTO obterInstituicaoSelecionada();
 	public EventoTO obterEventoAguardandoAvaliacaoSelecionado();
 	public EventoTO obterEventoDeferidoSelecionado();
+	public UsuarioTO obterUsuarioSelecionado();
 	public void definirSelecaoInstituicao(InstituicaoTO instituicao);
 	public void removerSelecaoInstituicao();
 	public void habilitarAcaoSelecionarInstituicao();
@@ -37,4 +39,5 @@ public interface AbstractGUIAdministradorHome extends AbstractGUI {
 	public void atualizarListaDeEventosParaCancelar(Collection<EventoTO> eventos);
 	public AdministradorTO obterDadosDoNovoAdministrador();
 	public String obterConfirmacaoDeSenhaNovoAdministrador();
+	public void atualizarListaDeUsuarios(Collection<UsuarioTO> usuarios);
 }

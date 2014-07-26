@@ -36,6 +36,7 @@ public class ControleAdministradorHome implements AbstractControle{
 		
 		inicializarCadastroDeInstituicoes();
 		inicializarAbasDeEvento();
+		atualizarListaDeUsuarios();
 		tornarGUIVisivel();
 	}
 	
@@ -130,6 +131,11 @@ public class ControleAdministradorHome implements AbstractControle{
 		viewAdministradorHome.atualizarListaDeEventosParaCancelar(obterEventosDeferidos());
 	}
 	
+	public void atualizarListaDeUsuarios()
+	{
+		viewAdministradorHome.atualizarListaDeUsuarios(obterUsuariosDoSistema());
+	}
+	
 	private Collection<InstituicaoTO> obterInstituicoes(){
 		Collection<Instituicao> instituicoes = ControladorDeCadastro.obterTodasInstituicoes();
 		Collection<InstituicaoTO> instituicoesTO = new ArrayList<InstituicaoTO>();
@@ -187,6 +193,22 @@ public class ControleAdministradorHome implements AbstractControle{
 		}
 		
 		return eventosTO;
+	}
+	
+	private Collection<UsuarioTO> obterUsuariosDoSistema(){
+		Collection<Usuario> usuarios = ControladorDeCadastro.obterTodosUsuarios();
+		Collection<UsuarioTO> usuariosTO = new ArrayList<UsuarioTO>();
+		UsuarioTO usuarioTO;
+		
+		for (Usuario usuario : usuarios) {
+			Instituicao inst = usuario.getInstituicao();
+			InstituicaoTO instituicao = new InstituicaoTO(inst.getNome(), inst.getSigla(), inst.getLocalizacao());
+			usuarioTO = new UsuarioTO(usuario.getEmail(),usuario.getNome(),usuario.getUltimoNome(), instituicao);
+			
+			usuariosTO.add(usuarioTO);
+		}
+		
+		return usuariosTO;
 	}
 	
 	
@@ -404,6 +426,24 @@ public class ControleAdministradorHome implements AbstractControle{
 		}
 	}
 	
+	public void ConcederPrivilegioDeAdministrador(){
+		UsuarioTO usuarioTO = viewAdministradorHome.obterUsuarioSelecionado();
+		
+		try 
+		{
+			Usuario usuario = ControladorDeCadastro.obterUsuarioPorEmail(usuarioTO.getEmail());
+			ControladorAdministrativo.criarAdministrador(usuario.getEmail(), usuario.getSenha());
+			
+			viewAdministradorHome.exibirMensagemDeAviso("Privilegio concedido!", "Sucesso");
+			atualizarListaDeUsuarios();
+		} 
+		catch (ExcecaoDeCadastro e) 
+		{
+			viewAdministradorHome.exibirMensagemDeErro(e.getMessage(), "Erro");
+		}
+	}
+	
+	
 	public void fechar(){
 		deslogar();
 	}
@@ -426,7 +466,11 @@ public class ControleAdministradorHome implements AbstractControle{
 		
 		if(senha.compareTo(confirmacaoDeSenha) == 0){
 			try {
+				ControladorDeCadastro.validarEmail(email);
 				ControladorAdministrativo.criarAdministrador(email, senha);
+				
+				viewAdministradorHome.exibirMensagemDeInformacao("Administrador: " + email + " incluido com sucesso!", "");
+				
 			} catch (ExcecaoDeCadastro e) {
 				viewAdministradorHome.exibirMensagemDeErro(e.getMessage(), "");
 			}
