@@ -20,7 +20,9 @@ public class ControleAvaliarTrabalho implements AbstractControle{
 	private AbstractGUIAvaliarTrabalho viewAvaliarTrabalho;
 	private Trabalho trabalho;
 	private Evento evento;
+	private AbstractControle caller;
 	public ControleAvaliarTrabalho(AbstractControle caller,Trabalho trabalho,Evento evento){
+		this.caller = caller;
 		this.evento = evento;
 		inicializarGUI();
 		this.trabalho = trabalho;
@@ -53,10 +55,14 @@ public class ControleAvaliarTrabalho implements AbstractControle{
 		
 	}
 	
-	public void avaliarTrabalho(AvaliacaoTO avaliacaoTO) throws ExcecaoDeAvaliacao {
-		
+	public void avaliarTrabalho(AvaliacaoTO avaliacaoTO) throws ExcecaoDeAvaliacao {		
+	
 		PerfilDeExaminador perfilExaminador = (PerfilDeExaminador) Sessao.getUsuarioLogado().obterPerfilDe(evento, PerfilDeExaminador.class);
-		ControladorDeAvaliacao.avaliarTrabalho(trabalho, perfilExaminador, avaliacaoTO.getEnumEstadoTrabalho());		
+		ControladorDeAvaliacao.avaliarTrabalho(trabalho, perfilExaminador, avaliacaoTO.getEnumEstadoTrabalho());
+		viewAvaliarTrabalho.exibirMensagemDeInformacao("Avaliado com sucesso", "Sucesso");
+		encerrarGUI();
+		caller.desbloquearGUI();
+		
 
 	}
 
@@ -95,7 +101,7 @@ public class ControleAvaliarTrabalho implements AbstractControle{
 
 	@Override
 	public void encerrarGUI() {
-		// TODO Auto-generated method stub
+		viewAvaliarTrabalho.tornarInvisivel();
 		
 	}
 	

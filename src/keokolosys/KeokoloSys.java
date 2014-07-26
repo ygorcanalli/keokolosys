@@ -37,10 +37,10 @@ public class KeokoloSys {
 		
 		ControladorDeCadastro.criarAdministrador("admin@keokolo.com", "admin");
 		Usuario chair = ControladorDeCadastro.criarUsuario("chair@keokolo.com", "chair", "Usuario", "Chair", ufrrj);
-		Usuario participante = ControladorDeCadastro.criarUsuario("participante@keokolo.com", "participante", "Usuario", "Participante", ufrrj);
-		Usuario examinador1 = ControladorDeCadastro.criarUsuario("examinador1@keokolo.com", "examinador1", "Usuario", "Examinador Um", ufrrj);
-		Usuario examinador2 = ControladorDeCadastro.criarUsuario("examinador2@keokolo.com", "examinador2", "Usuario", "Examinador Dois", ufrrj);
-		Usuario examinador3 = ControladorDeCadastro.criarUsuario("examinador3@keokolo.com", "examinador3", "Usuario", "Examinador Três", ufrrj);
+		Usuario participante = ControladorDeCadastro.criarUsuario("participante@keokolo.com", "participante", "UsuarioParticipante", "Participante", ufrrj);
+		Usuario examinador1 = ControladorDeCadastro.criarUsuario("examinador1@keokolo.com", "examinador1", "UsuarioExaminador1", "Examinador Um", ufrrj);
+		Usuario examinador2 = ControladorDeCadastro.criarUsuario("examinador2@keokolo.com", "examinador2", "UsuarioExaminador2", "Examinador Dois", ufrrj);
+		Usuario examinador3 = ControladorDeCadastro.criarUsuario("examinador3@keokolo.com", "examinador3", "UsuarioExaminador3", "Examinador Três", ufrrj);
 		
 
 		Evento eventoPrimeiro = ControladorDeCadastro.criarEvento("Primeira Apresentacao de Projeto de Sistemas", ufrrj, chair, new Date(2014, 07, 01), new Date(2014,07,02), new Date(2014,8,01), new Date(2014,8,02));

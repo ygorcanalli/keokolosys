@@ -18,6 +18,8 @@ import transferobject.EventoTO;
 import transferobject.UsuarioTO;
 import cadastro.ControleUsuarioHome;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Collection;
@@ -165,6 +167,16 @@ public class SwingUsuarioHome extends JFrame implements AbstractGUIUsuarioHome {
 		JScrollPane scrollPaneExames = new JScrollPane();
 		
 		JButton btnRealizarAvaliacoes = new JButton("Realizar avaliações");
+		btnRealizarAvaliacoes.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				EventoTO eventoTO = new EventoTO();
+				eventoTO.setNome(listaExames.getSelectedValue());
+				controleUsuarioHome.acaoRealizarAvliacoes(eventoTO);
+			}
+		});
+		
 		GroupLayout gl_paneExames = new GroupLayout(paneExames);
 		gl_paneExames.setHorizontalGroup(
 			gl_paneExames.createParallelGroup(Alignment.LEADING)
@@ -312,7 +324,7 @@ public class SwingUsuarioHome extends JFrame implements AbstractGUIUsuarioHome {
 			controleUsuarioHome.exibirParticipacao();
 			break;
 		case ABA_EXAMES:
-			controleUsuarioHome.exibirParticipacao();
+			controleUsuarioHome.exibirExames();
 			break;
 		case ABA_ADMINISTRACAO:
 			controleUsuarioHome.exibirAdministracao();

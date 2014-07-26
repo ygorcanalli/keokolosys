@@ -2,6 +2,7 @@ package avaliacao;
 
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.GroupLayout;
@@ -224,7 +225,7 @@ public class SwingAvaliarTrabalho extends JFrame implements AbstractGUIAvaliarTr
 
 	@Override
 	public void tornarInvisivel() {
-		// TODO Auto-generated method stub
+		setVisible(false);
 		
 	}
 
@@ -253,9 +254,8 @@ public class SwingAvaliarTrabalho extends JFrame implements AbstractGUIAvaliarTr
 	}
 
 	@Override
-	public void exibirMensagemDeInformacao(String mensagem, String titulo) {
-		// TODO Auto-generated method stub
-		
+	public void exibirMensagemDeInformacao(String mensagem, String titulo){
+		JOptionPane.showMessageDialog(this, mensagem, titulo, JOptionPane.INFORMATION_MESSAGE);
 	}
 
 	@Override

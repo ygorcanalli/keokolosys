@@ -6,7 +6,9 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.TreeMap;
 
+import avaliacao.ControleAvaliarTrabalho;
 import avaliacao.ControleCadastrarBancaExaminadora;
+import avaliacao.ControleGerenciarAvaliacao;
 import participacao.ControleConcederPrivilegios;
 import participacao.ControleSubmeterTrabalho;
 import transferobject.EventoTO;
@@ -14,10 +16,14 @@ import transferobject.InstituicaoTO;
 import transferobject.UsuarioTO;
 import util.AbstractControle;
 import util.Sessao;
+import controladorGRASP.ControladorDeAvaliacao;
 import controladorGRASP.ControladorDeCadastro;
 import controladorGRASP.ControladorDeParticipacao;
+import dominio.BancaExaminadora;
 import dominio.Evento;
 import dominio.Instituicao;
+import dominio.Perfil;
+import dominio.PerfilDeExaminador;
 import dominio.Usuario;
 import excecao.ExcecaoDeCadastro;
 import excecao.ExcecaoDeParticipacao;
@@ -219,6 +225,25 @@ public class ControleUsuarioHome implements AbstractControle{
 		return usuarioTO;
 	}
 	
+	private Collection<EventoTO> obterEventosQueSouBancaExaminadora(){
+		
+		Usuario usuario = Sessao.getUsuarioLogado();
+		Collection<EventoTO> eventosQueSouBancaExaminadora = new ArrayList<EventoTO>();
+		Collection<Evento> eventos = ControladorDeCadastro.obterTodosEventos();
+		for (Evento evento : eventos) {
+			Perfil perfilDeExaminador = usuario.obterPerfilDe(evento, PerfilDeExaminador.class);
+			if (perfilDeExaminador != null){
+				EventoTO eventoTO = new EventoTO();
+				eventoTO.setNome(evento.getNome());
+				eventosQueSouBancaExaminadora.add(eventoTO);
+			}
+			
+		}
+		return eventosQueSouBancaExaminadora;
+		
+		
+	}
+	
 	public void acaoRealizarInscricaoEmEvento(EventoTO eventoTO) {
 		
 		Usuario usuario = Sessao.getUsuarioLogado();
@@ -275,6 +300,13 @@ public class ControleUsuarioHome implements AbstractControle{
 	{
 		 Evento evento = mapaDeEventosInscritos.get(eventoTO.getNome());
 		new ControleSubmeterTrabalho(this,evento).inicializarGUI();
+	}
+	
+	public void acaoRealizarAvliacoes(EventoTO eventoTO)
+	{
+		
+		 Evento evento = mapaDeEventosComPerfilDeExaminador.get(eventoTO.getNome());
+		 new ControleGerenciarAvaliacao(this,evento);
 	}
 	
 	public void exibirEventosDisponiveis() {
