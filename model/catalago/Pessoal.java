@@ -46,7 +46,16 @@ public class Pessoal {
 	}
 	
 	public Administrador criarAdministrador(String email, String senha) throws ExcecaoDeCadastro{
-		validarEmailComoUnico(email);
+		try
+		{
+			validarEmailComoUnico(email);
+		}
+		catch(Exception e)
+		{
+			//verifica se é transformação de usuário pra administrador. se não, não pode cadastrar 2 administradores com o mesmo email
+			if(!Usuario.class.isInstance(autenticaveis.get(email)))
+				throw e;
+		}
 		
 		Administrador administrador = Administrador.criarAdministrador(email, senha);
 		autenticaveis.put(email, administrador);

@@ -1,5 +1,6 @@
 package administrativo;
 
+import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -24,8 +25,10 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
+import transferobject.AdministradorTO;
 import transferobject.EventoTO;
 import transferobject.InstituicaoTO;
+import transferobject.UsuarioTO;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -41,6 +44,7 @@ public class SwingAdministradorHome extends JFrame implements AbstractGUIAdminis
 	private ControleAdministradorHome controleAdministradorHome;
 	
 	private JComboBox<String> comboBoxInstituicao;
+	private JComboBox<String> comboBoxUsuarioConcede;
 	
 	private JTextField textFieldNomeInstituicao;
 	private JTextField textFieldLocalizacao;
@@ -58,6 +62,9 @@ public class SwingAdministradorHome extends JFrame implements AbstractGUIAdminis
 	private InstituicaoTO[] instituicoes;
 	private EventoTO[] eventosAguardandoAprovacao;
 	private EventoTO[] eventosDeferidos;
+	private UsuarioTO[] usuariosDoSistema;
+	private AdministradorTO[] administradoresDoSistema;
+	
 	private JTabbedPane tabbedPane;
 	private JPanel defirirIndefirirEventosPanel;
 	private JPanel panel_3;
@@ -134,6 +141,23 @@ public class SwingAdministradorHome extends JFrame implements AbstractGUIAdminis
 	}
 
 	@Override
+	public void atualizarListaDeUsuarios(Collection<UsuarioTO> usuarios) {
+		int i = 0;
+		this.usuariosDoSistema = new UsuarioTO[usuarios.size()];
+		
+		comboBoxUsuarioConcede.removeAllItems();
+		comboBoxUsuarioConcede.repaint();
+		
+		for(UsuarioTO usuario : usuarios)
+		{
+			this.usuariosDoSistema[i] = usuario; i++;
+			
+			String nomeEmail = usuario.getNome() + " " + usuario.getUltimoNome() + " - " + usuario.getEmail();
+			comboBoxUsuarioConcede.addItem(nomeEmail);
+		}
+	}
+
+	@Override
 	public InstituicaoTO obterDadosDaInstituicaoPreenchida(){
 		String nomeDaInstituicao = textFieldNomeInstituicao.getText();
 		String localizacao = textFieldLocalizacao.getText();
@@ -160,6 +184,11 @@ public class SwingAdministradorHome extends JFrame implements AbstractGUIAdminis
 	}
 	
 	@Override
+	public UsuarioTO obterUsuarioSelecionado() {
+		return capturarUsuarioSelecionado();
+	}
+	
+	@Override
 	public void exibirInstituicao(InstituicaoTO instituicao) {
 		this.textFieldNomeInstituicao.setText(instituicao.getNome());
 		this.textFieldLocalizacao.setText(instituicao.getSigla());
@@ -172,6 +201,15 @@ public class SwingAdministradorHome extends JFrame implements AbstractGUIAdminis
 		
 		if(i >= 0)
 			return instituicoes[i];
+		else
+			return null;
+	}
+	
+	private UsuarioTO capturarUsuarioSelecionado(){
+		int i = comboBoxUsuarioConcede.getSelectedIndex();
+		
+		if(i >= 0)
+			return usuariosDoSistema[i];
 		else
 			return null;
 	}
@@ -247,6 +285,10 @@ public class SwingAdministradorHome extends JFrame implements AbstractGUIAdminis
 		controleAdministradorHome.AlterarSenha(textSenhaAntiga.getText(), textNovaSenha.getText());
 		textSenhaAntiga.setText("");
 		textNovaSenha.setText("");
+	}
+	
+	private void acaoConcederPrivilegio() {
+		controleAdministradorHome.ConcederPrivilegioDeAdministrador();
 	}
 	
 	@Override
@@ -745,6 +787,34 @@ public class SwingAdministradorHome extends JFrame implements AbstractGUIAdminis
 			}
 		});
 		
+		JPanel panel_5 = new JPanel();
+		tabbedPane.addTab("Gerenciamento de Administradores", null, panel_5, null);
+		panel_5.setLayout(null);
+		
+		JPanel panelConceder = new JPanel();
+		panelConceder.setBounds(10, 11, 534, 155);
+		panelConceder.setBorder(BorderFactory.createTitledBorder("Concessão de Privilégio"));
+		panel_5.add(panelConceder);
+		panelConceder.setLayout(null);
+		
+		comboBoxUsuarioConcede = new JComboBox();
+		comboBoxUsuarioConcede.setBounds(10, 66, 514, 20);
+		panelConceder.add(comboBoxUsuarioConcede);
+		
+		JLabel lblUsurioDoSistema = new JLabel("Usu\u00E1rio do Sistema:");
+		lblUsurioDoSistema.setBounds(10, 43, 275, 14);
+		panelConceder.add(lblUsurioDoSistema);
+		
+		JButton btnConceder = new JButton("Conceder Privil\u00E9gio de Administrador");
+		btnConceder.setBounds(88, 121, 364, 23);
+		panelConceder.add(btnConceder);
+		
+		btnConceder.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				acaoConcederPrivilegio();
+			}
+		});
+		
 		
 		this.addWindowListener(new WindowAdapter() {
 			@Override
@@ -753,4 +823,5 @@ public class SwingAdministradorHome extends JFrame implements AbstractGUIAdminis
 			}
 		});
 	}
+
 }
