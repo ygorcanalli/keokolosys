@@ -44,6 +44,9 @@ public class Evento{
             this.trabalhos = new ArrayList<Trabalho>();
             this.estado = new EstadoEventoAguardando();
             this.perfis = new TreeMap<String, Collection<Perfil>>();
+            this.perfis.put(PerfilDeChair.class.getName(), new ArrayList<Perfil>());
+            this.perfis.put(PerfilDeExaminador.class.getName(), new ArrayList<Perfil>());
+            this.perfis.put(PerfilDeParticipante.class.getName(), new ArrayList<Perfil>());
             this.bancasExaminadoras = new ArrayList<BancaExaminadora>();
     }
     
@@ -141,12 +144,7 @@ public class Evento{
             
             usuario.adicionarPerfil(perfil); 
             
-            perfisDoTipo = perfis.get(tipoPerfil.getName());
-            if (perfisDoTipo == null) {
-            	perfisDoTipo =  new ArrayList<Perfil>();
-            	perfis.put(tipoPerfil.getName(), perfisDoTipo);
-            }
-    	
+            perfisDoTipo = perfis.get(tipoPerfil.getName());    	
     		perfisDoTipo.add(perfil);
     	}
     	else if (!tipoPerfil.isInstance(perfil)){

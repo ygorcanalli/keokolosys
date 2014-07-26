@@ -1,9 +1,13 @@
 package participacao;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Collection;
+import java.util.Iterator;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
@@ -16,10 +20,24 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JPanel;
 
 import java.awt.BorderLayout;
+
 import javax.swing.JList;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JButton;
+import javax.swing.LayoutStyle.ComponentPlacement;
+
+import net.miginfocom.swing.MigLayout;
+
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.factories.FormFactory;
+import com.jgoodies.forms.layout.RowSpec;
+
+import java.awt.Font;
+
+import javax.swing.ListSelectionModel;
+
+import java.awt.Dimension;
 
 public class SwingConcederPrivilegios extends JFrame implements
 		AbstractGUIConcederPrivilegios {
@@ -30,42 +48,18 @@ public class SwingConcederPrivilegios extends JFrame implements
 	private static final long serialVersionUID = 1L;
 	private ControleConcederPrivilegios controleConcederPrivilegios;
 	private EventoTO eventoTO;
+	private UsuarioTO[] usuariosArray;
+	private JList<String> listaChairs;
+	private JList<String> listaExaminadores;
+	private JList<String> listaUsuarios;
 	/**
 	 * @wbp.nonvisual location=23,-27
 	 */
 
 	public SwingConcederPrivilegios(ControleConcederPrivilegios controleConcederPrivilegios, EventoTO eventoTO) {
-		setTitle("Conceder privilégios");
 		this.controleConcederPrivilegios = controleConcederPrivilegios;
 		this.eventoTO = eventoTO;
-		
-		
-		JPanel paneConcederPrivilegios = new JPanel();
-		getContentPane().add(paneConcederPrivilegios, BorderLayout.CENTER);
-		
-		JScrollPane scrollPaneUsuarios = new JScrollPane();
-		GroupLayout gl_paneConcederPrivilegios = new GroupLayout(paneConcederPrivilegios);
-		gl_paneConcederPrivilegios.setHorizontalGroup(
-			gl_paneConcederPrivilegios.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_paneConcederPrivilegios.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(scrollPaneUsuarios, GroupLayout.PREFERRED_SIZE, 247, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(463, Short.MAX_VALUE))
-		);
-		gl_paneConcederPrivilegios.setVerticalGroup(
-			gl_paneConcederPrivilegios.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_paneConcederPrivilegios.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(scrollPaneUsuarios, GroupLayout.DEFAULT_SIZE, 456, Short.MAX_VALUE)
-					.addContainerGap())
-		);
-		
-		JList<String> listaUsuarios = new JList<String>();
-		scrollPaneUsuarios.setViewportView(listaUsuarios);
-		
-		JLabel lblUsuarios = new JLabel("Usuários");
-		scrollPaneUsuarios.setColumnHeaderView(lblUsuarios);
-		paneConcederPrivilegios.setLayout(gl_paneConcederPrivilegios);
+
 	}
 	
 	@Override
@@ -74,6 +68,67 @@ public class SwingConcederPrivilegios extends JFrame implements
 	}
 
 	private void inicializarFrame() {
+		setSize(new Dimension(756, 654));
+		setResizable(false);
+		setTitle("Conceder privilégios");
+		
+		JPanel paneConcederPrivilegios = new JPanel();
+		getContentPane().add(paneConcederPrivilegios, BorderLayout.CENTER);
+		
+		JScrollPane scrollPaneUsuarios = new JScrollPane();
+		scrollPaneUsuarios.setBounds(12, 52, 342, 484);
+		
+		JScrollPane scrollPaneExaminadores = new JScrollPane();
+		scrollPaneExaminadores.setBounds(366, 52, 376, 268);
+		
+		listaExaminadores = new JList<String>();
+		listaExaminadores.setEnabled(false);
+		scrollPaneExaminadores.setViewportView(listaExaminadores);
+		
+		JLabel lblExaminadores = new JLabel("Examinadores");
+		scrollPaneExaminadores.setColumnHeaderView(lblExaminadores);
+		paneConcederPrivilegios.setLayout(null);
+		
+		listaUsuarios = new JList<String>();
+		listaUsuarios.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		listaUsuarios.setSelectedIndex(1);
+		scrollPaneUsuarios.setViewportView(listaUsuarios);
+		
+		JLabel lblUsuarios = new JLabel("Usuários");
+		scrollPaneUsuarios.setColumnHeaderView(lblUsuarios);
+		paneConcederPrivilegios.add(scrollPaneUsuarios);
+		paneConcederPrivilegios.add(scrollPaneExaminadores);
+		
+		JScrollPane scrollPaneChairs = new JScrollPane();
+		scrollPaneChairs.setBounds(366, 332, 376, 272);
+		
+		listaChairs = new JList<String>();
+		listaChairs.setEnabled(false);
+		scrollPaneChairs.setViewportView(listaChairs);
+		
+		JLabel lblChairs = new JLabel("Chairs");
+		scrollPaneChairs.setColumnHeaderView(lblChairs);
+		paneConcederPrivilegios.add(scrollPaneChairs);
+		
+		JButton btnConcederPrivilgioDeExaminador = new JButton("Conceder privilégio de Examinador");
+		btnConcederPrivilgioDeExaminador.setBounds(42, 548, 291, 25);
+		btnConcederPrivilgioDeExaminador.addMouseListener(mouseAdapterConcederPrivilegioDeExaminado);
+		paneConcederPrivilegios.add(btnConcederPrivilgioDeExaminador);
+		
+		JButton btnConcederPrivilegioDeChair = new JButton("Conceder privilégio de Chair");
+		btnConcederPrivilegioDeChair.addMouseListener(mouseAdapterConcederPrivilegioDeChair);
+		btnConcederPrivilegioDeChair.setBounds(42, 579, 291, 25);
+		paneConcederPrivilegios.add(btnConcederPrivilegioDeChair);
+		
+		JLabel lblNomeEvento = new JLabel(eventoTO.getNome());
+		lblNomeEvento.setFont(new Font("Dialog", Font.BOLD, 14));
+		lblNomeEvento.setBounds(26, 19, 493, 15);
+		paneConcederPrivilegios.add(lblNomeEvento);
+		
+		JButton btnFinalizar = new JButton("Finalizar");
+		btnFinalizar.addMouseListener(mouseAdapterFechar);
+		btnFinalizar.setBounds(616, 12, 126, 28);
+		paneConcederPrivilegios.add(btnFinalizar);
 		
 		this.addWindowListener(new WindowAdapter() {
 			@Override
@@ -83,6 +138,27 @@ public class SwingConcederPrivilegios extends JFrame implements
 		});
 		
 	}
+	
+	private MouseAdapter mouseAdapterConcederPrivilegioDeChair = new MouseAdapter() {
+		  public void mouseClicked(MouseEvent e) {
+			  int row = listaUsuarios.getSelectedIndex();
+		      controleConcederPrivilegios.acaoConcederPrivilegioDeChair(usuariosArray[row]);		    
+		  }
+	};
+	
+	private MouseAdapter mouseAdapterConcederPrivilegioDeExaminado = new MouseAdapter() {
+		  public void mouseClicked(MouseEvent e) {
+			  int row = listaUsuarios.getSelectedIndex();
+		      controleConcederPrivilegios.acaoConcederPrivilegioDeExaminador(usuariosArray[row]);		    
+		  }
+	};
+	
+	private MouseAdapter mouseAdapterFechar = new MouseAdapter() {
+		  public void mouseClicked(MouseEvent e) {
+			  fechar();	    
+		  }
+	};
+	
 	@Override
 	public void tornarVisivel(){
 		this.setVisible(true);
@@ -124,22 +200,50 @@ public class SwingConcederPrivilegios extends JFrame implements
 		return JOptionPane.showOptionDialog(this, mensagem, titulo, JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcoes, opcaoPadrao);
 	}
 	
+
+	
 	@Override
 	public void atualizarListaDeUsuariosSemParticipacaoNoEvento(
 			Collection<UsuarioTO> usuariosTO) {
+		Iterator<UsuarioTO> iteradorUsuarios = usuariosTO.iterator();
+		
+		usuariosArray = new UsuarioTO[usuariosTO.size()];
+		DefaultListModel<String> listModel = new DefaultListModel<String>();
+		for (int i = 0; i < usuariosArray.length; i++) {
+			usuariosArray[i] = iteradorUsuarios.next();
+			listModel.add(i, usuariosArray[i].getNome() + " <" + usuariosArray[i].getEmail() + ">");
+		}
+		
+		listaUsuarios.setModel(listModel);
+		listaUsuarios.setSelectedIndex(0);
 
 	}
 
 	@Override
 	public void atualizarListaDeExaminadores(Collection<UsuarioTO> usuariosTO) {
-
+		Iterator<UsuarioTO> iteradorUsuarios = usuariosTO.iterator();
+		
+		DefaultListModel<String> listModel = new DefaultListModel<String>();
+		for (int i = 0; i < usuariosTO.size(); i++) {
+			UsuarioTO usuario = iteradorUsuarios.next();
+			listModel.add(i, usuario.getNome() + " <" + usuario.getEmail() + ">");
+		}
+		
+		listaExaminadores.setModel(listModel);
 	}
-	
 	
 
 	@Override
 	public void atualizarListaDeChairs(Collection<UsuarioTO> usuariosTO) {
-
+		Iterator<UsuarioTO> iteradorUsuarios = usuariosTO.iterator();
+		
+		DefaultListModel<String> listModel = new DefaultListModel<String>();
+		for (int i = 0; i < usuariosTO.size(); i++) {
+			UsuarioTO usuario = iteradorUsuarios.next();
+			listModel.add(i, usuario.getNome() + " <" + usuario.getEmail() + ">");
+		}
+		
+		listaChairs.setModel(listModel);
 
 	}
 	

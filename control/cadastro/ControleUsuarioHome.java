@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.TreeMap;
 
+import avaliacao.ControleAvaliarTrabalho;
 import avaliacao.ControleCadastrarBancaExaminadora;
 import participacao.ControleConcederPrivilegios;
 import participacao.ControleSubmeterTrabalho;
@@ -237,6 +238,13 @@ public class ControleUsuarioHome implements AbstractControle{
 
 	}
 	
+	public void acaoRealizarAvaliacao(EventoTO eventoTO) {
+		
+		Evento evento = mapaDeEventosComPerfilDeExaminador.get(eventoTO.getNome());
+		
+		
+	}	
+	
 	public void acaoGerenciarTrabalhosSubmetidos(EventoTO eventoTO)
 	{
 		Evento evento = mapaDeEventosInscritos.get(eventoTO.getNome());
@@ -338,5 +346,6 @@ public class ControleUsuarioHome implements AbstractControle{
 		viewUsuarioHome.tornarInvisivel();
 		//caller.desbloquearGUI();
 		caller.tornarGUIVisivel();
-	}	
+	}
+
 }

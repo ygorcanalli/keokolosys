@@ -42,6 +42,10 @@ public class KeokoloSys {
 		Usuario examinador2 = ControladorDeCadastro.criarUsuario("examinador2@keokolo.com", "examinador2", "Usuario", "Examinador Dois", ufrrj);
 		Usuario examinador3 = ControladorDeCadastro.criarUsuario("examinador3@keokolo.com", "examinador3", "Usuario", "Examinador Três", ufrrj);
 		
+		ControladorDeCadastro.criarUsuario("fulano@keokolo.com", "fulano", "Fulano", "da Silva", ufrrj);
+		ControladorDeCadastro.criarUsuario("beltrano@keokolo.com", "beltrano", "Beltrano", "da Silva", ufrrj);
+		ControladorDeCadastro.criarUsuario("ciclano@keokolo.com", "ciclano", "Ciclano", "da Silva", ufrrj);
+		
 
 		Evento eventoPrimeiro = ControladorDeCadastro.criarEvento("Primeira Apresentacao de Projeto de Sistemas", ufrrj, chair, new Date(2014, 07, 01), new Date(2014,07,02), new Date(2014,8,01), new Date(2014,8,02));
 		Evento eventoFinal = ControladorDeCadastro.criarEvento("Apresentacao Final de Projeto de Sistemas", ufrrj, chair, new Date(2014, 07, 01), new Date(2014,07,02), new Date(2014,8,01), new Date(2014,8,02));
@@ -66,12 +70,14 @@ public class KeokoloSys {
 		eventoPrimeiro.inscreverParticipante(participante);	
 		teste.inscreverParticipante(participante);
 		PerfilDeParticipante perfilParticipante = (PerfilDeParticipante) participante.obterPerfilDe(eventoPrimeiro, PerfilDeParticipante.class);
-		Trabalho trabalho = ControladorDeParticipacao.subtmeterTrabalho(eventoPrimeiro, perfilParticipante, "KeokoloSys 1.0",  "Eventos cientificos", "Tony Stark", "/home/stark/ironMan.pdf");
+		Trabalho trabalho1 = ControladorDeParticipacao.subtmeterTrabalho(eventoPrimeiro, perfilParticipante, "KeokoloSys 1.0",  "Eventos cientificos", "Tony Stark", "/home/stark/ironMan.pdf");
+		Trabalho trabalho2 = ControladorDeParticipacao.subtmeterTrabalho(eventoPrimeiro, perfilParticipante, "KeokoloSys beta",  "Eventos cientificos", "Tony Stark", "/home/stark/ironMan.pdf");
 
-		bancaExaminadora.associarTrabalho(trabalho);
+		bancaExaminadora.associarTrabalho(trabalho1);
 		
-		ControladorDeAvaliacao.avaliarTrabalho(trabalho, perfilExaminador1, EstadoAvaliacao.ACEITO);
-		ControladorDeAvaliacao.avaliarTrabalho(trabalho, perfilExaminador2, EstadoAvaliacao.REJEITADO);
+		ControladorDeAvaliacao.avaliarTrabalho(trabalho1, perfilExaminador1, EstadoAvaliacao.ACEITO);
+		ControladorDeAvaliacao.avaliarTrabalho(trabalho1, perfilExaminador2, EstadoAvaliacao.ACEITO);
+		ControladorDeAvaliacao.avaliarTrabalho(trabalho1, perfilExaminador3, EstadoAvaliacao.ACEITO);
 	}
 
 }
