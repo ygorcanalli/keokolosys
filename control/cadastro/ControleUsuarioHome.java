@@ -6,7 +6,6 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.TreeMap;
 
-import avaliacao.ControleAvaliarTrabalho;
 import avaliacao.ControleCadastrarBancaExaminadora;
 import avaliacao.ControleGerenciarAvaliacao;
 import participacao.ControleConcederPrivilegios;
@@ -16,10 +15,8 @@ import transferobject.InstituicaoTO;
 import transferobject.UsuarioTO;
 import util.AbstractControle;
 import util.Sessao;
-import controladorGRASP.ControladorDeAvaliacao;
 import controladorGRASP.ControladorDeCadastro;
 import controladorGRASP.ControladorDeParticipacao;
-import dominio.BancaExaminadora;
 import dominio.Evento;
 import dominio.Instituicao;
 import dominio.Perfil;
@@ -225,6 +222,8 @@ public class ControleUsuarioHome implements AbstractControle{
 		return usuarioTO;
 	}
 	
+	
+	@SuppressWarnings("unused")
 	private Collection<EventoTO> obterEventosQueSouBancaExaminadora(){
 		
 		Usuario usuario = Sessao.getUsuarioLogado();
@@ -239,9 +238,7 @@ public class ControleUsuarioHome implements AbstractControle{
 			}
 			
 		}
-		return eventosQueSouBancaExaminadora;
-		
-		
+		return eventosQueSouBancaExaminadora;	
 	}
 	
 	public void acaoRealizarInscricaoEmEvento(EventoTO eventoTO) {
@@ -262,12 +259,6 @@ public class ControleUsuarioHome implements AbstractControle{
 
 	}
 	
-	public void acaoRealizarAvaliacao(EventoTO eventoTO) {
-		
-		Evento evento = mapaDeEventosComPerfilDeExaminador.get(eventoTO.getNome());
-		
-		
-	}	
 	
 	public void acaoGerenciarTrabalhosSubmetidos(EventoTO eventoTO)
 	{
@@ -309,9 +300,8 @@ public class ControleUsuarioHome implements AbstractControle{
 		new ControleSubmeterTrabalho(this,evento).inicializarGUI();
 	}
 	
-	public void acaoRealizarAvliacoes(EventoTO eventoTO)
+	public void acaoRealizarAvaliacoes(EventoTO eventoTO)
 	{
-		
 		 Evento evento = mapaDeEventosComPerfilDeExaminador.get(eventoTO.getNome());
 		 new ControleGerenciarAvaliacao(this,evento);
 	}
@@ -342,9 +332,7 @@ public class ControleUsuarioHome implements AbstractControle{
 	}
 	
 	public void acaoDeslogar() {
-		Sessao.encerrarSessao();
-		caller.desbloquearGUI();
-		encerrarGUI();
+		deslogar();
 	}
 
 
@@ -377,6 +365,16 @@ public class ControleUsuarioHome implements AbstractControle{
 		viewUsuarioHome.tornarInvisivel();
 		//caller.desbloquearGUI();
 		caller.tornarGUIVisivel();
+	}
+	
+	private void deslogar(){
+		Sessao.encerrarSessao();
+		caller.desbloquearGUI();
+		encerrarGUI();
+	}
+
+	public void fechar() {
+		deslogar();
 	}
 
 }

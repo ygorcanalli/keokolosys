@@ -1,13 +1,10 @@
 package cadastro;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import participacao.ControleSubmeterVersaoFinalDeTrabalho;
 import participacao.SwingGerenciarTrabalhosSubmetidos;
-import controladorGRASP.ControladorDeAvaliacao;
-import controladorGRASP.ControladorDeCadastro;
 import controladorGRASP.ControladorDeParticipacao;
 import dominio.Evento;
 import dominio.PerfilDeParticipante;
@@ -25,7 +22,7 @@ public class ControleGerenciarTrabalhosSubmetidos  implements AbstractControle{
 	List<Trabalho> trabalhos;
 	Evento evento;
 	
-	public ControleGerenciarTrabalhosSubmetidos(AbstractControle caller,Evento evento) throws ExcecaoDeParticipacao {
+	public ControleGerenciarTrabalhosSubmetidos(AbstractControle caller, Evento evento) throws ExcecaoDeParticipacao {
 		
 		this.caller = caller;
 		Usuario usuario = Sessao.getUsuarioLogado();
@@ -46,6 +43,7 @@ public class ControleGerenciarTrabalhosSubmetidos  implements AbstractControle{
 			
 			
 		}
+		
 		swingGerenciarTrabalhosSubmetidos.setTrabalhos(trabalhoTOs);
 	}
 	
@@ -73,8 +71,7 @@ public class ControleGerenciarTrabalhosSubmetidos  implements AbstractControle{
 
 	@Override
 	public void tornarGUIInvisivel() {
-		// TODO Auto-generated method stub
-		
+		swingGerenciarTrabalhosSubmetidos.tornarInvisivel();		
 	}
 
 	@Override

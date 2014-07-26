@@ -11,6 +11,7 @@ import util.Sessao;
 import cadastro.ControleLogin;
 import cadastro.ControleUsuarioHome;
 import catalago.CatalagoDeEventos;
+import controladorGRASP.ControladorAdministrativo;
 import controladorGRASP.ControladorDeCadastro;
 import controladorGRASP.ControladorDeParticipacao;
 import dominio.BancaExaminadora;
@@ -32,7 +33,7 @@ public class KeokoloSysTest {
 		
 		ControladorDeCadastro.criarInstituicao("Stark Industries,", "SI", "USA");
 		Instituicao si = ControladorDeCadastro.obterInstituicaoPorSigla("SI");
-		ControladorDeCadastro.criarAdministrador("god@ceu.com", "god");
+		ControladorAdministrativo.criarAdministrador("god@ceu.com", "god");
 		
 		Usuario stark = ControladorDeCadastro.criarUsuario("stark@stark.com", "stark", "Tony", "Stark", si);
 		Usuario pepper = ControladorDeCadastro.criarUsuario("peeper@stark.com", "stark", "Virginia", "Pepper", si);

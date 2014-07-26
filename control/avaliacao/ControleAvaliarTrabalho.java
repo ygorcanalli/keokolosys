@@ -21,10 +21,12 @@ public class ControleAvaliarTrabalho implements AbstractControle{
 	private Trabalho trabalho;
 	private Evento evento;
 	private AbstractControle caller;
+	
 	public ControleAvaliarTrabalho(AbstractControle caller,Trabalho trabalho,Evento evento){
 		this.caller = caller;
 		this.evento = evento;
 		inicializarGUI();
+
 		this.trabalho = trabalho;
 		viewAvaliarTrabalho.setTituloTrabalho(trabalho.getTitulo());
 		viewAvaliarTrabalho.setResumoTrabalho(trabalho.getResumo());
@@ -50,20 +52,25 @@ public class ControleAvaliarTrabalho implements AbstractControle{
 			}
 			avaliacaoTOs.add(avaliacaoTO);
 		}
+		
 		viewAvaliarTrabalho.setAvaliacoes(avaliacaoTOs);
 		tornarGUIVisivel();
-		
 	}
 	
-	public void avaliarTrabalho(AvaliacaoTO avaliacaoTO) throws ExcecaoDeAvaliacao {		
+	public void avaliarTrabalho(AvaliacaoTO avaliacaoTO) {		
 	
 		PerfilDeExaminador perfilExaminador = (PerfilDeExaminador) Sessao.getUsuarioLogado().obterPerfilDe(evento, PerfilDeExaminador.class);
-		ControladorDeAvaliacao.avaliarTrabalho(trabalho, perfilExaminador, avaliacaoTO.getEnumEstadoTrabalho());
-		viewAvaliarTrabalho.exibirMensagemDeInformacao("Avaliado com sucesso", "Sucesso");
-		encerrarGUI();
-		caller.desbloquearGUI();
-		
 
+		try {
+
+			ControladorDeAvaliacao.avaliarTrabalho(trabalho, perfilExaminador, avaliacaoTO.getEnumEstadoTrabalho());
+			viewAvaliarTrabalho.exibirMensagemDeInformacao("Avaliado com sucesso", "Sucesso");
+			encerrarGUI();
+			caller.desbloquearGUI();
+
+		} catch (ExcecaoDeAvaliacao e) {
+			viewAvaliarTrabalho.exibirMensagemDeErro(e.getMessage(), "");
+		}		
 	}
 
 	@Override

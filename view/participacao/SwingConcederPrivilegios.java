@@ -15,8 +15,6 @@ import javax.swing.JScrollPane;
 import transferobject.EventoTO;
 import transferobject.UsuarioTO;
 
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
 import javax.swing.JPanel;
 
 import java.awt.BorderLayout;
@@ -24,14 +22,6 @@ import java.awt.BorderLayout;
 import javax.swing.JList;
 import javax.swing.JLabel;
 import javax.swing.JButton;
-import javax.swing.LayoutStyle.ComponentPlacement;
-
-import net.miginfocom.swing.MigLayout;
-
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.factories.FormFactory;
-import com.jgoodies.forms.layout.RowSpec;
 
 import java.awt.Font;
 

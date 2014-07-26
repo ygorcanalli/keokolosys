@@ -3,11 +3,8 @@ package participacao;
 import controladorGRASP.ControladorDeParticipacao;
 import transferobject.TrabalhoTO;
 import util.AbstractControle;
-import util.Sessao;
 import dominio.Evento;
-import dominio.PerfilDeParticipante;
 import dominio.Trabalho;
-import dominio.Usuario;
 import excecao.ExcecaoDeParticipacao;
 
 
@@ -16,8 +13,7 @@ public class ControleSubmeterVersaoFinalDeTrabalho implements AbstractControle {
 	private Trabalho trabalho;
 	private Evento evento;
 
-	AbstractControle caller;
-	SwingSubmeterVersaoFinalDeTrabalho swingSubmeterVersaoFinalDeTrabalho = new SwingSubmeterVersaoFinalDeTrabalho(this);
+	private AbstractControle caller;
 	
 	public ControleSubmeterVersaoFinalDeTrabalho(AbstractControle caller,Trabalho trabalho, Evento evento)
 	{
@@ -25,37 +21,41 @@ public class ControleSubmeterVersaoFinalDeTrabalho implements AbstractControle {
 		this.evento = evento;
 		this.caller = caller;
 		inicializarGUI();
-		swingSubmeterVersaoFinalDeTrabalho.setTitulodotrabalho(trabalho.getTitulo());
-		
+		viewSubmeterVersaoFinalDeTrabalho.setTitulodotrabalho(trabalho.getTitulo());	
 	}
 	
-	public void submeterVersaoFinal(TrabalhoTO trabalhoTO) throws ExcecaoDeParticipacao {
-		Usuario usuario = Sessao.getUsuarioLogado();
-		PerfilDeParticipante perfilParticipante = (PerfilDeParticipante) usuario.obterPerfilDe(evento, PerfilDeParticipante.class);
+	public void submeterVersaoFinal(TrabalhoTO trabalhoTO) {
+		//Usuario usuario = Sessao.getUsuarioLogado();
+		//PerfilDeParticipante perfilParticipante = (PerfilDeParticipante) usuario.obterPerfilDe(evento, PerfilDeParticipante.class);
 		//ControladorDeParticipacao.subsubtmeterTrabalho(evento, perfilParticipante, trabalhoTO.getTitulo(), trabalhoTO.getResumo(), trabalhoTO.getAutores(), trabalhoTO.getCaminhoArquivoSubmissao());
-		ControladorDeParticipacao.subtmeterVersaoFinalDeTrabalho(evento, trabalho, trabalhoTO.getCaminhoArquivoFinal());
-		viewSubmeterVersaoFinalDeTrabalho.exibirMensagemDeInformacao("Submetido com sucesso !!!", "Sucesso");
-		encerrarGUI();		
-		caller.desbloquearGUI();
+		
+		try {
+			ControladorDeParticipacao.subtmeterVersaoFinalDeTrabalho(evento, trabalho, trabalhoTO.getCaminhoArquivoFinal());
+			viewSubmeterVersaoFinalDeTrabalho.exibirMensagemDeInformacao("Submetido com sucesso !!!", "Sucesso");
+			encerrarGUI();		
+			caller.desbloquearGUI();
+
+		} catch (ExcecaoDeParticipacao e) {
+			viewSubmeterVersaoFinalDeTrabalho.exibirMensagemDeErro(e.getMessage(), "");
+		}
 	}
 	
 	@Override
 	public void inicializarGUI() {
-		swingSubmeterVersaoFinalDeTrabalho = new SwingSubmeterVersaoFinalDeTrabalho(this);
+		viewSubmeterVersaoFinalDeTrabalho = new SwingSubmeterVersaoFinalDeTrabalho(this);
 		tornarGUIVisivel();
 		
 	}
 
 	@Override
 	public void tornarGUIVisivel() {
-		swingSubmeterVersaoFinalDeTrabalho.inicializar();
+		viewSubmeterVersaoFinalDeTrabalho.inicializar();
 		
 	}
 
 	@Override
 	public void tornarGUIInvisivel() {
-		// TODO Auto-generated method stub
-		
+		viewSubmeterVersaoFinalDeTrabalho.tornarInvisivel();
 	}
 
 	@Override
@@ -72,7 +72,7 @@ public class ControleSubmeterVersaoFinalDeTrabalho implements AbstractControle {
 
 	@Override
 	public void encerrarGUI() {
-		swingSubmeterVersaoFinalDeTrabalho.tornarInvisivel();
+		tornarGUIInvisivel();
 		
 	}
 	

@@ -3,6 +3,7 @@ package participacao;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.GroupLayout;
@@ -13,16 +14,14 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
-import excecao.ExcecaoDeParticipacao;
 import transferobject.TrabalhoTO;
-import util.AbstractGUI;
 
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.io.File;
 
-public class SwingSubmeterVersaoFinalDeTrabalho extends JFrame implements AbstractGUI{
+public class SwingSubmeterVersaoFinalDeTrabalho extends JFrame implements AbstractGUISubmeterVersaoFinalDeTrabalho{
 
 
 	private static final long serialVersionUID = -1352371570036698266L;
@@ -47,14 +46,8 @@ public class SwingSubmeterVersaoFinalDeTrabalho extends JFrame implements Abstra
 		
 		TrabalhoTO trabalhoTO = new TrabalhoTO();
 		trabalhoTO.setCaminhoArquivoFinal(textField.getText());
-		
-		try {
-			controleSubmeterVersaoFinalTrabalho.submeterVersaoFinal(trabalhoTO);
-			
-		} catch (ExcecaoDeParticipacao e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
+		controleSubmeterVersaoFinalTrabalho.submeterVersaoFinal(trabalhoTO);
 	}
 	
 	public SwingSubmeterVersaoFinalDeTrabalho(final ControleSubmeterVersaoFinalDeTrabalho controleSubmeterVersaoFinalTrabalho) {
@@ -207,30 +200,22 @@ public class SwingSubmeterVersaoFinalDeTrabalho extends JFrame implements Abstra
 
 
 	@Override
-	public void exibirMensagemDeErro(String mensagem, String titulo) {
-		// TODO Auto-generated method stub
-		
+	public void exibirMensagemDeErro(String mensagem, String titulo){
+		JOptionPane.showMessageDialog(this, mensagem, titulo, JOptionPane.ERROR_MESSAGE);
 	}
-
-
+	
 	@Override
-	public void exibirMensagemDeAviso(String mensagem, String titulo) {
-		// TODO Auto-generated method stub
-		
+	public void exibirMensagemDeAviso(String mensagem, String titulo){
+		JOptionPane.showMessageDialog(this, mensagem, titulo, JOptionPane.WARNING_MESSAGE);
 	}
-
-
+	
 	@Override
-	public void exibirMensagemDeInformacao(String mensagem, String titulo) {
-		// TODO Auto-generated method stub
-		
+	public void exibirMensagemDeInformacao(String mensagem, String titulo){
+		JOptionPane.showMessageDialog(this, mensagem, titulo, JOptionPane.INFORMATION_MESSAGE);
 	}
-
-
+	
 	@Override
-	public Integer exibirMensagemDeConfirmacao(String mensagem, String titulo,
-			Object[] opcoes, Object opcaoPadrao) {
-		// TODO Auto-generated method stub
-		return null;
+	public Integer exibirMensagemDeConfirmacao(String mensagem, String titulo, Object[] opcoes, Object opcaoPadrao){
+		return JOptionPane.showOptionDialog(this, mensagem, titulo, JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcoes, opcaoPadrao);
 	}
 }

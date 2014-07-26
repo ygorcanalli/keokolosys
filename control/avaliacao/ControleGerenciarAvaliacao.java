@@ -5,7 +5,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import participacao.ControleSubmeterVersaoFinalDeTrabalho;
 import transferobject.TrabalhoTO;
 import util.AbstractControle;
 import dominio.Evento;
@@ -13,10 +12,11 @@ import dominio.Trabalho;
 
 public class ControleGerenciarAvaliacao implements AbstractControle{
 
-	private AbstractGUIGerenciarAvaliacao abstractGUIGerenciarAvaliacao;
+	private AbstractGUIGerenciarAvaliacao viewGerenciarAvaliacao;
 	private Evento evento;
 	private AbstractControle caller;
 	private Map<String,Trabalho> titulosTrabalhos;
+	
 	public ControleGerenciarAvaliacao(AbstractControle caller,Evento evento) {
 		this.caller = caller;
 		caller.bloquearGUI();
@@ -24,49 +24,51 @@ public class ControleGerenciarAvaliacao implements AbstractControle{
 		inicializarGUI();
 		
 	}
+	
 	@Override
 	public void inicializarGUI() {
 		titulosTrabalhos = new HashMap<>();
-		abstractGUIGerenciarAvaliacao = new SwingGerenciarAvaliacao(this);
-		abstractGUIGerenciarAvaliacao.inicializar();
+		viewGerenciarAvaliacao = new SwingGerenciarAvaliacao(this);
+		viewGerenciarAvaliacao.inicializar();
+		tornarGUIVisivel();
 		atualizarListaTrabalho();
 	}
 
 	@Override
 	public void tornarGUIVisivel() {
-		abstractGUIGerenciarAvaliacao.tornarVisivel();
-		
+		viewGerenciarAvaliacao.tornarVisivel();
 	}
 
 	@Override
 	public void tornarGUIInvisivel() {
-		// TODO Auto-generated method stub
-		
+		viewGerenciarAvaliacao.tornarInvisivel();		
 	}
 
 	@Override
 	public void bloquearGUI() {
-		abstractGUIGerenciarAvaliacao.bloquear();
+		viewGerenciarAvaliacao.bloquear();
 		
 	}
 
 	@Override
 	public void desbloquearGUI() {
-		abstractGUIGerenciarAvaliacao.desbloquear();
+		viewGerenciarAvaliacao.desbloquear();
 		atualizarListaTrabalho();
-		
 	}
 
 	@Override
 	public void encerrarGUI() {
-		caller.desbloquearGUI();		
+		caller.desbloquearGUI();
+		tornarGUIInvisivel();
 	}
+	
 	
 	public void avaliarTrabalho(TrabalhoTO trabalhoTO) {
 		Trabalho trabalho = titulosTrabalhos.get(trabalhoTO.getTitulo());
 		new ControleAvaliarTrabalho(this,trabalho, evento);
-
 	}
+	
+	
 	private void atualizarListaTrabalho() {
 		Collection<Trabalho> trabalhos = evento.obterTrabalhosNaoAvaliados();		
 		Collection<TrabalhoTO> trabalhoTOs = new ArrayList<TrabalhoTO>();
@@ -78,9 +80,8 @@ public class ControleGerenciarAvaliacao implements AbstractControle{
 			trabalhoTOs.add(trabalhoTO);
 			
 		}
-		
-		abstractGUIGerenciarAvaliacao.setTrabalhosNaoAvaliados(trabalhoTOs);
 
+		viewGerenciarAvaliacao.setTrabalhosNaoAvaliados(trabalhoTOs);
 	}
 
 }

@@ -6,6 +6,7 @@ import java.util.Date;
 
 import cadastro.ControleLogin;
 import catalago.CatalagoDeEventos;
+import controladorGRASP.ControladorAdministrativo;
 import controladorGRASP.ControladorDeAvaliacao;
 import controladorGRASP.ControladorDeCadastro;
 import controladorGRASP.ControladorDeParticipacao;
@@ -35,7 +36,7 @@ public class KeokoloSys {
 	private static void inicializarDados() throws ExcecaoDeCadastro, ExcecaoDeAvaliacao, ExcecaoDeParticipacao {
 		Instituicao ufrrj = ControladorDeCadastro.criarInstituicao("Universidade Federal Rural do Rio de Janeiro", "UFRRJ", "Av. Gov. Roberto Silveira S/N");
 		
-		ControladorDeCadastro.criarAdministrador("admin@keokolo.com", "admin");
+		ControladorAdministrativo.criarAdministrador("admin@keokolo.com", "admin");
 		Usuario chair = ControladorDeCadastro.criarUsuario("chair@keokolo.com", "chair", "Usuario", "Chair", ufrrj);
 		Usuario participante = ControladorDeCadastro.criarUsuario("participante@keokolo.com", "participante", "UsuarioParticipante", "Participante", ufrrj);
 		Usuario examinador1 = ControladorDeCadastro.criarUsuario("examinador1@keokolo.com", "examinador1", "UsuarioExaminador1", "Examinador Um", ufrrj);

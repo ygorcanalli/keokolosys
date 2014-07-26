@@ -22,6 +22,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.Collection;
 import java.util.Iterator;
 
@@ -33,9 +35,6 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.table.DefaultTableModel;
-
-import excecao.ExcecaoDeParticipacao;
-
 import javax.swing.JTable;
 
 
@@ -78,9 +77,16 @@ public class SwingUsuarioHome extends JFrame implements AbstractGUIUsuarioHome {
 		controleUsuarioHome.exibirEventosDisponiveis();
 	}
 	
+	@Override
+	public void fechar(){
+		controleUsuarioHome.fechar();
+	}
+
+	
 	private void inicializarFrame() {
 		setSize(new Dimension(800, 600));
 		
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		getContentPane().add(tabbedPane, BorderLayout.CENTER);
 		
@@ -171,9 +177,7 @@ public class SwingUsuarioHome extends JFrame implements AbstractGUIUsuarioHome {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				EventoTO eventoTO = new EventoTO();
-				eventoTO.setNome(listaExames.getSelectedValue());
-				controleUsuarioHome.acaoRealizarAvliacoes(eventoTO);
+				acaoRealizarAvaliacao();
 			}
 		});
 		
@@ -303,6 +307,13 @@ public class SwingUsuarioHome extends JFrame implements AbstractGUIUsuarioHome {
 		panePerfil.setLayout(gl_panePerfil);
 		
 		tabbedPane.addChangeListener(changeListenerAbas);
+		
+		this.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent arg0) {
+				fechar();
+			}
+		});
 	}
 	
 	private ChangeListener changeListenerAbas = new ChangeListener() {
@@ -408,7 +419,13 @@ public class SwingUsuarioHome extends JFrame implements AbstractGUIUsuarioHome {
 	public Integer exibirMensagemDeConfirmacao(String mensagem, String titulo, Object[] opcoes, Object opcaoPadrao){
 		return JOptionPane.showOptionDialog(this, mensagem, titulo, JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcoes, opcaoPadrao);
 	}
-
+	
+	
+	private void acaoRealizarAvaliacao(){
+		EventoTO eventoTO = new EventoTO();
+		eventoTO.setNome(listaExames.getSelectedValue());
+		controleUsuarioHome.acaoRealizarAvaliacoes(eventoTO);
+	}
 	
 	private void atualizarListaEventos(JList<String> jlist, Collection<EventoTO> eventos) {
 		Iterator<EventoTO> iteradorEventos = eventos.iterator();

@@ -6,7 +6,6 @@ import java.util.Collection;
 import catalago.CatalagoDeEventos;
 import controladorGRASP.ControladorAdministrativo;
 import controladorGRASP.ControladorDeCadastro;
-import controladorGRASP.ControladorDeParticipacao;
 import dominio.Administrador;
 import dominio.Evento;
 import dominio.Instituicao;
@@ -14,6 +13,7 @@ import dominio.Usuario;
 import excecao.ExcecaoDeCadastro;
 import administrativo.AbstractGUIAdministradorHome;
 import administrativo.SwingAdministradorHome;
+import transferobject.AdministradorTO;
 import transferobject.EventoTO;
 import transferobject.InstituicaoTO;
 import transferobject.UsuarioTO;
@@ -381,6 +381,7 @@ public class ControleAdministradorHome implements AbstractControle{
 		}
 	}
 	
+	
 	public void AlterarSenha(String senhaAntiga, String senhaNova)
 	{
 		Administrador adminLogado = Sessao.getAdminLogado();
@@ -404,15 +405,43 @@ public class ControleAdministradorHome implements AbstractControle{
 	}
 	
 	public void fechar(){
-		encerrarGUI();
+		deslogar();
 	}
 	
 	public void acaoDeslogar() {
+		deslogar();
+	}
+	
+	private void deslogar(){
 		Sessao.encerrarSessao();
 		caller.desbloquearGUI();
 		caller.tornarGUIVisivel();
 		encerrarGUI();
 	}
+	
+	private void incluirNovoAdministrador(AdministradorTO administradorTO){
+		String confirmacaoDeSenha = viewAdministradorHome.obterConfirmacaoDeSenhaNovoAdministrador();
+		String senha = administradorTO.getSenha();
+		String email = administradorTO.getLogin();
+		
+		if(senha.compareTo(confirmacaoDeSenha) == 0){
+			try {
+				ControladorAdministrativo.criarAdministrador(email, senha);
+			} catch (ExcecaoDeCadastro e) {
+				viewAdministradorHome.exibirMensagemDeErro(e.getMessage(), "");
+			}
+		}
+		else{
+			viewAdministradorHome.exibirMensagemDeErro("Senhas nao conferem!", "");
+		}
+			
+	}
+
+	public void novoAdministrador() {
+		AdministradorTO administradorTO = viewAdministradorHome.obterDadosDoNovoAdministrador();
+		incluirNovoAdministrador(administradorTO);
+	}
+	
 
 	/*Nao deveria ter esta regra de negocio aqui*/
 	public int compareInstituicoes(InstituicaoTO instituicaoTO1,	InstituicaoTO instituicaoTO2) {

@@ -43,10 +43,6 @@ public final class ControladorDeCadastro {
 		return Pessoal.obterInstancia().criarUsuario(email, senha, nome, ultimoNome, instituicao);
 	}
 
-	public static Administrador criarAdministrador(String email, String senha) throws ExcecaoDeCadastro{
-		return Pessoal.obterInstancia().criarAdministrador(email, senha);
-	}
-	
 	public static void atualizarDadosDoUsuario(Usuario usuario, String email, String senha, String nome, String ultimoNome, Instituicao instituicao) throws ExcecaoDeCadastro{
 		Pessoal.obterInstancia().atualizarUsuario(usuario, nome, ultimoNome, email, senha, instituicao);
 	}

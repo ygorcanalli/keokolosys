@@ -17,7 +17,6 @@ import javax.swing.JComboBox;
 import javax.swing.JButton;
 
 import dominio.EstadoAvaliacao;
-import excecao.ExcecaoDeAvaliacao;
 import transferobject.AvaliacaoTO;
 import avaliacao.ControleAvaliarTrabalho;
 
@@ -45,8 +44,98 @@ public class SwingAvaliarTrabalho extends JFrame implements AbstractGUIAvaliarTr
 	 */
 	public SwingAvaliarTrabalho(ControleAvaliarTrabalho controleAvaliarTrabalho){
 		
-		this.controleAvaliarTrabalho = controleAvaliarTrabalho;
+		this.controleAvaliarTrabalho = controleAvaliarTrabalho;		
+		inicializarFrame();
+	}
+	
+
+	@Override
+	public void inicializar() {
+		inicializarFrame();
+	}
+
+	@Override
+	public void tornarVisivel() {
+		setVisible(true);
+		repaint();
+	}
+
+	@Override
+	public void tornarInvisivel() {
+		setVisible(false);
 		
+	}
+
+	@Override
+	public void bloquear() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void desbloquear() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void exibirMensagemDeErro(String mensagem, String titulo) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void exibirMensagemDeAviso(String mensagem, String titulo) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void exibirMensagemDeInformacao(String mensagem, String titulo){
+		JOptionPane.showMessageDialog(this, mensagem, titulo, JOptionPane.INFORMATION_MESSAGE);
+	}
+
+	@Override
+	public Integer exibirMensagemDeConfirmacao(String mensagem, String titulo,Object[] opcoes, Object opcaoPadrao) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setTituloTrabalho(String titulo) {
+		valorTitulo.setText(titulo);		
+	}
+
+	@Override
+	public void setResumoTrabalho(String resumo) {
+		valorResumoTrabalho.setText(resumo);
+	}
+
+	@Override
+	public void setNomeArquivo(String nomeArquivo) {
+		valorNomeArquivo.setText(nomeArquivo);
+	}
+
+	@Override
+	public void setAvaliacoes(Collection<AvaliacaoTO> nomeArquivo) {
+		for (AvaliacaoTO avaliacaoTO : nomeArquivo) 
+		{
+			String vetor[] = new String[2];
+			vetor[0] = avaliacaoTO.getNomeExaminador();
+			vetor[1] = avaliacaoTO.getEnumEstadoTrabalho().getValor();
+			defaultTableModel.addRow(vetor);
+		}		
+	}
+
+	@Override
+	public void avaliarTrabalho() {
+		AvaliacaoTO avaliacaoTO = new AvaliacaoTO();
+		avaliacaoTO.setEstadoAvaliacao((EstadoAvaliacao) comboBox.getSelectedItem());
+		controleAvaliarTrabalho.avaliarTrabalho(avaliacaoTO);
+	}
+
+	
+	private void inicializarFrame(){
 		setResizable(false);
 		setTitle("Avaliar trabalho");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -95,14 +184,10 @@ public class SwingAvaliarTrabalho extends JFrame implements AbstractGUIAvaliarTr
 		JButton btnAvaliarTrabalho = new JButton("Avaliar trabalho");
 		btnAvaliarTrabalho.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {
-					avaliarTrabalho();
-				} catch (ExcecaoDeAvaliacao e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				avaliarTrabalho();
 			}
 		});
+		
 		btnAvaliarTrabalho.setMnemonic('A');
 		
 		JButton btnSair = new JButton("Sair");
@@ -207,96 +292,6 @@ public class SwingAvaliarTrabalho extends JFrame implements AbstractGUIAvaliarTr
 		valorNomeArquivo = new JLabel("");
 		panel.add(valorNomeArquivo);
 		contentPane.setLayout(gl_contentPane);
-		
-		
 	}
-
-	@Override
-	public void inicializar() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void tornarVisivel() {
-		setVisible(true);
-		repaint();
-	}
-
-	@Override
-	public void tornarInvisivel() {
-		setVisible(false);
-		
-	}
-
-	@Override
-	public void bloquear() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void desbloquear() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void exibirMensagemDeErro(String mensagem, String titulo) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void exibirMensagemDeAviso(String mensagem, String titulo) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void exibirMensagemDeInformacao(String mensagem, String titulo){
-		JOptionPane.showMessageDialog(this, mensagem, titulo, JOptionPane.INFORMATION_MESSAGE);
-	}
-
-	@Override
-	public Integer exibirMensagemDeConfirmacao(String mensagem, String titulo,Object[] opcoes, Object opcaoPadrao) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setTituloTrabalho(String titulo) {
-		valorTitulo.setText(titulo);		
-	}
-
-	@Override
-	public void setResumoTrabalho(String resumo) {
-		valorResumoTrabalho.setText(resumo);
-	}
-
-	@Override
-	public void setNomeArquivo(String nomeArquivo) {
-		valorNomeArquivo.setText(nomeArquivo);
-	}
-
-	@Override
-	public void setAvaliacoes(Collection<AvaliacaoTO> nomeArquivo) {
-		for (AvaliacaoTO avaliacaoTO : nomeArquivo) 
-		{
-			String vetor[] = new String[2];
-			vetor[0] = avaliacaoTO.getNomeExaminador();
-			vetor[1] = avaliacaoTO.getEnumEstadoTrabalho().getValor();
-			defaultTableModel.addRow(vetor);
-		}		
-	}
-
-	@Override
-	public void avaliarTrabalho() throws ExcecaoDeAvaliacao {
-		AvaliacaoTO avaliacaoTO = new AvaliacaoTO();
-		avaliacaoTO.setEstadoAvaliacao((EstadoAvaliacao) comboBox.getSelectedItem());
-		controleAvaliarTrabalho.avaliarTrabalho(avaliacaoTO);
-		
-	}
-
 	
 }

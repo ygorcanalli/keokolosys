@@ -2,6 +2,7 @@ package administrativo;
 
 import java.util.Collection;
 
+import transferobject.AdministradorTO;
 import transferobject.EventoTO;
 import transferobject.InstituicaoTO;
 import util.AbstractGUI;
@@ -34,4 +35,6 @@ public interface AbstractGUIAdministradorHome extends AbstractGUI {
 	public void exibirInstituicao(InstituicaoTO instituicao);
 	public void atualizarListaDeEventosParaDeferir(Collection<EventoTO> eventos);
 	public void atualizarListaDeEventosParaCancelar(Collection<EventoTO> eventos);
+	public AdministradorTO obterDadosDoNovoAdministrador();
+	public String obterConfirmacaoDeSenhaNovoAdministrador();
 }
