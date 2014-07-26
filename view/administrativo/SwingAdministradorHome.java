@@ -613,7 +613,12 @@ public class SwingAdministradorHome extends JFrame implements AbstractGUIAdminis
 		
 		defaultTableModel1 = new DefaultTableModel(new Object[][] {},new String[] {"Nome do Evento", "Quantidade de Inscritos", "Data de Inicio"})
 		{
-		    public boolean isCellEditable(int row, int column)
+		    /**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			public boolean isCellEditable(int row, int column)
 		    {
 		      return false;
 		    }
@@ -661,7 +666,12 @@ public class SwingAdministradorHome extends JFrame implements AbstractGUIAdminis
 		
 		defaultTableModel2 = new DefaultTableModel(new Object[][] {},new String[] {"Nome do Evento", "Quantidade de Inscritos", "Data de Inicio"})
 		{
-		    public boolean isCellEditable(int row, int column)
+		    /**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			public boolean isCellEditable(int row, int column)
 		    {
 		      return false;
 		    }
