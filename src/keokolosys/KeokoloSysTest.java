@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Date;
 
 import avaliacao.ControleAssociarTrabalhoABancaExaminadora;
+import avaliacao.ControleAvaliarTrabalho;
 import avaliacao.ControleCadastrarBancaExaminadora;
 import util.Sessao;
 import cadastro.ControleLogin;
@@ -77,7 +78,7 @@ public class KeokoloSysTest {
 		
 		new ControleAssociarTrabalhoABancaExaminadora(null, evento, markIV).inicializarGUI();;	
 		
-		/*new ControleAvaliarTrabalho(null, markIV,evento);*/
+		new ControleAvaliarTrabalho(null, markIV,evento);
 		/*ControleCadastrarEvento c;
 		Instituicao i;
 		Usuario u;

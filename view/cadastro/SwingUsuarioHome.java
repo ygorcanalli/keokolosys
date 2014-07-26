@@ -5,17 +5,26 @@ import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
+
 import java.awt.BorderLayout;
+
 import javax.swing.JPanel;
+
 import java.awt.Dimension;
+
 import javax.swing.JScrollPane;
+
 import transferobject.EventoTO;
 import transferobject.UsuarioTO;
 import cadastro.ControleUsuarioHome;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Collection;
 import java.util.Iterator;
+
 import javax.swing.JButton;
 import javax.swing.ListSelectionModel;
 import javax.swing.GroupLayout;
@@ -24,6 +33,9 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.table.DefaultTableModel;
+
+import excecao.ExcecaoDeParticipacao;
+
 import javax.swing.JTable;
 
 
@@ -155,7 +167,16 @@ public class SwingUsuarioHome extends JFrame implements AbstractGUIUsuarioHome {
 		JScrollPane scrollPaneExames = new JScrollPane();
 		
 		JButton btnRealizarAvaliacoes = new JButton("Realizar avaliações");
-		btnRealizarAvaliacoes.addMouseListener(mouseAdapterRealizarAvaliacao);
+		btnRealizarAvaliacoes.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				EventoTO eventoTO = new EventoTO();
+				eventoTO.setNome(listaExames.getSelectedValue());
+				controleUsuarioHome.acaoRealizarAvliacoes(eventoTO);
+			}
+		});
+		
 		GroupLayout gl_paneExames = new GroupLayout(paneExames);
 		gl_paneExames.setHorizontalGroup(
 			gl_paneExames.createParallelGroup(Alignment.LEADING)
@@ -321,13 +342,6 @@ public class SwingUsuarioHome extends JFrame implements AbstractGUIUsuarioHome {
 		  public void mouseClicked(MouseEvent e) {
 			  int row = listaEventosDisponiveis.getSelectedIndex();
 		      controleUsuarioHome.acaoRealizarInscricaoEmEvento(eventosArray[row]);		    
-		  }
-	};
-	
-	private MouseAdapter mouseAdapterRealizarAvaliacao = new MouseAdapter() {
-		  public void mouseClicked(MouseEvent e) {
-			  int row = listaEventosDisponiveis.getSelectedIndex();
-		      controleUsuarioHome.acaoRealizarAvaliacao(eventosArray[row]);		    
 		  }
 	};
 	

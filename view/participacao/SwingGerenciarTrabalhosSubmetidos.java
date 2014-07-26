@@ -50,7 +50,7 @@ public class SwingGerenciarTrabalhosSubmetidos extends JFrame implements
 		getContentPane().add(sul, BorderLayout.SOUTH);
 		sul.setLayout(new BorderLayout(0, 0));
 		
-		JButton btnS = new JButton("Submeter Versão Final");
+		JButton btnS = new JButton("Submeter Versao Final");
 		btnS.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				submeterVersaoFinal();
@@ -58,7 +58,7 @@ public class SwingGerenciarTrabalhosSubmetidos extends JFrame implements
 		});
 		sul.add(btnS, BorderLayout.EAST);
 		
-		JLabel lblSubmeterVersoFinal = new JLabel("Submeter Versão Final");
+		JLabel lblSubmeterVersoFinal = new JLabel("Submeter Versï¿½o Final");
 		lblSubmeterVersoFinal.setHorizontalAlignment(SwingConstants.CENTER);
 		getContentPane().add(lblSubmeterVersoFinal, BorderLayout.NORTH);
 	}
