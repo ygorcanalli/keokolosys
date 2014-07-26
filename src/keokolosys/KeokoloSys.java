@@ -1,6 +1,7 @@
 package keokolosys;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 
@@ -45,11 +46,11 @@ public class KeokoloSys {
 		ControladorDeCadastro.criarUsuario("fulano@keokolo.com", "fulano", "Fulano", "da Silva", ufrrj);
 		ControladorDeCadastro.criarUsuario("beltrano@keokolo.com", "beltrano", "Beltrano", "da Silva", ufrrj);
 		ControladorDeCadastro.criarUsuario("ciclano@keokolo.com", "ciclano", "Ciclano", "da Silva", ufrrj);
-		
 
-		Evento eventoPrimeiro = ControladorDeCadastro.criarEvento("Primeira Apresentacao de Projeto de Sistemas", ufrrj, chair, new Date(2014, 07, 01), new Date(2014,07,02), new Date(2014,8,01), new Date(2014,8,02));
-		Evento eventoFinal = ControladorDeCadastro.criarEvento("Apresentacao Final de Projeto de Sistemas", ufrrj, chair, new Date(2014, 07, 01), new Date(2014,07,02), new Date(2014,8,01), new Date(2014,8,02));
-		Evento teste = ControladorDeCadastro.criarEvento("Evento Teste para Aprovar", ufrrj, chair, new Date(2014, 07, 01), new Date(2014,07,02), new Date(2014,8,01), new Date(2014,8,02));
+		Evento eventoPrimeiro = ControladorDeCadastro.criarEvento("Primeira Apresentacao de Projeto de Sistemas", ufrrj, chair, new Date(114, 06, 01), new Date(114,06,02), new Date(114,7,01), new Date(114,7,02));
+		Evento eventoFinal = ControladorDeCadastro.criarEvento("Apresentacao Final de Projeto de Sistemas", ufrrj, chair, new Date(114, 06, 01), new Date(114,06,02), new Date(114,7,01), new Date(114,7,02));
+		Evento teste = ControladorDeCadastro.criarEvento("Evento Teste para Aprovar", ufrrj, chair, new Date(114, 06, 01), new Date(114,06,02), new Date(114,7,01), new Date(114,7,02));
+		
 		CatalagoDeEventos.obterInstancia().deferirEvento(eventoPrimeiro);
 		CatalagoDeEventos.obterInstancia().deferirEvento(eventoFinal);
 		
